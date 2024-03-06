@@ -1,17 +1,31 @@
-# Welcome to MkDocs
+# T2G8-Plugin-Wordpress
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+Um plugin para WordPress projetado para simplificar o mapeamento georreferenciado de empreendimentos e serviços voltados para a comunidade LGBTQIAP+.
 
-## Commands
+## Criando ambiente para desenvolvimento
+- Instalar o curl
+```
+sudo apt update && sudo apt install curl
+```
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+- Instalar o docker (comando)
+```
+curl https://get.docker.com | bash
+```
 
-## Project layout
+- (OPCIONAL) - Para não ser necessário utilizar o *sudo* antes das instruções do docker execute:
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+```
+sudo groupadd docker && sudo gpasswd -a $USER docker
+```
+
+- Utilize o arquivo **docker-compose.yaml** para iniciar os containers. (caso não queira executar os containers em segundo plano remova o *-d* )
+```
+docker compose up -d
+```
+
+- Para vizualizar os containers em execução:
+
+```
+docker compose ps
+```

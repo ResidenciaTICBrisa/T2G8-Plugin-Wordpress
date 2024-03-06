@@ -4,11 +4,9 @@ repo_url: https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress
 extra_css: 
         - assets/stylesheets/extra.css
 
-theme:
-        name: material
-        language: pt
-        features:
-                - navigation.tabs
 
 nav:
         - Home: index.md
+        - Atas: 
+            - ata modelo: ata-modelo.md
+        
