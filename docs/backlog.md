@@ -28,7 +28,6 @@
 |    ID   |      Tipo     |     Eu como    |      Desejo       | De modo que | Prioridade | Status    | ID RELACIONADO (FEATURES) |
 |:-------:|:-------------:|:--------------:|:-----------------:|:-----------:|:----------:|:---------:|:-------------------------------:|
 |    US00    | Estudo | Dev | Enteder o funcionamento do wordpress e plugins | eu consiga implementar uma arquitetura de um plugin | --- | Em desenvolvimento | FT00 |
-
-|    US00    | Estudo | Dev | Enteder sobre as licenças de plugins | eu consiga  | --- | Em desenvolvimento | FT00 |
-
-|    US01    |   Funcional   | Administrador | Quero validar um formulário | eu consigo aceitar/recusar os formulários | Alta | Não está em desenvolvimento | FT02 |
+|    US01    | Estudo | Dev | Enteder sobre as licenças de plugins | eu consiga diferenciar as licenças disponíveis | --- | Em desenvolvimento | FT00 |
+|    US02    |   Funcional   | Administrador | Quero validar um formulário | eu consigo aceitar/recusar os formulários | Alta | Não está em desenvolvimento | FT02 |
+|    US03    | Estudo | Dev | Enteder sobre como utilizar o openstreetmap em JS | eu consiga utilizar as ferramentas da API para criar mapas | --- | Não está em desenvolvimento | FT00 |

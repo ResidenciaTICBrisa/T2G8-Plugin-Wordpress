@@ -11,7 +11,9 @@ theme:
                 - navigation.tabs
 
 nav:
-        - Home: index.md
+        - Home: index.md 
+        - Preparando ambiente: preparandoambiente.md
         - Atas: 
                 - ata modelo: Atas/ata-modelo.md
+                - ata reunião 1: Atas/ata-reuniao1.md
         - Backlog do produto: backlog.md
