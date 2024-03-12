@@ -30,7 +30,7 @@ O projeto visa o desenvolvimento de um plugin para o WordPress que facilite o co
         <td align="center">
             <a href="https://github.com/guslnhm">
                 <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/143884487?v=4" width="150px;"/>
-                <h5 class="text-center">Gustavo</h5>
+                <h5 class="text-center">Gustavo Linhares Lima</h5>
             </a>
         </td>
 </table>
