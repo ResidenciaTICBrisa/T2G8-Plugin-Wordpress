@@ -12,12 +12,14 @@ add_shortcode('meu_formulario', 'mostrar_formulario');
 // Adiciona a conexão com banco de dados
 include_once('conexao_bd.php');
 
+
 // Função para carregar os estilos CSS
 function carregar_estilos() {
     // Registra o arquivo CSS
     wp_register_style('meu_formulario_css', plugins_url('style_form.css', __FILE__));
     // Enfila o arquivo CSS registrado
     wp_enqueue_style('meu_formulario_css');
+
 }
 // Adiciona um gancho para carregar os estilos
 add_action('wp_enqueue_scripts', 'carregar_estilos');
@@ -63,13 +65,12 @@ function mostrar_formulario() {
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
-
+        
 
         // Variável global para armazenar o marcador atual
         var marcador;
         
-        // DIPOSITIVOS DESK
-        // Adiciona um pin no mapa quando clicado
+        // Adiciona um pin no mapa quando clicado o mouse 1
         map.on('click', function(e) {
             // Remove o marcador atual, se existir
             if (marcador) {
@@ -87,13 +88,16 @@ function mostrar_formulario() {
             document.getElementById('longitude').value = lng;
         });
 
-        map.on('dblclick', function(e) {
+
+        // Remove o marcador quando clicado com o mouse 2
+        map.on('contextmenu', function(e) {
         // Verifica se existe um marcador atual
         if (marcador) {
             // Remove o marcador do mapa
             map.removeLayer(marcador);
         }
         });
+
 
     </script>
 
@@ -167,4 +171,3 @@ function processar_formulario() {
 
 // Adiciona um gancho para processar o formulário quando o WordPress estiver processando solicitações
 add_action('init', 'processar_formulario');
-
