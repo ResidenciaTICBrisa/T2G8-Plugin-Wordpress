@@ -2,7 +2,7 @@
 /*
 Plugin Name: LGBTQ+ Connect
 Description: Adiciona um formulário simples a uma página WordPress com um mapa Leaflet.
-Version: 1.0
+Version: 0.2.0
 Author: Will Bernardo, Igor Brandão, Max Rohrer e Gustavo Linhares
 */
 
@@ -31,13 +31,17 @@ function mostrar_formulario() {
     <head>
         <!-- Carregar ícones padrão do Leaflet do CDN -->
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css" />
     </head>
     <form id="meu_formulario" method="post">
-        <label for="nome" id="labelnome">Nome:</label>
+        <label for="nome" id="labelnome">Nome do local:</label>
         <input type="text" name="nome" id="nome" required><br>
 
         <label for="email">Email:</label>
         <input type="email" name="email" id="email" required><br>
+        
+        <label for="descricao">Descrição:</label>
+        <textarea name="descricao" id="descricao" rows="4" cols="50" placeholder="Descrição ..." required></textarea>
 
         <!-- Container para o mapa -->
         <div id="mapa" style="height: 300px;"></div>
@@ -45,9 +49,6 @@ function mostrar_formulario() {
         <!-- Input de latitude e longitude --> 
         <input type="hidden" name="latitude" id="latitude" required>
         <input type="hidden" name="longitude" id="longitude" required>
-        
-        <label for="descricao">Descrição:</label>
-        <textarea name="descricao" id="descricao" rows="4" cols="50" placeholder="Digite sua descrição aqui..." required></textarea>
 
         <input type="submit" value="Enviar">
     </form>
@@ -65,11 +66,10 @@ function mostrar_formulario() {
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
-        
 
         // Variável global para armazenar o marcador atual
         var marcador;
-        
+
         // Adiciona um pin no mapa quando clicado o mouse 1
         map.on('click', function(e) {
             // Remove o marcador atual, se existir
@@ -78,7 +78,7 @@ function mostrar_formulario() {
             }
 
             // Adiciona um novo marcador na posição clicada
-            marcador = L.marker(e.latlng).addTo(map);
+            marcador = L.marker(e.latlng).addTo(map);            
 
             var lat = e.latlng.lat; // Latitude
             var lng = e.latlng.lng; // Longitude
@@ -110,17 +110,16 @@ function mostrar_formulario() {
 // Função para processar o formulário
 function processar_formulario() {
     if (isset($_POST['nome']) && isset($_POST['email']) && isset($_POST['descricao'])) {
-        // Aqui você pode adicionar código para processar os dados do formulário, como enviar um email ou salvar no banco de dados
+        
+        // Filtrando o conteúdo enviado nos formulários
         $nome = sanitize_text_field($_POST['nome']);
         $email = sanitize_email($_POST['email']);
         $descricao = sanitize_textarea_field($_POST['descricao']);
 
-        // Exemplo: enviar um email
-        $para = 'email@exemplo.com';
-        $assunto = 'Novo formulário enviado';
-        $mensagem = 'Nome: ' . $nome . "\r\n";
-        $mensagem .= 'Email: ' . $email . "\r\n";
-        $mensagem .= 'Descrição: ' . $descricao . "\r\n";
+        // enviar email
+        $para = $email;
+        $assunto = 'Confirmação de envio do formulário';
+        $mensagem = 'Olá ' . $nome . ', seu formulário foi enviado com sucesso!';
         wp_mail($para, $assunto, $mensagem);
         
     // Verifica se o formulário foi enviado
