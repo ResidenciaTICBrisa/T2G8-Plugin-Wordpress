@@ -3,10 +3,7 @@
 | Data       | Versão | Descrição            |         Autor             |
 |:----------:|:------:|:--------------------:|:-------------------------:|
 | 10/03/2024 | 0.1 | Criação do Documento Backlog com épicos, funcionalidades | @WillxBernardo |
-
-
-
-# Versão 1
+| 13/03/2024 | 0.2 | Criação do plugin protótipo que adiciona o formulário na página | @WillxBernardo |
 
 
 ## Épicos
