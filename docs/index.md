@@ -1,31 +1,37 @@
 # T2G8-Plugin-Wordpress
+Bem-vindo ao repositório oficial do LGBTQIAPN+ Connect! Este projeto tem como principal foco conectar empreendimentos e serviços LGBTQIAPN+ friendly com toda a comunidade LGBTQIAPN+.
 
-Um plugin para WordPress projetado para simplificar o mapeamento georreferenciado de empreendimentos e serviços voltados para a comunidade LGBTQIAP+.
+## Sobre o Projeto
+O projeto visa o desenvolvimento de um plugin para o WordPress que facilite o contato por meio de um formulário entre empreendimentos e serviços LGBTQIAPN+ friendly e donos e administradores de páginas que utilizem o WordPress. Após o contato feito, o dono ou administrador da página poderá usar os dados dos empreendimentos para fazer o mapeamento através de georreferenciamento.
 
-## Criando ambiente para desenvolvimento
-- Instalar o curl
-```
-sudo apt update && sudo apt install curl
-```
+## Desenvolvedores
 
-- Instalar o docker (comando)
-```
-curl https://get.docker.com | bash
-```
-
-- (OPCIONAL) - Para não ser necessário utilizar o *sudo* antes das instruções do docker execute:
-
-```
-sudo groupadd docker && sudo gpasswd -a $USER docker
-```
-
-- Utilize o arquivo **docker-compose.yaml** para iniciar os containers. (caso não queira executar os containers em segundo plano remova o *-d* )
-```
-docker compose up -d
-```
-
-- Para vizualizar os containers em execução:
-
-```
-docker compose ps
-```
+<center>
+<table style="margin-left: auto; margin-right: auto;">
+    <tr>
+        <td align="center">
+            <a href="https://github.com/Max-Rohrer20">
+                <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/160171332?v=4" width="150px;"/>
+                <h5 class="text-center">Maximiliano Rohrer Martins Junior</h5>
+            </a>
+        </td>
+        <td align="center">
+            <a href="https://github.com/WillxBernardo">
+                <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/124713089?v=4" width="150px;"/>
+                <h5 class="text-center">William Bernardo da Silva</h5>
+            </a>
+        </td>
+        <td align="center">
+            <a href="https://github.com/Punkrig">
+                <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/111445872?v=4" width="150px;"/>
+                <h5 class="text-center">Igor Brandão Costa</h5>
+            </a>
+        </td>
+        <td align="center">
+            <a href="https://github.com/guslnhm">
+                <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/143884487?v=4" width="150px;"/>
+                <h5 class="text-center">Gustavo</h5>
+            </a>
+        </td>
+</table>
+</center>

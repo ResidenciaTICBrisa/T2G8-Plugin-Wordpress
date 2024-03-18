@@ -15,7 +15,8 @@ services:
     networks:
       - myNetwork
     volumes:
-      - ./wordpress:/var/www/html
+      - ./plugin-prototipo:/var/www/html/wp-content/plugins/plugin-prototipo
+
   db:
     image: mysql
     restart: always
