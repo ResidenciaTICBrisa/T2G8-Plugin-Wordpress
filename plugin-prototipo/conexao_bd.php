@@ -42,4 +42,24 @@ $conexao = mysqli_connect($host, $usuario, $senha, $banco_dados);
 if (!$conexao) {
     die('Erro de conexão com o banco de dados: ' . mysqli_connect_error());
 }
+
+// Verifica se a tabela existe, se não existir, cria a tabela
+$table_name = 'formulario';
+$query = "SHOW TABLES LIKE '{$table_name}'";
+$result = mysqli_query($conexao, $query);
+
+if (mysqli_num_rows($result) == 0) {
+    $create_table_query = "CREATE TABLE {$table_name} (
+        id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        nome VARCHAR(255) NOT NULL,
+        email VARCHAR(255) NOT NULL,
+        latitude FLOAT(10, 6) NOT NULL,
+        longitude FLOAT(10, 6) NOT NULL,
+        descricao TEXT NOT NULL
+    )";
+
+    if (!mysqli_query($conexao, $create_table_query)) {
+        die('Erro ao criar a tabela: ' . mysqli_error($conexao));
+    }
+}
 ?>
