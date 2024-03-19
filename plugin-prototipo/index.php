@@ -24,9 +24,9 @@ function carregar_estilos() {
 // Adiciona um gancho para carregar os estilos
 add_action('wp_enqueue_scripts', 'carregar_estilos');
 
-// Função que exibe o formulário
+// Função para mostrar o formulário
 function mostrar_formulario() {
-    //Buffer para armazenar dados temporarai
+    //Buffer para armazenar dados temporários
     ob_start(); ?>
     <head>
         <!-- Carregar ícones padrão do Leaflet do CDN -->
@@ -41,7 +41,7 @@ function mostrar_formulario() {
         <input type="email" name="email" id="email" required><br>
         
         <label for="descricao">Descrição:</label>
-        <textarea name="descricao" id="descricao" rows="4" cols="50" placeholder="Descrição ..." required></textarea>
+        <textarea name="descricao" id="descricao" rows="3" cols="70" placeholder="Descrição ..." required></textarea>
 
         <!-- Container para o mapa -->
         <div id="mapa" style="height: 300px;"></div>
@@ -59,8 +59,7 @@ function mostrar_formulario() {
     <!-- Script para inicializar o mapa -->
     <script>
         // Inicializa o mapa
-        var map = L.map('mapa', {doubleClickZoom: false // Desativa o zoom ao dar duplo clique
-        }).setView([-15.8267, -47.9218], 13);
+        var map = L.map('mapa', {doubleClickZoom: false}).setView([-15.8267, -47.9218], 10);
         
         // Adiciona o provedor de mapa OpenStreetMap
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -69,6 +68,36 @@ function mostrar_formulario() {
 
         // Variável global para armazenar o marcador atual
         var marcador;
+
+        // Função para obter a localização do usuário
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                alert("Geolocalização não é suportada por este navegador.");
+            }
+        }
+
+        // Função para mostrar a posição do usuário no mapa
+        function showPosition(position) {
+            var lat = position.coords.latitude; // Latitude
+            var lng = position.coords.longitude; // Longitude
+
+            // Remove o marcador atual, se existir
+            if (marcador) {
+                map.removeLayer(marcador);
+            }
+
+            // Atualiza os valores dos campos de entrada ocultos
+            document.getElementById('latitude').value = lat;
+            document.getElementById('longitude').value = lng;
+
+            // Centraliza o mapa na posição do usuário
+            map.setView([lat, lng], 17);
+        }
+
+        // Chama getLocation() quando a página for carregada para obter a localização do usuário automaticamente
+        window.onload = getLocation;
 
         // Adiciona um pin no mapa quando clicado o mouse 1
         map.on('click', function(e) {
@@ -88,21 +117,17 @@ function mostrar_formulario() {
             document.getElementById('longitude').value = lng;
         });
 
-
         // Remove o marcador quando clicado com o mouse 2
         map.on('contextmenu', function(e) {
-        // Verifica se existe um marcador atual
-        if (marcador) {
-            // Remove o marcador do mapa
-            map.removeLayer(marcador);
-        }
+            // Verifica se existe um marcador atual
+            if (marcador) {
+                // Remove o marcador do mapa
+                map.removeLayer(marcador);
+            }
         });
-
-
     </script>
 
     <?php
-
     // Saída do buffer
     return ob_get_clean();
 }
