@@ -1,21 +1,45 @@
-site_name: Plugin-Wordpress
+site_name: Plugin-LGBT-CONNECT
 repo_url: https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress
 
 extra_css: 
-        - assets/stylesheets/extra.css
+  - assets/stylesheets/extra.css
 
 theme:
-        name: material
-        language: pt
-        features:
-                - navigation.tabs
+  name: material
+  language: pt
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - toc.integrate
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.tabs.link
+    - content.code.annotation
+    - content.code.copy
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/toggle-switch-off-outline 
+        name: Switch to dark mode
+      primary: lime
+      accent: lime 
+    - scheme: slate 
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode    
+      primary: lime
+      accent: lime  
+
+plugins:
+  - social
 
 nav:
-        - Home: index.md 
-        - Preparando ambiente: preparandoambiente.md
-        - Atas: 
-                - ata modelo: Atas/ata-modelo.md
-                - ata reunião 1: Atas/ata-reuniao1.md
-                - ata reunião 2: Atas/ata-reuniao2.md
-        - Backlog do produto: backlog.md
-        - Roadmap: roadmap.md
+  - Home: index.md 
+  - Preparando ambiente: preparandoambiente.md
+  - Atas: 
+      - ata modelo: Atas/ata-modelo.md
+      - ata reunião 1: Atas/ata-reuniao1.md
+      - ata reunião 2: Atas/ata-reuniao2.md
+  - Backlog do produto: backlog.md
+  - Roadmap: roadmap.md
