@@ -26,16 +26,20 @@ Este documento oferece uma visão abrangente do backlog de nosso produto, destac
 
 |    ID   |    Eu como    |      Desejo       | De modo que | FEATURES |
 |:-------:|:--------------:|:-----------------:|:-----------:|:----------:|
-|    US00    | Administrador | Validar um formulário | eu consigo aceitar/recusar os formulários | FT01 |
-|    US01    | Administrador | Que o mapa do formulário mostre locais já cadastrados | eu consiga mostrar no mapa quais estabelecimentos estão cadastrados | FT01 |
-|    US02    | Admnistrador | Ter um mapa juntamente com o formulário | eu consiga marcar no mapa a localização do estabelecimento | FT01 |
-|    US03    | Usuário | Utilizar a minha localização no mapa | Seja mais fácil me situar dentro do mapa presente no formulário | FT01 |
-|    US04    | Usuário | Ver as marcações feitas pelo administrador | Eu consiga saber quais estabelecimentos já são conhecidos | FT01 |
-|    US05    | Usuário | Ter um mapa juntamente com o formulário | eu consiga marcar no mapa a localização do estabelecimento | FT01 |
-|    US06    | Usuário | Poder alterar a marcação dentro do mapa  | Eu não precise estar fisicamente no estabelecimento que eu desejo apresentar no formulário | FT01 |
-|    US07    | Administrador | Desejo enviar um e-mail ao usuário ao ele enviar suas respostas do formulário  | O usuário tenha ciência de que suas respostas foram recebidas | FT02
-|    US08    | Administrador | Desejo pode ver as respostas do formulário diretamente no painel do WordPress  | Eu não precise entrar toda vez no meu Banco de Dados para ver as respostas | FT02 |
-|    TS00   | Dev | Enteder o funcionamento do wordpress e plugins | eu consiga implementar uma arquitetura de um plugin | FT00 |    
-|    TS01    | Dev | Enteder sobre as licenças de plugins | eu consiga diferenciar as licenças disponíveis | FT00 |
-|    TS02    | Dev | Enteder sobre como utilizar o openstreetmap em JS | eu consiga utilizar as ferramentas da API para criar mapas | FT00 |
-|    TS03    | Dev | Desejo que o plugin possa ser utilizado por qualquer site que utilize o WordPress | O plugin possa ser utilizado por outras pessoas e/ou sites que se interessem por essa funcionalidade | FT02
+|    TS00   | Dev | Entender o funcionamento do wordpress e plugins | Eu consiga implementar uma arquitetura de um plugin | FT00 |    
+|    TS01    | Dev | Entender sobre como utilizar o openstreetmap em JS | Eu consiga utilizar as ferramentas da API para criar mapas | FT00 |
+|    TS02    | Dev | Que o plugin possa ser utilizado por qualquer site que utilize o WordPress | O plugin possa ser utilizado por outras pessoas e/ou sites que se interessem por essa funcionalidade | FT00 |
+|    TS03    | Dev | Entender sobre a comunicação e manipulação do banco de dados do admin | O armazenamento dos formulários funcione corretamente | FT00 |
+|    TS04    | Dev | Entender sobre as funcionalidades que o WordPress oferece | Eu consiga estruturar de forma correta o código do plugin | FT00 |
+|    US00    | Administrador | Adicionar um formulário em qualquer página do meu site  | Os usuários possam enviar os estabelecimentos/serviços | FT01 |
+|    US01   | Usuário | Enviar um formulário | Seja enviado informações relevantes sobre os locais amigáveis a comunidade LGBTQ+ | FT01 |
+|    US02    | Usuário | Ter um mapa juntamente com o formulário | Eu consiga marcar no mapa a localização do estabelecimento | FT01 |
+|    US03    | Usuário | Iniciar o mapa do formulário com minha localização | Seja mais fácil me situar dentro do mapa | FT01 |
+|    US04    | Usuário | Buscar a minha localização por meio de texto | Facilite o manuseio do mapa | FT01 |
+|    US05    | Usuário | Poder alterar a marcação dentro do mapa  | Eu não precise estar fisicamente no estabelecimento que eu desejo apresentar no formulário | FT01 |
+|    US06    | Administrador | Enviar um e-mail ao usuário ao ele enviar suas respostas do formulário  | O usuário tenha ciência de que suas respostas foram recebidas | FT01 |
+|    US07    | Administrador | Filtrar formulários enviados com conteúdo indesejado  |O banco de dados seja o mais preservado | FT01 |
+|    US08    | Administrador | Validar os formulários enviados | Consiga aceitar/rejeitar os formulários | FT02 |
+|    US09    | Administrador | Eu acesse as respostas do formulário diretamente no painel do WordPress | Não seja necessário acessar toda vez o meu banco de dados | FT02 |
+|    US10    | Administrador | Enviar um e-mail ao usuário quando sua solicitação for respondida | O usuário tenha ciência do resultado do processamento | FT02 |
+|    US11    | Administrador | Poder adicionar um mapa na página | Seja exibido no mapa quais estabelecimentos já estão cadastrados | FT03 |
