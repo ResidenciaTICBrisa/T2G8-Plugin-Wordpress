@@ -57,6 +57,32 @@ theme:
       accent: lime  
 
 # Lista os plugins a serem utilizados, neste caso, apenas o plugin "social"
+  name: material
+  language: pt
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - toc.integrate
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.tabs.link
+    - content.code.annotation
+    - content.code.copy
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/toggle-switch-off-outline 
+        name: Switch to dark mode
+      primary: lime
+      accent: lime 
+    - scheme: slate 
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode    
+      primary: lime
+      accent: lime  
+
 plugins:
   - social
 
