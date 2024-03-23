@@ -42,3 +42,5 @@ A divisão da arquitetura em frontend e backend permite uma melhor organização
 
 ## Princípios Relacionados
 - Princípios de separação de responsabilidades para garantir que cada camada da arquitetura tenha uma função clara e específica.
+
+![Arquitetura](./assets/images/Arquitetura.png)
