@@ -1,4 +1,7 @@
 
+- [Ata da reunião 1](Atas/ata-reuniao1.md)
+- [Ata da reunião 2](Atas/ata-reuniao2.md)
+
 ### ATA DE REUNIÃO - SPRINT 0
 DD/MM/YYYY
 
