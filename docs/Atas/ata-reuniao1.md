@@ -1,4 +1,4 @@
-
+- [Ata da reunião 2](ata-reuniao2.md)
 ### ATA DE REUNIÃO - SPRINT 0
 08/03/2024
 
@@ -6,7 +6,7 @@
 
 #### 1.Membros presentes e ausentes
 
-**Presentes:** William Bernardo, Max Rohrer, Igor Brandão
+**Presentes:** William Bernardo, Max Rohrer, Igor Brandão, Valessio Brito
 
 **Ausentes:** 
 
