@@ -6,7 +6,7 @@
 
 #### 1.Membros presentes e ausentes
 
-**Presentes:** William Bernardo, Max Rohrer, Igor Brandão
+**Presentes:** William Bernardo, Max Rohrer, Igor Brandão, Valessio Brito
 
 **Ausentes:** 
 
