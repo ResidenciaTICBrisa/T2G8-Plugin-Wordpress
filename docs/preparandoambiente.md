@@ -28,3 +28,18 @@ docker compose up -d
 ```
 docker compose ps
 ```
+
+- Em um navegador acesse as respectivas portas:
+
+    * Wordpress: localhost:8082
+    * PhpMyAdmin: localhost:8083
+
+    -> No wordpress faça a configuração incial para acessar o wordpress
+    -> No PhpMyAdmin faça login com Usuário: Admin e Senha: Admin
+
+
+- Em teoria, o plugin LGBTQ+ Connect já é adicionado ao seu wordpress automaticamente, caso não esteja listado na aba plugins realize os seguintes passos, em caso contrário pode pular essa etapa.
+    
+    * Na tela de plugins do wordpress clique em adicionar plugin, navegue para o repositório do projeto e selecione o arquivo zipado do plugin
+
+- Em qualquer página do seu site escreva o seguinte shortcode: [meu_formulario]

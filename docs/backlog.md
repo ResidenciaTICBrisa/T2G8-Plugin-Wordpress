@@ -42,4 +42,6 @@ Este documento oferece uma visão abrangente do backlog de nosso produto, destac
 |    US08    | Administrador | Validar os formulários enviados | Consiga aceitar/rejeitar os formulários | FT02 |
 |    US09    | Administrador | Eu acesse as respostas do formulário diretamente no painel do WordPress | Não seja necessário acessar toda vez o meu banco de dados | FT02 |
 |    US10    | Administrador | Enviar um e-mail ao usuário quando sua solicitação for respondida | O usuário tenha ciência do resultado do processamento | FT02 |
-|    US11    | Administrador | Poder adicionar um mapa na página | Seja exibido no mapa quais estabelecimentos já estão cadastrados | FT03 |
+|    US11    | Administrador |  editar as informações de uma zona segura existente, como o nome, endereço e descrição |  para manter as informações atualizadas | FT02 |
+|    US12    | Administrador | Poder adicionar um mapa na página | Seja exibido no mapa quais estabelecimentos já estão cadastrados | FT03 |
+|    US13    | Usuário | poder visualizar detalhes de uma zona segura, como o nome, endereço, descrição e classificação | decidir se é um local adequado para mim | FT03 |
