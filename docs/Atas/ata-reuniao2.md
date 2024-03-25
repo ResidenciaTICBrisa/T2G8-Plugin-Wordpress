@@ -1,4 +1,3 @@
-- [Ata da reunião 1](ata-reuniao1.md)
 
 ### ATA DE REUNIÃO - SPRINT 0
 15/03/2024
