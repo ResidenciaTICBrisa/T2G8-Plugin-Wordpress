@@ -21,3 +21,12 @@ A {
 .md-tabs{
     display: flex;
 }
+
+
+/* Oculta a navbar em dispositivos móveis */
+@media (max-width: 767px) {
+    .md-tabs {
+        display: none;
+    }
+    
+}
