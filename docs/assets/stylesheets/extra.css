@@ -7,16 +7,16 @@
     align-items: center;
     justify-self: center;
 }
-ARTICLE{
+/* ARTICLE{
     display: flex;
     align-items: center;
     justify-self: center;
     flex-direction: column;
-}
+} */
 A {
-    display: flex;
-    justify-content: center;
-    align-items: center; /* Centraliza verticalmente */
+    display: grid;
+  
+     
 }
 .md-tabs{
     display: flex;
