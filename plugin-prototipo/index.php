@@ -134,24 +134,15 @@ function mostrar_formulario() {
 
 // Função para processar o formulário
 function processar_formulario() {
-    if (isset($_POST['nome']) && isset($_POST['email']) && isset($_POST['descricao'])) {
-        
-        // Filtrando o conteúdo enviado nos formulários
-        $nome = sanitize_text_field($_POST['nome']);
-        $email = sanitize_email($_POST['email']);
-        $descricao = sanitize_textarea_field($_POST['descricao']);
-
-        // enviar email
-        $para = $email;
-        $assunto = 'Confirmação de envio do formulário';
-        $mensagem = 'Olá ' . $nome . ', seu formulário foi enviado com sucesso!';
-        wp_mail($para, $assunto, $mensagem);
-        
     // Verifica se o formulário foi enviado
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Filtra o conteúdo enviado nos formulários
+        $nome = isset($_POST['nome']) ? sanitize_text_field($_POST['nome']) : '';
+        $email = isset($_POST['email']) ? sanitize_email($_POST['email']) : '';
+        $descricao = isset($_POST['descricao']) ? sanitize_textarea_field($_POST['descricao']) : '';
+
         // Verifica se todos os campos necessários estão presentes
-        if (isset($_POST['nome']) && isset($_POST['email']) && isset($_POST['latitude']) && isset($_POST['longitude']) && isset($_POST['descricao'])) {
-            
+        if ($nome && $email && isset($_POST['latitude']) && isset($_POST['longitude']) && $descricao) {
             // Obtém as informações de conexão com o banco de dados do WordPress
             $informacoes_bd = obter_informacoes_bd_wordpress();
 
@@ -189,8 +180,6 @@ function processar_formulario() {
             echo "Todos os campos do formulário são obrigatórios.";
         }
     }
-    // Você pode adicionar mais ações aqui, como redirecionar o usuário para uma página de agradecimento
-}
 }
 
 // Adiciona um gancho para processar o formulário quando o WordPress estiver processando solicitações
