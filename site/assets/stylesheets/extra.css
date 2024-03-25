@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Ubuntu&display=swap');
+
+#t2g8-plugin-wordpress, #sobre-o-projeto, #desenvolvedores{
+    color: grey;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-self: center;
+}
+ARTICLE{
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    flex-direction: column;
+}
+A {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Centraliza verticalmente */
+}
+.md-tabs{
+    display: flex;
+}
