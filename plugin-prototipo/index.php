@@ -3,10 +3,9 @@
 Plugin Name: LGBTQ+ Connect
 Description: Mapa LGBTQ+ com cadastro e validação admin, promovendo locais acolhedores para a comunidade.
 Version: 0.4.0
-Author: Will Bernardo, Igor Brandão, Max Rohrer e Gustavo Linhares
+Author: Will Bernardo, Igor Brandão, Max Rohrer, Gustavo Linhares e Marcos Vinícius
 */
 
-include('formulario.php');
 include('process_forms.php');
 include('pagina_administracao.php');
 
