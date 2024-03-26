@@ -8,12 +8,15 @@ Author: Will Bernardo, Igor Brandão, Max Rohrer e Gustavo Linhares
 
 include('formulario.php');
 include('process_forms.php');
+include('pagina_administracao.php');
 
 // Adiciona o shortcode [mostrar_mapa] para mostrar o mapa na página
 add_shortcode('mostrar_mapa', 'mostrar_mapa');
 
 // Adiciona um gancho para processar o formulário quando o WordPress estiver processando solicitações
+
 add_action('init', 'processar_formulario');
+
 
 // Função para carregar os estilos CSS
 function carregar_arquivos() {
@@ -69,7 +72,9 @@ function mostrar_mapa(){
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script>
         // Inicializa o mapa quando a página for carregada
-        var map;
+        var map;Não foi possível recuperar os dados do formulário ou o banco de dados está vazio.
+
+
         var marcador;
 
         function initMap() {
