@@ -1,5 +1,4 @@
 <?php
-
 // Adiciona a conexão com banco de dados
 include_once('conexao_bd.php');
 
@@ -52,5 +51,3 @@ function processar_formulario() {
         }
     }
 }
-
-
