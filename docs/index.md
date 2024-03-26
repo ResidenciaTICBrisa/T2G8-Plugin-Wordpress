@@ -41,7 +41,14 @@ O projeto consiste no desenvolvimento de um plugin de rastreamento de áreas seg
                     <h5 class="text-center">Gustavo Linhares Lima
                     <br>dev
                     </h5>
-                   
+                </a>
+            </td>
+             <td align="center">
+                <a href="https://github.com/MarcosViniciusG">
+                    <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/85762681?v=4" width="150px;"/>
+                    <h5 class="text-center">Marcos Vinicius Gündel da Silva
+                    <br>dev
+                    </h5>
                 </a>
             </td>
         </tr>
