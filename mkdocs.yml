@@ -1,5 +1,5 @@
 # Define o nome do site
-site_name: Plugin-LGBT-CONNECT
+site_name: LGBTQI +CONNECT
 
 # Define a URL do repositório do GitHub
 repo_url: https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress
@@ -18,16 +18,8 @@ theme:
 
   # Lista as características do tema
   features:
-  - navigation.tabs  # Adiciona abas de navegação para diferentes seções do site.
-  - navigation.sections  # Permite dividir o conteúdo do site em seções para facilitar a navegação.
-  - toc.integrate  # Integra a tabela de conteúdo (TOC) ao layout do site para facilitar a navegação.
-  - navigation.top  # Adiciona um botão de navegação para voltar ao topo da página.
-  - search.suggest  # Habilita sugestões de pesquisa conforme o usuário digita.
-  - search.highlight  # Realça os resultados da pesquisa para facilitar a visualização.
-  - content.tabs.link  # Permite adicionar links dentro do conteúdo em forma de abas.
-  - content.code.annotation  # Adiciona a capacidade de adicionar anotações a blocos de código.
-  - content.code.copy  # Adiciona um botão para copiar blocos de código facilmente.
-  
+    - navigation.tabs  # Adiciona abas de navegação para diferentes seções do site.
+
   # Define a paleta de cores do tema
   palette:
     # Define o esquema de cores como "default"
@@ -56,41 +48,15 @@ theme:
       # Define a cor de destaque do tema
       accent: lime  
 
-# Lista os plugins a serem utilizados, neste caso, apenas o plugin "social"
-  name: material
-  language: pt
-  features:
-    - navigation.tabs
-    - navigation.sections
-    - toc.integrate
-    - navigation.top
-    - search.suggest
-    - search.highlight
-    - content.tabs.link
-    - content.code.annotation
-    - content.code.copy
-  palette:
-    - scheme: default
-      toggle:
-        icon: material/toggle-switch-off-outline 
-        name: Switch to dark mode
-      primary: lime
-      accent: lime 
-    - scheme: slate 
-      toggle:
-        icon: material/toggle-switch
-        name: Switch to light mode    
-      primary: lime
-      accent: lime  
-
-plugins:
-  - social
-
 # Define a navegação do site, especificando os links para diferentes páginas ou seções do site
 nav:
   - Home: index.md 
   - Preparando ambiente: preparandoambiente.md
-  - Atas: Atas/ata-modelo.md
+  - Atas: 
+      - ata modelo: Atas/ata-modelo.md
+      - ata reunião 1: Atas/ata-reuniao1.md
+      - ata reunião 2: Atas/ata-reuniao2.md
+      - ata reunião 3: Atas/ata-reuniao3.md
   - Wireframe: wireframe.md
   - Backlog do produto: backlog.md
   - Arquitetura: arquitetura.md
