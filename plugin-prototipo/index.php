@@ -71,8 +71,7 @@ function mostrar_mapa(){
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script>
         // Inicializa o mapa quando a página for carregada
-        var map;Não foi possível recuperar os dados do formulário ou o banco de dados está vazio.
-
+        var map;
 
         var marcador;
 
