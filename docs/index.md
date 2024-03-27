@@ -16,7 +16,7 @@ O projeto consiste no desenvolvimento de um plugin de rastreamento de áreas seg
                 <a href="https://github.com/Max-Rohrer20">
                     <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/160171332?v=4" width="150px;"/>
                     <h5 class="text-center">Maximiliano Rohrer Martins Junior
-                    <br>dev
+                    
                     </h5>
                 </a>
             </td>
@@ -24,7 +24,7 @@ O projeto consiste no desenvolvimento de um plugin de rastreamento de áreas seg
                 <a href="https://github.com/WillxBernardo">
                     <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/124713089?v=4" width="150px;"/>
                     <h5 class="text-center">William Bernardo da Silva
-                    <br>dev
+                    
                     </h5>
                     
                 </a>
@@ -32,14 +32,14 @@ O projeto consiste no desenvolvimento de um plugin de rastreamento de áreas seg
             <td align="center">
                 <a href="https://github.com/Punkrig">
                     <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/111445872?v=4" width="150px;"/>
-                    <h5 class="text-center">Igor Brandão Costa <br>dev</h5>
+                    <h5 class="text-center">Igor Brandão Costa </h5>
                 </a>
             </td>
             <td align="center">
                 <a href="https://github.com/guslnhm">
                     <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/143884487?v=4" width="150px;"/>
                     <h5 class="text-center">Gustavo Linhares Lima
-                    <br>dev
+                    
                     </h5>
                 </a>
             </td>
@@ -47,7 +47,7 @@ O projeto consiste no desenvolvimento de um plugin de rastreamento de áreas seg
                 <a href="https://github.com/MarcosViniciusG">
                     <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/85762681?v=4" width="150px;"/>
                     <h5 class="text-center">Marcos Vinicius Gündel da Silva
-                    <br>dev
+                    
                     </h5>
                 </a>
             </td>
