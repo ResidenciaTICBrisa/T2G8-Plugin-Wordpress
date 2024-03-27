@@ -15,3 +15,4 @@ O projeto consiste no desenvolvimento de um plugin de rastreamento de áreas seg
 | [Maximiliano Rohrer Martins Junior](https://github.com/Max-Rohrer20) | [William Bernardo da Silva](https://github.com/WillxBernardo) | [Igor Brandão Costa](https://github.com/Punkrig) | [Gustavo Linhares Lima](https://github.com/guslnhm) | [Marcos Vinicius Gündel da Silva](https://github.com/MarcosViniciusG) |
 
 
+
