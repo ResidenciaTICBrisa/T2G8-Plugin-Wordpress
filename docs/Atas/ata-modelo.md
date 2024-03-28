@@ -1,8 +1,4 @@
 
-- [Ata da reunião 1](ata-reuniao1.md)
-- [Ata da reunião 2](ata-reuniao2.md)
-- [Ata da reunião 3](ata-reuniao3.md)
-
 ### ATA DE REUNIÃO - SPRINT 0
 DD/MM/YYYY
 

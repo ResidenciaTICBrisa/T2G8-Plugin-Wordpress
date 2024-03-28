@@ -42,4 +42,4 @@ docker compose ps
     
     * Na tela de plugins do wordpress clique em adicionar plugin, navegue para o repositório do projeto e selecione o arquivo zipado do plugin
 
-- Em qualquer página do seu site escreva o seguinte shortcode: [meu_formulario]
+- Em qualquer página do seu site escreva o seguinte shortcode: [mostrar_mapa]
