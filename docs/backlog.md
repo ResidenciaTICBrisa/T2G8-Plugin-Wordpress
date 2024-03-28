@@ -7,6 +7,7 @@ Este documento oferece uma visão abrangente do backlog de nosso produto, destac
 | 10/03/2024 | 0.1.1 | Criação do Documento Backlog com épicos, funcionalidades | @WillxBernardo |
 | 13/03/2024 | 0.1.2 | Criação do plugin protótipo que adiciona o formulário na página | @WillxBernardo |
 | 20/03/2024 | 0.1.3 | Implementação do uso da localização do usário dentro do plugin | @Max-Rohrer20 |
+| 28/03/2024 | 0.2.0 | Inicialização do plugin ser o mapa com acesso para o formulário | @WillxBernardo |
 
 ## Épicos
 | ID | DESCRIÇÃO | ID RELACIONADO (TEMA) |
