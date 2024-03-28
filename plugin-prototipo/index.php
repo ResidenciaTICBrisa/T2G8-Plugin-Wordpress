@@ -76,10 +76,6 @@ function mostrar_mapa(){
     <script>
         // Inicializa o mapa quando a página for carregada
         var map;
-<<<<<<< HEAD
-
-=======
->>>>>>> f3590b6 (Resolvendo bug no envio do formulário)
         var marcador;
         function initMap() {
             map = L.map('mapa', {doubleClickZoom: false}).setView([-15.8267, -47.9218], 13);
