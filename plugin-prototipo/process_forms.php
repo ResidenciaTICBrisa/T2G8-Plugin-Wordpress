@@ -36,7 +36,9 @@ function processar_formulario() {
                 // Prepara e executa a consulta SQL de inserção
                 $sql = "INSERT INTO formulario (nome, email, latitude, longitude, descricao) VALUES ('$nome', '$email', '$latitude', '$longitude', '$descricao')";
                 if (mysqli_query($conexao, $sql)) {
-                    echo "Dados inseridos com sucesso!";
+                    // Redirecionar para a mesma página para evitar o reenvio de dados
+                    wp_redirect($_SERVER['REQUEST_URI']);
+                    exit;
                 } else {
                     echo "Erro ao inserir dados: " . mysqli_error($conexao);
                 }
@@ -50,4 +52,4 @@ function processar_formulario() {
             echo "Todos os campos do formulário são obrigatórios.";
         }
     }
-}
+}?>

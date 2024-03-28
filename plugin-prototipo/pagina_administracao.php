@@ -1,5 +1,4 @@
 <?php
-
 // Adiciona a conexão com banco de dados
 include_once('conexao_bd.php');
 
@@ -73,4 +72,4 @@ function mostrar_dados() {
         echo '<p>Não foi possível recuperar os dados do formulário ou o banco de dados está vazio.</p>';
         echo '</div>';
     }
-}
+}?>
