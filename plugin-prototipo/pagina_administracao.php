@@ -72,4 +72,4 @@ function mostrar_dados() {
         echo '<p>Não foi possível recuperar os dados do formulário ou o banco de dados está vazio.</p>';
         echo '</div>';
     }
-}?>
+}

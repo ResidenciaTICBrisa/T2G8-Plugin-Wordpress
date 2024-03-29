@@ -1,7 +1,4 @@
 <?php
-// Adiciona a conexão com banco de dados
-include_once('conexao_bd.php');
-
 // Função para processar o formulário
 function processar_formulario() {
     // Verifica se o formulário foi enviado
@@ -48,8 +45,6 @@ function processar_formulario() {
             } else {
                 echo "Não foi possível obter as informações de conexão com o banco de dados do WordPress.";
             }
-        } else {
-            echo "Todos os campos do formulário são obrigatórios.";
         }
     }
-}?>
+}
