@@ -176,4 +176,4 @@ function mostrar_mapa(){
     <?php
     // Saída do buffer
     return ob_get_clean();
-}?>
+}

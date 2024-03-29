@@ -62,4 +62,3 @@ if (mysqli_num_rows($result) == 0) {
         die('Erro ao criar a tabela: ' . mysqli_error($conexao));
     }
 }
-?>
