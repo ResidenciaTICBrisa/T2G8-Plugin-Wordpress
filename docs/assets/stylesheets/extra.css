@@ -7,12 +7,12 @@
     align-items: center;
     justify-self: center;
 }
-/* ARTICLE{
-    display: flex;
-    align-items: center;
-    justify-self: center;
-    flex-direction: column;
-} */
+
+.md-logo img {
+    border-radius: 10px; /* Arredondando as bordas */
+}
+
+
 A {
     display: grid;
   

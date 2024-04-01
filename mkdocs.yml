@@ -16,6 +16,10 @@ theme:
   # Define o idioma do tema como português
   language: pt
 
+  # Define a logo da página
+  favicon: assets/images/logo.png
+  logo: assets/images/logo.png
+    
   # Lista as características do tema
   features:
     - navigation.tabs  # Adiciona abas de navegação para diferentes seções do site.
@@ -60,4 +64,5 @@ nav:
   - Wireframe: wireframe.md
   - Backlog do produto: backlog.md
   - Arquitetura: arquitetura.md
+  - Storymap: storymap.md
   - Roadmap: roadmap.md
