@@ -1,9 +1,4 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
 <body>
     <div class="wrap">
         <h2>Dados do Formulário</h2>
@@ -31,13 +26,12 @@
                 echo '<td>' . $dados->latitude . '</td>';
                 echo '<td>' . $dados->longitude . '</td>';
                 echo '<td>' . $dados->descricao . '</td>';
-                echo '<td><a href="?page=meus_dados&action=delete&id=' . $dados->id . '">Excluir</a></td>';
+                echo '<td><a href="?page=lc_admin&action=delete&id=' . $dados->id . '">Excluir</a></td>';
                 echo '</tr>';
             }
             ?>
             </tbody>
         </table>
     </div>
-
 </body>
 </html>
