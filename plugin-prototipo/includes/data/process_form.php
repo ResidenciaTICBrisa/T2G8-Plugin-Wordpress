@@ -12,7 +12,8 @@ function processar_formulario() {
         // Verifica se todos os campos necessários estão presentes
         if ($nome && $email && $descricao && $latitude && $longitude) {
             global $wpdb;
-            $table_name = $wpdb->prefix . 'formulario';
+
+            $table_name = "lc_formulario";
 
             // Insere os dados no banco de dados
             $result = $wpdb->insert(
@@ -25,7 +26,6 @@ function processar_formulario() {
                     'longitude' => $longitude
                 )
             );
-
             
             // Redirecionar para a mesma página para evitar o reenvio de dados
             wp_redirect($_SERVER['REQUEST_URI']);

@@ -29,7 +29,7 @@ if ($informacoes_bd) {
     $banco_dados = $informacoes_bd['nome_bd'];
 
     global $wpdb;
-    $table_name = $wpdb->prefix . 'formulario';
+    $table_name = 'lc_formulario';
     $charset_collate = $wpdb->get_charset_collate();
 
     if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
@@ -51,7 +51,7 @@ if ($informacoes_bd) {
 
 function criar_tabela_formulario() {
     global $wpdb;
-    $table_name = $wpdb->prefix . 'formulario';
+    $table_name ='lc_formulario';
     $charset_collate = $wpdb->get_charset_collate();
 
     $sql = "CREATE TABLE IF NOT EXISTS $table_name (

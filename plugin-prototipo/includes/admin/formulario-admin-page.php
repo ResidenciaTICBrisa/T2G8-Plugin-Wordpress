@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
 </head>
 <body>
     <div class="wrap">
@@ -15,26 +14,30 @@
                     <th>Email</th>
                     <th>Latitude</th>
                     <th>Longitude</th>
-                    <th>Descrição</th>
+                     <th>Descrição</th>
                     <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
-            <?php global $dados_formulario; ?>
-                <?php foreach ($dados_formulario as $dados): ?>
-                    <tr>
-                        <td><?php echo $dados->nome; ?></td>
-                        <td><?php echo $dados->email; ?></td>
-                        <td><?php echo $dados->latitude; ?></td>
-                        <td><?php echo $dados->longitude; ?></td>
-                        <td><?php echo $dados->descricao; ?></td>
-                        <td><a href="?page=meus_dados&action=delete&id=<?php echo $dados->id; ?>">Excluir</a></td>
-                    </tr>
-                <?php endforeach; ?>
+            <?php
+            // Consulta os dados da tabela formulario
+            global $wpdb;
+            $dados_formulario = $wpdb->get_results("SELECT * FROM lc_formulario");
+
+            foreach ($dados_formulario as $dados) {
+                echo '<tr>';
+                echo '<td>' . $dados->nome . '</td>';
+                echo '<td>' . $dados->email . '</td>';
+                echo '<td>' . $dados->latitude . '</td>';
+                echo '<td>' . $dados->longitude . '</td>';
+                echo '<td>' . $dados->descricao . '</td>';
+                echo '<td><a href="?page=meus_dados&action=delete&id=' . $dados->id . '">Excluir</a></td>';
+                echo '</tr>';
+            }
+            ?>
             </tbody>
         </table>
     </div>
-    
-    
+
 </body>
 </html>
