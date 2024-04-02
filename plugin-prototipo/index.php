@@ -1,11 +1,10 @@
 <?php
 /*
-Plugin Name: Meu Plugin
-Plugin URI: https://seusite.com
-Description: Um simples plugin que exibe "Hello World" em um arquivo HTML.
-Version: 1.0
-Author: Seu Nome
-Author URI: https://seusite.com
+Plugin Name: LGBTQ+ Connect
+Plugin URI: https://residenciaticbrisa.github.io/T2G8-Plugin-Wordpress/
+Description: Mapa LGBTQ+ com cadastro e validação admin, promovendo locais acolhedores para a comunidade.
+Version: 0.3.0
+Author: Igor Brandão, Gustavo Linhares, Marcos Vinicius, Max Rohrer e Will Bernardo
 */
 
 // Inclui os arquivos necessários
