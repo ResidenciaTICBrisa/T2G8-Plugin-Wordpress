@@ -26,10 +26,7 @@ function processar_formulario() {
                     'longitude' => $longitude
                 )
             );
-            
-            // Redirecionar para a mesma página para evitar o reenvio de dados
-            wp_redirect($_SERVER['REQUEST_URI']);
-            exit;
+        
         } else {
             echo "Erro: Preencha todos os campos corretamente.";
         }
