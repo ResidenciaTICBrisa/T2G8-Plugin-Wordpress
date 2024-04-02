@@ -2,6 +2,7 @@
 // Inicializa o mapa quando a página for carregada
 var map;
 var marcador;
+
 function initMap() {
     map = L.map('mapa', {doubleClickZoom: false}).setView([-15.8267, -47.9218], 13);
 
@@ -55,6 +56,9 @@ function initMapFormulario() {
         // Atualiza os valores dos campos de entrada ocultos
         document.getElementById('latitude').value = lat;
         document.getElementById('longitude').value = lng;
+
+        // Atualiza o valor de status do marcador para verdadeiro
+        document.getElementById('marcadorAtivo').value = 1;
     });
 
     // Remove o marcador quando clicado com o mouse 2
@@ -64,6 +68,9 @@ function initMapFormulario() {
             // Remove o marcador do mapa
             mapFormulario.removeLayer(marcador);
         }
+
+        // Atualiza o valor de status do marcador para falso
+        document.getElementById('marcadorAtivo').value = 0;
     });
 }
 
