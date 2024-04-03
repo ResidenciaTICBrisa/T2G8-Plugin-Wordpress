@@ -46,3 +46,6 @@ Este documento oferece uma visão abrangente do backlog de nosso produto, destac
 |    US11    | Administrador |  editar as informações de uma zona segura existente, como o nome, endereço e descrição |  para manter as informações atualizadas | FT02 |
 |    US12    | Administrador | Poder adicionar um mapa na página | Seja exibido no mapa quais estabelecimentos já estão cadastrados | FT03 |
 |    US13    | Usuário | poder visualizar detalhes de uma zona segura, como o nome, endereço, descrição e classificação | decidir se é um local adequado para mim | FT03 |
+|    US14    | Usuário | Acompanhar o Status da região|  Receber um e-mail de confirmação de envio do formulário | FT03 |
+|    US15    | Usuário |Buscar Por Zonas Seguras | Poder buscar por zonas seguras proximas à minha localização atual | FT03 |
+|    US16    | Usuário | Baixar o plugin | Poder instalá-lo e ultilizá-lo em uma plataforma wordpress | FT03 |
