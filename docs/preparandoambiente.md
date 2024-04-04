@@ -31,18 +31,23 @@ docker compose ps
 
 - Em um navegador acesse as respectivas portas:
     
-    <a href="http://localhost:8082" style="color: green;" target="_blank"> localhost:8082</a>
-    <a href="http://localhost:8083" style="color: green;" target="_blank"> localhost:8083</a>
+    <p>
+    <strong>Wordpress:</strong>
+    <a href="http://localhost:8082" style="color: green; display: inline;" target="_blank">localhost:8082</a><br>
+    <strong>PhpMyAdmin:</strong>
+    <a href="http://localhost:8083" style="color: green; display: inline;" target="_blank">localhost:8083</a>
+    </p>
+
 
     -> No wordpress faça a configuração incial para acessar o wordpress
 
-    -> No PhpMyAdmin faça login com <span style="color: green;">**Usuário: Admin** e **Senha: Admin**</span>
+    -> No PhpMyAdmin faça login com <span style="color: blue;">**Usuário: Admin** e **Senha: Admin**</span>
 
 - Realize as configurações do wordpress para criar seu site
 
 - No caso de após a configuração do wordpress não ser redirecionado para a página de admin acesse:
 
-    <a href="http://localhost:8082/wp-admin" style="color: green;" target="_blank"> -> localhost:8082/wp-admin</a>
+    <a href="http://localhost:8082/wp-admin" style="color: green;" target="_blank">localhost:8082/wp-admin</a>
 
 - Em teoria, o plugin LGBTQ+ Connect já é adicionado ao seu wordpress automaticamente, caso não esteja listado na aba plugins realize os seguintes passos, em caso contrário pode pular essa etapa.
     

@@ -7,6 +7,11 @@ Version: 0.3.0
 Author: Igor Brandão, Gustavo Linhares, Marcos Vinicius, Max Rohrer e Will Bernardo
 */
 
+//Display de erros
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 // Inclui os arquivos necessários
 include_once(plugin_dir_path(__FILE__) . 'includes/data/conexao_bd.php');
 include_once(plugin_dir_path(__FILE__) . 'includes/data/process_form.php');
