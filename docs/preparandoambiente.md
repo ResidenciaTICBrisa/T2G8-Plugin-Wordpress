@@ -38,9 +38,6 @@ docker compose ps
     <a href="http://localhost:8083" style="color: green; display: inline;" target="_blank">localhost:8083</a>
     </p>
 
-    -> No wordpress faça a configuração incial para acessar o wordpress
-
-    -> No PhpMyAdmin faça login com <span style="color: green;">**Usuário: Admin** e **Senha: Admin**</span>
 
 - Realize as configurações do wordpress para criar seu site
 
@@ -52,4 +49,4 @@ docker compose ps
     
     * Na tela de plugins do wordpress clique em adicionar plugin, navegue para o repositório do projeto e selecione o arquivo zipado do plugin
 
-- Em qualquer página do seu site escreva o seguinte shortcode: **[mostrar_mapa]**
+- Em qualquer página do seu site escreva o seguinte shortcode: **[lgbtq_connect]**

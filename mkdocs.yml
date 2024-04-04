@@ -1,5 +1,5 @@
 # Define o nome do site
-site_name: LGBTQI +CONNECT
+site_name: LGBTQ+ CONNECT
 
 # Define a URL do repositório do GitHub
 repo_url: https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress
@@ -54,14 +54,15 @@ theme:
 
 # Define a navegação do site, especificando os links para diferentes páginas ou seções do site
 nav:
-  - Home: index.md 
+  - Home: index.md
+  - Tutorial: tutorial.md
   - Preparando ambiente: preparandoambiente.md
-  - Atas: 
-      - ata modelo: Atas/ata-modelo.md
+  - Atas:
       - ata reunião 1: Atas/ata-reuniao1.md
       - ata reunião 2: Atas/ata-reuniao2.md
       - ata reunião 3: Atas/ata-reuniao3.md
   - Wireframe: wireframe.md
+  - Storymap: storymap.md
   - Backlog do produto: backlog.md
   - Arquitetura: arquitetura.md
   - Storymap: storymap.md

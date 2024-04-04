@@ -1,13 +1,5 @@
 Este documento oferece uma visão abrangente do backlog de nosso produto, destacando as funcionalidades, melhorias e tarefas prioritárias que nossa equipe de desenvolvimento planeja abordar. Ele atua como um guia essencial para alinhar nossos esforços com as demandas dos clientes e os objetivos empresariais, facilitando uma gestão eficiente do ciclo de desenvolvimento e garantindo a entrega constante de valor aos usuários finais.
 
-## Histórico de Versões
-
-| Data       | Versão | Descrição            |         Autor             |
-|:----------:|:------:|:--------------------:|:-------------------------:|
-| 10/03/2024 | 0.1.1 | Criação do Documento Backlog com épicos, funcionalidades | @WillxBernardo |
-| 13/03/2024 | 0.1.2 | Criação do plugin protótipo que adiciona o formulário na página | @WillxBernardo |
-| 20/03/2024 | 0.1.3 | Implementação do uso da localização do usário dentro do plugin | @Max-Rohrer20 |
-| 28/03/2024 | 0.2.0 | Inicialização do plugin ser o mapa com acesso para o formulário | @WillxBernardo |
 
 ## Épicos
 | ID | DESCRIÇÃO | ID RELACIONADO (TEMA) |
@@ -46,3 +38,18 @@ Este documento oferece uma visão abrangente do backlog de nosso produto, destac
 |    US11    | Administrador |  editar as informações de uma zona segura existente, como o nome, endereço e descrição |  para manter as informações atualizadas | FT02 |
 |    US12    | Administrador | Poder adicionar um mapa na página | Seja exibido no mapa quais estabelecimentos já estão cadastrados | FT03 |
 |    US13    | Usuário | poder visualizar detalhes de uma zona segura, como o nome, endereço, descrição e classificação | decidir se é um local adequado para mim | FT03 |
+|    US14    | Usuário | Acompanhar o Status da região|  Receber um e-mail de confirmação de envio do formulário | FT03 |
+|    US15    | Usuário |Buscar Por Zonas Seguras | Poder buscar por zonas seguras proximas à minha localização atual | FT03 |
+|    US16    | Usuário | Baixar o plugin | Poder instalá-lo e ultilizá-lo em uma plataforma wordpress | FT03 |
+
+
+
+## Histórico de Versões
+
+| Data       | Versão | Descrição            |         Autor             |
+|:----------:|:------:|:--------------------:|:-------------------------:|
+| 10/03/2024 | 0.1.1 | Criação do Documento Backlog com épicos, funcionalidades | @WillxBernardo |
+| 13/03/2024 | 0.1.2 | Criação do plugin protótipo que adiciona o formulário na página | @WillxBernardo |
+| 20/03/2024 | 0.1.3 | Implementação do uso da localização do usário dentro do plugin | @Max-Rohrer20 |
+| 28/03/2024 | 0.2.0 | Inicialização do plugin ser o mapa com acesso para o formulário | @WillxBernardo |
+| 05/04/2024 | 0.3.0 | Reestruturação do código | @WillxBernardo |

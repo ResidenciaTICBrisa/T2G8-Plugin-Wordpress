@@ -1,5 +1,3 @@
-
-
 # T2G8-Plugin-Wordpress
 
 Bem-vindo ao repositório oficial do LGBTQIAPN+ Connect! Nosso projeto tem como principal objetivo conectar empreendimentos e serviços LGBTQIAPN+ friendly com toda a comunidade LGBTQIAPN+. Através dessa plataforma, buscamos promover a inclusão, visibilidade e apoio mútuo dentro da comunidade, fortalecendo laços e ampliando oportunidades para todos. Junte-se a nós nessa jornada rumo a um mundo mais igualitário e acolhedor para todas as identidades de gênero e orientações sexuais!

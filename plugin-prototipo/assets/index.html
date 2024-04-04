@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css" />
+    <script src="script.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+</head>
+<body>
+    <div id="div_index">
+        <div id="div-mapa">
+            <div id="mapa" style="height: 500px;"></div>
+            <button onclick="mostrarFormulario()">Cadastrar novo local</button>
+        </div>
+
+        <div id="formulario" style="display: none;">
+            <form id="meu_formulario" method="post">
+                <label for="nome" id="labelnome">Nome do local:</label>
+                <input type="text" name="nome" id="nome" required><br>
+
+                <label for="email">Email:</label>
+                <input type="email" name="email" id="email" required><br>
+                
+                <label for="descricao">Descrição:</label>
+                <textarea name="descricao" id="descricao" rows="3" cols="70" placeholder="Descrição ..." required></textarea>
+
+                <!-- Container para o mapa -->
+                <div id="mapaFormulario" style="height: 300px;"></div>
+                
+                <!-- Input de latitude e longitude --> 
+                <input type="hidden" name="latitude" id="latitude" required>
+                <input type="hidden" name="longitude" id="longitude" required>
+
+                <input type="hidden" id="marcadorAtivo" name="marcadorAtivo" value="0">
+                
+                <input type="submit" value="Enviar">
+            </form>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+</body>
+</html>
