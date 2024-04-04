@@ -30,7 +30,7 @@ docker compose ps
 ```
 
 - Em um navegador acesse as respectivas portas:
-    
+
     <p>
     <strong>Wordpress:</strong>
     <a href="http://localhost:8082" style="color: green; display: inline;" target="_blank">localhost:8082</a><br>
@@ -38,10 +38,6 @@ docker compose ps
     <a href="http://localhost:8083" style="color: green; display: inline;" target="_blank">localhost:8083</a>
     </p>
 
-
-    -> No wordpress faça a configuração incial para acessar o wordpress
-
-    -> No PhpMyAdmin faça login com <span style="color: blue;">**Usuário: Admin** e **Senha: Admin**</span>
 
 - Realize as configurações do wordpress para criar seu site
 

@@ -1,4 +1,6 @@
-
+<p align="center">
+  <img src="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/blob/main/docs/assets/images/logo.png" width="190" />
+</p>
 
 # T2G8-Plugin-Wordpress
 
