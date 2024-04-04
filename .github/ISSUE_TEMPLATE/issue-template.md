@@ -7,12 +7,19 @@ assignees: ''
 
 ---
 
-# Etapas para validação:
+## Descrição
+{[Descrição detalhada do problema ou da tarefa.]}
+Forneça informações claras e concisas para que outros membros da equipe possam entender o contexto e a importância do problema.
 
-- [ ] validação 1
-- [ ] validação 2
-- [ ] validação 3
+## Tarefas
+Liste as tarefas específicas que precisam ser concluídas para resolver o problema ou concluir a tarefa, dívida tarefas grandes e complexas em tarefas simples.
+- [ ] Tarefa 1
+- [ ] Tarefa 2
 
-## Resumo sobre:
+## Testes / Avaliação
+Especifique os critérios de teste ou avaliação que serão usados para garantir que a solução seja eficaz. 
+- [ ] Critério 1
+- [ ] Critério 2
 
-Descrição da issue ...
+## Prazos
+Estipule um prazo para qual a entrega da solução/feedback possa ocorrer.
