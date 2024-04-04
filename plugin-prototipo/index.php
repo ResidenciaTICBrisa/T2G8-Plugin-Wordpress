@@ -53,7 +53,7 @@ function meu_plugin_shortcode() {
 }
 
 // Registra o shortcode com o nome 'meu_plugin'
-add_shortcode('meu_plugin', 'meu_plugin_shortcode');
+add_shortcode('lgbtq_connect', 'meu_plugin_shortcode');
 
 // Adiciona o nome do arquivo ao plugin
 define('MEU_PLUGIN_FILE', __FILE__);

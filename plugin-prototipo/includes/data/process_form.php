@@ -35,8 +35,6 @@ function processar_formulario() {
                 echo "Erro: Preencha todos os campos corretamente.";
             }
         }
-    } else {
-        echo "Erro: Escolha um local no mapa";
     }
 
 }

@@ -30,9 +30,9 @@ docker compose ps
 ```
 
 - Em um navegador acesse as respectivas portas:
-
-    <a href="http://localhost:8082" style="color: green;" target="_blank"> -> * localhost:8082</a>
-    <a href="http://localhost:8083" style="color: green;" target="_blank"> -> * localhost:8083</a>
+    
+    <a href="http://localhost:8082" style="color: green;" target="_blank"> localhost:8082</a>
+    <a href="http://localhost:8083" style="color: green;" target="_blank"> localhost:8083</a>
 
     -> No wordpress faça a configuração incial para acessar o wordpress
 
@@ -48,4 +48,4 @@ docker compose ps
     
     * Na tela de plugins do wordpress clique em adicionar plugin, navegue para o repositório do projeto e selecione o arquivo zipado do plugin
 
-- Em qualquer página do seu site escreva o seguinte shortcode: **[mostrar_mapa]**
+- Em qualquer página do seu site escreva o seguinte shortcode: **[lgbtq_connect]**
