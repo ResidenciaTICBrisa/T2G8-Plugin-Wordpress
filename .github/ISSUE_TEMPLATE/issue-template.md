@@ -1,14 +1,4 @@
----
-name: Issue template
-about: Issue template do projeto
-title: ''
-labels: ''
-assignees: ''
-
----
-
 ## Descrição
-{[Descrição detalhada do problema ou da tarefa.]}
 Forneça informações claras e concisas para que outros membros da equipe possam entender o contexto e a importância do problema.
 
 ## Tarefas
