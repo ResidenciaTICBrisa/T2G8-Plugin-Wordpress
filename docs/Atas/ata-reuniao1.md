@@ -1,4 +1,4 @@
-### ATA DE REUNIÃO - SPRINT 0
+### **ATA DE REUNIÃO - SPRINT 1**
 08/03/2024
 
 **Redator:** William Bernardo.
