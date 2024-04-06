@@ -1,4 +1,3 @@
-
 <?php
 // Adiciona uma página ao menu do painel de administração
 function adicionar_pagina_administracao() {
