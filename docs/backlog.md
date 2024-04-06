@@ -4,16 +4,17 @@ Este documento oferece uma visão abrangente do backlog de nosso produto, destac
 
 
 ## Épicos
-| ID | DESCRIÇÃO | ID RELACIONADO (TEMA) |
-|----|-----------|-----------------------|
-| EP01 | Como administrador, quero gerenciar formulários para georreferenciar estabelecimentos/serviços no meu site| TM01 |
+| ID | DESCRIÇÃO |
+|----|-----------|
+| EP01 | Como administrador, quero georreferenciar locais/serviços no meu site|
+| EP02 | Como administrador, desejo administrar os locais/serviços do meu site e gerenciar pedidos de adição no sistema via interface|
 
 ## Funcionalidades (Features)
 | ID | DESCRIÇÃO | ID RELACIONADO (ÉPICOS) |
 |----|-----------|-------------------------|
 | FT00 | Estudos gerais sobre o wordpress| --- |
 | FT01 | Formulário de pedido | EP01 |
-| FT02 | Interface de gerenciamento de formulários | EP01 |
+| FT02 | Interface de gerenciamento de formulários | EP02 |
 | FT03 | Georreferenciamento dos estabelecimentos/serviços| EP01 |
 
 
@@ -37,13 +38,10 @@ Este documento oferece uma visão abrangente do backlog de nosso produto, destac
 |    US08    | Administrador | Validar os formulários enviados | Consiga aceitar/rejeitar os formulários | FT02 |
 |    US09    | Administrador | Eu acesse as respostas do formulário diretamente no painel do WordPress | Não seja necessário acessar toda vez o meu banco de dados | FT02 |
 |    US10    | Administrador | Enviar um e-mail ao usuário quando sua solicitação for respondida | O usuário tenha ciência do resultado do processamento | FT02 |
-|    US11    | Administrador |  editar as informações de uma zona segura existente, como o nome, endereço e descrição |  para manter as informações atualizadas | FT02 |
-|    US12    | Administrador | Poder adicionar um mapa na página | Seja exibido no mapa quais estabelecimentos já estão cadastrados | FT03 |
-|    US13    | Usuário | poder visualizar detalhes de uma zona segura, como o nome, endereço, descrição e classificação | decidir se é um local adequado para mim | FT03 |
-|    US14    | Usuário | Acompanhar o Status da região|  Receber um e-mail de confirmação de envio do formulário | FT03 |
-|    US15    | Usuário |Buscar Por Zonas Seguras | Poder buscar por zonas seguras proximas à minha localização atual | FT03 |
-|    US16    | Usuário | Baixar o plugin | Poder instalá-lo e ultilizá-lo em uma plataforma wordpress | FT03 |
-
+|    US11    | Administrador | Editar as informações de uma zona segura existente, como o nome, endereço e descrição |  para manter as informações atualizadas | FT02 |
+|    US12    | Administrador | Personalizar os campos do formulário |  Eu receba as informações pertinentes do local que eu considere relevantes | FT02 |
+|    US13    | Administrador | Poder adicionar um mapa na página | Seja exibido no mapa quais estabelecimentos já estão cadastrados | FT03 |
+|    US14    | Usuário | visualizar detalhes de uma zona segura, como: nome, endereço, descrição e classificação | decidir se é um local adequado para mim | FT03 |
 
 ## Requisitos
 
@@ -95,4 +93,4 @@ Este documento oferece uma visão abrangente do backlog de nosso produto, destac
 | 13/03/2024 | 0.1.2 | Criação do plugin protótipo que adiciona o formulário na página | @WillxBernardo |
 | 20/03/2024 | 0.1.3 | Implementação do uso da localização do usário dentro do plugin | @Max-Rohrer20 |
 | 28/03/2024 | 0.2.0 | Inicialização do plugin ser o mapa com acesso para o formulário | @WillxBernardo |
-| 05/04/2024 | 0.3.0 | Reestruturação do código | @WillxBernardo |
+| 05/04/2024 | 0.3.0 | Reestruturação do código base | @WillxBernardo |
