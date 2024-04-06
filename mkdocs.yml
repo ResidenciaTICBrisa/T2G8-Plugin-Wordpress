@@ -67,6 +67,5 @@ nav:
   - Arquitetura: arquitetura.md
   - Storymap: storymap.md
   - Roadmap: roadmap.md
-  - Documento de Requisitos: requisitos.md
   - Releases:
       - Release 1: releases/release1.md
