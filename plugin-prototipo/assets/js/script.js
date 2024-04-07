@@ -1,4 +1,3 @@
-
 // Inicializa o mapa quando a página for carregada
 var map;
 var marcador;
@@ -80,11 +79,11 @@ function voltar() {
 }
 
 function exit_page(){
-    //destroyMapForm();
+    destroyMapForm();
     document.getElementById('div_form').style.display='none';
     document.getElementById('div_index').style.display='none';
     document.getElementById('div_exit').style.display='block';
-    //exit_page_map;
+    exit_page_map();
 }
 
 // Função para inicializar o mapa no formulário
@@ -164,10 +163,5 @@ window.onload = function() {
 
 // Função que permite voltar da tela final para a tela inicial - no momento está recarregando a página, mas idealmente deve recarregar só o container do plugin
 function preencher_novamente(){
-    /*destroyExitMap();
-    document.getElementById('div_exit').style.display = 'none';
-    document.getElementById('div_form').style.display = 'none';
-    document.getElementById('div_index').style.display = 'block';
-    initMap();*/
     window.location.reload();
 }
