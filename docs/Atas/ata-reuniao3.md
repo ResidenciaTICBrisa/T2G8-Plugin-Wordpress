@@ -1,5 +1,5 @@
 
-### ATA DE REUNIÃO - SPRINT X
+### **ATA DE REUNIÃO - SPRINT 3**
 23/03/2024
 
 **Redator:** Gustavo Linhares Lima

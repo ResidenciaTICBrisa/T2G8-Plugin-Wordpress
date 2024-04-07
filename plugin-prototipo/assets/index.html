@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css" />
+</head>
+<body>
+    <div id="div_index">
+        <div class="title">Encontre empreendimentos e serviços já identificados como LGBTQ+ friendly:<br></div>
+        <div id="mapa" style="height: 500px;margin-bottom:10px;"></div>
+        <div><button onclick="mostrarFormulario()" class="blue_button">Cadastrar novo local</button></div>
+    </div>
+
+    <div id="div_form" style="display: none;">
+        <form id="meu_formulario" method="post" action="#">
+            <label for="nome" id="labelnome">Nome do local:</label>
+            <input type="text" name="nome" id="nome" required><br>
+
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" required><br>
+
+            <label for="descricao">Descrição:</label>
+            <textarea name="descricao" id="descricao" rows="3" cols="70" placeholder="Descrição ..." required></textarea>
+
+            <!-- Container para o mapa-->
+            <div id="mapaFormulario" style="height: 300px;margin-bottom:10px;"></div>
+
+            <!-- Input de latitude e longitude -->
+            <input type="hidden" name="latitude" id="latitude" required>
+            <input type="hidden" name="longitude" id="longitude" required>
+
+            <button onclick="voltar()" class="voltar">Voltar</button>
+            <input class="blue_button" type="submit" value="Enviar">
+        </form>
+    </div>
+    
+    <div id="div_exit" style="display:none;">
+        <div class="title">Suas respostas foram enviadas!</div>
+        <div>Agora o formulário passará por um processo de validação.<br>Entraremos em contato com o e-mail informado para fornecer o feedback.<br><br>Enquanto isso, navegue pelos estabelecimentos que já foram certificados como LGBTQ+ friendly:<br><br></div>
+        <div id="mapa_exit" style="height: 500px;margin-bottom:10px;"></div>
+        <button onclick="preencher_novamente()" class="blue_button">Cadastrar um novo local</button>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</body>
+</html>
