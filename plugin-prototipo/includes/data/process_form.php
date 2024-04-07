@@ -1,6 +1,5 @@
 <?php
 function processar_formulario() {
-
     // Verifica se o formulário foi enviado
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Filtra o conteúdo enviado nos formulários
@@ -27,12 +26,8 @@ function processar_formulario() {
                     'longitude' => $longitude
                 )
             );
-        
-        } else {
-            echo "Erro: Preencha todos os campos corretamente.";
         }
     }
-
 }
 
 
