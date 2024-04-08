@@ -45,9 +45,6 @@ add_action('wp_enqueue_scripts', 'load_meu_plugin_scripts');
 // Adiciona um gancho para enfileirar os estilos
 add_action('wp_enqueue_scripts', 'load_meu_plugin_styles');
 
-// Registra a função acima para ser executada no hook 'the_content'
-add_filter('the_content', 'load_meu_plugin_html');
-
 // Função para adicionar o shortcode
 function meu_plugin_shortcode() {
     // Obtém o conteúdo do arquivo HTML
