@@ -17,8 +17,9 @@ include_once(plugin_dir_path(__FILE__) . 'includes/data/conexao_bd.php');
 include_once(plugin_dir_path(__FILE__) . 'includes/data/process_form.php');
 include_once(plugin_dir_path(__FILE__) . 'includes/admin/pagina_administracao.php');
 
-// Função para processar o formulário
-add_action('init', 'processar_formulario');
+// Adiciona um gancho para processar o formulário quando o WordPress estiver processando solicitações
+add_action('wp_ajax_processar_formulario', 'processar_formulario');
+add_action('wp_ajax_nopriv_processar_formulario', 'processar_formulario');
 
 // Função para carregar o conteúdo do arquivo HTML
 function load_meu_plugin_html() {
@@ -37,6 +38,9 @@ function load_meu_plugin_scripts() {
 // Função para enfileirar o estilo CSS
 function load_meu_plugin_styles() {
     wp_enqueue_style('meu-plugin-style', plugin_dir_url(__FILE__) . 'assets/styles/styles.css', array(), '1.0');
+    // Localiza o URL do AJAX no arquivo admin-ajax.php
+    wp_localize_script( 'meu-plugin-script', 'my_ajax_object',
+        array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
 }
 
 // Adiciona um gancho para enfileirar os scripts

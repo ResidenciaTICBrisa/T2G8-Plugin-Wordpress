@@ -1,13 +1,20 @@
 <?php
 function processar_formulario() {
+
     // Verifica se o formulário foi enviado
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        # Transforma a string do formData em uma array
+        parse_str($_POST['formData'], $formFields);
+        foreach($formFields as $a){
+            echo $a;
+        }
+
         // Filtra o conteúdo enviado nos formulários
-        $nome = isset($_POST['nome']) ? sanitize_text_field($_POST['nome']) : '';
-        $email = isset($_POST['email']) ? sanitize_email($_POST['email']) : '';
-        $descricao = isset($_POST['descricao']) ? sanitize_textarea_field($_POST['descricao']) : '';
-        $latitude = isset($_POST['latitude']) ? floatval($_POST['latitude']) : 0;
-        $longitude = isset($_POST['longitude']) ? floatval($_POST['longitude']) : 0;
+        $nome = isset($formFields['nome']) ? sanitize_text_field($formFields['nome']) : '';
+        $email = isset($formFields['email']) ? sanitize_email($formFields['email']) : '';
+        $descricao = isset($formFields['descricao']) ? sanitize_textarea_field($formFields['descricao']) : ''; 
+        $latitude = isset($formFields['latitude']) ? floatval($formFields['latitude']) : 0;
+        $longitude = isset($formFields['longitude']) ? floatval($formFields['longitude']) : 0;
 
         // Verifica se todos os campos necessários estão presentes
         if ($nome && $email && $descricao && $latitude && $longitude) {
@@ -26,11 +33,10 @@ function processar_formulario() {
                     'longitude' => $longitude
                 )
             );
+        
+        } else {
+            echo "Erro: Preencha todos os campos corretamente.";
         }
     }
+
 }
-
-
-
-
-
