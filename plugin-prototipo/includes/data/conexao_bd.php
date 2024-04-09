@@ -39,7 +39,10 @@ if ($informacoes_bd) {
             email VARCHAR(255) NOT NULL,
             latitude FLOAT(10, 6) NOT NULL,
             longitude FLOAT(10, 6) NOT NULL,
-            descricao TEXT NOT NULL
+            data_hora VARCHAR(20) NOT NULL,
+            servico VARCHAR(30) NOT NULL,
+            descricao TEXT NOT NULL,
+            situacao VARCHAR(20) NOT NULL DEFAULT 'Pendente'
         ) $charset_collate;";
 
         require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
@@ -60,7 +63,11 @@ function criar_tabela_formulario() {
         email VARCHAR(255) NOT NULL,
         latitude FLOAT(10, 6) NOT NULL,
         longitude FLOAT(10, 6) NOT NULL,
-        descricao TEXT NOT NULL
+        data_hora VARCHAR(100) NOT NULL,
+        servico VARCHAR(30) NOT NULL,
+        descricao TEXT NOT NULL,
+        situacao VARCHAR(20) NOT NULL DEFAULT 'pendente',
+        
     ) $charset_collate;";
 
     require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
