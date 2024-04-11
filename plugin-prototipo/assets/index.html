@@ -24,7 +24,7 @@
                 <option value="bar/restaurante">Bares/restaurantes</option>
                 <option value="entretenimento">Entretenimento</option>
                 <option value="beleza">Beleza</option>
-                <option value="hopesdagem">Hopesdagem</option>
+                <option value="hospedagem">Hospedagem</option>
                 <option value="ensino">Ensino</option>
                 <option value="academia">Academia</option>
                 <option value="outro">Outro</option>
@@ -40,9 +40,10 @@
             <input type="hidden" name="latitude" id="latitude" required>
             <input type="hidden" name="longitude" id="longitude" required>
 
-            <button onclick="voltar()" class="voltar">Voltar</button>
             <input class="blue_button" type="submit" value="Enviar">
         </form>
+
+        <button onclick="voltar()" class="voltar">Voltar</button>
     </div>
     
     <div id="div_exit" style="display:none;">
@@ -50,6 +51,7 @@
         <div>Agora o formulário passará por um processo de validação.<br>Entraremos em contato com o e-mail informado para fornecer o feedback.<br><br>Enquanto isso, navegue pelos estabelecimentos que já foram certificados como LGBTQ+ friendly:<br><br></div>
         <div id="mapa_exit" style="height: 500px;margin-bottom:10px;"></div>
         <button onclick="preencher_novamente()" class="blue_button">Cadastrar um novo local</button>
+        <button onclick="voltar_exit()" class="voltar_exit">Voltar</button>
     </div>
 
     <script src="js/script.js"></script>

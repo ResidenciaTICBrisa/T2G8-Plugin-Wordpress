@@ -61,25 +61,31 @@ function exit_page_map(){
 
     getLocation(map_exit);
 
-    console.log("Sucesso");
+    console.log("Formulário enviado com sucesso!");
 }
 
         // DESTRUINDO MAPAS
 
 // Função para destruir o mapa
 function destroyMap() {
-    map.remove();
-    map = null;
+    setTimeout(function(){
+        if(map!==null){
+            map.remove();
+            map=null;
+            console.log("Sucesso ao destruir o map");
+        }
+    }, 0);
 }
 
 function destroyMapForm(){
+    document.getElementById('meu_formulario').reset();
     setTimeout(function(){
         if(mapFormulario!==null){
             mapFormulario.remove();
             mapFormulario=null;
+            console.log("Sucesso ao destruir o map_form");
         }
     }, 0);
-    console.log("Sucesso ao destruir o mapform");
 }
 
 function destroyExitMap(){
@@ -88,8 +94,8 @@ function destroyExitMap(){
             map_exit.remove();
             map_exit=null;
         }
+        console.log("Sucesso ao destruir o map_exit");
     }, 0);
-    console.log("Sucesso ao destruir o mapexit");
 }
 
         // TRANSIÇÕES ENTRE PÁGINAS DO PLUGIN
@@ -98,6 +104,7 @@ function destroyExitMap(){
 function mostrarFormulario() {
     destroyMap();
     document.getElementById('div_index').style.display = 'none';
+    document.getElementById('div_exit').style.display = 'none';
     document.getElementById('div_form').style.display = 'block';
     initMapFormulario();
 }
@@ -108,6 +115,11 @@ function voltar() {
     document.getElementById('div_exit').style.display = 'none';
     document.getElementById('div_index').style.display = 'block';
     initMap();
+}
+
+function voltar_exit(){
+    destroyExitMap();
+    voltar();
 }
 
 function exit_page(){
@@ -193,7 +205,8 @@ window.onload = function() {
     initMap();
 };
 
-// Função que permite voltar da tela final para a tela inicial - no momento está recarregando a página, mas idealmente deve recarregar só o container do plugin
+// Função que permite voltar da tela final para a tela inicial
 function preencher_novamente(){
-    window.location.reload();
+    destroyExitMap();
+    mostrarFormulario();
 }

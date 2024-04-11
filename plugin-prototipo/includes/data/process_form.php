@@ -5,9 +5,6 @@ function processar_formulario() {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         # Transforma a string do formData em uma array
         parse_str($_POST['formData'], $formFields);
-        foreach($formFields as $a){
-            echo $a;
-        }
 
         // Filtra o conteúdo enviado nos formulários
         $nome = isset($formFields['nome']) ? sanitize_text_field($formFields['nome']) : '';

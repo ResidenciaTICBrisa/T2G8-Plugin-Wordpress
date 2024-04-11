@@ -60,7 +60,21 @@
     /*display:none;*/
 }
 
+.voltar_exit{
+    width:100%;
+    background-color: #F5F5F5;
+    color: #707070;
+    margin-top:10px;
+    padding:10px;
+    border:none;
+    border-radius: 10px;
+}
+
 .voltar:hover{
+    background-color: #e0e0e0;
+}
+
+.voltar_exit:hover{
     background-color: #e0e0e0;
 }
 
