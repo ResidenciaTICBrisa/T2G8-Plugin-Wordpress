@@ -66,7 +66,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'approve' && isset($_GET['id']
                 echo '<table class="wp-list-table widefat striped">';
                 echo '<thead>';
                 echo '<tr>';
-                echo '<th><a href="?order_by=nome&order=asc">Nome ▲</a> / <a href="?order_by=nome&order=desc">Nome ▼</a></th>';
+                echo '<th>Nome</th>';
                 echo '<th>Email</th>';
                 echo '<th>Latitude</th>';
                 echo '<th>Longitude</th>';
@@ -75,6 +75,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'approve' && isset($_GET['id']
                 echo '<th>Data e hora</th>';
                 echo '<th>Status</th>';
                 echo '<th>Ações</th>';
+                echo '<th>Excluir</th>';
                 echo '</tr>';
                 echo '</thead>';
                 echo '<tbody>';
@@ -94,7 +95,8 @@ if (isset($_GET['action']) && $_GET['action'] === 'approve' && isset($_GET['id']
 
                     // Botões de ação com base na situação do formulário
                     if ($situacao === 'Pendente') {
-                        echo '<a href="?page=lc_admin&action=approve&id=' . $dados->id . '">Aprovar</a>';
+                        echo '<a href="?page=lc_admin&action=approve&id=' . $dados->id . '">Aprovar</a>';  
+                        echo ' ou ';
                         echo '<a href="?page=lc_admin&action=reprove&id=' . $dados->id . '">Negar</a>';
                     } elseif ($situacao === 'Aprovado') {
                         echo '<a href="?page=lc_admin&action=reprove&id=' . $dados->id . '">Negar</a>';
