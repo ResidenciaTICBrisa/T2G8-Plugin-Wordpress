@@ -19,10 +19,13 @@ function rejeitar_formulario($id) {
 }
 
 // Verifica se o parâmetro "action" foi enviado via GET
-if (isset($_GET['action']) && $_GET['action'] === 'approve' && isset($_GET['id'])) {
-    aprovar_formulario($_GET['id']);
-} else if (isset($_GET['action']) && $_GET['action'] === 'reprove' && isset($_GET['id'])) {
-    rejeitar_formulario($_GET['id']);
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
+    // Verifica a ação do formulário
+    if ($_POST['action'] === 'approve' && isset($_POST['id'])) {
+        aprovar_formulario($_POST['id']);
+    } elseif ($_POST['action'] === 'reprove' && isset($_POST['id'])) {
+        rejeitar_formulario($_POST['id']);
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -89,13 +92,23 @@ if (isset($_GET['action']) && $_GET['action'] === 'approve' && isset($_GET['id']
 
                     // Botões de ação com base na situação do formulário
                     if ($situacao === 'Pendente') {
-                        echo '<a href="?page=lc_admin&action=approve&id=' . $dados->id . '">Aprovar</a>';  
-                        echo ' ou ';
-                        echo '<a href="?page=lc_admin&action=reprove&id=' . $dados->id . '">Negar</a>';
+                        echo '<form method="post" action="">';
+                        echo '<input type="hidden" name="id" value="' . $dados->id . '">';
+                        echo '<button type="submit" name="action" value="approve">Aprovar</button>';
+                        echo '<button type="submit" name="action" value="reprove">Negar</button>';
+                        echo '</form>';
                     } elseif ($situacao === 'Aprovado') {
-                        echo '<a href="?page=lc_admin&action=reprove&id=' . $dados->id . '">Negar</a>';
+                        echo '<form method="post" action="">';
+                        echo '<input type="hidden" name="action" value="reprove">';
+                        echo '<input type="hidden" name="id" value="' . $dados->id . '">';
+                        echo '<button type="submit">Negar</button>';
+                        echo '</form>';
                     } elseif ($situacao === 'Negado') {
-                        echo '<a href="?page=lc_admin&action=approve&id=' . $dados->id . '">Aprovar</a>';
+                        echo '<form method="post" action="">';
+                        echo '<input type="hidden" name="action" value="approve">';
+                        echo '<input type="hidden" name="id" value="' . $dados->id . '">';
+                        echo '<button type="submit">Aprovar</button>';
+                        echo '</form>';
                     }
 
                     echo '</td>';
