@@ -210,3 +210,17 @@ function preencher_novamente(){
     destroyExitMap();
     mostrarFormulario();
 }
+//função para o tamanho de comentário na parte de administração
+function mostrarDescricaoCompleta(id) {
+    var descricaoCompleta = document.getElementById('descricaoCompleta_' + id);
+    var botaoVerMais = document.querySelector('button[data-id="' + id + '"]');
+
+    if (descricaoCompleta.style.display === 'none') {
+        descricaoCompleta.style.display = 'inline'; // Mostra a descrição completa
+        botaoVerMais.innerHTML = 'Ver menos'; // Altera o texto do botão para "Ver menos"
+    } else {
+        descricaoCompleta.style.display = 'none'; // Esconde a descrição completa
+        botaoVerMais.innerHTML = 'Ver mais'; // Altera o texto do botão de volta para "Ver mais"
+    }
+}
+

@@ -85,7 +85,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
                     echo '<td>' . $dados->latitude . '</td>';
                     echo '<td>' . $dados->longitude . '</td>';
                     echo '<td>' . $dados->servico . '</td>';
-                    echo '<td>' . $dados->descricao . '</td>';
+                    echo '<td>';
+                    echo '<span id="descricaoCompleta_' . $dados->id . '" style="display:none;">' . $dados->descricao . '</span>';
+                    echo substr($dados->descricao, 0, 10) . '... <button onclick="mostrarDescricaoCompleta(' . $dados->id . ')">Ver mais</button>';
+                    echo '</td>';
                     echo '<td>' . $dados->data_hora . '</td>';
                     echo '<td>' . $dados->situacao . '</td>';
                     echo '<td>';
@@ -124,5 +127,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
         }
         ?>
     </div>
+    <script src="/assets/js/script.js"></script>
 </body>
 </html>
