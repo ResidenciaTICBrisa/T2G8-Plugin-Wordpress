@@ -11,21 +11,21 @@ document.addEventListener('DOMContentLoaded', function() {
     $('#meu_formulario').on('submit', function(e) {
         e.preventDefault(); // Previne que o formulário dê submit na forma padrão
          // Verifica se os campos estão preenchidos
-        var nome = $('#nome').val();
-        var email = $('#email').val();
-        var latitude = $('#latitude').val();
-        var longitude = $('#longitude').val();
-        var servico = $('#servico').val();
-        var descricao = $('#descricao').val();
+        var nome = document.getElementById('nome').value;
+        var email = document.getElementById('email').value;
+        var latitude = document.getElementById('latitude').value;
+        var longitude = document.getElementById('longitude').value;
+        var servico = document.getElementById('servico').value;
+        var descricao = document.getElementById('descricao').value;
 
         if (nome === '' || email === '' || latitude === '' || longitude === '' || servico === '' || descricao === '') {
             alert('Por favor, preencha todos os campos.');
             return;
-        }else{
-        // Serializa os dados do formulário
+        } else {
+            // Serializa os dados do formulário
             var formData = $(this).serialize();
 
-        // Envia o pedido do AJAX
+            // Envia o pedido do AJAX
             $.ajax({
                 type: 'POST',
                 url: ajaxUrl,
@@ -47,18 +47,21 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
-
         // CRIANDO MAPAS
 
 function initMap() {
     map = L.map('mapa', {doubleClickZoom: false}).setView([-15.8267, -47.9218], 13);
-
+    
     // Adiciona o provedor de mapa OpenStreetMap
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
     getLocation(map);
+    document.getElementById('latitude').value = '';
+    document.getElementById('longitude').value = '';
+
+
 }
 
 function exit_page_map(){
@@ -74,6 +77,10 @@ function exit_page_map(){
     getLocation(map_exit);
 
     console.log("Formulário enviado com sucesso!");
+    document.getElementById('latitude').value = '';
+    document.getElementById('longitude').value = '';
+
+    
 }
 
         // DESTRUINDO MAPAS
@@ -107,6 +114,9 @@ function destroyExitMap(){
             map_exit=null;
         }
         console.log("Sucesso ao destruir o map_exit");
+        document.getElementById('latitude').value = '';
+        document.getElementById('longitude').value = '';
+    
     }, 0);
 }
 
@@ -153,6 +163,8 @@ function initMapFormulario() {
     }).addTo(mapFormulario);
 
     getLocation(mapFormulario);
+    document.getElementById('latitude').value = '';
+    document.getElementById('longitude').value = '';
 
     // Adiciona um marcador no mapa quando clicado o mouse 1
     mapFormulario.on('click', function(e) {
@@ -181,6 +193,7 @@ function initMapFormulario() {
         if (marcador) {
             // Remove o marcador do mapa
             mapFormulario.removeLayer(marcador);
+
         }
 
         // Atualiza o valor de status do marcador para falso
@@ -197,6 +210,9 @@ function getLocation(mapa) {
     } else {
         alert("Geolocalização não é suportada por este navegador.");
     }
+    document.getElementById('latitude').value = '';
+    document.getElementById('longitude').value = '';
+
 }
 
 // Função para mostrar a posição do usuário no mapa
@@ -210,6 +226,9 @@ function showPosition(position, mapa) {
 
     // Centraliza o mapa na posição do usuário
     mapa.setView([lat, lng], 13);
+    document.getElementById('latitude').value = '';
+    document.getElementById('longitude').value = '';
+
 }
 
 // Chama initMap() quando a página for carregada
