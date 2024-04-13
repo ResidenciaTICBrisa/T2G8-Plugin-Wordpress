@@ -6,16 +6,14 @@ function aprovar_formulario($id) {
     // Atualiza o status do formulário para 'Aprovado' no banco de dados
     $query = $wpdb->prepare("UPDATE lc_formulario SET situacao = 'Aprovado' WHERE id = %d", $id);
     $resultado = $wpdb->query($query);
-
 }
 
 function rejeitar_formulario($id) {
     global $wpdb;
 
-    // Atualiza o status do formulário para 'Aprovado' no banco de dados
+    // Atualiza o status do formulário para 'Negado' no banco de dados
     $query = $wpdb->prepare("UPDATE lc_formulario SET situacao = 'Negado' WHERE id = %d", $id);
     $resultado = $wpdb->query($query);
-
 }
 
 // Verifica se o parâmetro "action" foi enviado via GET
@@ -28,7 +26,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
     }
 }
 ?>
+
 <!DOCTYPE html>
+<html>
+<head>
+</head>
 <body>
     <div class="wrap">
         <?php
@@ -86,8 +88,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
                     echo '<td>' . $dados->longitude . '</td>';
                     echo '<td>' . $dados->servico . '</td>';
                     echo '<td>';
+                    echo '<span id="descricaoResumida_' . $dados->id . '">' . substr($dados->descricao, 0, 10) . '...</span>';
                     echo '<span id="descricaoCompleta_' . $dados->id . '" style="display:none;">' . $dados->descricao . '</span>';
-                    echo substr($dados->descricao, 0, 10) . '... <button onclick="mostrarDescricaoCompleta(' . $dados->id . ')">Ver mais</button>';
+                    echo ' <button data-id="' . $dados->id . '" onclick="mostrarDescricaoCompleta(' . $dados->id . ')">Ver mais</button>';
                     echo '</td>';
                     echo '<td>' . $dados->data_hora . '</td>';
                     echo '<td>' . $dados->situacao . '</td>';
@@ -125,8 +128,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
                 echo '</table>';
             }
         }
+        echo '<script src="' . plugin_dir_url(__FILE__) . 'admin_script.js"></script>';
+
         ?>
     </div>
-    <script src="/assets/js/script.js"></script>
 </body>
 </html>
+

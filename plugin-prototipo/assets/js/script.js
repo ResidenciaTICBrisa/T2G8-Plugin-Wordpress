@@ -10,29 +10,41 @@ var ajaxUrl = my_ajax_object.ajax_url;
 document.addEventListener('DOMContentLoaded', function() {
     $('#meu_formulario').on('submit', function(e) {
         e.preventDefault(); // Previne que o formulário dê submit na forma padrão
-        
+         // Verifica se os campos estão preenchidos
+        var nome = $('#nome').val();
+        var email = $('#email').val();
+        var latitude = $('#latitude').val();
+        var longitude = $('#longitude').val();
+        var servico = $('#servico').val();
+        var descricao = $('#descricao').val();
+
+        if (nome === '' || email === '' || latitude === '' || longitude === '' || servico === '' || descricao === '') {
+            alert('Por favor, preencha todos os campos.');
+            return;
+        }else{
         // Serializa os dados do formulário
-        var formData = $(this).serialize();
+            var formData = $(this).serialize();
 
         // Envia o pedido do AJAX
-        $.ajax({
-            type: 'POST',
-            url: ajaxUrl,
-            data: {
-                action: 'processar_formulario', // Hook de ação para o lado do servidor
-                formData: formData // Data do formulário
-            },
-            success: function(response) {
-                // Resposta caso dê certo
-                console.log(response);
-                // Se o envio for bem-sucedido, executar a função exit_page()
-                exit_page();
-            },
-            error: function(xhr, status, error) {
-                // Resposta caso dê errado
-                console.error(error);
-            }
-        });
+            $.ajax({
+                type: 'POST',
+                url: ajaxUrl,
+                data: {
+                    action: 'processar_formulario', // Hook de ação para o lado do servidor
+                    formData: formData // Data do formulário
+                },
+                success: function(response) {
+                    // Resposta caso dê certo
+                    console.log(response);
+                    // Se o envio for bem-sucedido, executar a função exit_page()
+                    exit_page();
+                },
+                error: function(xhr, status, error) {
+                    // Resposta caso dê errado
+                    console.error(error);
+                }
+            });
+        }
     });
 });
 
@@ -210,17 +222,5 @@ function preencher_novamente(){
     destroyExitMap();
     mostrarFormulario();
 }
-//função para o tamanho de comentário na parte de administração
-function mostrarDescricaoCompleta(id) {
-    var descricaoCompleta = document.getElementById('descricaoCompleta_' + id);
-    var botaoVerMais = document.querySelector('button[data-id="' + id + '"]');
 
-    if (descricaoCompleta.style.display === 'none') {
-        descricaoCompleta.style.display = 'inline'; // Mostra a descrição completa
-        botaoVerMais.innerHTML = 'Ver menos'; // Altera o texto do botão para "Ver menos"
-    } else {
-        descricaoCompleta.style.display = 'none'; // Esconde a descrição completa
-        botaoVerMais.innerHTML = 'Ver mais'; // Altera o texto do botão de volta para "Ver mais"
-    }
-}
 
