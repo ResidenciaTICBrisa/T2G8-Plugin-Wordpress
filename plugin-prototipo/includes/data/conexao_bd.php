@@ -73,3 +73,28 @@ function criar_tabela_formulario() {
     require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
     dbDelta($sql);
 }
+
+
+// Função para retornar os formulários aprovados (Return é um array)
+function obter_formularios_aprovados() {
+    global $wpdb;
+
+    // Monta a consulta SQL com base nos parâmetros de ordenação
+    $query = "SELECT * FROM lc_formulario";
+    $dados_formulario = $wpdb->get_results($query);
+
+    // Array para armazenar os formulários aprovados
+    $formularios_aprovados = array();
+
+    // Itera sobre cada formulário
+    foreach ($dados_formulario as $formulario) {
+        // Verifica se o formulário está aprovado
+        if ($formulario->situacao === 'Aprovado') {
+            // Adiciona o formulário ao array de formulários aprovados
+            $formularios_aprovados[] = $formulario;
+        }
+    }
+    
+    return $formularios_aprovados;
+}
+

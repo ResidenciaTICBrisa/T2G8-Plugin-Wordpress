@@ -47,6 +47,10 @@ function initMap() {
     }).addTo(map);
 
     getLocation(map);
+
+    formularios_aprovados.forEach(function(formulario) {
+        L.marker([formulario.latitude, formulario.longitude]).addTo(map);
+    });
 }
 
 function exit_page_map(){
@@ -60,6 +64,10 @@ function exit_page_map(){
     }).addTo(map_exit);
 
     getLocation(map_exit);
+
+    formularios_aprovados.forEach(function(formulario) {
+        L.marker([formulario.latitude, formulario.longitude]).addTo(map_exit);
+    });
 
     console.log("Formulário enviado com sucesso!");
 }
@@ -140,6 +148,10 @@ function initMapFormulario() {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(mapFormulario);
 
+    formularios_aprovados.forEach(function(formulario) {
+        L.marker([formulario.latitude, formulario.longitude]).addTo(mapFormulario);
+    });
+
     getLocation(mapFormulario);
 
     // Adiciona um marcador no mapa quando clicado o mouse 1
@@ -158,9 +170,6 @@ function initMapFormulario() {
         // Atualiza os valores dos campos de entrada ocultos
         document.getElementById('latitude').value = lat;
         document.getElementById('longitude').value = lng;
-
-        // Atualiza o valor de status do marcador para verdadeiro
-        document.getElementById('marcadorAtivo').value = 1;
     });
 
     // Remove o marcador quando clicado com o mouse 2
@@ -170,9 +179,6 @@ function initMapFormulario() {
             // Remove o marcador do mapa
             mapFormulario.removeLayer(marcador);
         }
-
-        // Atualiza o valor de status do marcador para falso
-        document.getElementById('marcadorAtivo').value = 0;
     });
 }
 

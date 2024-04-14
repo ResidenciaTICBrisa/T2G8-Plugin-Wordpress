@@ -43,6 +43,19 @@ function load_meu_plugin_styles() {
         array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
 }
 
+// Enfileira o script JavaScript e passa os dados dos formulários aprovados para ele
+function enfileirar_scripts() {
+    // Enfileira o script JavaScript
+    wp_enqueue_script('script.js', 'assets/js/script.js', array('jquery'), '1.0', true);
+
+    // Obtém os formulários aprovados
+    $formularios_aprovados = obter_formularios_aprovados();
+
+    // Passa os dados dos formulários aprovados para o script JavaScript
+    wp_localize_script('script.js', 'formularios_aprovados', $formularios_aprovados);
+}
+add_action('wp_enqueue_scripts', 'enfileirar_scripts');
+
 // Adiciona um gancho para enfileirar os scripts
 add_action('wp_enqueue_scripts', 'load_meu_plugin_scripts');
 
