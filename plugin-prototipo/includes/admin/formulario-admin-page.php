@@ -61,7 +61,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
                 echo '<table class="wp-list-table widefat striped">';
                 echo '<thead>';
                 echo '<tr>';
-                echo '<th class="sort-header">Nome <button class="sort-btn" data-order="asc"></button></th>';
+                echo '<th class="sort-header">Nome <button class="sort-btn" data-order="asc"><span class="sort-icon">&#9650;</span></button></th>
+                ';
                 echo '<th>Email</th>';
                 echo '<th>Latitude</th>';
                 echo '<th>Longitude</th>';
@@ -125,40 +126,51 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
 
     <!-- Script de Ordenação -->
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Adiciona um evento de clique aos botões de ordenação
-        var sortButtons = document.querySelectorAll('.sort-btn');
+        document.addEventListener('DOMContentLoaded', function() {
+    // Adiciona um evento de clique aos botões de ordenação
+    var sortButtons = document.querySelectorAll('.sort-btn');
 
-        sortButtons.forEach(function(button) {
-            button.addEventListener('click', function() {
-                var table = button.closest('table');
-                var columnIndex = Array.from(button.parentNode.parentNode.children).indexOf(button.parentNode);
-                var order = button.getAttribute('data-order') || 'asc';
+    sortButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            var table = button.closest('table');
+            var columnIndex = Array.from(button.parentNode.parentNode.children).indexOf(button.parentNode);
+            var order = button.getAttribute('data-order') || 'asc';
 
-                order = (order === 'asc') ? 'desc' : 'asc';
-                button.setAttribute('data-order', order);
+            order = (order === 'asc') ? 'desc' : 'asc';
+            button.setAttribute('data-order', order);
 
-                // Obtém todas as linhas da tabela, exceto a primeira (cabeçalho)
-                var rows = Array.from(table.querySelectorAll('tbody > tr'));
+            // Atualiza o ícone do botão de ordenação
+            var icon = button.querySelector('.sort-icon');
 
-                rows.sort(function(a, b) {
-                    var aValue = a.children[columnIndex].textContent.trim().toLowerCase();
-                    var bValue = b.children[columnIndex].textContent.trim().toLowerCase();
+            // Remove e adiciona a classe do ícone com base na direção da ordenação
+            if (order === 'asc') {
+                icon.innerHTML = '&#9660;'; // Triângulo para baixo (ordem crescente)
+            } else {
+                icon.innerHTML = '&#9650;'; // Triângulo para cima (ordem decrescente)
+            }
 
-                    if (order === 'asc') {
-                        return aValue.localeCompare(bValue);  // Ordem crescente
-                    } else {
-                        return bValue.localeCompare(aValue);  // Ordem decrescente
-                    }
-                });
+            // Obtém todas as linhas da tabela, exceto a primeira (cabeçalho)
+            var rows = Array.from(table.querySelectorAll('tbody > tr'));
 
-                // Reinsere as linhas ordenadas na tabela
-                rows.forEach(function(row) {
-                    table.querySelector('tbody').appendChild(row);
-                });
+            rows.sort(function(a, b) {
+                var aValue = a.children[columnIndex].textContent.trim().toLowerCase();
+                var bValue = b.children[columnIndex].textContent.trim().toLowerCase();
+
+                if (order === 'asc') {
+                    return aValue.localeCompare(bValue);  // Ordem crescente
+                } else {
+                    return bValue.localeCompare(aValue);  // Ordem decrescente
+                }
+            });
+
+            // Reinsere as linhas ordenadas na tabela
+            rows.forEach(function(row) {
+                table.querySelector('tbody').appendChild(row);
             });
         });
     });
+});
+
     </script>
 </body>
 </html>
