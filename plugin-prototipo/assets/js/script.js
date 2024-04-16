@@ -94,6 +94,8 @@ function destroyMap() {
             console.log("Sucesso ao destruir o map");
         }
     }, 0);
+   
+
 }
 
 function destroyMapForm(){
@@ -171,6 +173,7 @@ function initMapFormulario() {
         // Remove o marcador atual, se existir
         if (marcador) {
             mapFormulario.removeLayer(marcador);
+            
         }
 
         // Adiciona um novo marcador na posição clicada
@@ -193,7 +196,8 @@ function initMapFormulario() {
         if (marcador) {
             // Remove o marcador do mapa
             mapFormulario.removeLayer(marcador);
-
+            document.getElementById('latitude').value = '';
+            document.getElementById('longitude').value = '';
         }
 
         // Atualiza o valor de status do marcador para falso
