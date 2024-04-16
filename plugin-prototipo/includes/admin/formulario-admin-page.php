@@ -7,18 +7,22 @@ function aprovar_formulario($id) {
     $query = $wpdb->prepare("UPDATE lc_formulario SET situacao = 'Aprovado' WHERE id = %d", $id);
     $resultado = $wpdb->query($query);
 
+    // Redireciona de volta para a mesma página após a atualização
+    echo '<script>window.location.href = window.location.href;</script>';
 }
 
 function rejeitar_formulario($id) {
     global $wpdb;
 
-    // Atualiza o status do formulário para 'Aprovado' no banco de dados
+    // Atualiza o status do formulário para 'Negado' no banco de dados
     $query = $wpdb->prepare("UPDATE lc_formulario SET situacao = 'Negado' WHERE id = %d", $id);
     $resultado = $wpdb->query($query);
 
+    // Redireciona de volta para a mesma página após a atualização
+    echo '<script>window.location.href = window.location.href;</script>';
 }
 
-// Verifica se o parâmetro "action" foi enviado via GET
+// Verifica se o parâmetro "action" foi enviado via POST
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
     // Verifica a ação do formulário
     if ($_POST['action'] === 'approve' && isset($_POST['id'])) {
@@ -28,7 +32,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
     }
 }
 ?>
+
 <!DOCTYPE html>
+<html>
 <body>
     <div class="wrap">
         <?php
@@ -41,14 +47,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
 
         // Consulta os dados da tabela formulario
         global $wpdb;
-        
-        // Parâmetros para ordenação (nome e direção)
-        $order_by = isset($_GET['order_by']) ? $_GET['order_by'] : 'nome'; // Coluna padrão para ordenação é o nome
-        $order = isset($_GET['order']) ? $_GET['order'] : 'asc'; // Ordem padrão é crescente
-
-        // Monta a consulta SQL com base nos parâmetros de ordenação
-        $query = "SELECT * FROM lc_formulario ORDER BY $order_by $order";
-        $dados_formulario = $wpdb->get_results($query);
 
         // Itera sobre cada categoria de formulários
         foreach ($categorias as $situacao => $titulo) {
@@ -63,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
                 echo '<table class="wp-list-table widefat striped">';
                 echo '<thead>';
                 echo '<tr>';
-                echo '<th>Nome</th>';
+                echo '<th class="sort-header">Nome <button class="sort-btn" data-order="asc"></button></th>';
                 echo '<th>Email</th>';
                 echo '<th>Latitude</th>';
                 echo '<th>Longitude</th>';
@@ -124,5 +122,43 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
         }
         ?>
     </div>
+
+    <!-- Script de Ordenação -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Adiciona um evento de clique aos botões de ordenação
+        var sortButtons = document.querySelectorAll('.sort-btn');
+
+        sortButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                var table = button.closest('table');
+                var columnIndex = Array.from(button.parentNode.parentNode.children).indexOf(button.parentNode);
+                var order = button.getAttribute('data-order') || 'asc';
+
+                order = (order === 'asc') ? 'desc' : 'asc';
+                button.setAttribute('data-order', order);
+
+                // Obtém todas as linhas da tabela, exceto a primeira (cabeçalho)
+                var rows = Array.from(table.querySelectorAll('tbody > tr'));
+
+                rows.sort(function(a, b) {
+                    var aValue = a.children[columnIndex].textContent.trim().toLowerCase();
+                    var bValue = b.children[columnIndex].textContent.trim().toLowerCase();
+
+                    if (order === 'asc') {
+                        return aValue.localeCompare(bValue);  // Ordem crescente
+                    } else {
+                        return bValue.localeCompare(aValue);  // Ordem decrescente
+                    }
+                });
+
+                // Reinsere as linhas ordenadas na tabela
+                rows.forEach(function(row) {
+                    table.querySelector('tbody').appendChild(row);
+                });
+            });
+        });
+    });
+    </script>
 </body>
 </html>
