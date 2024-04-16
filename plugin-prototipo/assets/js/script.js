@@ -49,7 +49,7 @@ function initMap() {
     getLocation(map);
 
     formularios_aprovados.forEach(function(formulario) {
-        L.marker([formulario.latitude, formulario.longitude]).addTo(map);
+        L.marker([formulario.latitude, formulario.longitude]).bindPopup(formulario.nome).addTo(map);
     });
 }
 
@@ -149,7 +149,7 @@ function initMapFormulario() {
     }).addTo(mapFormulario);
 
     formularios_aprovados.forEach(function(formulario) {
-        L.marker([formulario.latitude, formulario.longitude]).addTo(mapFormulario);
+        L.marker([formulario.latitude, formulario.longitude]).bindPopup(formulario.nome).addTo(mapFormulario);
     });
 
     getLocation(mapFormulario);
