@@ -36,6 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
 <!DOCTYPE html>
 <html>
 <body>
+    <div id="mapa_admin" style="height: 400px;margin-bottom:10px;"></div>
     <div class="wrap">
         <?php
         // Definições das categorias de formulários
@@ -58,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
             // Exibe a tabela apenas se houver formulários para essa categoria
             if (!empty($formularios_filtrados)) {
                 echo '<h2>' . $titulo . '</h2>';
-                echo '<table class="wp-list-table widefat striped">';
+                echo '<table class="wp-list-table widefat striped" id=tabela-'. $situacao .'>';
                 echo '<thead>';
                 echo '<tr>';
                 echo '<th class="sort-header">Nome <button class="sort-btn" data-order="asc"><span class="sort-icon">&#9650;</span></button></th>
@@ -78,7 +79,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
 
                 // Itera sobre os formulários filtrados
                 foreach ($formularios_filtrados as $dados) {
-                    echo '<tr>';
+                    echo '<tr id = ' . $dados->id .'>';
                     echo '<td>' . $dados->nome . '</td>';
                     echo '<td>' . $dados->email . '</td>';
                     echo '<td>' . $dados->latitude . '</td>';
@@ -172,5 +173,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
 });
 
     </script>
+    <script src="assets/js/script_interface.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
 </body>
 </html>

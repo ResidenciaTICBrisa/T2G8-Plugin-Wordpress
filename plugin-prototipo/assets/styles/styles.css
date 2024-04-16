@@ -81,3 +81,7 @@
 #mapa, #mapaFormulario, #mapa_exit{
     border-radius:20px;
 }
+
+.destacado {
+    background-color: #ffcc00!important; 
+}

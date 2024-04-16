@@ -48,7 +48,7 @@ function load_meu_plugin_styles() {
 function enfileirar_scripts() {
     // Enfileira o script JavaScript
     wp_enqueue_script('script.js', 'assets/js/script.js', array('jquery'), '1.0', true);
-
+   
     // Obtém os formulários aprovados
     $formularios_aprovados = obter_formularios_aprovados();
 
@@ -56,12 +56,15 @@ function enfileirar_scripts() {
     wp_localize_script('script.js', 'formularios_aprovados', $formularios_aprovados);
 }
 add_action('wp_enqueue_scripts', 'enfileirar_scripts');
+add_action('admin_enqueue_scripts', 'enfileirar_scripts');
 
 // Adiciona um gancho para enfileirar os scripts
 add_action('wp_enqueue_scripts', 'load_meu_plugin_scripts');
+add_action('admin_enqueue_scripts', 'load_meu_plugin_scripts');
 
 // Adiciona um gancho para enfileirar os estilos
 add_action('wp_enqueue_scripts', 'load_meu_plugin_styles');
+add_action('admin_enqueue_scripts', 'load_meu_plugin_styles');
 
 // Função para adicionar o shortcode
 function meu_plugin_shortcode() {

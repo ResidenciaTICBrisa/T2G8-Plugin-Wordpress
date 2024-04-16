@@ -2,7 +2,16 @@
 var map;
 var marcador;
 var mapFormulario;
+var mapAdmin
 var map_exit;
+
+function highlightTableRow(id) {
+    var table = document.getElementById('tabela-Aprovado');
+    for (var i = 0, row; row = table.rows[i]; i++) {
+        row.classList.remove('destacado');
+     }
+    document.getElementById(id).classList.add('destacado');
+}
 
 // Envia os dados do formulário de forma assíncrona usando AJAX e JQuery
 var ajaxUrl = my_ajax_object.ajax_url;
@@ -39,6 +48,11 @@ document.addEventListener('DOMContentLoaded', function() {
         // CRIANDO MAPAS
 
 function initMap() {
+    if(document.getElementById('mapa') == null) 
+    {   
+        return;
+    }
+
     map = L.map('mapa', {doubleClickZoom: false}).setView([-15.8267, -47.9218], 13);
 
     // Adiciona o provedor de mapa OpenStreetMap
@@ -70,6 +84,27 @@ function exit_page_map(){
     });
 
     console.log("Formulário enviado com sucesso!");
+}
+
+function initMapAdmin() {
+    if(document.getElementById('mapa_admin') == null) 
+    {   
+        return;
+    }
+
+    mapAdmin = L.map('mapa_admin', {doubleClickZoom: false}).setView([-15.8267, -47.9218], 13);
+
+    // Adiciona o provedor de mapa OpenStreetMap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(mapAdmin);
+
+    formularios_aprovados.forEach(function(formulario) {
+        L.marker([formulario.latitude, formulario.longitude]).bindPopup(formulario.nome).addTo(mapAdmin).on('click', function() {
+
+            highlightTableRow(formulario.id);
+        });
+    });
 }
 
         // DESTRUINDO MAPAS
@@ -199,8 +234,10 @@ function showPosition(position, mapa) {
     var lng = position.coords.longitude; // Longitude
 
     // Atualiza os valores dos campos de entrada ocultos
-    document.getElementById('latitude').value = lat;
-    document.getElementById('longitude').value = lng;
+    if(document.getElementById('latitude') && document.getElementById('longitude')){
+        document.getElementById('latitude').value = lat;
+        document.getElementById('longitude').value = lng;
+    }
 
     // Centraliza o mapa na posição do usuário
     mapa.setView([lat, lng], 13);
@@ -209,6 +246,7 @@ function showPosition(position, mapa) {
 // Chama initMap() quando a página for carregada
 window.onload = function() {
     initMap();
+    initMapAdmin();
 };
 
 // Função que permite voltar da tela final para a tela inicial
