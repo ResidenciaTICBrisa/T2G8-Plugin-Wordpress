@@ -34,7 +34,17 @@
     background-color: #1266f1;
 }
 
-#nome, #email, #descricao{
+#nome, #email, #descricao, #servico_outro{
+    width:97%;
+    resize:none;
+    background-color:#F5F5F5;
+    margin-bottom:10px;
+    border: 1px solid #D0D0D0;
+    border-radius:10px;
+    padding:10px;
+}
+
+#servico{
     width:100%;
     resize:none;
     background-color:#F5F5F5;
@@ -84,4 +94,8 @@
 
 .destacado {
     background-color: #ffcc00!important; 
+}
+
+.escondido{
+    display:none;
 }

@@ -254,3 +254,17 @@ function preencher_novamente(){
     destroyExitMap();
     mostrarFormulario();
 }
+
+function mostrarOutro(){
+    var select = document.getElementById("servico");
+    var outroCampo = document.getElementById("outroServico");
+    var outroInput = document.getElementById("servico_outro");
+    if(select.value==="outro"){
+        outroCampo.classList.remove("escondido");
+        outroInput.setAttribute("required", "required");
+    }
+    else{
+        outroCampo.classList.add("escondido");
+        outroInput.removeAttribute("required");
+    }
+}
