@@ -58,8 +58,8 @@ function initMap() {
     }).addTo(map);
 
     getLocation(map);
-    document.getElementById('latitude').value = '';
-    document.getElementById('longitude').value = '';
+    // document.getElementById('latitude').value = '';
+    // document.getElementById('longitude').value = '';
 
 
 }
@@ -77,8 +77,8 @@ function exit_page_map(){
     getLocation(map_exit);
 
     console.log("Formulário enviado com sucesso!");
-    document.getElementById('latitude').value = '';
-    document.getElementById('longitude').value = '';
+    // document.getElementById('latitude').value = '';
+    // document.getElementById('longitude').value = '';
 
     
 }
@@ -116,8 +116,8 @@ function destroyExitMap(){
             map_exit=null;
         }
         console.log("Sucesso ao destruir o map_exit");
-        document.getElementById('latitude').value = '';
-        document.getElementById('longitude').value = '';
+        // document.getElementById('latitude').value = '';
+        // document.getElementById('longitude').value = '';
     
     }, 0);
 }
