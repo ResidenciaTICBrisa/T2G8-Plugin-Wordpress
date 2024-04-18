@@ -1,0 +1,12 @@
+button[data-id] {
+    background-color: transparent;
+    color: rgba(0, 153, 255, 0.877);
+    border: none;
+    font-size: inherit;
+    cursor: pointer;
+}
+
+button[data-id]:hover {
+    text-decoration: underline;
+
+}
