@@ -92,8 +92,13 @@
     border-radius:20px;
 }
 
-.destacado {
-    background-color: #ffcc00!important; 
+.linha-destacada { 
+    animation: fadeOut 2s ease;
+}
+
+@keyframes fadeOut {
+    0% { background-color: #90cc90;}
+    100% { background-color: transparent;}
 }
 
 .escondido{

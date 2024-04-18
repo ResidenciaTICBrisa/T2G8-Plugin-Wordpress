@@ -5,12 +5,25 @@ var mapFormulario;
 var mapAdmin
 var map_exit;
 
-function highlightTableRow(id) {
-    var table = document.getElementById('tabela-Aprovado');
-    for (var i = 0, row; row = table.rows[i]; i++) {
-        row.classList.remove('destacado');
-     }
-    document.getElementById(id).classList.add('destacado');
+// #f6f7f7
+
+// Função para destacar uma determinada linha na tabela de formulários aprovados
+function destacarLinhaTabela(id) {
+    var tabela = document.getElementById('tabela-Aprovado');
+    var linha = document.getElementById(id)
+
+    // Loop para remover a linha-destacada de todas as linhas 
+    for (var i = 0, row; row = tabela.rows[i]; i++) {
+        row.classList.remove('linha-destacada');
+    }
+    
+    linha.classList.add('linha-destacada'); // Adiciona a classe 'linha-destacada'
+    linha.scrollIntoView({ behavior: 'smooth' }) // Rola a página para a linha
+
+    // Remove a classe linha-destacada depois de um determinado tempo 
+    setTimeout(function() {
+        linha.classList.remove('linha-destacada');
+    }, 2000);
 }
 
 // Envia os dados do formulário de forma assíncrona usando AJAX e JQuery
@@ -102,7 +115,7 @@ function initMapAdmin() {
     formularios_aprovados.forEach(function(formulario) {
         L.marker([formulario.latitude, formulario.longitude]).bindPopup(formulario.nome).addTo(mapAdmin).on('click', function() {
 
-            highlightTableRow(formulario.id);
+            destacarLinhaTabela(formulario.id);
         });
     });
 }
