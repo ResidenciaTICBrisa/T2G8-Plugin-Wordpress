@@ -1,8 +1,8 @@
 <!DOCTYPE html>
+<html lang="pt-BR">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css" />
 </head>
 <body>
     <div id="div_index">
@@ -20,8 +20,13 @@
             <input type="email" name="email" id="email" required><br>
 
             <label for="servico">Escolha o tipo de serviço:</label><br>
+<<<<<<< HEAD
             <select id="servico" name="servico" required>
                 <option value=""></option>
+=======
+            <select id="servico" name="servico" onchange="mostrarOutro()" required>
+                <option value="" selected disabled>Selecione...</option>
+>>>>>>> developer
                 <option value="bar/restaurante">Bares/restaurantes</option>
                 <option value="entretenimento">Entretenimento</option>
                 <option value="beleza">Beleza</option>
@@ -30,6 +35,11 @@
                 <option value="academia">Academia</option>
                 <option value="outro">Outro</option>
             </select>
+
+            <div id="outroServico" class="escondido">
+                <label for="especifique">Especifique:</label>
+                <input type="text" name="servico_outro" id="servico_outro">
+            </div>
             
             <label for="descricao">Descrição:</label>
             <textarea name="descricao" id="descricao" rows="3" cols="70" placeholder="Descrição ..." required></textarea>

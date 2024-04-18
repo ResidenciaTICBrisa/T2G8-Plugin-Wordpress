@@ -2,7 +2,29 @@
 var map;
 var marcador;
 var mapFormulario;
+var mapAdmin
 var map_exit;
+
+// #f6f7f7
+
+// Função para destacar uma determinada linha na tabela de formulários aprovados
+function destacarLinhaTabela(id) {
+    var tabela = document.getElementById('tabela-Aprovado');
+    var linha = document.getElementById(id)
+
+    // Loop para remover a linha-destacada de todas as linhas 
+    for (var i = 0, row; row = tabela.rows[i]; i++) {
+        row.classList.remove('linha-destacada');
+    }
+    
+    linha.classList.add('linha-destacada'); // Adiciona a classe 'linha-destacada'
+    linha.scrollIntoView({ behavior: 'smooth' }) // Rola a página para a linha
+
+    // Remove a classe linha-destacada depois de um determinado tempo 
+    setTimeout(function() {
+        linha.classList.remove('linha-destacada');
+    }, 2000);
+}
 
 // Envia os dados do formulário de forma assíncrona usando AJAX e JQuery
 var ajaxUrl = my_ajax_object.ajax_url;
@@ -49,14 +71,86 @@ document.addEventListener('DOMContentLoaded', function() {
 });
         // CRIANDO MAPAS
 
+<<<<<<< HEAD
 function initMap() {
     map = L.map('mapa', {doubleClickZoom: false}).setView([-15.8267, -47.9218], 13);
     
+=======
+        function initMap() {
+            if (document.getElementById('mapa') == null) {
+                return;
+            }
+        
+            map = L.map('mapa', { doubleClickZoom: false }).setView([-15.8267, -47.9218], 13);
+        
+            // Adiciona o provedor de mapa OpenStreetMap
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+        
+            getLocation(map);
+        
+            formularios_aprovados.forEach(function (formulario) {
+                // Cria o conteúdo HTML personalizado para o pop-up (Nome e Descrição)
+                var popupContent = `
+                    <div>
+                        <h4>Nome do Local:${formulario.nome}</h4>
+                        <p><strong>Descrição:</strong> ${formulario.descricao}</p>
+                    </div>
+                `;
+        
+                L.marker([formulario.latitude, formulario.longitude])
+                    .bindPopup(popupContent)
+                    .addTo(map);
+            });
+        }
+        
+
+        function exit_page_map() {
+            map_exit = L.map('mapa_exit', {
+                doubleClickZoom: false
+            }).setView([-15.8267, -47.9218], 13);
+        
+            // Adiciona o provedor de mapa OpenStreetMap
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map_exit);
+        
+            getLocation(map_exit);
+        
+            formularios_aprovados.forEach(function (formulario) {
+                // Cria o conteúdo HTML personalizado para o pop-up (Nome e Descrição)
+                var popupContent = `
+                    <div>
+                        <h4>Nome do Local:${formulario.nome}</h4>
+                        <p><strong>Descrição:</strong> ${formulario.descricao}</p>
+                    </div>
+                `;
+        
+                L.marker([formulario.latitude, formulario.longitude])
+                    .bindPopup(popupContent)
+                    .addTo(map_exit);
+            });
+        
+            console.log("Formulário enviado com sucesso!");
+        }
+        
+
+function initMapAdmin() {
+    if(document.getElementById('mapa_admin') == null) 
+    {   
+        return;
+    }
+
+    mapAdmin = L.map('mapa_admin', {doubleClickZoom: false}).setView([-15.8267, -47.9218], 13);
+
+>>>>>>> developer
     // Adiciona o provedor de mapa OpenStreetMap
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
+    }).addTo(mapAdmin);
 
+<<<<<<< HEAD
     getLocation(map);
     // document.getElementById('latitude').value = '';
     // document.getElementById('longitude').value = '';
@@ -81,6 +175,14 @@ function exit_page_map(){
     // document.getElementById('longitude').value = '';
 
     
+=======
+    formularios_aprovados.forEach(function(formulario) {
+        L.marker([formulario.latitude, formulario.longitude]).addTo(mapAdmin).on('click', function() {
+
+            destacarLinhaTabela(formulario.id);
+        });
+    });
+>>>>>>> developer
 }
 
         // DESTRUINDO MAPAS
@@ -156,20 +258,33 @@ function exit_page(){
 
 // Função para inicializar o mapa no formulário
 function initMapFormulario() {
-
-    mapFormulario = L.map('mapaFormulario', {doubleClickZoom: false}).setView([-15.8267, -47.9218], 13);
+    mapFormulario = L.map('mapaFormulario', { doubleClickZoom: false }).setView([-15.8267, -47.9218], 13);
 
     // Adiciona o provedor de mapa OpenStreetMap
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(mapFormulario);
 
+    formularios_aprovados.forEach(function (formulario) {
+        // Cria o conteúdo HTML personalizado para o pop-up (Nome e Descrição)
+        var popupContent = `
+            <div>
+                <h4>Nome do Local: ${formulario.nome}</h4>
+                <p><strong>Descrição:</strong> ${formulario.descricao}</p>
+            </div>
+        `;
+
+        L.marker([formulario.latitude, formulario.longitude])
+            .bindPopup(popupContent)
+            .addTo(mapFormulario);
+    });
+
     getLocation(mapFormulario);
     document.getElementById('latitude').value = '';
     document.getElementById('longitude').value = '';
 
     // Adiciona um marcador no mapa quando clicado o mouse 1
-    mapFormulario.on('click', function(e) {
+    mapFormulario.on('click', function (e) {
         // Remove o marcador atual, se existir
         if (marcador) {
             mapFormulario.removeLayer(marcador);
@@ -177,7 +292,7 @@ function initMapFormulario() {
         }
 
         // Adiciona um novo marcador na posição clicada
-        marcador = L.marker(e.latlng).addTo(mapFormulario);            
+        marcador = L.marker(e.latlng).addTo(mapFormulario);
 
         var lat = e.latlng.lat; // Latitude
         var lng = e.latlng.lng; // Longitude
@@ -185,13 +300,10 @@ function initMapFormulario() {
         // Atualiza os valores dos campos de entrada ocultos
         document.getElementById('latitude').value = lat;
         document.getElementById('longitude').value = lng;
-
-        // Atualiza o valor de status do marcador para verdadeiro
-        document.getElementById('marcadorAtivo').value = 1;
     });
 
     // Remove o marcador quando clicado com o mouse 2
-    mapFormulario.on('contextmenu', function(e) {
+    mapFormulario.on('contextmenu', function (e) {
         // Verifica se existe um marcador atual
         if (marcador) {
             // Remove o marcador do mapa
@@ -199,11 +311,9 @@ function initMapFormulario() {
             document.getElementById('latitude').value = '';
             document.getElementById('longitude').value = '';
         }
-
-        // Atualiza o valor de status do marcador para falso
-        document.getElementById('marcadorAtivo').value = 0;
     });
 }
+
 
 // Função para obter a localização do usuário
 function getLocation(mapa) {
@@ -225,8 +335,10 @@ function showPosition(position, mapa) {
     var lng = position.coords.longitude; // Longitude
 
     // Atualiza os valores dos campos de entrada ocultos
-    document.getElementById('latitude').value = lat;
-    document.getElementById('longitude').value = lng;
+    if(document.getElementById('latitude') && document.getElementById('longitude')){
+        document.getElementById('latitude').value = lat;
+        document.getElementById('longitude').value = lng;
+    }
 
     // Centraliza o mapa na posição do usuário
     mapa.setView([lat, lng], 13);
@@ -238,6 +350,7 @@ function showPosition(position, mapa) {
 // Chama initMap() quando a página for carregada
 window.onload = function() {
     initMap();
+    initMapAdmin();
 };
 
 // Função que permite voltar da tela final para a tela inicial
@@ -246,4 +359,20 @@ function preencher_novamente(){
     mostrarFormulario();
 }
 
+<<<<<<< HEAD
 
+=======
+function mostrarOutro(){
+    var select = document.getElementById("servico");
+    var outroCampo = document.getElementById("outroServico");
+    var outroInput = document.getElementById("servico_outro");
+    if(select.value==="outro"){
+        outroCampo.classList.remove("escondido");
+        outroInput.setAttribute("required", "required");
+    }
+    else{
+        outroCampo.classList.add("escondido");
+        outroInput.removeAttribute("required");
+    }
+}
+>>>>>>> developer

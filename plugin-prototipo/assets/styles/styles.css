@@ -34,7 +34,17 @@
     background-color: #1266f1;
 }
 
-#nome, #email, #descricao{
+#nome, #email, #descricao, #servico_outro{
+    width:97%;
+    resize:none;
+    background-color:#F5F5F5;
+    margin-bottom:10px;
+    border: 1px solid #D0D0D0;
+    border-radius:10px;
+    padding:10px;
+}
+
+#servico{
     width:100%;
     resize:none;
     background-color:#F5F5F5;
@@ -81,3 +91,19 @@
 #mapa, #mapaFormulario, #mapa_exit{
     border-radius:20px;
 }
+<<<<<<< HEAD
+=======
+
+.linha-destacada { 
+    animation: fadeOut 2s ease;
+}
+
+@keyframes fadeOut {
+    0% { background-color: #90cc90;}
+    100% { background-color: transparent;}
+}
+
+.escondido{
+    display:none;
+}
+>>>>>>> developer
