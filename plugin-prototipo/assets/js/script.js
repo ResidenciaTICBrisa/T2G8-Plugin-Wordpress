@@ -60,44 +60,65 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // CRIANDO MAPAS
 
-function initMap() {
-    if(document.getElementById('mapa') == null) 
-    {   
-        return;
-    }
+        function initMap() {
+            if (document.getElementById('mapa') == null) {
+                return;
+            }
+        
+            map = L.map('mapa', { doubleClickZoom: false }).setView([-15.8267, -47.9218], 13);
+        
+            // Adiciona o provedor de mapa OpenStreetMap
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+        
+            getLocation(map);
+        
+            formularios_aprovados.forEach(function (formulario) {
+                // Cria o conteúdo HTML personalizado para o pop-up (Nome e Descrição)
+                var popupContent = `
+                    <div>
+                        <h4>Nome do Local:${formulario.nome}</h4>
+                        <p><strong>Descrição:</strong> ${formulario.descricao}</p>
+                    </div>
+                `;
+        
+                L.marker([formulario.latitude, formulario.longitude])
+                    .bindPopup(popupContent)
+                    .addTo(map);
+            });
+        }
+        
 
-    map = L.map('mapa', {doubleClickZoom: false}).setView([-15.8267, -47.9218], 13);
-
-    // Adiciona o provedor de mapa OpenStreetMap
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
-
-    getLocation(map);
-
-    formularios_aprovados.forEach(function(formulario) {
-        L.marker([formulario.latitude, formulario.longitude]).bindPopup(formulario.nome).addTo(map);
-    });
-}
-
-function exit_page_map(){
-    map_exit = L.map('mapa_exit', {
-        doubleClickZoom: false
-    }).setView([-15.8267, -47.9218], 13);
-
-    // Adiciona o provedor de mapa OpenStreetMap
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map_exit);
-
-    getLocation(map_exit);
-
-    formularios_aprovados.forEach(function(formulario) {
-        L.marker([formulario.latitude, formulario.longitude]).addTo(map_exit);
-    });
-
-    console.log("Formulário enviado com sucesso!");
-}
+        function exit_page_map() {
+            map_exit = L.map('mapa_exit', {
+                doubleClickZoom: false
+            }).setView([-15.8267, -47.9218], 13);
+        
+            // Adiciona o provedor de mapa OpenStreetMap
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map_exit);
+        
+            getLocation(map_exit);
+        
+            formularios_aprovados.forEach(function (formulario) {
+                // Cria o conteúdo HTML personalizado para o pop-up (Nome e Descrição)
+                var popupContent = `
+                    <div>
+                        <h4>Nome do Local:${formulario.nome}</h4>
+                        <p><strong>Descrição:</strong> ${formulario.descricao}</p>
+                    </div>
+                `;
+        
+                L.marker([formulario.latitude, formulario.longitude])
+                    .bindPopup(popupContent)
+                    .addTo(map_exit);
+            });
+        
+            console.log("Formulário enviado com sucesso!");
+        }
+        
 
 function initMapAdmin() {
     if(document.getElementById('mapa_admin') == null) 
@@ -188,29 +209,38 @@ function exit_page(){
 
 // Função para inicializar o mapa no formulário
 function initMapFormulario() {
-
-    mapFormulario = L.map('mapaFormulario', {doubleClickZoom: false}).setView([-15.8267, -47.9218], 13);
+    mapFormulario = L.map('mapaFormulario', { doubleClickZoom: false }).setView([-15.8267, -47.9218], 13);
 
     // Adiciona o provedor de mapa OpenStreetMap
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(mapFormulario);
 
-    formularios_aprovados.forEach(function(formulario) {
-        L.marker([formulario.latitude, formulario.longitude]).bindPopup(formulario.nome).addTo(mapFormulario);
+    formularios_aprovados.forEach(function (formulario) {
+        // Cria o conteúdo HTML personalizado para o pop-up (Nome e Descrição)
+        var popupContent = `
+            <div>
+                <h4>Nome do Local: ${formulario.nome}</h4>
+                <p><strong>Descrição:</strong> ${formulario.descricao}</p>
+            </div>
+        `;
+
+        L.marker([formulario.latitude, formulario.longitude])
+            .bindPopup(popupContent)
+            .addTo(mapFormulario);
     });
 
     getLocation(mapFormulario);
 
     // Adiciona um marcador no mapa quando clicado o mouse 1
-    mapFormulario.on('click', function(e) {
+    mapFormulario.on('click', function (e) {
         // Remove o marcador atual, se existir
         if (marcador) {
             mapFormulario.removeLayer(marcador);
         }
 
         // Adiciona um novo marcador na posição clicada
-        marcador = L.marker(e.latlng).addTo(mapFormulario);            
+        marcador = L.marker(e.latlng).addTo(mapFormulario);
 
         var lat = e.latlng.lat; // Latitude
         var lng = e.latlng.lng; // Longitude
@@ -221,7 +251,7 @@ function initMapFormulario() {
     });
 
     // Remove o marcador quando clicado com o mouse 2
-    mapFormulario.on('contextmenu', function(e) {
+    mapFormulario.on('contextmenu', function (e) {
         // Verifica se existe um marcador atual
         if (marcador) {
             // Remove o marcador do mapa
@@ -229,6 +259,7 @@ function initMapFormulario() {
         }
     });
 }
+
 
 // Função para obter a localização do usuário
 function getLocation(mapa) {
