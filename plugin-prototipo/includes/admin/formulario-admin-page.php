@@ -6,12 +6,9 @@ function aprovar_formulario($id) {
     // Atualiza o status do formulário para 'Aprovado' no banco de dados
     $query = $wpdb->prepare("UPDATE lc_formulario SET situacao = 'Aprovado' WHERE id = %d", $id);
     $resultado = $wpdb->query($query);
-<<<<<<< HEAD
-=======
 
     // Redireciona de volta para a mesma página após a atualização
     echo '<script>window.location.href = window.location.href;</script>';
->>>>>>> developer
 }
 
 function rejeitar_formulario($id) {
@@ -20,12 +17,9 @@ function rejeitar_formulario($id) {
     // Atualiza o status do formulário para 'Negado' no banco de dados
     $query = $wpdb->prepare("UPDATE lc_formulario SET situacao = 'Negado' WHERE id = %d", $id);
     $resultado = $wpdb->query($query);
-<<<<<<< HEAD
-=======
 
     // Redireciona de volta para a mesma página após a atualização
     echo '<script>window.location.href = window.location.href;</script>';
->>>>>>> developer
 }
 
 // Verifica se o parâmetro "action" foi enviado via POST
@@ -40,35 +34,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
 ?>
 
 <!DOCTYPE html>
-<<<<<<< HEAD
-    <html>
-    <head>
-        <link rel="stylesheet" href="<?php echo plugin_dir_url(__FILE__); ?>style-admin.css">
-    </head>
-    <body>
-        <div class="wrap">
-            <?php
-            // Definições das categorias de formulários
-            $categorias = [
-                'Pendente' => 'Formulários Pendentes',
-                'Aprovado' => 'Formulários Aprovados',
-                'Negado' => 'Formulários Negados'
-            ];
-
-            // Consulta os dados da tabela formulario
-            global $wpdb;
-            
-            // Parâmetros para ordenação (nome e direção)
-            $order_by = isset($_GET['order_by']) ? $_GET['order_by'] : 'nome'; // Coluna padrão para ordenação é o nome
-            $order = isset($_GET['order']) ? $_GET['order'] : 'asc'; // Ordem padrão é crescente
-
-            // Monta a consulta SQL com base nos parâmetros de ordenação
-            $query = "SELECT * FROM lc_formulario ORDER BY $order_by $order";
-            $dados_formulario = $wpdb->get_results($query);
-=======
 <html>
+<head>
+    <link rel="stylesheet" href="<?php echo plugin_dir_url(__FILE__); ?>style-admin.css">
+</head>
 <body>
-    <div id="mapa_admin" style="height: 400px;margin-bottom:10px;"></div>
     <div class="wrap">
         <?php
         // Definições das categorias de formulários
@@ -80,41 +50,29 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
 
         // Consulta os dados da tabela formulario
         global $wpdb;
->>>>>>> developer
+        
+        // Parâmetros para ordenação (nome e direção)
+        $order_by = isset($_GET['order_by']) ? $_GET['order_by'] : 'nome'; // Coluna padrão para ordenação é o nome
+        $order = isset($_GET['order']) ? $_GET['order'] : 'asc'; // Ordem padrão é crescente
 
-            // Itera sobre cada categoria de formulários
-            foreach ($categorias as $situacao => $titulo) {
-                // Filtra os dados pelo status (situacao)
-                $formularios_filtrados = array_filter($dados_formulario, function($dados) use ($situacao) {
-                    return $dados->situacao === $situacao;
-                });
+        // Monta a consulta SQL com base nos parâmetros de ordenação
+        $query = "SELECT * FROM lc_formulario ORDER BY $order_by $order";
+        $dados_formulario = $wpdb->get_results($query);
 
-<<<<<<< HEAD
-                // Exibe a tabela apenas se houver formulários para essa categoria
-                if (!empty($formularios_filtrados)) {
-                    echo '<h2>' . $titulo . '</h2>';
-                    echo '<table class="wp-list-table widefat striped">';
-                    echo '<thead>';
-                    echo '<tr>';
-                    echo '<th>Nome</th>';
-                    echo '<th>Email</th>';
-                    echo '<th>Latitude</th>';
-                    echo '<th>Longitude</th>';
-                    echo '<th>Serviço</th>';
-                    echo '<th>Descrição</th>';
-                    echo '<th>Data e hora</th>';
-                    echo '<th>Status</th>';
-                    echo '<th>Ações</th>';
-                    echo '<th>Excluir</th>';
-=======
+        // Itera sobre cada categoria de formulários
+        foreach ($categorias as $situacao => $titulo) {
+            // Filtra os dados pelo status (situacao)
+            $formularios_filtrados = array_filter($dados_formulario, function($dados) use ($situacao) {
+                return $dados->situacao === $situacao;
+            });
+
             // Exibe a tabela apenas se houver formulários para essa categoria
             if (!empty($formularios_filtrados)) {
                 echo '<h2>' . $titulo . '</h2>';
-                echo '<table class="wp-list-table widefat striped" id=tabela-'. $situacao .'>';
+                echo '<table class="wp-list-table widefat striped">';
                 echo '<thead>';
                 echo '<tr>';
-                echo '<th class="sort-header">Nome <button class="sort-btn" data-order="asc"><span class="sort-icon">&#9650;</span></button></th>
-                ';
+                echo '<th>Nome</th>';
                 echo '<th>Email</th>';
                 echo '<th>Latitude</th>';
                 echo '<th>Longitude</th>';
@@ -130,13 +88,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
 
                 // Itera sobre os formulários filtrados
                 foreach ($formularios_filtrados as $dados) {
-                    echo '<tr id = ' . $dados->id .'>';
+                    echo '<tr>';
                     echo '<td>' . $dados->nome . '</td>';
                     echo '<td>' . $dados->email . '</td>';
                     echo '<td>' . $dados->latitude . '</td>';
                     echo '<td>' . $dados->longitude . '</td>';
                     echo '<td>' . $dados->servico . '</td>';
-                    echo '<td>' . $dados->descricao . '</td>';
+                    echo '<td>';
+                    if (strlen($dados->descricao) > 10) {
+                        echo '<span id="descricaoResumida_' . $dados->id . '">' . substr($dados->descricao, 0, 10) . '...</span>';
+                        echo '<span id="descricaoCompleta_' . $dados->id . '" style="display:none;">' . $dados->descricao . '</span>';
+                        echo ' <button data-id="' . $dados->id . '" onclick="mostrarDescricaoCompleta(' . $dados->id . ')">Ver mais</button>';
+                    } else {
+                        echo $dados->descricao;
+                    }
+                    echo '</td>';
                     echo '<td>' . $dados->data_hora . '</td>';
                     echo '<td>' . $dados->situacao . '</td>';
                     echo '<td>';
@@ -166,129 +132,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
                     echo '<td>';
                     echo '<a href="?page=lc_admin&action=delete&id=' . $dados->id . '">Excluir</a>';
                     echo '</td>';
->>>>>>> developer
                     echo '</tr>';
-                    echo '</thead>';
-                    echo '<tbody>';
-
-                    // Itera sobre os formulários filtrados
-                    foreach ($formularios_filtrados as $dados) {
-                        echo '<tr>';
-                        echo '<td>' . $dados->nome . '</td>';
-                        echo '<td>' . $dados->email . '</td>';
-                        echo '<td>' . $dados->latitude . '</td>';
-                        echo '<td>' . $dados->longitude . '</td>';
-                        echo '<td>' . $dados->servico . '</td>';
-                        echo '<td>';
-                        if (strlen($dados->descricao) > 10) {
-                            echo '<span id="descricaoResumida_' . $dados->id . '">' . substr($dados->descricao, 0, 10) . '...</span>';
-                            echo '<span id="descricaoCompleta_' . $dados->id . '" style="display:none;">' . $dados->descricao . '</span>';
-                            echo ' <button data-id="' . $dados->id . '" onclick="mostrarDescricaoCompleta(' . $dados->id . ')">Ver mais</button>';
-                        } else {
-                            echo $dados->descricao;
-                        }
-                        echo '</td>';
-                        echo '<td>' . $dados->data_hora . '</td>';
-                        echo '<td>' . $dados->situacao . '</td>';
-                        echo '<td>';
-                    
-                        // Botões de ação com base na situação do formulário
-                        if ($situacao === 'Pendente') {
-                            echo '<form method="post" action="">';
-                            echo '<input type="hidden" name="id" value="' . $dados->id . '">';
-                            echo '<button type="submit" name="action" value="approve">Aprovar</button>';
-                            echo '<button type="submit" name="action" value="reprove">Negar</button>';
-                            echo '</form>';
-                        } elseif ($situacao === 'Aprovado') {
-                            echo '<form method="post" action="">';
-                            echo '<input type="hidden" name="action" value="reprove">';
-                            echo '<input type="hidden" name="id" value="' . $dados->id . '">';
-                            echo '<button type="submit">Negar</button>';
-                            echo '</form>';
-                        } elseif ($situacao === 'Negado') {
-                            echo '<form method="post" action="">';
-                            echo '<input type="hidden" name="action" value="approve">';
-                            echo '<input type="hidden" name="id" value="' . $dados->id . '">';
-                            echo '<button type="submit">Aprovar</button>';
-                            echo '</form>';
-                        }
-                    
-                        echo '</td>';
-                        echo '<td>';
-                        echo '<a href="?page=lc_admin&action=delete&id=' . $dados->id . '">Excluir</a>';
-                        echo '</td>';
-                        echo '</tr>';
-                    }
-                                    
-                    echo '</tbody>';
-                    echo '</table>';
                 }
+                
+                echo '</tbody>';
+                echo '</table>';
             }
-<<<<<<< HEAD
-            echo '<script src="' . plugin_dir_url(__FILE__) . 'admin_script.js"></script>';
-
-            ?>
-        </div>
-    </body>
-    </html>
-
-=======
         }
+        echo '<script src="' . plugin_dir_url(__FILE__) . 'admin_script.js"></script>';
+
         ?>
     </div>
-
-    <!-- Script de Ordenação -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-    // Adiciona um evento de clique aos botões de ordenação
-    var sortButtons = document.querySelectorAll('.sort-btn');
-
-    sortButtons.forEach(function(button) {
-        button.addEventListener('click', function() {
-            var table = button.closest('table');
-            var columnIndex = Array.from(button.parentNode.parentNode.children).indexOf(button.parentNode);
-            var order = button.getAttribute('data-order') || 'asc';
-
-            order = (order === 'asc') ? 'desc' : 'asc';
-            button.setAttribute('data-order', order);
-
-            // Atualiza o ícone do botão de ordenação
-            var icon = button.querySelector('.sort-icon');
-
-            // Remove e adiciona a classe do ícone com base na direção da ordenação
-            if (order === 'asc') {
-                icon.innerHTML = '&#9660;'; // Triângulo para baixo (ordem crescente)
-            } else {
-                icon.innerHTML = '&#9650;'; // Triângulo para cima (ordem decrescente)
-            }
-
-            // Obtém todas as linhas da tabela, exceto a primeira (cabeçalho)
-            var rows = Array.from(table.querySelectorAll('tbody > tr'));
-
-            rows.sort(function(a, b) {
-                var aValue = a.children[columnIndex].textContent.trim().toLowerCase();
-                var bValue = b.children[columnIndex].textContent.trim().toLowerCase();
-
-                if (order === 'asc') {
-                    return aValue.localeCompare(bValue);  // Ordem crescente
-                } else {
-                    return bValue.localeCompare(aValue);  // Ordem decrescente
-                }
-            });
-
-            // Reinsere as linhas ordenadas na tabela
-            rows.forEach(function(row) {
-                table.querySelector('tbody').appendChild(row);
-            });
-        });
-    });
-});
-
-    </script>
-    <script src="assets/js/script_interface.js"></script>
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
 </body>
 </html>
->>>>>>> developer
