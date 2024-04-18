@@ -134,7 +134,7 @@ function initMapAdmin() {
     }).addTo(mapAdmin);
 
     formularios_aprovados.forEach(function(formulario) {
-        L.marker([formulario.latitude, formulario.longitude]).bindPopup(formulario.nome).addTo(mapAdmin).on('click', function() {
+        L.marker([formulario.latitude, formulario.longitude]).addTo(mapAdmin).on('click', function() {
 
             destacarLinhaTabela(formulario.id);
         });
