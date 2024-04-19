@@ -318,82 +318,63 @@ function updateSelectValue(){
 }
 
 document.getElementById("meu_formulario").addEventListener("submit",updateSelectValue);
+
 function searchButtonClicked() {
-
     var searchTerm = document.getElementById('searchInputIndex').value;
-    
     resultados = [];
-    
-    // Chamar a função de busca passando o termo de pesquisa como parâmetro
-    searchLocations(searchTerm);
-
+    searchLocations(searchTerm, 'listaResultadosIndex');
     return false;
 }
 
-// Função para buscar locais usando a API do Nominatim
-function searchLocations(query) {
-    // URL da API do Nominatim
-    var apiUrl = 'https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(query);
+function searchButtonClickedForm() {
+    var searchTerm = document.getElementById('searchInputForm').value;
+    resultados = [];
+    searchLocations(searchTerm, 'listaResultadosForms');
+    return false;
+}
 
-    // Fazer uma requisição GET para a API
+function searchLocations(query, resultListId) {
+    var apiUrl = 'https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(query);
     fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
             data.forEach(location => {
-                // Adicionar o local ao array de resultados
                 resultados.push({
                     display_name: location.display_name,
                     lat: location.lat,
                     lon: location.lon
                 });
             });
-
-            // Após buscar e adicionar todos os locais, chame a função para imprimir na tela
-            imprimirResultados(resultados);
+            imprimirResultados(resultados, resultListId);
         })
         .catch(error => console.error('Erro ao buscar locais:', error));
-
 }
 
-// Função para imprimir os resultados na tela
-function imprimirResultados(resultados) {
-
-
-    listaResultados = document.getElementById('listaResultadosIndex');
-
+function imprimirResultados(resultados, resultListId) {
+    var listaResultados = document.getElementById(resultListId);
     listaResultados.innerHTML = '';
-    
-    // Criar uma lista não ordenada para exibir os resultados
     var div = document.createElement('div');
-
-    // Iterar sobre os resultados e criar itens de lista para cada um
     resultados.forEach(resultado => {
         var divResultado = document.createElement('div');
-        var br = document.createElement('br');
-        
-        // Estilização de cada resultado
         divResultado.style.border = '2px solid black';
         divResultado.style.borderRadius = '3px';
         divResultado.style.padding = '3px';
         divResultado.style.margin = '5px 5px 5px 0px';
-
+        divResultado.style.cursor = 'pointer';
         divResultado.textContent = resultado.display_name;
-
-        // Adicionar um evento de clique para alterar a localização no mapa
         divResultado.addEventListener('click', function() {
-            // Chamada de uma função para alterar a localização no mapa
             changeMapLocation(resultado.lat, resultado.lon);
         });
-
         div.appendChild(divResultado);
-    
     });
-
-    // Adicionar a lista de resultados ao elemento HTML
     listaResultados.appendChild(div);
-
 }
 
 function changeMapLocation(latitude, longitude) {
-    map.setView([latitude, longitude], 13);
+    if (map) {
+        map.setView([latitude, longitude], 13);
+    }
+    if (mapFormulario) {
+        mapFormulario.setView([latitude, longitude], 13);
+    }
 }
