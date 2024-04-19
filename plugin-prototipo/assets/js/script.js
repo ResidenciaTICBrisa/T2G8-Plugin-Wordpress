@@ -4,8 +4,7 @@ var marcador;
 var mapFormulario;
 var mapAdmin
 var map_exit;
-
-// #f6f7f7
+var resultados = []; // Array para armazenar os locais relacionados
 
 // Função para destacar uma determinada linha na tabela de formulários aprovados
 function destacarLinhaTabela(id) {
@@ -59,66 +58,65 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
         // CRIANDO MAPAS
-        function initMap() {
-            if (document.getElementById('mapa') == null) {
-                return;
-            }
-        
-            map = L.map('mapa', { doubleClickZoom: false }).setView([-15.8267, -47.9218], 13);
-        
-            // Adiciona o provedor de mapa OpenStreetMap
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            }).addTo(map);
-        
-            getLocation(map);
-        
-            formularios_aprovados.forEach(function (formulario) {
-                // Cria o conteúdo HTML personalizado para o pop-up com a classe CSS definida
-                var popupContent = `
-                    <div class="leaflet-popup-content">
-                        <h3>Nome do Local: ${formulario.nome}</h3>
-                        <p><strong>Nome do Local: </strong> ${formulario.descricao}</p>
-                    </div>
-                `;
-        
-                L.marker([formulario.latitude, formulario.longitude])
-                    .bindPopup(popupContent)
-                    .addTo(map);
-            });
-        }
-        
-        
 
-        function exit_page_map() {
-            map_exit = L.map('mapa_exit', {
-                doubleClickZoom: false
-            }).setView([-15.8267, -47.9218], 13);
-        
-            // Adiciona o provedor de mapa OpenStreetMap
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            }).addTo(map_exit);
-        
-            getLocation(map_exit);
-        
-            formularios_aprovados.forEach(function (formulario) {
-                // Cria o conteúdo HTML personalizado para o pop-up (Nome e Descrição)
-                var popupContent = `
-                    <div>
-                        <h4>Nome do Local:${formulario.nome}</h4>
-                        <p><strong>Descrição:</strong> ${formulario.descricao}</p>
-                    </div>
-                `;
-        
-                L.marker([formulario.latitude, formulario.longitude])
-                    .bindPopup(popupContent)
-                    .addTo(map_exit);
-            });
-        
-            console.log("Formulário enviado com sucesso!");
-        }
-        
+function initMap() {
+    if (document.getElementById('mapa') == null) {
+        return;
+    }
+
+    map = L.map('mapa', { doubleClickZoom: false }).setView([-15.8267, -47.9218], 13);
+
+    // Adiciona o provedor de mapa OpenStreetMap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    getLocation(map);
+
+    formularios_aprovados.forEach(function (formulario) {
+        // Cria o conteúdo HTML personalizado para o pop-up (Nome e Descrição)
+        var popupContent = `
+            <div>
+                <h4>Nome do Local:${formulario.nome}</h4>
+                <p><strong>Descrição:</strong> ${formulario.descricao}</p>
+            </div>
+        `;
+
+        L.marker([formulario.latitude, formulario.longitude])
+            .bindPopup(popupContent)
+            .addTo(map);
+    });
+}
+
+
+function exit_page_map() {
+    map_exit = L.map('mapa_exit', {
+        doubleClickZoom: false
+    }).setView([-15.8267, -47.9218], 13);
+
+    // Adiciona o provedor de mapa OpenStreetMap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map_exit);
+
+    getLocation(map_exit);
+
+    formularios_aprovados.forEach(function (formulario) {
+        // Cria o conteúdo HTML personalizado para o pop-up (Nome e Descrição)
+        var popupContent = `
+            <div>
+                <h4>Nome do Local:${formulario.nome}</h4>
+                <p><strong>Descrição:</strong> ${formulario.descricao}</p>
+            </div>
+        `;
+
+        L.marker([formulario.latitude, formulario.longitude])
+            .bindPopup(popupContent)
+            .addTo(map_exit);
+    });
+
+    console.log("Formulário enviado com sucesso!");
+}
 
 function initMapAdmin() {
     if(document.getElementById('mapa_admin') == null) 
@@ -320,3 +318,82 @@ function updateSelectValue(){
 }
 
 document.getElementById("meu_formulario").addEventListener("submit",updateSelectValue);
+function searchButtonClicked() {
+
+    var searchTerm = document.getElementById('searchInputIndex').value;
+    
+    resultados = [];
+    
+    // Chamar a função de busca passando o termo de pesquisa como parâmetro
+    searchLocations(searchTerm);
+
+    return false;
+}
+
+// Função para buscar locais usando a API do Nominatim
+function searchLocations(query) {
+    // URL da API do Nominatim
+    var apiUrl = 'https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(query);
+
+    // Fazer uma requisição GET para a API
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(location => {
+                // Adicionar o local ao array de resultados
+                resultados.push({
+                    display_name: location.display_name,
+                    lat: location.lat,
+                    lon: location.lon
+                });
+            });
+
+            // Após buscar e adicionar todos os locais, chame a função para imprimir na tela
+            imprimirResultados(resultados);
+        })
+        .catch(error => console.error('Erro ao buscar locais:', error));
+
+}
+
+// Função para imprimir os resultados na tela
+function imprimirResultados(resultados) {
+
+
+    listaResultados = document.getElementById('listaResultadosIndex');
+
+    listaResultados.innerHTML = '';
+    
+    // Criar uma lista não ordenada para exibir os resultados
+    var div = document.createElement('div');
+
+    // Iterar sobre os resultados e criar itens de lista para cada um
+    resultados.forEach(resultado => {
+        var divResultado = document.createElement('div');
+        var br = document.createElement('br');
+        
+        // Estilização de cada resultado
+        divResultado.style.border = '2px solid black';
+        divResultado.style.borderRadius = '3px';
+        divResultado.style.padding = '3px';
+        divResultado.style.margin = '5px 5px 5px 0px';
+
+        divResultado.textContent = resultado.display_name;
+
+        // Adicionar um evento de clique para alterar a localização no mapa
+        divResultado.addEventListener('click', function() {
+            // Chamada de uma função para alterar a localização no mapa
+            changeMapLocation(resultado.lat, resultado.lon);
+        });
+
+        div.appendChild(divResultado);
+    
+    });
+
+    // Adicionar a lista de resultados ao elemento HTML
+    listaResultados.appendChild(div);
+
+}
+
+function changeMapLocation(latitude, longitude) {
+    map.setView([latitude, longitude], 13);
+}
