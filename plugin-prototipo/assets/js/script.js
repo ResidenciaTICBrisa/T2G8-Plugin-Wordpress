@@ -59,7 +59,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
         // CRIANDO MAPAS
-
         function initMap() {
             if (document.getElementById('mapa') == null) {
                 return;
@@ -75,11 +74,11 @@ document.addEventListener('DOMContentLoaded', function() {
             getLocation(map);
         
             formularios_aprovados.forEach(function (formulario) {
-                // Cria o conteúdo HTML personalizado para o pop-up (Nome e Descrição)
+                // Cria o conteúdo HTML personalizado para o pop-up com a classe CSS definida
                 var popupContent = `
-                    <div>
-                        <h4>Nome do Local:${formulario.nome}</h4>
-                        <p><strong>Descrição:</strong> ${formulario.descricao}</p>
+                    <div class="leaflet-popup-content">
+                        <h3>Nome do Local: ${formulario.nome}</h3>
+                        <p><strong>Nome do Local: </strong> ${formulario.descricao}</p>
                     </div>
                 `;
         
@@ -88,6 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     .addTo(map);
             });
         }
+        
         
 
         function exit_page_map() {
@@ -259,8 +259,6 @@ function initMapFormulario() {
         }
     });
 }
-
-
 // Função para obter a localização do usuário
 function getLocation(mapa) {
     if (navigator.geolocation) {
@@ -271,7 +269,6 @@ function getLocation(mapa) {
         alert("Geolocalização não é suportada por este navegador.");
     }
 }
-
 // Função para mostrar a posição do usuário no mapa
 function showPosition(position, mapa) {
     var lat = position.coords.latitude; // Latitude
