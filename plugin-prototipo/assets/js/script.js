@@ -312,3 +312,14 @@ function mostrarOutro(){
         outroInput.removeAttribute("required");
     }
 }
+
+function updateSelectValue(){
+    var select = document.getElementById("servico");
+    var outroInput = document.getElementById("servico_outro");
+
+    if(select.value === "outro"){
+        select.value = outroInput.value;
+    }
+}
+
+document.getElementById("meu_formulario").addEventListener("submit",updateSelectValue);
