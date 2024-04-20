@@ -106,4 +106,23 @@
 .escondido{
     display:none;
 }
+<<<<<<< HEAD
+>>>>>>> developer
+=======
+.leaflet-popup-content h3 {
+    font-family: Arial, sans-serif; 
+    font-size: 20px;
+    color: #744700;
+}
+.leaflet-popup-content {
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    color: #f80b0b;
+}
+
+/*.leaflet-popup-content p {  
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    color: #90cc90;
+}*/
 >>>>>>> developer
