@@ -73,7 +73,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
                 echo '<table class="wp-list-table widefat striped">';
                 echo '<thead>';
                 echo '<tr>';
-                echo '<th>Nome</th>';
+                echo '<th class="sort-header">Nome <button class="sort-btn" data-order="asc"><span class="sort-icon">&#9650;</span></button></th>
+                ';
                 echo '<th>Email</th>';
                 echo '<th>Latitude</th>';
                 echo '<th>Longitude</th>';
@@ -141,6 +142,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
             }
         }
         echo '<script src="' . plugin_dir_url(__FILE__) . 'admin_script.js"></script>';
+        
         ?>
     </div>
 

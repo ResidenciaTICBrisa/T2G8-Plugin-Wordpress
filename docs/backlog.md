@@ -42,6 +42,12 @@ Este documento oferece uma visão abrangente do backlog de nosso produto, destac
 |    US12    | Administrador | Personalizar os campos do formulário |  Eu receba as informações pertinentes do local que eu considere relevantes | FT02 |
 |    US13    | Administrador | Poder adicionar um mapa na página | Seja exibido no mapa quais estabelecimentos já estão cadastrados | FT03 |
 |    US14    | Usuário | visualizar detalhes de uma zona segura, como: nome, endereço, descrição e classificação | decidir se é um local adequado para mim | FT03 |
+|    US15    | Administrador | Um mapa na interface do administrador | Veja visualmente todos os formulários já aprovados | FT02 |
+|    US16    | Administrador | Poder ter uma maior interação entre o mapa da interface do administrador e os formulários | Possa acessar o formulário através do marcador no mapa | FT02 |
+|    US17    | Usuário | Todos os locais aprovados estejam marcados no mapa | Possa ter uma noção de locais seguros perto de mim | FT01 |
+|    US18    | Administrador | Excluir os formulários | Limpar o banco de dados de formulários indesejados ou nocivos | FT02 |
+|    US19    | Administrador | Os formulários sejam divididos em diferentes tabelas de acordo com o seu status | Tenha uma divisão clara entre os formulários aprovados, negados e pendentes | FT02 |
+|    US20    | Administrador | Implementar ferramentas de ordenação da interface do administrador | A tabela contendo os formulários esteja organizada de acordo com minha vontade | FT02 |
 
 ## Requisitos
 

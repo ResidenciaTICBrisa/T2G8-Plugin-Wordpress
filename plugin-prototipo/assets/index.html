@@ -3,10 +3,17 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="caminho/para/seu/style.css">
+
 </head>
 <body>
     <div id="div_index">
         <div class="title">Encontre empreendimentos e serviços já identificados como LGBTQ+ friendly:<br></div>
+        <form method="post">
+            <input type="text" id="searchInputIndex">
+            <button type="submit" onclick="return searchButtonClicked()" class="button_search">Pesquisar</button>
+        </form>
+        <div id="listaResultadosIndex"></div>
         <div id="mapa" style="height: 500px;margin-bottom:10px;"></div>
         <div><button onclick="mostrarFormulario()" class="blue_button">Cadastrar novo local</button></div>
     </div>
@@ -32,14 +39,16 @@
             </select>
 
             <div id="outroServico" class="escondido">
-                <label for="especifique">Especifique:</label>
-                <input type="text" name="servico_outro" id="servico_outro">
+                <label for="servico_outro">Especifique:</label>
+                <input type="text" name="servico" id="servico_outro" maxlength="30">
             </div>
             
             <label for="descricao">Descrição:</label>
             <textarea name="descricao" id="descricao" rows="3" cols="70" placeholder="Descrição ..." required></textarea>
 
-            <!-- Container para o mapa-->
+            <input type="text" id="searchInputForm">
+            <button type="submit" onclick="return searchButtonClickedForm()" class="button_search">Pesquisar</button>
+            <div id="listaResultadosForms"></div>
             <div id="mapaFormulario" style="height: 300px;margin-bottom:10px;"></div>
 
             <!-- Input de latitude e longitude -->
