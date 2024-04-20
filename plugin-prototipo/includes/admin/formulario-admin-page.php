@@ -39,6 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
     <link rel="stylesheet" href="<?php echo plugin_dir_url(__FILE__); ?>style-admin.css">
 </head>
 <body>
+    <div id="mapa_admin" style="height: 400px; margin-bottom: 10px;"></div>
     <div class="wrap">
         <?php
         // Definições das categorias de formulários
@@ -140,8 +141,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
             }
         }
         echo '<script src="' . plugin_dir_url(__FILE__) . 'admin_script.js"></script>';
-
         ?>
     </div>
+
+    <!-- Carregue o jQuery antes de qualquer outro script que o utilize -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Carregue o Leaflet antes de qualquer script que o utilize -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script>
+        // Chama a função initMapAdmin após o carregamento da página
+        document.addEventListener('DOMContentLoaded', function() {
+            initMapAdmin();
+            initSortButtons()
+        });
+    </script>
 </body>
 </html>
