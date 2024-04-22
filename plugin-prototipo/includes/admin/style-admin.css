@@ -10,3 +10,6 @@ button[data-id]:hover {
     text-decoration: underline;
 
 }
+.linha-destacada { 
+    animation: fadeOut 2s ease;
+}

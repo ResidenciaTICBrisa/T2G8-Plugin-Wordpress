@@ -70,8 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
             // Exibe a tabela apenas se houver formulários para essa categoria
             if (!empty($formularios_filtrados)) {
                 echo '<h2>' . $titulo . '</h2>';
-                echo '<table class="wp-list-table widefat striped">';
-                echo '<thead>';
+                echo '<table class="wp-list-table widefat striped" id=tabela-'. $situacao .'>';                echo '<thead>';
                 echo '<tr>';
                 echo '<th class="sort-header">Nome <button class="sort-btn" data-order="asc"><span class="sort-icon">&#9650;</span></button></th>
                 ';
@@ -90,8 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
 
                 // Itera sobre os formulários filtrados
                 foreach ($formularios_filtrados as $dados) {
-                    echo '<tr>';
-                    echo '<td>' . $dados->nome . '</td>';
+                    echo '<tr id = ' . $dados->id .'>';                    echo '<td>' . $dados->nome . '</td>';
                     echo '<td>' . $dados->email . '</td>';
                     echo '<td>' . $dados->latitude . '</td>';
                     echo '<td>' . $dados->longitude . '</td>';
@@ -151,12 +149,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
     <!-- Carregue o Leaflet antes de qualquer script que o utilize -->
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <script>
-        // Chama a função initMapAdmin após o carregamento da página
-        document.addEventListener('DOMContentLoaded', function() {
-            initMapAdmin();
-            initSortButtons()
-        });
-    </script>
+  
 </body>
 </html>

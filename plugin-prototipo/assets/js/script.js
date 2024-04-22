@@ -6,24 +6,7 @@ var mapAdmin;
 var map_exit;
 var resultados = []; // Array para armazenar os locais relacionados
 
-// Função para destacar uma determinada linha na tabela de formulários aprovados
-function destacarLinhaTabela(id) {
-    var tabela = document.getElementById('tabela-Aprovado');
-    var linha = document.getElementById(id);
 
-    // Loop para remover a linha-destacada de todas as linhas
-    for (var i = 0, row; (row = tabela.rows[i]); i++) {
-        row.classList.remove('linha-destacada');
-    }
-
-    linha.classList.add('linha-destacada'); // Adiciona a classe 'linha-destacada'
-    linha.scrollIntoView({ behavior: 'smooth' }); // Rola a página para a linha
-
-    // Remove a classe linha-destacada depois de um determinado tempo
-    setTimeout(function () {
-        linha.classList.remove('linha-destacada');
-    }, 2000);
-}
 
 // Envia os dados do formulário de forma assíncrona usando AJAX e JQuery
 var ajaxUrl = my_ajax_object.ajax_url;
@@ -181,26 +164,6 @@ function exit_page_map() {
     console.log('Formulário enviado com sucesso!');
 }
 
-function initMapAdmin() {
-    if (document.getElementById('mapa_admin') == null) {
-        return;
-    }
-
-    mapAdmin = L.map('mapa_admin', { doubleClickZoom: false }).setView([-15.8267, -47.9218], 13);
-
-    // Adiciona o provedor de mapa OpenStreetMap
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    }).addTo(mapAdmin);
-
-    formularios_aprovados.forEach(function (formulario) {
-        L.marker([formulario.latitude, formulario.longitude])
-            .addTo(mapAdmin)
-            .on('click', function () {
-                destacarLinhaTabela(formulario.id);
-            });
-    });
-}
 
 // DESTRUINDO MAPAS
 
