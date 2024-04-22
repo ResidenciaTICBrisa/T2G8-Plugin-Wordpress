@@ -91,8 +91,8 @@
 #mapa, #mapaFormulario, #mapa_exit{
     border-radius:20px;
 }
-<<<<<<< HEAD
-=======
+
+
 
 .linha-destacada { 
     animation: fadeOut 2s ease;
@@ -106,9 +106,7 @@
 .escondido{
     display:none;
 }
-<<<<<<< HEAD
->>>>>>> developer
-=======
+
 .leaflet-popup-content h3 {
     font-family: Arial, sans-serif; 
     font-size: 20px;
@@ -125,4 +123,4 @@
     font-size: 15px;
     color: #90cc90;
 }*/
->>>>>>> developer
+
