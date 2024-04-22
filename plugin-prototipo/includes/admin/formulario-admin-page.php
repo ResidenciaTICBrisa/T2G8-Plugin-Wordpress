@@ -36,6 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
 <!DOCTYPE html>
 <html>
 <head>
+    <!-- Linkando css -->
     <link rel="stylesheet" href="<?php echo plugin_dir_url(__FILE__); ?>style-admin.css">
 </head>
 <body>
@@ -139,6 +140,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
                 echo '</table>';
             }
         }
+        //linkando arquivo javascript 
         echo '<script src="' . plugin_dir_url(__FILE__) . 'admin_script.js"></script>';
         
         ?>
