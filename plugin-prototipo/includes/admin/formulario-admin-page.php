@@ -86,10 +86,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
                     echo '<td>' . $dados->longitude . '</td>';
                     echo '<td>' . $dados->servico . '</td>';
                     echo '<td>' . $dados->descricao . '</td>';
-                    echo '<td>' . $dados->data_hora . '</td>';
+                    echo '<td>' . date('d/m/Y H:i:s', strtotime($dados->data_hora)) . '</td>';
                     echo '<td>' . $dados->situacao . '</td>';
                     echo '<td>';
-
+                    
                     // Botões de ação com base na situação do formulário
                     if ($situacao === 'Pendente') {
                         echo '<form method="post" action="">';
