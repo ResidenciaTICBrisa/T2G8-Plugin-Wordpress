@@ -21,11 +21,12 @@ document.addEventListener('DOMContentLoaded', function () {
         var longitude = document.getElementById('longitude').value;
         var servico = document.getElementById('servico').value;
         var descricao = document.getElementById('descricao').value;
-
-        if (nome === '' || email === '' || latitude === '' || longitude === '' || servico === '' || descricao === '') {
+        var outroServico = document.getElementById('servico_outro').value
+        if (nome === '' || email === '' || latitude === '' || longitude === '' || (servico === 'outro' && outroServico === '')) {
             alert('Por favor, preencha todos os campos.');
+            console.log(nome,email,latitude,longitude,servico,descricao,outroServico)
             return;
-        } else {
+        }else {
             // Serializa os dados do formulário
             var formData = $(this).serialize();
 
