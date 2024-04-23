@@ -1,10 +1,11 @@
-// Inicializa o mapa quando a página for carregada
 var map;
 var marcador;
 var mapFormulario;
 var mapAdmin
 var map_exit;
 var resultados = []; // Array para armazenar os locais relacionados
+var isSearchingIndex = false;
+var isSearchingForm = false;
 
 // Função para destacar uma determinada linha na tabela de formulários aprovados
 function destacarLinhaTabela(id) {
@@ -320,20 +321,24 @@ function updateSelectValue(){
 document.getElementById("meu_formulario").addEventListener("submit",updateSelectValue);
 
 function searchButtonClicked() {
-    var searchTerm = document.getElementById('searchInputIndex').value;
-    resultados = [];
-    searchLocations(searchTerm, 'listaResultadosIndex');
+    if (!isSearchingIndex) {
+        isSearchingIndex = true;
+        var searchTerm = document.getElementById('searchInputIndex').value;
+        searchLocations(searchTerm, 'listaResultadosIndex');
+    }
     return false;
 }
 
 function searchButtonClickedForm() {
-    var searchTerm = document.getElementById('searchInputForm').value;
-    resultados = [];
-    searchLocations(searchTerm, 'listaResultadosForms');
-    return false;
+    if (!isSearchingForm) {
+        isSearchingForm = true;
+        var searchTerm = document.getElementById('searchInputForm').value;
+        searchLocations(searchTerm, 'listaResultadosForms');
+    }
 }
 
 function searchLocations(query, resultListId) {
+    resultados = [];
     var apiUrl = 'https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(query);
     fetch(apiUrl)
         .then(response => response.json())
@@ -346,8 +351,24 @@ function searchLocations(query, resultListId) {
                 });
             });
             imprimirResultados(resultados, resultListId);
+            
+            // Atualiza o estado da busca após a conclusão
+            if (resultListId === 'listaResultadosIndex') {
+                isSearchingIndex = false; // Marca a busca na página inicial como concluída
+            } else if (resultListId === 'listaResultadosForms') {
+                isSearchingForm = false; // Marca a busca no formulário como concluída
+            }
         })
-        .catch(error => console.error('Erro ao buscar locais:', error));
+        .catch(error => {
+            console.error('Erro ao buscar locais:', error);
+            
+            // Em caso de erro, atualiza o estado da busca para permitir novas buscas
+            if (resultListId === 'listaResultadosIndex') {
+                isSearchingIndex = false; // Marca a busca na página inicial como concluída
+            } else if (resultListId === 'listaResultadosForms') {
+                isSearchingForm = false; // Marca a busca no formulário como concluída
+            }
+        });
 }
 
 function imprimirResultados(resultados, resultListId) {
