@@ -78,16 +78,35 @@ function initSortButtons() {
             // Obtém todas as linhas da tabela, exceto a primeira (cabeçalho)
             var rows = Array.from(table.querySelectorAll('tbody > tr'));
 
-            rows.sort(function(a, b) {
-                var aValue = a.children[columnIndex].textContent.trim().toLowerCase();
-                var bValue = b.children[columnIndex].textContent.trim().toLowerCase();
+            // Determina o critério de ordenação com base na classe do botão
+            if (button.classList.contains('sort-by-date')) {
+                rows.sort(function(a, b) {
+                    var aValue = new Date(a.children[columnIndex].textContent.trim().replace(/(\d{2})\/(\d{2})\/(\d{4}) (\d{2}):(\d{2}):(\d{2})/, '$3-$2-$1T$4:$5:$6'));
+                    var bValue = new Date(b.children[columnIndex].textContent.trim().replace(/(\d{2})\/(\d{2})\/(\d{4}) (\d{2}):(\d{2}):(\d{2})/, '$3-$2-$1T$4:$5:$6'));
 
-                if (order === 'asc') {
-                    return aValue.localeCompare(bValue);  // Ordem crescente
-                } else {
-                    return bValue.localeCompare(aValue);  // Ordem decrescente
-                }
-            });
+                    return (order === 'asc') ? aValue - bValue : bValue - aValue;
+                });
+            } else if (button.classList.contains('sort-by-email')) {
+                rows.sort(function(a, b) {
+                    var aValue = a.children[columnIndex].textContent.trim().toLowerCase();
+                    var bValue = b.children[columnIndex].textContent.trim().toLowerCase();
+
+                    return (order === 'asc') ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+                });
+            } else {
+                // Caso padrão: ordenação por texto
+                rows.sort(function(a, b) {
+                    var aValue = a.children[columnIndex].textContent.trim().toLowerCase();
+                    var bValue = b.children[columnIndex].textContent.trim().toLowerCase();
+
+                    return (order === 'asc') ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+                });
+            }
+
+            // Limpa o conteúdo da tabela antes de reordenar
+            while (table.querySelector('tbody').firstChild) {
+                table.querySelector('tbody').removeChild(table.querySelector('tbody').firstChild);
+            }
 
             // Reinsere as linhas ordenadas na tabela
             rows.forEach(function(row) {
@@ -96,8 +115,6 @@ function initSortButtons() {
         });
     });
 }
-
-
 
 // Adiciona um evento de clique a todos os botões de "Ver mais/menos"
 document.querySelectorAll('.ver-mais-btn').forEach(function(button) {
