@@ -313,6 +313,7 @@ function updateSelectValue(){
     var outroInput = document.getElementById("servico_outro");
 
     if(select.value === "outro"){
+        outroInput.setAttribute("name","servico");
         select.value = outroInput.value;
     }
 }
