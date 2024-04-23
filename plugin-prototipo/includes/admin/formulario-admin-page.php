@@ -32,6 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
 
         // Consulta os dados da tabela formulario
         global $wpdb;
-
+        
         // Parâmetros para ordenação (nome e direção)
         $order_by = isset($_GET['order_by']) ? $_GET['order_by'] : 'nome'; // Coluna padrão para ordenação é o nome
         $order = isset($_GET['order']) ? $_GET['order'] : 'asc'; // Ordem padrão é crescente
@@ -70,36 +71,43 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
             // Exibe a tabela apenas se houver formulários para essa categoria
             if (!empty($formularios_filtrados)) {
                 echo '<h2>' . $titulo . '</h2>';
-                echo '<table class="wp-list-table widefat striped" id="tabela-' . $situacao . '">';
-                echo '<thead>';
+                echo '<table class="wp-list-table widefat striped" id=tabela-'. $situacao .'>';                echo '<thead>';
                 echo '<tr>';
-                echo '<th class="sort-header">Nome <button class="sort-btn" data-order="asc"><span class="sort-icon">&#9650;</span></button></th>';
+                echo '<th class="sort-header">Nome <button class="sort-btn" data-order="asc"><span class="sort-icon">&#9650;</span></button></th>
+                ';
                 echo '<th class="sort-header">Email <button class="sort-btn sort-by-email" data-order="asc"><span class="sort-icon">&#9650;</span></button></th>';
-                echo '<th class="sort-header">Latitude</th>';
-                echo '<th class="sort-header">Longitude</th>';
-                echo '<th class="sort-header">Serviço</th>';
-                echo '<th class="sort-header">Descrição</th>';
+                echo '<th>Latitude</th>';
+                echo '<th>Longitude</th>';
+                echo '<th>Serviço</th>';
+                echo '<th>Descrição</th>';
                 echo '<th class="sort-header">Data e hora <button class="sort-btn sort-by-date" data-order="asc"><span class="sort-icon">&#9650;</span></button></th>';
-                echo '<th class="sort-header">Status</th>';
-                echo '<th class="sort-header">Ações</th>';
-                echo '<th class="sort-header">Excluir</th>';
+                echo '<th>Status</th>';
+                echo '<th>Ações</th>';
+                echo '<th>Excluir</th>';
                 echo '</tr>';
                 echo '</thead>';
                 echo '<tbody>';
 
                 // Itera sobre os formulários filtrados
                 foreach ($formularios_filtrados as $dados) {
-                    echo '<tr>';
-                    echo '<td>' . $dados->nome . '</td>';
+                    echo '<tr id = ' . $dados->id .'>';                    echo '<td>' . $dados->nome . '</td>';
                     echo '<td>' . $dados->email . '</td>';
                     echo '<td>' . $dados->latitude . '</td>';
                     echo '<td>' . $dados->longitude . '</td>';
                     echo '<td>' . $dados->servico . '</td>';
-                    echo '<td>' . $dados->descricao . '</td>';
+                    echo '<td>';
+                    if (strlen($dados->descricao) > 10) {
+                        echo '<span id="descricaoResumida_' . $dados->id . '">' . substr($dados->descricao, 0, 10) . '...</span>';
+                        echo '<span id="descricaoCompleta_' . $dados->id . '" style="display:none;">' . $dados->descricao . '</span>';
+                        echo ' <button data-id="' . $dados->id . '" onclick="mostrarDescricaoCompleta(' . $dados->id . ')">Ver mais</button>';
+                    } else {
+                        echo $dados->descricao;
+                    }
+                    echo '</td>';
                     echo '<td>' . date('d/m/Y H:i:s', strtotime($dados->data_hora)) . '</td>';
                     echo '<td>' . $dados->situacao . '</td>';
                     echo '<td>';
-
+                    
                     // Botões de ação com base na situação do formulário
                     if ($situacao === 'Pendente') {
                         echo '<form method="post" action="">';
@@ -127,11 +135,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
                     echo '</td>';
                     echo '</tr>';
                 }
-
+                
                 echo '</tbody>';
                 echo '</table>';
             }
         }
+        //linkando arquivo javascript 
+        echo '<script src="' . plugin_dir_url(__FILE__) . 'admin_script.js"></script>';
+        
         ?>
     </div>
 
@@ -140,8 +151,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
     <!-- Carregue o Leaflet antes de qualquer script que o utilize -->
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-
-    <!-- Linkando arquivo javascript -->
-    <script src="<?php echo plugin_dir_url(__FILE__); ?>admin_script.js"></script>
+  
 </body>
 </html>
