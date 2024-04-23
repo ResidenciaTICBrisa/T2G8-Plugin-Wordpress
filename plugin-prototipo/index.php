@@ -34,13 +34,14 @@ function load_meu_plugin_html() {
 // Função para enfileirar o script.js
 function load_meu_plugin_scripts() {
     wp_enqueue_script('meu-plugin-script', plugin_dir_url(__FILE__) . 'assets/js/script.js', array(), '1.0', true);
+    wp_enqueue_script('formulario_script', plugin_dir_url(__FILE__) . 'assets/js/formulario.js', array(), '1.0', true);
 }
 
 // Função para enfileirar o estilo CSS
 function load_meu_plugin_styles() {
     wp_enqueue_style('meu-plugin-style', plugin_dir_url(__FILE__) . 'assets/styles/styles.css', array(), '1.0');
     // Localiza o URL do AJAX no arquivo admin-ajax.php
-    wp_localize_script( 'meu-plugin-script', 'my_ajax_object',
+    wp_localize_script( 'formulario_script', 'my_ajax_object',
         array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
 }
 
