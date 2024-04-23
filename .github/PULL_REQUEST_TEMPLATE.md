@@ -1,4 +1,5 @@
 # O que há de novo?
+
 ## Qual a alteração que exige um pull request?
 
 **Tipo da mudança**  
@@ -24,17 +25,4 @@ Adicionar FIX com as issues relacionadas ao abrir o PR. Ex.: Fix #15
  
 Se aplicável, adicione imagens da tela para ajudar a explicar a mudança feita. 
 
-**Checklist**  
-- [ ] Você verificou se não há outras [Solicitações de Pull](https://github.com/ResidenciaTICBrisa/T2G2-Chatbot-Participacao-Social/pulls) para a mesma atualização/alteração que você está trabalhando?
-- [ ] As mudanças seguem as políticas de commit e branch?
-- [ ] O pull request possui nome significativo.
-- [ ] O pull request possui descrição significativa.
-- [ ] O pull request possui a marcação correspondente ao tipo da mudança.
-- [ ] O pull request possui screenshots quando necessário.
-- [ ] O pull request possui labels.
 
-## Quem contribuiu?
-mencione quem contribuiu dessa forma:
-</sub> 
-
-@mencao1 @mencao2
