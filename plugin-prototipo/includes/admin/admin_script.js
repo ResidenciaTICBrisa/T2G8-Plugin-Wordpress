@@ -81,8 +81,8 @@ function initSortButtons() {
             // Determina o critério de ordenação com base na classe do botão
             if (button.classList.contains('sort-by-date')) {
                 rows.sort(function(a, b) {
-                    var aValue = new Date(a.children[columnIndex].textContent.trim());
-                    var bValue = new Date(b.children[columnIndex].textContent.trim());
+                    var aValue = new Date(a.children[columnIndex].textContent.trim().replace(/(\d{2})\/(\d{2})\/(\d{4}) (\d{2}):(\d{2}):(\d{2})/, '$3-$2-$1T$4:$5:$6'));
+                    var bValue = new Date(b.children[columnIndex].textContent.trim().replace(/(\d{2})\/(\d{2})\/(\d{4}) (\d{2}):(\d{2}):(\d{2})/, '$3-$2-$1T$4:$5:$6'));
 
                     return (order === 'asc') ? aValue - bValue : bValue - aValue;
                 });
@@ -103,6 +103,11 @@ function initSortButtons() {
                 });
             }
 
+            // Limpa o conteúdo da tabela antes de reordenar
+            while (table.querySelector('tbody').firstChild) {
+                table.querySelector('tbody').removeChild(table.querySelector('tbody').firstChild);
+            }
+
             // Reinsere as linhas ordenadas na tabela
             rows.forEach(function(row) {
                 table.querySelector('tbody').appendChild(row);
@@ -110,9 +115,6 @@ function initSortButtons() {
         });
     });
 }
-
-
-
 
 // Adiciona um evento de clique a todos os botões de "Ver mais/menos"
 document.querySelectorAll('.ver-mais-btn').forEach(function(button) {
