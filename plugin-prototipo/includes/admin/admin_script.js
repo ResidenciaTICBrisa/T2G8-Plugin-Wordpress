@@ -78,16 +78,30 @@ function initSortButtons() {
             // Obtém todas as linhas da tabela, exceto a primeira (cabeçalho)
             var rows = Array.from(table.querySelectorAll('tbody > tr'));
 
-            rows.sort(function(a, b) {
-                var aValue = a.children[columnIndex].textContent.trim().toLowerCase();
-                var bValue = b.children[columnIndex].textContent.trim().toLowerCase();
+            // Determina o critério de ordenação com base na classe do botão
+            if (button.classList.contains('sort-by-date')) {
+                rows.sort(function(a, b) {
+                    var aValue = new Date(a.children[columnIndex].textContent.trim());
+                    var bValue = new Date(b.children[columnIndex].textContent.trim());
 
-                if (order === 'asc') {
-                    return aValue.localeCompare(bValue);  // Ordem crescente
-                } else {
-                    return bValue.localeCompare(aValue);  // Ordem decrescente
-                }
-            });
+                    return (order === 'asc') ? aValue - bValue : bValue - aValue;
+                });
+            } else if (button.classList.contains('sort-by-email')) {
+                rows.sort(function(a, b) {
+                    var aValue = a.children[columnIndex].textContent.trim().toLowerCase();
+                    var bValue = b.children[columnIndex].textContent.trim().toLowerCase();
+
+                    return (order === 'asc') ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+                });
+            } else {
+                // Caso padrão: ordenação por texto
+                rows.sort(function(a, b) {
+                    var aValue = a.children[columnIndex].textContent.trim().toLowerCase();
+                    var bValue = b.children[columnIndex].textContent.trim().toLowerCase();
+
+                    return (order === 'asc') ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+                });
+            }
 
             // Reinsere as linhas ordenadas na tabela
             rows.forEach(function(row) {
@@ -96,6 +110,7 @@ function initSortButtons() {
         });
     });
 }
+
 
 
 
