@@ -1,67 +1,74 @@
+// Inicializa o mapa quando a página for carregada
 var map;
 var marcador;
 var mapFormulario;
-var mapAdmin;
+var mapAdmin
 var map_exit;
 var resultados = []; // Array para armazenar os locais relacionados
-var isSearchingIndex = false; // Status de busca no index
-var isSearchingForm = false; // Status de busca no form
 
+// Função para destacar uma determinada linha na tabela de formulários aprovados
+function destacarLinhaTabela(id) {
+    var tabela = document.getElementById('tabela-Aprovado');
+    var linha = document.getElementById(id)
 
+    // Loop para remover a linha-destacada de todas as linhas 
+    for (var i = 0, row; row = tabela.rows[i]; i++) {
+        row.classList.remove('linha-destacada');
+    }
+    
+    linha.classList.add('linha-destacada'); // Adiciona a classe 'linha-destacada'
+    linha.scrollIntoView({ behavior: 'smooth' }) // Rola a página para a linha
+
+    // Remove a classe linha-destacada depois de um determinado tempo 
+    setTimeout(function() {
+        linha.classList.remove('linha-destacada');
+    }, 2000);
+}
 
 // Envia os dados do formulário de forma assíncrona usando AJAX e JQuery
 var ajaxUrl = my_ajax_object.ajax_url;
 
-document.addEventListener('DOMContentLoaded', function () {
-    $('#meu_formulario').on('submit', function (e) {
+document.addEventListener('DOMContentLoaded', function() {
+    $('#meu_formulario').on('submit', function(e) {
         e.preventDefault(); // Previne que o formulário dê submit na forma padrão
-        // Verifica se os campos estão preenchidos
-        var nome = document.getElementById('nome').value;
-        var email = document.getElementById('email').value;
-        var latitude = document.getElementById('latitude').value;
-        var longitude = document.getElementById('longitude').value;
-        var servico = document.getElementById('servico').value;
-        var descricao = document.getElementById('descricao').value;
-        var outroServico = document.getElementById('servico_outro').value
-        if (nome === '' || email === '' || latitude === '' || longitude === '' || (servico === 'outro' && outroServico === '')) {
-            alert('Por favor, preencha todos os campos.');
-            console.log(nome,email,latitude,longitude,servico,descricao,outroServico)
-            return;
-        }else {
-            // Serializa os dados do formulário
-            var formData = $(this).serialize();
+        
+        // Serializa os dados do formulário
+        var formData = $(this).serialize();
 
-            // Envia o pedido do AJAX
-            $.ajax({
-                type: 'POST',
-                url: ajaxUrl,
-                data: {
-                    action: 'processar_formulario', // Hook de ação para o lado do servidor
-                    formData: formData, // Data do formulário
-                },
-                success: function (response) {
-                    // Resposta caso dê certo
-                    console.log(response);
-                    // Se o envio for bem-sucedido, executar a função exit_page()
-                    exit_page();
-                },
-                error: function (xhr, status, error) {
-                    // Resposta caso dê errado
-                    console.error(error);
-                },
-            });
-        }
+        // Envia o pedido do AJAX
+        $.ajax({
+            type: 'POST',
+            url: ajaxUrl,
+            data: {
+                action: 'processar_formulario', // Hook de ação para o lado do servidor
+                formData: formData // Data do formulário
+            },
+            success: function(response) {
+                // Resposta caso dê certo
+                console.log(response);
+                // Se o envio for bem-sucedido, executar a função exit_page()
+                exit_page();
+            },
+            error: function(xhr, status, error) {
+                // Resposta caso dê errado
+                console.error(error);
+            }
+        });
     });
 });
 
-// CRIANDO MAPAS
+        // CRIANDO MAPAS
 
 function initMap() {
+    if (document.getElementById('mapa') == null) {
+        return;
+    }
+
     map = L.map('mapa', { doubleClickZoom: false }).setView([-15.8267, -47.9218], 13);
 
     // Adiciona o provedor de mapa OpenStreetMap
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
     getLocation(map);
@@ -69,17 +76,19 @@ function initMap() {
     formularios_aprovados.forEach(function (formulario) {
         // Cria o conteúdo HTML personalizado para o pop-up (Nome e Descrição)
         var popupContent = `
-                    <div>
-                        <h4>Nome do Local:${formulario.nome}</h4>
-                        <p><strong>Descrição:</strong> ${formulario.descricao}</p>
-                    </div>
-                `;
+            <div>
+                <h1>Nome do Local:${formulario.nome}</h1>
+                <h4>Um teste boy 1</h4>
+                <p><strong>Descrição:</strong> ${formulario.descricao}</p>
+            </div>
+        `;
 
         L.marker([formulario.latitude, formulario.longitude])
             .bindPopup(popupContent)
             .addTo(map);
     });
 }
+
 
 function exit_page_map() {
     map_exit = L.map('mapa_exit', {
@@ -98,6 +107,7 @@ function exit_page_map() {
         var popupContent = `
             <div>
                 <h4>Nome do Local:${formulario.nome}</h4>
+                <h3>Um teste boy 3</h3>
                 <p><strong>Descrição:</strong> ${formulario.descricao}</p>
             </div>
         `;
@@ -109,74 +119,63 @@ function exit_page_map() {
 
     console.log("Formulário enviado com sucesso!");
 }
-function exit_page_map() {
-    map_exit = L.map('mapa_exit', {
-        doubleClickZoom: false,
-    }).setView([-15.8267, -47.9218], 13);
+
+function initMapAdmin() {
+    if(document.getElementById('mapa_admin') == null) 
+    {   
+        return;
+    }
+
+    mapAdmin = L.map('mapa_admin', {doubleClickZoom: false}).setView([-15.8267, -47.9218], 13);
 
     // Adiciona o provedor de mapa OpenStreetMap
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    }).addTo(map_exit);
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(mapAdmin);
 
-    getLocation(map_exit);
+    formularios_aprovados.forEach(function(formulario) {
+        L.marker([formulario.latitude, formulario.longitude]).addTo(mapAdmin).on('click', function() {
 
-    formularios_aprovados.forEach(function (formulario) {
-        // Cria o conteúdo HTML personalizado para o pop-up (Nome e Descrição)
-        var popupContent = `
-                    <div>
-                        <h4>Nome do Local:${formulario.nome}</h4>
-                        <p><strong>Descrição:</strong> ${formulario.descricao}</p>
-                    </div>
-                `;
-
-        L.marker([formulario.latitude, formulario.longitude])
-            .bindPopup(popupContent)
-            .addTo(map_exit);
+            destacarLinhaTabela(formulario.id);
+        });
     });
-
-    console.log('Formulário enviado com sucesso!');
 }
 
-
-// DESTRUINDO MAPAS
+        // DESTRUINDO MAPAS
 
 // Função para destruir o mapa
 function destroyMap() {
-    setTimeout(function () {
-        if (map !== null) {
+    setTimeout(function(){
+        if(map!==null){
             map.remove();
-            map = null;
-            console.log('Sucesso ao destruir o map');
+            map=null;
+            console.log("Sucesso ao destruir o map");
         }
     }, 0);
 }
 
-function destroyMapForm() {
+function destroyMapForm(){
     document.getElementById('meu_formulario').reset();
-    setTimeout(function () {
-        if (mapFormulario !== null) {
+    setTimeout(function(){
+        if(mapFormulario!==null){
             mapFormulario.remove();
-            mapFormulario = null;
-            console.log('Sucesso ao destruir o map_form');
+            mapFormulario=null;
+            console.log("Sucesso ao destruir o map_form");
         }
     }, 0);
 }
 
-function destroyExitMap() {
-    setTimeout(function () {
-        if (map_exit !== null) {
+function destroyExitMap(){
+    setTimeout(function(){
+        if(map_exit!==null){
             map_exit.remove();
-            map_exit = null;
+            map_exit=null;
         }
-        console.log('Sucesso ao destruir o map_exit');
-        // document.getElementById('latitude').value = '';
-        // document.getElementById('longitude').value = '';
-
+        console.log("Sucesso ao destruir o map_exit");
     }, 0);
 }
 
-// TRANSIÇÕES ENTRE PÁGINAS DO PLUGIN
+        // TRANSIÇÕES ENTRE PÁGINAS DO PLUGIN
 
 // Função para mostrar o formulário e destruir o mapa
 function mostrarFormulario() {
@@ -195,16 +194,16 @@ function voltar() {
     initMap();
 }
 
-function voltar_exit() {
+function voltar_exit(){
     destroyExitMap();
     voltar();
 }
 
-function exit_page() {
+function exit_page(){
     destroyMapForm();
-    document.getElementById('div_form').style.display = 'none';
-    document.getElementById('div_index').style.display = 'none';
-    document.getElementById('div_exit').style.display = 'block';
+    document.getElementById('div_form').style.display='none';
+    document.getElementById('div_index').style.display='none';
+    document.getElementById('div_exit').style.display='block';
     exit_page_map();
 }
 
@@ -214,7 +213,7 @@ function initMapFormulario() {
 
     // Adiciona o provedor de mapa OpenStreetMap
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(mapFormulario);
 
     formularios_aprovados.forEach(function (formulario) {
@@ -222,6 +221,7 @@ function initMapFormulario() {
         var popupContent = `
             <div>
                 <h4>Nome do Local: ${formulario.nome}</h4>
+                <h3>Um teste boy 2</h3>
                 <p><strong>Descrição:</strong> ${formulario.descricao}</p>
             </div>
         `;
@@ -232,8 +232,6 @@ function initMapFormulario() {
     });
 
     getLocation(mapFormulario);
-    document.getElementById('latitude').value = '';
-    document.getElementById('longitude').value = '';
 
     // Adiciona um marcador no mapa quando clicado o mouse 1
     mapFormulario.on('click', function (e) {
@@ -259,63 +257,57 @@ function initMapFormulario() {
         if (marcador) {
             // Remove o marcador do mapa
             mapFormulario.removeLayer(marcador);
-            document.getElementById('latitude').value = '';
-            document.getElementById('longitude').value = '';
         }
     });
 }
-
 // Função para obter a localização do usuário
 function getLocation(mapa) {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function (position) {
+        navigator.geolocation.getCurrentPosition(function(position) {
             showPosition(position, mapa);
         });
     } else {
-        alert('Geolocalização não é suportada por este navegador.');
+        alert("Geolocalização não é suportada por este navegador.");
     }
-    document.getElementById('latitude').value = '';
-    document.getElementById('longitude').value = '';
 }
-
 // Função para mostrar a posição do usuário no mapa
 function showPosition(position, mapa) {
     var lat = position.coords.latitude; // Latitude
     var lng = position.coords.longitude; // Longitude
 
     // Atualiza os valores dos campos de entrada ocultos
-    if (document.getElementById('latitude') && document.getElementById('longitude')) {
+    if(document.getElementById('latitude') && document.getElementById('longitude')){
         document.getElementById('latitude').value = lat;
         document.getElementById('longitude').value = lng;
     }
 
     // Centraliza o mapa na posição do usuário
     mapa.setView([lat, lng], 13);
-    document.getElementById('latitude').value = '';
-    document.getElementById('longitude').value = '';
 }
 
 // Chama initMap() quando a página for carregada
-window.onload = function () {
+window.onload = function() {
     initMap();
+    initMapAdmin();
 };
 
 // Função que permite voltar da tela final para a tela inicial
-function preencher_novamente() {
+function preencher_novamente(){
     destroyExitMap();
     mostrarFormulario();
 }
 
-function mostrarOutro() {
-    var select = document.getElementById('servico');
-    var outroCampo = document.getElementById('outroServico');
-    var outroInput = document.getElementById('servico_outro');
-    if (select.value === 'outro') {
-        outroCampo.classList.remove('escondido');
-        outroInput.setAttribute('required', 'required');
-    } else {
-        outroCampo.classList.add('escondido');
-        outroInput.removeAttribute('required');
+function mostrarOutro(){
+    var select = document.getElementById("servico");
+    var outroCampo = document.getElementById("outroServico");
+    var outroInput = document.getElementById("servico_outro");
+    if(select.value==="outro"){
+        outroCampo.classList.remove("escondido");
+        outroInput.setAttribute("required", "required");
+    }
+    else{
+        outroCampo.classList.add("escondido");
+        outroInput.removeAttribute("required");
     }
 }
 
@@ -324,7 +316,6 @@ function updateSelectValue(){
     var outroInput = document.getElementById("servico_outro");
 
     if(select.value === "outro"){
-        outroInput.setAttribute("name","servico");
         select.value = outroInput.value;
     }
 }
@@ -332,25 +323,20 @@ function updateSelectValue(){
 document.getElementById("meu_formulario").addEventListener("submit",updateSelectValue);
 
 function searchButtonClicked() {
-    if (!isSearchingIndex) {
-        isSearchingIndex = true;
-        var searchTerm = document.getElementById('searchInputIndex').value;
-        searchLocations(searchTerm, 'listaResultadosIndex');
-    }
+    var searchTerm = document.getElementById('searchInputIndex').value;
+    resultados = [];
+    searchLocations(searchTerm, 'listaResultadosIndex');
     return false;
 }
 
 function searchButtonClickedForm() {
-    if (!isSearchingForm) {
-        isSearchingForm = true;
-        var searchTerm = document.getElementById('searchInputForm').value;
-        searchLocations(searchTerm, 'listaResultadosForms');
-    }
+    var searchTerm = document.getElementById('searchInputForm').value;
+    resultados = [];
+    searchLocations(searchTerm, 'listaResultadosForms');
     return false;
 }
 
 function searchLocations(query, resultListId) {
-    resultados = [];
     var apiUrl = 'https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(query);
     fetch(apiUrl)
         .then(response => response.json())
@@ -363,24 +349,8 @@ function searchLocations(query, resultListId) {
                 });
             });
             imprimirResultados(resultados, resultListId);
-            
-            // Atualiza o estado da busca após a conclusão
-            if (resultListId === 'listaResultadosIndex') {
-                isSearchingIndex = false; // Marca a busca na página inicial como concluída
-            } else if (resultListId === 'listaResultadosForms') {
-                isSearchingForm = false; // Marca a busca no formulário como concluída
-            }
         })
-        .catch(error => {
-            console.error('Erro ao buscar locais:', error);
-            
-            // Em caso de erro, atualiza o estado da busca para permitir novas buscas
-            if (resultListId === 'listaResultadosIndex') {
-                isSearchingIndex = false; // Marca a busca na página inicial como concluída
-            } else if (resultListId === 'listaResultadosForms') {
-                isSearchingForm = false; // Marca a busca no formulário como concluída
-            }
-        });
+        .catch(error => console.error('Erro ao buscar locais:', error));
 }
 
 function imprimirResultados(resultados, resultListId) {
@@ -411,4 +381,3 @@ function changeMapLocation(latitude, longitude) {
         mapFormulario.setView([latitude, longitude], 13);
     }
 }
-

@@ -49,4 +49,3 @@ mínima em estilização de outras funcionalidade do wordpress.
 
 - Atualização de artefatos pois foram levantados novos requisitos com o cliente.
 
-- Criação da tela de confirmação de envio do formulário.

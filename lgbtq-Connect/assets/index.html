@@ -3,7 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css" />
+    <link rel="stylesheet" href="caminho/para/seu/style.css">
 
 </head>
 <body>
@@ -40,14 +40,14 @@
 
             <div id="outroServico" class="escondido">
                 <label for="servico_outro">Especifique:</label>
-                <input type="text" name="servico_outro" id="servico_outro" maxlength="30" minlength="3">
+                <input type="text" name="servico" id="servico_outro" maxlength="30">
             </div>
             
             <label for="descricao">Descrição:</label>
             <textarea name="descricao" id="descricao" rows="3" cols="70" placeholder="Descrição ..." required></textarea>
 
             <input type="text" id="searchInputForm">
-            <button type="button" onclick="return searchButtonClickedForm()" class="button_search">Pesquisar</button>
+            <button type="submit" onclick="return searchButtonClickedForm()" class="button_search">Pesquisar</button>
             <div id="listaResultadosForms"></div>
             <div id="mapaFormulario" style="height: 300px;margin-bottom:10px;"></div>
 
