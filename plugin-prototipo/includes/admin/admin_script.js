@@ -1,3 +1,7 @@
+window.onload = function () {
+    initMapAdmin();
+};
+
 function mostrarDescricaoCompleta(id) {
     var descricaoResumida = document.getElementById('descricaoResumida_' + id);
     var descricaoCompleta = document.getElementById('descricaoCompleta_' + id);
