@@ -4,8 +4,8 @@ var mapFormulario;
 var mapAdmin;
 var map_exit;
 var resultados = []; // Array para armazenar os locais relacionados
-var isSearchingIndex = false;
-var isSearchingForm = false;
+var isSearchingIndex = false; // Status de busca no index
+var isSearchingForm = false; // Status de busca no form
 
 
 
@@ -53,36 +53,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
 // CRIANDO MAPAS
-
-function initMap() {
-    if (document.getElementById('mapa') == null) {
-        return;
-    }
-
-    map = L.map('mapa', { doubleClickZoom: false }).setView([-15.8267, -47.9218], 13);
-
-    // Adiciona o provedor de mapa OpenStreetMap
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
-
-    getLocation(map);
-
-    formularios_aprovados.forEach(function (formulario) {
-        // Cria o conteúdo HTML personalizado para o pop-up (Nome e Descrição)
-        var popupContent = `
-            <div>
-                <h4>Nome do Local:${formulario.nome}</h4>
-                <p><strong>Descrição:</strong> ${formulario.descricao}</p>
-            </div>
-        `;
-
-        L.marker([formulario.latitude, formulario.longitude])
-            .bindPopup(popupContent)
-            .addTo(map);
-    });
-}
 
 function initMap() {
     map = L.map('mapa', { doubleClickZoom: false }).setView([-15.8267, -47.9218], 13);
@@ -305,6 +277,7 @@ function getLocation(mapa) {
     document.getElementById('latitude').value = '';
     document.getElementById('longitude').value = '';
 }
+
 // Função para mostrar a posição do usuário no mapa
 function showPosition(position, mapa) {
     var lat = position.coords.latitude; // Latitude
@@ -325,7 +298,6 @@ function showPosition(position, mapa) {
 // Chama initMap() quando a página for carregada
 window.onload = function () {
     initMap();
-    initMapAdmin();
 };
 
 // Função que permite voltar da tela final para a tela inicial
@@ -374,6 +346,7 @@ function searchButtonClickedForm() {
         var searchTerm = document.getElementById('searchInputForm').value;
         searchLocations(searchTerm, 'listaResultadosForms');
     }
+    return false;
 }
 
 function searchLocations(query, resultListId) {
