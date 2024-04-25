@@ -15,7 +15,7 @@
         </form>
         <div id="listaResultadosIndex"></div>
         <div id="mapa_index" style="height: 500px;margin-bottom:10px;"></div>
-        <div><button onclick="mostrarFormulario()" class="blue_button">Cadastrar novo local</button></div>
+        <div><button onclick="transicaoPagina('PaginaFormulario', 'div_form')" class="blue_button">Cadastrar novo local</button></div>
     </div>
 
     <div id="div_form" style="display: none;">
@@ -58,18 +58,20 @@
             <input class="blue_button" type="submit" value="Enviar">
         </form>
 
-        <button onclick="voltar()" class="voltar">Voltar</button>
+        <button onclick="transicaoPagina('PaginaComPopup', 'div_index')" class="voltar">Voltar</button>
     </div>
     
     <div id="div_saida" style="display:none;">
         <div class="title">Suas respostas foram enviadas!</div>
         <div>Agora o formulário passará por um processo de validação.<br>Entraremos em contato com o e-mail informado para fornecer o feedback.<br><br>Enquanto isso, navegue pelos estabelecimentos que já foram certificados como LGBTQ+ friendly:<br><br></div>
         <div id="mapa_saida" style="height: 500px;margin-bottom:10px;"></div>
-        <button onclick="preencher_novamente()" class="blue_button">Cadastrar um novo local</button>
-        <button onclick="voltar_exit()" class="voltar_exit">Voltar</button>
+        <button onclick="transicaoPagina('PaginaFormulario', 'div_form')" class="blue_button">Cadastrar um novo local</button>
+        <button onclick= "transicaoPagina('PaginaComPopup', 'div_index')" class="voltar_exit">Voltar</button>
     </div>
 
     <script src="js/script.js"></script>
+    <script src="js/formulario.js"></script>
+    <script src="js/funcionalidades.js"></script>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>

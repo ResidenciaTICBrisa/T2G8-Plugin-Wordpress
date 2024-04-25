@@ -35,6 +35,7 @@ function load_meu_plugin_html() {
 function load_meu_plugin_scripts() {
     wp_enqueue_script('meu-plugin-script', plugin_dir_url(__FILE__) . 'assets/js/script.js', array(), '1.0', true);
     wp_enqueue_script('formulario_script', plugin_dir_url(__FILE__) . 'assets/js/formulario.js', array(), '1.0', true);
+    wp_enqueue_script('funcionalidades_script', plugin_dir_url(__FILE__) . 'assets/js/funcionalidades.js', array(), '1.0', true);
 }
 
 // Função para enfileirar o estilo CSS

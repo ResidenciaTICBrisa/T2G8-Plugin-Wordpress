@@ -1,30 +1,11 @@
-var pagina;
-var resultados = []; // Array para armazenar os locais relacionados
-var mapas = {
+var pagina = null;
+const mapas = {
     "div_index" : "mapa_index",
     "div_form" : "mapa_formulario",
     "div_saida" : "mapa_saida"
 }
 
-// Função para destacar uma determinada linha na tabela de formulários aprovados
-function destacarLinhaTabela(id) {
-    var tabela = document.getElementById('tabela-Aprovado');
-    var linha = document.getElementById(id)
-
-    // Loop para remover a linha-destacada de todas as linhas 
-    for (var i = 0, row; row = tabela.rows[i]; i++) {
-        row.classList.remove('linha-destacada');
-    }
-
-    linha.classList.add('linha-destacada'); // Adiciona a classe 'linha-destacada'
-    linha.scrollIntoView({ behavior: 'smooth' }) // Rola a página para a linha
-
-    // Remove a classe linha-destacada depois de um determinado tempo 
-    setTimeout(function () {
-        linha.classList.remove('linha-destacada');
-    }, 2000);
-}
-
+        // FUNÇÕES AUXILIARES
 function conseguirLocalizacao(mapa) {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
@@ -42,11 +23,7 @@ function mudarPosicao(mapa, posicao) {
     mapa.setView(posicao, 13);
 }
 
-function retornarLocalizacao(posicao)
-{
-    return posicao;
-}
-
+        // CLASSES
 class Mapa {
     container;
 
@@ -69,6 +46,11 @@ class Mapa {
     mudarLocalizacao(coordernadas) {
         this.mapa.setView(coordernadas, 13);
     }
+
+    destruirMapa() {
+        this.mapa.remove()
+        this.mapa = null;
+    }
 }
 
 class Pagina {
@@ -87,17 +69,15 @@ class Pagina {
     }
 
     destruir() {
+        if(this.mapa !== null)
+        {
+            this.mapa.destruirMapa();
+        }
         this.div.style.display = "none";
-        setTimeout(function () {
-            if (this.mapa !== null) {
-                this.mapa.remove();
-                this.mapa = null;
-            }
-        }, 0);
     }
 }
 
-class PaginaInicial extends Pagina {
+class PaginaComPopup extends Pagina {
     inicializar() {
         super.inicializar();
 
@@ -120,12 +100,19 @@ class PaginaInicial extends Pagina {
 }
 
 class PaginaFormulario extends Pagina {
+
     inicializar() {
         super.inicializar();
-
-        this.mapa.on('click', function(e) {
-
-            marcador = L.marker(e.latlng).addTo(mapFormulario);
+        this.marcador = null;
+        var self = this;
+        this.mapa.mapa.on('click', function(e) {
+            
+            if(self.marcador==null)
+            {
+                self.marcador = L.marker(e.latlng).addTo(self.mapa.mapa);         
+            }
+            
+            self.marcador.setLatLng(e.latlng);
 
             var lat = e.latlng.lat; // Latitude
             var lng = e.latlng.lng; // Longitude
@@ -134,6 +121,17 @@ class PaginaFormulario extends Pagina {
             document.getElementById('latitude').value = lat;
             document.getElementById('longitude').value = lng;
         })
+
+        this.mapa.mapa.on('contextmenu', function (e) {
+            // Verifica se existe um marcador atual
+            if (self.marcador !== null) {
+                // Remove o marcador do mapa
+                self.mapa.mapa.removeLayer(self.marcador);
+                document.getElementById('latitude').value = '';
+                document.getElementById('longitude').value = '';
+                self.marcador = null;
+            }
+        });
 
         for(var i = 0; i<formularios_aprovados.length; i++)
         {
@@ -148,107 +146,24 @@ class PaginaFormulario extends Pagina {
     }
 }
 
-class PaginaAdmin extends Pagina {
-    inicializar() {
-        super.inicializar();
-    }
-
-    destruir() {
-        super.destruir();
-    }
-}
+const classes = new Map([
+    ['PaginaFormulario', PaginaFormulario],
+    ['PaginaComPopup', PaginaComPopup]
+  ]);
 
 function inicializarPlugin()
 {
-    pagina = new PaginaInicial("div_index");
+    pagina = new PaginaComPopup("div_index");
+    pagina.inicializar();
+}
+
+function transicaoPagina(proxPagina, id)
+{
+    pagina.destruir();
+    pagina = new(classes.get(proxPagina))(id);
     pagina.inicializar();
 }
 
 window.onload = function () {
     inicializarPlugin();
 };
-
-function mostrarOutro() {
-    var select = document.getElementById("servico");
-    var outroCampo = document.getElementById("outroServico");
-    var outroInput = document.getElementById("servico_outro");
-    if (select.value === "outro") {
-        outroCampo.classList.remove("escondido");
-        outroInput.setAttribute("required", "required");
-    }
-    else {
-        outroCampo.classList.add("escondido");
-        outroInput.removeAttribute("required");
-    }
-}
-
-function updateSelectValue() {
-    var select = document.getElementById("servico");
-    var outroInput = document.getElementById("servico_outro");
-
-    if (select.value === "outro") {
-        select.value = outroInput.value;
-    }
-}
-
-document.getElementById("meu_formulario").addEventListener("submit", updateSelectValue);
-
-function searchButtonClicked() {
-    var searchTerm = document.getElementById('searchInputIndex').value;
-    resultados = [];
-    searchLocations(searchTerm, 'listaResultadosIndex');
-    return false;
-}
-
-function searchButtonClickedForm() {
-    var searchTerm = document.getElementById('searchInputForm').value;
-    resultados = [];
-    searchLocations(searchTerm, 'listaResultadosForms');
-    return false;
-}
-
-function searchLocations(query, resultListId) {
-    var apiUrl = 'https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(query);
-    fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => {
-            data.forEach(location => {
-                resultados.push({
-                    display_name: location.display_name,
-                    lat: location.lat,
-                    lon: location.lon
-                });
-            });
-            imprimirResultados(resultados, resultListId);
-        })
-        .catch(error => console.error('Erro ao buscar locais:', error));
-}
-
-function imprimirResultados(resultados, resultListId) {
-    var listaResultados = document.getElementById(resultListId);
-    listaResultados.innerHTML = '';
-    var div = document.createElement('div');
-    resultados.forEach(resultado => {
-        var divResultado = document.createElement('div');
-        divResultado.style.border = '2px solid black';
-        divResultado.style.borderRadius = '3px';
-        divResultado.style.padding = '3px';
-        divResultado.style.margin = '5px 5px 5px 0px';
-        divResultado.style.cursor = 'pointer';
-        divResultado.textContent = resultado.display_name;
-        divResultado.addEventListener('click', function () {
-            changeMapLocation(resultado.lat, resultado.lon);
-        });
-        div.appendChild(divResultado);
-    });
-    listaResultados.appendChild(div);
-}
-
-function changeMapLocation(latitude, longitude) {
-    if (map) {
-        map.setView([latitude, longitude], 13);
-    }
-    if (mapFormulario) {
-        mapFormulario.setView([latitude, longitude], 13);
-    }
-}
