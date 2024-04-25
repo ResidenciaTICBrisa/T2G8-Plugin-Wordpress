@@ -15,8 +15,10 @@ function conseguirLocalizacao(mapa) {
             mudarPosicao(mapa, user_position);
         });
     } else {
-        alert("Geolocalização não é suportada por este navegador.");
+        alert('Geolocalização não é suportada por este navegador.');
     }
+    document.getElementById('latitude').value = '';
+    document.getElementById('longitude').value = '';
 }
 
 function mudarPosicao(mapa, posicao) {

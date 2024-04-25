@@ -1,8 +1,13 @@
 #div_index, #div_form, #div_saida{
     /*background-color: #F5F5F5;*/
     background-color:white;
-    border: 1px solid #D0D0D0;
-    border-radius:20px;
+    /* border: 1px solid #D0D0D0; */
+    /* border-radius:20px; */
+    border-width: 0px 0px 0px 6px;
+    border-style: solid;
+    border-image: linear-gradient(to bottom, red, hotpink, blue, lime, yellow) 5;
+    border-radius: 0px 20px 20px 0px;
+    box-shadow: 2px 2px 5px #d0d0d0;
     position:relative;
     padding: 50px;
 }
@@ -92,6 +97,8 @@
     border-radius:20px;
 }
 
+
+
 .linha-destacada { 
     animation: fadeOut 2s ease;
 }
@@ -104,6 +111,7 @@
 .escondido{
     display:none;
 }
+
 .leaflet-popup-content h3 {
     font-family: Arial, sans-serif; 
     font-size: 20px;
@@ -120,3 +128,4 @@
     font-size: 15px;
     color: #90cc90;
 }*/
+
