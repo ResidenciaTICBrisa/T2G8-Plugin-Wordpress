@@ -10,8 +10,10 @@
     <div id="div_index">
         <div class="title">Encontre empreendimentos e serviços já identificados como LGBTQ+ friendly:<br></div>
         <form method="post">
-            <input type="text" id="searchInputIndex">
-            <button type="submit" onclick="return searchButtonClicked()" class="button_search">Pesquisar</button>
+            <div class="search_wrapper">
+                <input type="text" id="searchInputIndex" placeholder="Pesquise a cidade ou estado...">
+                <button type="submit" onclick="return searchButtonClicked()" class="button_search">Pesquisar</button>
+            </div>
         </form>
         <div id="listaResultadosIndex"></div>
         <div id="mapa_index" style="height: 500px;margin-bottom:10px;"></div>
@@ -46,8 +48,10 @@
             <label for="descricao">Descrição:</label>
             <textarea name="descricao" id="descricao" rows="3" cols="70" placeholder="Descrição ..." required></textarea>
 
-            <input type="text" id="searchInputForm">
-            <button type="button" onclick="return searchButtonClickedForm()" class="button_search">Pesquisar</button>
+            <div class="search_wrapper">
+                <input type="text" id="searchInputForm" placeholder="Pesquise a cidade ou estado...">
+                <button type="button" onclick="return searchButtonClickedForm()" class="button_search">Pesquisar</button>
+            </div>
             <div id="listaResultadosForms"></div>
             <div id="mapa_formulario" style="height: 300px;margin-bottom:10px;"></div>
 

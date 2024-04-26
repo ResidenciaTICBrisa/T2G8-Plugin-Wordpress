@@ -3,7 +3,7 @@
     background-color:white;
     /* border: 1px solid #D0D0D0; */
     /* border-radius:20px; */
-    border-width: 0px 0px 0px 6px;
+    border-width: 0px 0px 0px 3px;
     border-style: solid;
     border-image: linear-gradient(to bottom, red, hotpink, blue, lime, yellow) 5;
     border-radius: 0px 20px 20px 0px;
@@ -26,20 +26,25 @@
     margin-bottom:10px;
 }
 
-.blue_button{
+.blue_button, .button_search{
     width:100%;
     background-color: #2a75f3;
     padding:10px;
     border:none;
     border-radius: 10px;
     color:white;
+    text-align:center;
 }
 
-.blue_button:hover{
+.button_search{
+    width: 17%;
+}
+
+.blue_button:hover, .button_search:hover{
     background-color: #1266f1;
 }
 
-#nome, #email, #descricao, #servico_outro{
+#nome, #email, #descricao, #servico_outro, #searchInputIndex, #searchInputForm{
     width:97%;
     resize:none;
     background-color:#F5F5F5;
@@ -47,6 +52,13 @@
     border: 1px solid #D0D0D0;
     border-radius:10px;
     padding:10px;
+}
+
+#searchInputIndex, #searchInputForm{
+    width: 77%;
+    margin: 0 auto;
+    padding:10px !important;
+    margin-left:0px;
 }
 
 #servico{
@@ -129,3 +141,54 @@
     color: #90cc90;
 }*/
 
+.leaflet-popup-content-wrapper {
+    background-color: white !important;
+    /* border-width: 2px 2px 2px 2px;
+    border-style: solid;
+    border-image: linear-gradient(to bottom, red, hotpink, blue, lime, yellow) 5;
+    border-radius: 0px 20px 20px 0px; */
+}
+
+.leaflet-popup-tip {
+    background-color: hotpink !important;
+}
+
+#listaResultadosForms, #listaResultadosIndex{
+    background-color: white;
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
+/* #resultListId{
+    background-color: hotpink;
+} */
+
+.celula_resultado{
+    background-color: #F5F5F5;
+    /* border:none; */
+    /* border-radius:50px; */
+    width:97%;
+    text-align:center;
+    font-size:12px;
+    padding:10px;
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    margin:20px;
+    border-radius:10px !important;
+}
+
+.celula_resultado:hover{
+    background-color: #E6E6E6;
+}
+
+.celula_resultado:active{
+    background-color: #ccc;
+}
+
+.search_wrapper{
+    background-color: white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
