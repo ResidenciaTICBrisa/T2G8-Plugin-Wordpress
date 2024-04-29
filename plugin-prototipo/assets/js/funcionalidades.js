@@ -59,13 +59,21 @@ function imprimirResultados(resultados, resultListId) {
     listaResultados.innerHTML = '';
     var div = document.createElement('div');
     resultados.forEach(resultado => {
+        // var icone = document.createElement('img');
+        // icone.src = '../img/marker00.png';
+        // icone.style.width='10%';
+        // icone.style.height='10%';
         var divResultado = document.createElement('div');
-        divResultado.style.border = '2px solid black';
+        divResultado.classList.add('celula_resultado');
+        // divResultado.style.border = '2px solid black';
+        // divResultado.appendChild(icone);
         divResultado.style.borderRadius = '3px';
-        divResultado.style.padding = '3px';
+        // divResultado.style.padding = '3px';
         divResultado.style.margin = '5px 5px 5px 0px';
         divResultado.style.cursor = 'pointer';
-        divResultado.textContent = resultado.display_name;
+        // divResultado.innerHTML = '<img src="https://i.imgur.com/4ZnmAxk.png" style="width=0.02%;height=0.02%;">' + resultado.display_name;
+        divResultado.innerHTML = '<img src="https://i.imgur.com/4ZnmAxk.png" width="20px" height="20px">' + resultado.display_name;
+        // divResultado.textContent = resultado.display_name;
         divResultado.addEventListener('click', function () {
             changeMapLocation(resultado.lat, resultado.lon);
         });
@@ -95,18 +103,18 @@ function mostrarOutro() {
     }
 }
 
-function mostrarOutro() {
-    var select = document.getElementById('servico');
-    var outroCampo = document.getElementById('outroServico');
-    var outroInput = document.getElementById('servico_outro');
-    if (select.value === 'outro') {
-        outroCampo.classList.remove('escondido');
-        outroInput.setAttribute('required', 'required');
-    } else {
-        outroCampo.classList.add('escondido');
-        outroInput.removeAttribute('required');
-    }
-}
+// function mostrarOutro() {
+//     var select = document.getElementById('servico');
+//     var outroCampo = document.getElementById('outroServico');
+//     var outroInput = document.getElementById('servico_outro');
+//     if (select.value === 'outro') {
+//         outroCampo.classList.remove('escondido');
+//         outroInput.setAttribute('required', 'required');
+//     } else {
+//         outroCampo.classList.add('escondido');
+//         outroInput.removeAttribute('required');
+//     }
+// }
 
 function updateSelectValue(){
     var select = document.getElementById("servico");
