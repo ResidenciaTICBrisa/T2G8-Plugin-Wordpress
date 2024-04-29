@@ -28,11 +28,30 @@ Nessa sprint temos como objetivo a adição de funcionalidade tanto na interface
 
 
 |Descrição| Nº issue|
-|---------|---------|
-|Configuração do ambiente de desenvolvimento (VM)|<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/63" target="_blank">#63</a></li>|
+|---------|---------|   
 |Criação do wireframe da interface |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/64" target="_blank">#64</a></li>|
 |Implementação de ferramentas de ordenação nas tabelas do painel de administração |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/72" target="_blank">#72</a></li>|
-|Remoção do bug nas telas do plugin |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/74" target="_blank">#74</a></li>|
 |Adição de um sub menu dentro do menu do LGBTQ+ Connect  |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/75" target="_blank">#75</a></li>|
 |Atualização da documentação do projeto |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/76" target="_blank">#76</a></li>|
 |Campo para adição de um novo tipo de serviço  |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/77" target="_blank">#77</a></li>|
+|Resolvendo bug no envio de formulários sem marcador|<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/78" target="_blank">#78</a></li>|
+|Adicionando a licença na raíz do projeto|<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/79" target="_blank">#79</a></li>|
+|Adicionando funcionalidade de popup nos marcadores dos mapas|<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/80" target="_blank">#80</a></li>|
+|Adicionando novo texto no popup dos mapas|<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/81" target="_blank">#81</a></li>|
+|Interação com os marcadores no mapa da página de administrador|<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/82" target="_blank">#82</a></li>|
+|Adicionar feature de busca no mapa|<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/84" target="_blank">#84</a></li>|
+
+## **Sprint 8**
+
+Nessa sprint o objetivo é o tratamento de bugs que persistem no uso do plugin, desenvolvimento do desing das telas e interface do administrador para melhor experiência do usuário. Durante essa sprint também continuará a preparação do ambiente de produção (VM) do projeto. Além da adição de algumas funcionalidades restantes.
+
+|Descrição| Nº issue|
+|---------|---------|
+|Desenvolvimento de visual para os popups dos mapas |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/86" target="_blank">#86</a></li>|
+|Análise sobre os códigos de mapa |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/87" target="_blank">#87</a></li>|
+|Atualização do arquivo .zip do plugin|<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/88" target="_blank">#88</a></li>|
+|Alteração da visualização da data e hora nas tabelas  |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/89" target="_blank">#89</a></li>|
+|Estilização dos campos de busca |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/90" target="_blank">#90</a></li>|
+|Ordenação das tabelas por e-mail e data e hora |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/91" target="_blank">#91</a></li>|
+|Adicionando feature de ver mais nos campos de descrição|<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/93" target="_blank">#93</a></li>|
+|Adição das sprints 7 e 8 |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/94" target="_blank">#94</a></li>|

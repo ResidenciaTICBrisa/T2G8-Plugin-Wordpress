@@ -16,7 +16,7 @@ services:
     networks:
       - myNetwork
     volumes:
-      - ./plugin-prototipo:/var/www/html/wp-content/plugins/plugin-prototipo
+      - ./lgbtq_connect:/var/www/html/wp-content/plugins/plugin-prototipo
 
   db:
     image: mysql:8.3.0
