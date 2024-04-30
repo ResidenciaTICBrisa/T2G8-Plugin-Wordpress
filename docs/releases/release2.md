@@ -47,7 +47,9 @@ Nessa sprint o objetivo é o tratamento de bugs que persistem no uso do plugin, 
 
 |Descrição| Nº issue|
 |---------|---------|
-|Desenvolvimento de visual para os popups dos mapas |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/86" target="_blank">#86</a></li>|
+|Modelagem de banco de dados para o projeto |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/70" target="_blank">#70</a></li>|
+|Resolvendo bug no envio de formulários com tipo de serviços pré-definidos |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/83" target="_blank">#83</a></li>|
+|Resolver bug do duplo clique nos botões de pesquisa |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/85" target="_blank">#85</a></li>|
 |Análise sobre os códigos de mapa |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/87" target="_blank">#87</a></li>|
 |Atualização do arquivo .zip do plugin|<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/88" target="_blank">#88</a></li>|
 |Alteração da visualização da data e hora nas tabelas  |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/89" target="_blank">#89</a></li>|
@@ -55,3 +57,7 @@ Nessa sprint o objetivo é o tratamento de bugs que persistem no uso do plugin, 
 |Ordenação das tabelas por e-mail e data e hora |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/91" target="_blank">#91</a></li>|
 |Adicionando feature de ver mais nos campos de descrição|<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/93" target="_blank">#93</a></li>|
 |Adição das sprints 7 e 8 |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/94" target="_blank">#94</a></li>|
+|Trabalho visual nos resultados da busca |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/97" target="_blank">#97</a></li>|
+|Adicionar guia de contribuição no projeto |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/101" target="_blank">#101</a></li>|
+|Adicionar código de conduta no projeto |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/102" target="_blank">#102</a></li>|
+|Adicionar políticas de segurança do projeto |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/103" target="_blank">#103</a></li>|
