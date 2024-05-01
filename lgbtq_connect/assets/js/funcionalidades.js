@@ -55,8 +55,10 @@ function searchLocations(query, resultListId) {
 }
 
 function imprimirResultados(resultados, resultListId) {
+    var listaResultadosOcultados = [];
     var listaResultados = document.getElementById(resultListId);
     listaResultados.innerHTML = '';
+    var count = 0;
     var div = document.createElement('div');
     resultados.forEach(resultado => {
         var divResultado = document.createElement('div');
@@ -68,8 +70,31 @@ function imprimirResultados(resultados, resultListId) {
         divResultado.addEventListener('click', function () {
             changeMapLocation(resultado.lat, resultado.lon);
         });
-        div.appendChild(divResultado);
+        count += 1;
+        if(count <=5){
+            div.appendChild(divResultado);
+        } else {
+            divResultado.style.display = 'none';
+            listaResultadosOcultados.push(divResultado);
+            div.appendChild(divResultado);
+        } 
     });
+    
+    // Adicionando botão "Ver Mais"
+    var verMaisButton = document.createElement('button');
+    verMaisButton.textContent = 'Ver Mais';
+    verMaisButton.addEventListener('click', function() {
+        showMoreResults();
+    });
+
+    listaResultados.appendChild(verMaisButton);
+
+    // Função para mostrar mais resultados
+    function showMoreResults() {
+        listaResultadosOcultados.forEach(resultado => {
+            resultado.style.display = 'block';
+        });
+    }
     listaResultados.appendChild(div);
 }
 
