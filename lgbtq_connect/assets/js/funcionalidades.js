@@ -55,8 +55,10 @@ function searchLocations(query, resultListId) {
 }
 
 function imprimirResultados(resultados, resultListId) {
+    var listaResultadosOcultados = [];
     var listaResultados = document.getElementById(resultListId);
     listaResultados.innerHTML = '';
+    var count = 0;
     var div = document.createElement('div');
     resultados.forEach(resultado => {
         var divResultado = document.createElement('div');
@@ -68,9 +70,59 @@ function imprimirResultados(resultados, resultListId) {
         divResultado.addEventListener('click', function () {
             changeMapLocation(resultado.lat, resultado.lon);
         });
-        div.appendChild(divResultado);
+        count += 1;
+        if(count <=5){
+            div.appendChild(divResultado);
+        } else {
+            divResultado.style.display = 'none';
+            listaResultadosOcultados.push(divResultado);
+            div.appendChild(divResultado);
+        } 
     });
+    
+
     listaResultados.appendChild(div);
+
+    if (count > 5){
+        // Adicionando botão "Ver Mais"
+        var verMaisButton = document.createElement('button');
+        verMaisButton.textContent = 'Ver Mais';
+        verMaisButton.setAttribute('type', 'button');
+        verMaisButton.addEventListener('click', function() {
+            MostrarMaisResultados();
+        });
+        
+        listaResultados.appendChild(verMaisButton);
+        
+        // Adicionando botão "Ver Menos"
+        var verMenosButton = document.createElement('button');
+        verMenosButton.textContent = 'Ver Menos';
+        verMenosButton.setAttribute('type', 'button');
+        verMenosButton.addEventListener('click', function() {
+            MostrarMenosResultados();
+        });
+        verMenosButton.style.display = 'none';
+
+        listaResultados.appendChild(verMenosButton);
+
+        // Função para mostrar mais resultados
+        function MostrarMaisResultados() {
+            listaResultadosOcultados.forEach(resultado => {
+                resultado.style.display = 'block';
+            });
+            verMaisButton.style.display = 'none';
+            verMenosButton.style.display = 'block';
+        }
+
+        // Função para mostrar menos resultados
+        function MostrarMenosResultados() {
+            listaResultadosOcultados.forEach(resultado => {
+                resultado.style.display = 'none';
+            });
+            verMaisButton.style.display = 'block';
+            verMenosButton.style.display = 'none';
+        }
+    }
 }
 
 function changeMapLocation(latitude, longitude) {
