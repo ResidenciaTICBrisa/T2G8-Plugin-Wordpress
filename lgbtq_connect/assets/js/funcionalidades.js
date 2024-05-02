@@ -87,6 +87,7 @@ function imprimirResultados(resultados, resultListId) {
         // Adicionando botão "Ver Mais"
         var verMaisButton = document.createElement('button');
         verMaisButton.textContent = 'Ver Mais';
+        verMaisButton.setAttribute('type', 'button');
         verMaisButton.addEventListener('click', function() {
             MostrarMaisResultados();
         });
@@ -96,6 +97,7 @@ function imprimirResultados(resultados, resultListId) {
         // Adicionando botão "Ver Menos"
         var verMenosButton = document.createElement('button');
         verMenosButton.textContent = 'Ver Menos';
+        verMenosButton.setAttribute('type', 'button');
         verMenosButton.addEventListener('click', function() {
             MostrarMenosResultados();
         });
