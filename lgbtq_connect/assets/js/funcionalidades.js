@@ -80,22 +80,44 @@ function imprimirResultados(resultados, resultListId) {
         } 
     });
     
+    listaResultados.appendChild(div);
+
     // Adicionando botão "Ver Mais"
     var verMaisButton = document.createElement('button');
     verMaisButton.textContent = 'Ver Mais';
     verMaisButton.addEventListener('click', function() {
-        showMoreResults();
+        MostrarMaisResultados();
     });
-
+    
     listaResultados.appendChild(verMaisButton);
+    
+    // Adicionando botão "Ver Menos"
+    var verMenosButton = document.createElement('button');
+    verMenosButton.textContent = 'Ver Menos';
+    verMenosButton.addEventListener('click', function() {
+        MostrarMenosResultados();
+    });
+    verMenosButton.style.display = 'none';
+
+    listaResultados.appendChild(verMenosButton);
 
     // Função para mostrar mais resultados
-    function showMoreResults() {
+    function MostrarMaisResultados() {
         listaResultadosOcultados.forEach(resultado => {
             resultado.style.display = 'block';
         });
+        verMaisButton.style.display = 'none';
+        verMenosButton.style.display = 'block';
     }
-    listaResultados.appendChild(div);
+
+    // Função para mostrar menos resultados
+    function MostrarMenosResultados() {
+        listaResultadosOcultados.forEach(resultado => {
+            resultado.style.display = 'none';
+        });
+        verMaisButton.style.display = 'block';
+        verMenosButton.style.display = 'none';
+    }
 }
 
 function changeMapLocation(latitude, longitude) {
