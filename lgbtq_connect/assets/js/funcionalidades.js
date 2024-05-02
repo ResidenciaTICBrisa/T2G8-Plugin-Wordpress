@@ -80,43 +80,46 @@ function imprimirResultados(resultados, resultListId) {
         } 
     });
     
+
     listaResultados.appendChild(div);
 
-    // Adicionando botão "Ver Mais"
-    var verMaisButton = document.createElement('button');
-    verMaisButton.textContent = 'Ver Mais';
-    verMaisButton.addEventListener('click', function() {
-        MostrarMaisResultados();
-    });
-    
-    listaResultados.appendChild(verMaisButton);
-    
-    // Adicionando botão "Ver Menos"
-    var verMenosButton = document.createElement('button');
-    verMenosButton.textContent = 'Ver Menos';
-    verMenosButton.addEventListener('click', function() {
-        MostrarMenosResultados();
-    });
-    verMenosButton.style.display = 'none';
-
-    listaResultados.appendChild(verMenosButton);
-
-    // Função para mostrar mais resultados
-    function MostrarMaisResultados() {
-        listaResultadosOcultados.forEach(resultado => {
-            resultado.style.display = 'block';
+    if (count > 5){
+        // Adicionando botão "Ver Mais"
+        var verMaisButton = document.createElement('button');
+        verMaisButton.textContent = 'Ver Mais';
+        verMaisButton.addEventListener('click', function() {
+            MostrarMaisResultados();
         });
-        verMaisButton.style.display = 'none';
-        verMenosButton.style.display = 'block';
-    }
-
-    // Função para mostrar menos resultados
-    function MostrarMenosResultados() {
-        listaResultadosOcultados.forEach(resultado => {
-            resultado.style.display = 'none';
+        
+        listaResultados.appendChild(verMaisButton);
+        
+        // Adicionando botão "Ver Menos"
+        var verMenosButton = document.createElement('button');
+        verMenosButton.textContent = 'Ver Menos';
+        verMenosButton.addEventListener('click', function() {
+            MostrarMenosResultados();
         });
-        verMaisButton.style.display = 'block';
         verMenosButton.style.display = 'none';
+
+        listaResultados.appendChild(verMenosButton);
+
+        // Função para mostrar mais resultados
+        function MostrarMaisResultados() {
+            listaResultadosOcultados.forEach(resultado => {
+                resultado.style.display = 'block';
+            });
+            verMaisButton.style.display = 'none';
+            verMenosButton.style.display = 'block';
+        }
+
+        // Função para mostrar menos resultados
+        function MostrarMenosResultados() {
+            listaResultadosOcultados.forEach(resultado => {
+                resultado.style.display = 'none';
+            });
+            verMaisButton.style.display = 'block';
+            verMenosButton.style.display = 'none';
+        }
     }
 }
 
