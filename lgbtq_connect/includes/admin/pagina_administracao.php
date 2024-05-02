@@ -20,24 +20,5 @@ function mostrar_dados() {
     // Consulta os dados da tabela formulario
     $dados_formulario = $wpdb->get_results("SELECT * FROM lc_formulario");
     
-    // Verifica se uma ação de exclusão foi acionada
-    if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['id'])) {
-        // Captura o ID do registro a ser excluído
-        $id = intval($_GET['id']);
-
-        // Executa a consulta para excluir o registro
-        $resultado_exclusao = $wpdb->delete('lc_formulario', array('id' => $id));
-
-        // Exibe uma mensagem de sucesso ou erro
-        if ($resultado_exclusao === false) {
-            echo '<div class="error"><p>Erro ao excluir o registro!</p></div>';
-        } else {
-            echo '<div class="updated"><p>Registro excluído com sucesso!</p></div>';
-        }
-    }
-
     require 'formulario-admin-page.php';
-
 }
-
-
