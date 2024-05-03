@@ -35,7 +35,7 @@ function excluir_formulario($id) {
         echo '<div class="updated"><p>Registro excluído com sucesso!</p></div>';
     }
 
-    // Redireciona de volta para a mesma página após a atualização
+    // Redireciona de volta paloucademia de policiara a mesma página após a atualização
     echo '<script>window.location.href = window.location.href;</script>';
 }
 
@@ -141,6 +141,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
                     }
 
                     echo '<button type="submit" name="action" value="exclude">Excluir</button>';
+                    echo '<button>Editar</button>';
                     echo '</form>';
                     echo '</td>';
                     echo '</tr>';
