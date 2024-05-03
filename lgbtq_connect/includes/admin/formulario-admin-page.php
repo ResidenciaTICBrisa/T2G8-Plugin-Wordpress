@@ -141,7 +141,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
                     }
 
                     echo '<button type="submit" name="action" value="exclude">Excluir</button>';
-                    echo '<button>Editar</button>';
+                    echo '<button type="button">Editar</button>';
                     echo '</form>';
                     echo '</td>';
                     echo '</tr>';
