@@ -22,13 +22,34 @@ function rejeitar_formulario($id) {
     echo '<script>window.location.href = window.location.href;</script>';
 }
 
+function excluir_formulario($id) {
+    global $wpdb;
+
+    // Executa a consulta para excluir o registro
+    $resultado_exclusao = $wpdb->delete('lc_formulario', array('id' => $id));
+
+    // Exibe uma mensagem de sucesso ou erro
+    if ($resultado_exclusao === false) {
+        echo '<div class="error"><p>Erro ao excluir o registro!</p></div>';
+    } else {
+        echo '<div class="updated"><p>Registro excluído com sucesso!</p></div>';
+    }
+
+    // Redireciona de volta paloucademia de policiara a mesma página após a atualização
+    echo '<script>window.location.href = window.location.href;</script>';
+}
+
 // Verifica se o parâmetro "action" foi enviado via POST
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
     // Verifica a ação do formulário
     if ($_POST['action'] === 'approve' && isset($_POST['id'])) {
         aprovar_formulario($_POST['id']);
-    } elseif ($_POST['action'] === 'reprove' && isset($_POST['id'])) {
+    } 
+    elseif ($_POST['action'] === 'reprove' && isset($_POST['id'])) {
         rejeitar_formulario($_POST['id']);
+    }
+    elseif ($_POST['action'] === 'exclude' && isset($_POST['id'])) {
+        excluir_formulario($_POST['id']);
     }
 }
 ?>
@@ -83,7 +104,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
                 echo '<th class="sort-header">Data e hora <button class="sort-btn sort-by-date" data-order="asc"><span class="sort-icon">&#9650;</span></button></th>';
                 echo '<th>Status</th>';
                 echo '<th>Ações</th>';
-                echo '<th>Excluir</th>';
                 echo '</tr>';
                 echo '</thead>';
                 echo '<tbody>';
@@ -108,30 +128,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
                     echo '<td>' . $dados->situacao . '</td>';
                     echo '<td>';
                     
+                    echo '<form method="post" action="">';
+                    echo '<input type="hidden" name="id" value="' . $dados->id . '">';
                     // Botões de ação com base na situação do formulário
                     if ($situacao === 'Pendente') {
-                        echo '<form method="post" action="">';
-                        echo '<input type="hidden" name="id" value="' . $dados->id . '">';
                         echo '<button type="submit" name="action" value="approve">Aprovar</button>';
                         echo '<button type="submit" name="action" value="reprove">Negar</button>';
-                        echo '</form>';
                     } elseif ($situacao === 'Aprovado') {
-                        echo '<form method="post" action="">';
-                        echo '<input type="hidden" name="action" value="reprove">';
-                        echo '<input type="hidden" name="id" value="' . $dados->id . '">';
-                        echo '<button type="submit">Negar</button>';
-                        echo '</form>';
+                        echo '<button type="submit" name="action" value="reprove">Negar</button>';
                     } elseif ($situacao === 'Negado') {
-                        echo '<form method="post" action="">';
-                        echo '<input type="hidden" name="action" value="approve">';
-                        echo '<input type="hidden" name="id" value="' . $dados->id . '">';
-                        echo '<button type="submit">Aprovar</button>';
-                        echo '</form>';
+                        echo '<button type="submit" name="action" value="approve">Aprovar</button>';
                     }
 
-                    echo '</td>';
-                    echo '<td>';
-                    echo '<a href="?page=lc_admin&action=delete&id=' . $dados->id . '">Excluir</a>';
+                    echo '<button type="submit" name="action" value="exclude">Excluir</button>';
+                    echo '<button type="button">Editar</button>';
+                    echo '</form>';
                     echo '</td>';
                     echo '</tr>';
                 }
