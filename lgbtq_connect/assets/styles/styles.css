@@ -37,7 +37,7 @@
     background-color: #1266f1;
 }
 
-#nome, #email, #descricao, #servico_outro, #searchInputIndex, #searchInputForm{
+#nome, #email_f, #descricao, #servico_outro, #searchInputIndex, #searchInputForm{
     width:97%;
     resize:none;
     background-color:#F5F5F5;
