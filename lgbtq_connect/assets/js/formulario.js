@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
         e.preventDefault(); // Previne que o formulário dê submit na forma padrão
         // Verifica se os campos estão preenchidos
         var nome = document.getElementById('nome').value;
-        var email = document.getElementById('email').value;
+        var email = document.getElementById('email_f').value;
         var latitude = document.getElementById('latitude').value;
         var longitude = document.getElementById('longitude').value;
         var servico = document.getElementById('servico').value;
