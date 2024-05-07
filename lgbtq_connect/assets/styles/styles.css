@@ -19,7 +19,7 @@
     margin-bottom:10px;
 }
 
-.blue_button, .button_search{
+.blue_button, .button_search, .ver{
     width:100%;
     background-color: #2a75f3;
     padding:10px;
@@ -27,13 +27,26 @@
     border-radius: 10px;
     color:white;
     text-align:center;
+    align-items: center;
 }
 
 .button_search{
     width: 17%;
 }
 
-.blue_button:hover, .button_search:hover{
+.ver {
+    margin: auto;
+    display : block;
+    width: 10%;
+    height: 20px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    font-size: 0.75rem;
+    padding: 0px;
+}
+
+.blue_button:hover, .button_search:hover, .ver:hover{
     background-color: #1266f1;
 }
 
