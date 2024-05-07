@@ -87,9 +87,11 @@ class PaginaComPopup extends Pagina {
         {
             var formulario = formularios_aprovados[i];
             var popupConteudo = `
-            <div>
-                <h4>Nome do Local:${formulario.nome}</h4>
-                <p><strong>Descrição:</strong> ${formulario.descricao}</p>
+            <div class="pop">
+                <h4><strong>${formulario.nome}</strong></h4>
+                <i>${formulario.servico}</i>
+                <div class="gradiente"></div>
+                <p><strong>${formulario.descricao}</strong></p>
             </div>
                 `;
             this.mapa.adicionarMarcador(L.marker([formulario.latitude, formulario.longitude]).bindPopup(popupConteudo));
