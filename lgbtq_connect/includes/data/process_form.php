@@ -50,7 +50,7 @@ function processar_formulario() {
             // Constrói a mensagem do e-mail
             $message = 'Olá! Uma nova resposta foi feita no seu formulário. Aqui estão os detalhes:' . "\n" . $local_cadastrado . $tipo_servico . $data_hora_cadastro . 'Verifique sua área de administração para mais informações: ' . $admin_panel_url;
 
-            $subject = 'Novo formulário submetido';
+            $subject = 'LGBTQ+ Connect - Nova solicitação de plotagem recebida';
             // Envie o e-mail de notificação para o administrador do site
             wp_mail($admin_email, $subject, $message);
 
