@@ -1,3 +1,42 @@
+#div_admin {
+    background-color:white;
+    border-width: 0px 0px 0px 5px;
+    border-style: solid;
+    border-image: linear-gradient(to bottom right, red, hotpink, blue, lime, yellow) 5;
+    border-radius: 0px 20px 20px 0px;
+    box-shadow: 2px 2px 5px #d0d0d0;
+    position:relative;
+    margin: 20px 10px 0px 0px;
+    padding: 50px;
+}
+
+#filtros {
+    display: flex;
+}
+
+.filtro {
+    flex: 1;
+    background-color: white;
+}
+
+#busca_nome_container {
+    display: flex;
+    border:1px solid grey;
+}
+
+#busca_nome {
+    flex-grow:2;
+    border: none;
+}
+
+#busca_nome:focus {
+    outline:none;
+}
+
+#busca_nome_container:focus-within { 
+    outline: 1px solid blue; 
+}
+
 button[data-id] {
     background-color: transparent;
     color: rgba(0, 153, 255, 0.877);
