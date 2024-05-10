@@ -98,3 +98,48 @@ function obter_formularios_aprovados() {
     return $formularios_aprovados;
 }
 
+// Função para retornar os formulários aprovados (Return é um array)
+function obter_formularios_negados() {
+    global $wpdb;
+
+    // Monta a consulta SQL com base nos parâmetros de ordenação
+    $query = "SELECT * FROM lc_formulario";
+    $dados_formulario = $wpdb->get_results($query);
+
+    // Array para armazenar os formulários negados
+    $formularios_negados = array();
+
+    // Itera sobre cada formulário
+    foreach ($dados_formulario as $formulario) {
+        // Verifica se o formulário está negado
+        if ($formulario->situacao === 'Negado') {
+            // Adiciona o formulário ao array de formulários negados
+            $formularios_negados[] = $formulario;
+        }
+    }
+    
+    return $formularios_negados;
+}
+
+// Função para retornar os formulários aprovados (Return é um array)
+function obter_formularios_pendentes() {
+    global $wpdb;
+
+    // Monta a consulta SQL com base nos parâmetros de ordenação
+    $query = "SELECT * FROM lc_formulario";
+    $dados_formulario = $wpdb->get_results($query);
+
+    // Array para armazenar os formulários pendentes
+    $formularios_pendentes = array();
+
+    // Itera sobre cada formulário
+    foreach ($dados_formulario as $formulario) {
+        // Verifica se o formulário está pendente
+        if ($formulario->situacao === 'Pendente') {
+            // Adiciona o formulário ao array de formulários pendentes
+            $formularios_pendentes[] = $formulario;
+        }
+    }
+    
+    return $formularios_pendentes;
+}

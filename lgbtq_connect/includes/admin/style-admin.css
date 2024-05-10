@@ -10,8 +10,18 @@
     padding: 50px;
 }
 
+#div-mapa_botoes {
+    display: flex;
+}
+
+.div-mapa_botoes_filho {
+    flex: 1;
+    background-color: white;
+}
+
 #filtros {
     display: flex;
+    align-items: center;
 }
 
 .filtro {

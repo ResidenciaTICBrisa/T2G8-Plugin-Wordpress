@@ -18,7 +18,7 @@ function mostrarDescricaoCompleta(id) {
     }
 }
 function destacarLinhaTabela(id) {
-    var tabela = document.getElementById('tabela-Aprovado');
+    var tabela = document.getElementById("tabela");
     var linha = document.getElementById(id);
 
     // Loop para remover a linha-destacada de todas as linhas
@@ -118,6 +118,104 @@ function initSortButtons() {
             });
         });
     });
+}
+
+// Limpa o conteúdo da tabela
+function excluirLinhas(tabela)
+{
+    while (tabela.querySelector('tbody').firstChild) {
+        tabela.querySelector('tbody').removeChild(tabela.querySelector('tbody').firstChild);
+    }
+}
+
+function adicionarZero(numero) {
+    return numero < 10 ? '0' + numero : numero;
+}
+
+function formatarDataHora(data) {
+    const dia = adicionarZero(data.getDate());
+    const mes = adicionarZero(data.getMonth() + 1); // Adiciona 1 porque os meses são indexados de 0 a 11
+    const ano = data.getFullYear();
+    const hora = adicionarZero(data.getHours());
+    const minutos = adicionarZero(data.getMinutes());
+    const segundos = adicionarZero(data.getSeconds());
+    
+    return `${dia}/${mes}/${ano} ${hora}:${minutos}:${segundos}`;
+}
+
+// Pega uma array adequada e gera linhas na tabela
+function gerarLinhas(tabela, arr)
+{
+    const STATUS_BOTOES = {
+        "Aprovado" : `
+        <button type="submit" name="action" value="reprove">Negar</button>
+        `,
+        "Negado" : `
+        <button type="submit" name="action" value="approve">Aprovar</button>
+        `,
+        "Pendente" : `
+        <button type="submit" name="action" value="approve">Aprovar</button>
+        <button type="submit" name="action" value="reprove">Negar</button>
+        `
+    }
+    var tbody = tabela.querySelector('tbody');
+
+    arr.forEach(dados => {
+        var linha = document.createElement('tr');
+        linha.id = dados.id;
+        var descricao;
+        var data = new Date(dados.data_hora);
+        var dataFormatada = formatarDataHora(data);
+        if (dados.descricao.length > 10){
+            descricao = `
+            <span id="descricaoResumida_${dados.id}">${dados.descricao.substring(0, 10)}...</span>
+            <span id="descricaoCompleta_${dados.id}" style="display:none;">${dados.descricao}</span>
+            <button data-id="${dados.id}" onclick="mostrarDescricaoCompleta(${dados.id})">Ver mais</button>
+            `
+        }
+        else {
+            descricao = dados.descricao;
+        }
+        
+        acoes = STATUS_BOTOES[dados.situacao];
+
+        linha.innerHTML = `
+        <td>${dados.nome}</td>
+        <td>${dados.email}</td>
+        <td>${dados.latitude}</td>
+        <td>${dados.longitude}</td>
+        <td>${dados.servico}</td>
+        <td>${descricao}</td>
+        <td>${dataFormatada}</td>
+        <td>${dados.situacao}</td>
+        <td>
+            <form method="post" action="">
+            <input type="hidden" name="id" value="${dados.id}">
+            ${acoes}
+            <button type="submit" name="action" value="exclude">Excluir</button>
+            <button type="button">Editar</button>
+        </td>
+        `;
+        tbody.appendChild(linha);
+    });
+}
+
+function filtrarPorStatus(elemento) {
+    let arr = [];
+    var value = elemento.value;
+    if(value==="aprovados") {
+        arr = formularios_aprovados;
+    }
+    else if (value==="negados") {
+        arr = formularios_negados;
+    }
+    else if (value==="pendentes") {
+        arr = formularios_pendentes;
+    }
+
+    var tabela = document.getElementById("tabela");
+    excluirLinhas(tabela);
+    gerarLinhas(tabela, arr);
 }
 
 // Adiciona um evento de clique a todos os botões de "Ver mais/menos"
