@@ -74,9 +74,9 @@ function initSortButtons() {
 
             // Remove e adiciona a classe do ícone com base na direção da ordenação
             if (order === 'asc') {
-                icon.innerHTML = '&#9660;'; // Triângulo para baixo (ordem crescente)
+                icon.innerHTML = '&#9662;'; // Triângulo para baixo (ordem crescente)
             } else {
-                icon.innerHTML = '&#9650;'; // Triângulo para cima (ordem decrescente)
+                icon.innerHTML = '&#9652;'; // Triângulo para cima (ordem decrescente)
             }
 
             // Obtém todas as linhas da tabela, exceto a primeira (cabeçalho)
@@ -194,6 +194,7 @@ function gerarLinhas(tabela, arr)
             ${acoes}
             <button type="submit" name="action" value="exclude">Excluir</button>
             <button type="button">Editar</button>
+            <button type="submit" name="action" value="tabela">Ações</button>
         </td>
         `;
         tbody.appendChild(linha);
