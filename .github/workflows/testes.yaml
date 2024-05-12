@@ -1,0 +1,31 @@
+name: Testes Automatizados
+
+on:
+  push:
+    branches:
+      - main
+      - developer
+    
+  pull_request:
+    branches:
+      - main
+      - developer
+      
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout do código
+      uses: actions/checkout@v2
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.3'
+
+    - name: Instalar dependências
+      run: composer install --no-dev --prefer-dist
+
+    - name: Executar testes
+      run: vendor/bin/phpunit
