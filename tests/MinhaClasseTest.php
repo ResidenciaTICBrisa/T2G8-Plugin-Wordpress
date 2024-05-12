@@ -8,7 +8,7 @@ class MinhaClasseTest extends TestCase
     {
         $minhaClasse = new MinhaClasse();
         $resultado = $minhaClasse->soma(2, 3);
-        $this->assertEquals(8, $resultado);
+        $this->assertEquals(5, $resultado);
     }
 }
 
