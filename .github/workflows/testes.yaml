@@ -25,7 +25,7 @@ jobs:
         php-version: '8.3'
 
     - name: Instalar dependências
-      run: composer install --no-dev --prefer-dist
+      run: composer install --no-  --prefer-dist
 
     - name: Executar testes
-      run: vendor/bin/phpunit
+      run: phpunit tests/*
