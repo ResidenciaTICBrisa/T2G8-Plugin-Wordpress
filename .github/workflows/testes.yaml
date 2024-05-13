@@ -28,4 +28,5 @@ jobs:
       run: composer install --prefer-dist
 
     - name: Executar testes
-      run: phpunit tests/*
+      run: vendor/bin/phpunit tests/*
+
