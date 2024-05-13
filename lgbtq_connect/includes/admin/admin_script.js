@@ -201,7 +201,8 @@ function gerarLinhas(tabela, arr)
     });
 }
 
-function filtrarPorStatus(elemento) {
+function filtrar(elemento) {
+    console.log("Houve mudança");
     let arr = [];
     var value = elemento.value;
     if(value==="aprovados") {
