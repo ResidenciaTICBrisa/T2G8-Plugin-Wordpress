@@ -35,6 +35,7 @@ function processar_formulario() {
                     'servico' => $servico
                 )
             );
+
             // Obter e-mail do administrador do site
             $admin_email = get_option('admin_email');
             // Formata a data e hora para o formato desejado
@@ -54,6 +55,11 @@ function processar_formulario() {
             // Envie o e-mail de notificação para o administrador do site
             wp_mail($admin_email, $subject, $message);
 
+            // Envie o e-mail de confirmação para o usuário
+            $subject_user = 'LGBTQ+ Connect - Sua solicitação de plotagem foi recebida';
+            $message_user = 'Olá! Sua solicitação de plotagem foi recebida. Aqui estão os detalhes:' . "\n" . $local_cadastrado . $tipo_servico . $data_hora_cadastro . 'Você será notificado quando sua solicitação for processada. Obrigado!';
+
+            wp_mail($email, $subject_user, $message_user);
         } else {
             echo "Erro: Preencha todos os campos corretamente.";
         }
