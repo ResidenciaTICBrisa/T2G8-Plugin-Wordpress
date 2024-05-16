@@ -81,6 +81,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
             ?>
             </div>
         </div>
+        <div id="contador_resultados">
+        </div>
         <div id=filtros>
             <form method="post">
                 <div id="busca_nome_container" class="filtro">
@@ -99,7 +101,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
                 <option value="">Todos</option>
             </select>
         </div>
-
         <div class="wrap">
             <table class="wp-list-table widefat striped" id="tabela">
                 <thead>

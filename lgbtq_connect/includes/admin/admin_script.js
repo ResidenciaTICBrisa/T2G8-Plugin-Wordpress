@@ -241,6 +241,8 @@ function filtrar(elemento) {
     const filtro_nome = document.getElementById("busca_nome");
     const filtro_servico = document.getElementById("selecao_servico");
 
+    const contador_resultados = document.getElementById("contador_resultados");
+
     if (elemento) {
         Filtro.status = elemento.value;
     }
@@ -256,6 +258,9 @@ function filtrar(elemento) {
     }
 
     arr = Filtro.realizarFiltragem(formularios_todos);
+    contador_resultados.innerHTML = `
+        <p>${arr.length} resultados encontrados<p>
+    `;
 
     const tabela = document.getElementById("tabela");
     excluirLinhas(tabela);
