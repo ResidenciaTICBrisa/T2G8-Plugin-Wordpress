@@ -139,20 +139,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
                 $aprovados = $wpdb->get_results($query_aprovados);
                 $negados = $wpdb->get_results($query_negados);
                 $pendentes = $wpdb->get_results($query_pendentes);
-                echo '<button value="aprovados" onclick="filtrar(this)">' . count($aprovados) . ' Aprovados</button>';
-                echo '<button value="negados" onclick="filtrar(this)">' . count($negados) . ' Negados</button>';
-                echo '<button value="pendentes" onclick="filtrar(this)">' . count($pendentes) . ' Pendentes</button>';
+                echo '<button value="Aprovado" onclick="filtrar(this)">' . count($aprovados) . ' Aprovados</button>';
+                echo '<button value="Negado" onclick="filtrar(this)">' . count($negados) . ' Negados</button>';
+                echo '<button value="Pendente" onclick="filtrar(this)">' . count($pendentes) . ' Pendentes</button>';
             ?>
             </div>
+        </div>
+        <div id="contador_resultados">
         </div>
         <div id=filtros>
             <form method="post">
                 <div id="busca_nome_container" class="filtro">
-                    <input type="text" id="busca_nome" placeholder="Pesquise pelo nome" oninput="filtrar(this)">
-                    <button>&#128270;</button>
+                    <input type="text" id="busca_nome" placeholder="Pesquise pelo nome" oninput="filtrar()">
                 </div>
             </form>
-            <select id="selecao_servico" class="filtro" onchange="filtrar(this)" required>
+            <select id="selecao_servico" class="filtro" onchange="filtrar()" required>
                 <option value="" selected disabled>Selecione...</option>
                 <option value="bar/restaurante">Bares/restaurantes</option>
                 <option value="entretenimento">Entretenimento</option>
@@ -160,11 +161,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
                 <option value="hospedagem">Hospedagem</option>
                 <option value="ensino">Ensino</option>
                 <option value="academia">Academia</option>
-                <option value="outro">Outro</option>
-                <option value="todos">Todos</option>
+                <option value="">Todos</option>
             </select>
         </div>
-
         <div class="wrap">
             <table class="wp-list-table widefat striped" id="tabela">
                 <thead>
