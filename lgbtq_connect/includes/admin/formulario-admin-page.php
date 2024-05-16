@@ -87,7 +87,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
             <form method="post">
                 <div id="busca_nome_container" class="filtro">
                     <input type="text" id="busca_nome" placeholder="Pesquise pelo nome" oninput="filtrar()">
-                    <button>&#128270;</button>
                 </div>
             </form>
             <select id="selecao_servico" class="filtro" onchange="filtrar()" required>
