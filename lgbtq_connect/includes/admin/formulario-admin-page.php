@@ -127,7 +127,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
 <body>
     <div id="div_admin"> 
         <div id="div-mapa_botoes">
-            <div id="mapa_admin" class="div-mapa_botoes_filho" style="height: 300px; width: 60%; margin-bottom: 10px;"></div>
+            <div id="mapa_admin" class="div-mapa_botoes_filho" style="height: 300px; width: 190%; margin-bottom: 10px;"></div>
             <div id="botoes_admin" class="div-mapa_botoes_filho" style="width: 30%; margin-bottom: 10px;">
             <?php
                 global $wpdb;
@@ -139,14 +139,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
                 $aprovados = $wpdb->get_results($query_aprovados);
                 $negados = $wpdb->get_results($query_negados);
                 $pendentes = $wpdb->get_results($query_pendentes);
-                echo '<button value="Aprovado" onclick="filtrar(this)">' . count($aprovados) . ' Aprovados</button>';
-                echo '<button value="Negado" onclick="filtrar(this)">' . count($negados) . ' Negados</button>';
-                echo '<button value="Pendente" onclick="filtrar(this)">' . count($pendentes) . ' Pendentes</button>';
+                echo '<button value="Pendente" onclick="filtrar(this)" id="pendentes">' . count($pendentes) . ' Pendentes</button>';
+                echo '<button value="Aprovado" onclick="filtrar(this)" id="aprovados">' . count($aprovados) . ' Aprovados</button>';
+                echo '<button value="Negado" onclick="filtrar(this)" id="negados">' . count($negados) . ' Negados</button>';
             ?>
             </div>
         </div>
         <div id="contador_resultados">
         </div>
+        <div id=filtro_container>
         <div id=filtros>
             <form method="post">
                 <div id="busca_nome_container" class="filtro">
@@ -163,6 +164,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
                 <option value="academia">Academia</option>
                 <option value="">Todos</option>
             </select>
+        </div>
         </div>
         <div class="wrap">
             <table class="wp-list-table widefat striped" id="tabela">

@@ -65,7 +65,7 @@ button[data-id]:hover {
 
 #mapa_admin{
     border-radius:20px;
-    margin-top:1.5vw;
+    /* margin-top:1.5vw; */
     margin-right:1.5vw;
 }
 
@@ -96,4 +96,71 @@ table th:first-child{
 
 table th:last-child{
     border-top-right-radius:20px !important;
+}
+
+/* $buttonsize:26vw;
+$buttonradius:20px; */
+
+#aprovados, #pendentes, #negados{
+    border-radius: 20px;
+    width: 26vw;
+    color:white;
+    font-weight:bold;
+    padding-top:30px;
+    padding-bottom:30px;
+    font-size:24px;
+}
+
+#pendentes{
+    background: rgb(255,220,0);
+    background: -moz-radial-gradient(circle, rgba(255,220,0,1) 0%, rgba(242,176,0,1) 100%);
+    background: -webkit-radial-gradient(circle, rgba(255,220,0,1) 0%, rgba(242,176,0,1) 100%);
+    background: radial-gradient(circle, rgba(255,220,0,1) 0%, rgba(242,176,0,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffdc00",endColorstr="#f2b000",GradientType=1);
+    margin-bottom:12px;
+    border:none;
+}
+
+#aprovados{
+    background: rgb(135,224,0);
+    background: -moz-radial-gradient(circle, rgba(135,224,0,1) 0%, rgba(0,134,12,1) 91%);
+    background: -webkit-radial-gradient(circle, rgba(135,224,0,1) 0%, rgba(0,134,12,1) 91%);
+    background: radial-gradient(circle, rgba(135,224,0,1) 0%, rgba(0,134,12,1) 91%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#87e000",endColorstr="#00860c",GradientType=1);
+    margin-bottom:12px;
+    border:none;
+}
+
+#negados{
+    background: rgb(232,32,155);
+    background: -moz-radial-gradient(circle, rgba(232,32,155,1) 0%, rgba(255,0,106,1) 100%);
+    background: -webkit-radial-gradient(circle, rgba(232,32,155,1) 0%, rgba(255,0,106,1) 100%);
+    background: radial-gradient(circle, rgba(232,32,155,1) 0%, rgba(255,0,106,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#e8209b",endColorstr="#ff006a",GradientType=1);
+    /* margin-bottom:0px; */
+    border:none;
+}
+
+#div-mapa_botoes{
+    display:grid;
+    /* background-color: aquamarine; */
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: 300px;
+    padding-right:0px;
+    width:100%;
+    margin-bottom:1.5vw;
+}
+
+#botoes_admin{
+    grid-column:3/span 2;
+    /* background-color: burlywood; */
+    height:100%;
+    width:100%;
+    padding-right:18.3vw;
+}
+
+#filtro_container{
+    display:flex;
+    justify-content: center;
+    align-items:center;
 }
