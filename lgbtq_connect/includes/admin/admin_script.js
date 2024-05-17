@@ -195,7 +195,6 @@ function confirmarAcao(mensagem, formulario, acao) {
     confirmBtn.onclick = function() {
         formulario.querySelector('input[name="action"]').value = acao;
         formulario.submit();
-        modal.style.display = "none";
     };
 
     // Quando o usuário clica em "Cancelar"

@@ -165,6 +165,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
             </select>
         </div>
         <div class="wrap">
+        <div id="confirmModal" class="modal">
+                <div class="modal-content">
+                    <p id="confirmMessage"></p>
+                    <button id="confirmBtn" onclick=>Confirmar</button>
+                    <button id="cancelBtn">Cancelar</button>
+                </div>
+            </div>
             <table class="wp-list-table widefat striped" id="tabela">
                 <thead>
                         <tr>
