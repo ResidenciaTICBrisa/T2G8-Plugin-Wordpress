@@ -123,6 +123,8 @@ table th:last-child {
     z-index: 1001; /* Certifique-se de que o conteúdo do modal também está na frente */
     border-radius: 8px; /* Adicione um pouco de borda arredondada para um visual mais agradável */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adicione sombra para um melhor contraste */
+    text-align: center; /* Centralize o texto dentro do modal */
+
 }
 
 #confirmBtn, #cancelBtn {
