@@ -1,3 +1,38 @@
+class Filtro {
+    static status = "Todos";
+    static nome = "";
+    static servico = "todos";
+
+    static realizarFiltragem(arr) {
+        const self = this;
+        return arr.filter(function (formulario) {
+            return (self.checarStatus(formulario) && self.checarNome(formulario) && self.checarServico(formulario));
+        });
+    }
+
+    static checarStatus(formulario) {
+        if (this.status !== "Todos") {
+            return (this.status == formulario.situacao);
+        }
+        else {
+            return true;
+        }
+    }
+    
+    static checarNome(formulario) {
+        return(formulario.nome.toLowerCase().trim().startsWith(this.nome));
+    }
+
+    static checarServico(formulario) {
+        if (this.servico !== "") {
+            return(this.servico == formulario.servico);
+        }
+        else {
+            return true;
+        }
+    }
+}
+
 window.onload = function () {
     initMapAdmin();
 };
@@ -242,20 +277,33 @@ function gerarLinhas(tabela, arr)
 
 
 function filtrar(elemento) {
-    console.log("Houve mudança");
     let arr = [];
-    var value = elemento.value;
-    if(value==="aprovados") {
-        arr = formularios_aprovados;
-    }
-    else if (value==="negados") {
-        arr = formularios_negados;
-    }
-    else if (value==="pendentes") {
-        arr = formularios_pendentes;
+
+    const filtro_nome = document.getElementById("busca_nome");
+    const filtro_servico = document.getElementById("selecao_servico");
+
+    const contador_resultados = document.getElementById("contador_resultados");
+
+    if (elemento) {
+        Filtro.status = elemento.value;
     }
 
-    var tabela = document.getElementById("tabela");
+    if(filtro_nome)
+    {
+        Filtro.nome = filtro_nome.value.toLowerCase().trim();
+    }
+
+    if (filtro_servico)
+    {
+        Filtro.servico = filtro_servico.value;
+    }
+
+    arr = Filtro.realizarFiltragem(formularios_todos);
+    contador_resultados.innerHTML = `
+        <p>${arr.length} resultados encontrados<p>
+    `;
+
+    const tabela = document.getElementById("tabela");
     excluirLinhas(tabela);
     gerarLinhas(tabela, arr);
 }
