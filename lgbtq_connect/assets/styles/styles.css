@@ -61,10 +61,12 @@
 }
 
 #searchInputIndex, #searchInputForm{
-    width: 77%;
+    /* width: 77%; */
     margin: 0 auto;
     padding:10px !important;
     margin-left:0px;
+    width:100%;
+    /* position:relative; */
 }
 
 #servico{
