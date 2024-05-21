@@ -10,6 +10,8 @@ extra_css:
 
 # Define as configurações do tema do material
 theme:
+  font:
+    code: Roboto Mono
   # Define o nome do tema como "material"
   name: material
 
@@ -23,6 +25,7 @@ theme:
   # Lista as características do tema
   features:
     - navigation.tabs  # Adiciona abas de navegação para diferentes seções do site.
+    - navigation.instant
 
   # Define a paleta de cores do tema
   palette:
@@ -35,9 +38,9 @@ theme:
         # Define o texto alternativo do botão
         name: Switch to dark mode
       # Define a cor primária do tema
-      primary: lime
+      primary: pink
       # Define a cor de destaque do tema
-      accent: lime 
+      accent: pink 
 
     # Define outro esquema de cores
     - scheme: slate 
@@ -48,9 +51,9 @@ theme:
         # Define o texto alternativo do botão
         name: Switch to light mode    
       # Define a cor primária do tema
-      primary: lime
+      primary: pink
       # Define a cor de destaque do tema
-      accent: lime  
+      accent: pink  
 
 # Define a navegação do site, especificando os links para diferentes páginas ou seções do site
 nav:
@@ -72,3 +75,6 @@ nav:
       - Release 1: releases/release1.md
       - Release 2: releases/release2.md
       - Release 3: releases/release3.md
+
+extra:
+  homepage: https://www.google.com.br/

@@ -1,3 +1,8 @@
+---
+hide:
+    - navigation
+---
+
 # **Wireframes**
 
 ## **Plugin**
