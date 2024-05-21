@@ -19,14 +19,26 @@ jobs:
     - name: Checkout do código
       uses: actions/checkout@v2
 
+    # Configurar PHP e executar testes do PHPUnit
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
         php-version: '8.3'
 
-    - name: Instalar dependências
+    - name: Instalar dependências PHP
       run: composer install --prefer-dist
 
-    - name: Executar testes
+    - name: Executar testes PHP
       run: vendor/bin/phpunit tests/*
 
+    # Configurar Node.js e executar testes do Jest
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+
+    - name: Instalar dependências Node.js
+      run: npm install
+
+    - name: Executar testes JavaScript
+      run: npm run test:js

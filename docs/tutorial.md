@@ -1,3 +1,8 @@
+---
+hide:
+    - navigation
+---
+
 # **Tutorial para uso do LGBTQ+ Connect**
 
 O LGBTQ+ Connect busca unir locais e serviços amigáveis à comunidade LGBTQ+ em unico só lugar. Fundamentado em princípios essenciais que visam fortalecer a união e o apoio dentro da comunidade, promover um ambiente de convívio seguro e inclusivo, e garantir a promoção ativa da segurança e bem-estar de todos os membros.

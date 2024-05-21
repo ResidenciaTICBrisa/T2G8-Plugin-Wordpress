@@ -2,8 +2,8 @@
 /*
 Plugin Name: LGBTQ+ Connect
 Plugin URI: https://residenciaticbrisa.github.io/T2G8-Plugin-Wordpress/
-Description: Mapa LGBTQ+ com cadastro e validação admin, promovendo locais acolhedores para a comunidade.
-Version: 0.17.1
+Description: Mapa LGBTQ+ com cadastro e validação admin, promovendo locais acolhedores para a comunidade
+Version: 0.19.0
 Author: Igor Brandão, Gustavo Linhares, Marcos Vinicius, Max Rohrer e Will Bernardo
 License: GPL v2 or later
 */
@@ -55,20 +55,14 @@ function enfileirar_scripts() {
     // Obtém os formulários aprovados
     $formularios_aprovados = obter_formularios_aprovados();
 
-    // Obtém os formulários negados
-    $formularios_negados = obter_formularios_negados();
-
-    // Obtém os formulários pendentes
-    $formularios_pendentes = obter_formularios_pendentes();
+    // Obtém todos os formulários
+    $formularios = obter_formularios();
 
     // Passa os dados dos formulários aprovados para o script JavaScript
     wp_localize_script('script.js', 'formularios_aprovados', $formularios_aprovados);
 
-    // Passa os dados dos formulários negados para o script JavaScript
-    wp_localize_script('script.js', 'formularios_negados', $formularios_negados);
-
-    // Passa os dados dos formulários pendentes para o script JavaScript
-    wp_localize_script('script.js', 'formularios_pendentes', $formularios_pendentes);
+    // Passa os dados de todos os formulários para o script JavaScript
+    wp_localize_script('script.js', 'formularios_todos', $formularios);
 }
 add_action('wp_enqueue_scripts', 'enfileirar_scripts');
 add_action('admin_enqueue_scripts', 'enfileirar_scripts');

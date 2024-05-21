@@ -1,3 +1,38 @@
+class Filtro {
+    static status = "Todos";
+    static nome = "";
+    static servico = "todos";
+
+    static realizarFiltragem(arr) {
+        const self = this;
+        return arr.filter(function (formulario) {
+            return (self.checarStatus(formulario) && self.checarNome(formulario) && self.checarServico(formulario));
+        });
+    }
+
+    static checarStatus(formulario) {
+        if (this.status !== "Todos") {
+            return (this.status == formulario.situacao);
+        }
+        else {
+            return true;
+        }
+    }
+    
+    static checarNome(formulario) {
+        return(formulario.nome.toLowerCase().trim().startsWith(this.nome));
+    }
+
+    static checarServico(formulario) {
+        if (this.servico !== "") {
+            return(this.servico == formulario.servico);
+        }
+        else {
+            return true;
+        }
+    }
+}
+
 window.onload = function () {
     initMapAdmin();
 };
@@ -143,19 +178,50 @@ function formatarDataHora(data) {
     return `${dia}/${mes}/${ano} ${hora}:${minutos}:${segundos}`;
 }
 
-// Pega uma array adequada e gera linhas na tabela
+function confirmarAcao(mensagem, formulario, acao) {
+    // Seleciona o modal e seus elementos
+    var modal = document.getElementById('confirmModal');
+    var confirmMessage = document.getElementById('confirmMessage');
+    var confirmBtn = document.getElementById('confirmBtn');
+    var cancelBtn = document.getElementById('cancelBtn');
+
+    // Define a mensagem do modal
+    confirmMessage.textContent = mensagem;
+
+    // Exibe o modal
+    modal.style.display = "block";
+
+    // Quando o usuário clica em "Confirmar"
+    confirmBtn.onclick = function() {
+        formulario.querySelector('input[name="action"]').value = acao;
+        formulario.submit();
+    };
+
+    // Quando o usuário clica em "Cancelar"
+    cancelBtn.onclick = function() {
+        modal.style.display = "none";
+    };
+
+    // Quando o usuário clica fora do modal
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    };
+}
+
 function gerarLinhas(tabela, arr)
 {
     const STATUS_BOTOES = {
         "Aprovado" : `
-        <button type="submit" name="action" value="reprove">Negar</button>
+        <button type="button" onclick="confirmarAcao('Tem certeza que quer negar a sugestão?', this.form, 'reprove')">Negar</button>
         `,
         "Negado" : `
-        <button type="submit" name="action" value="approve">Aprovar</button>
+        <button type="button" onclick="confirmarAcao('Tem certeza que quer aprovar a sugestão?', this.form, 'approve')">Aprovar</button>
         `,
         "Pendente" : `
-        <button type="submit" name="action" value="approve">Aprovar</button>
-        <button type="submit" name="action" value="reprove">Negar</button>
+        <button type="button" onclick="confirmarAcao('Tem certeza que quer aprovar a sugestão?', this.form, 'approve')">Aprovar</button>
+        <button type="button" onclick="confirmarAcao('Tem certeza que quer negar a sugestão?', this.form, 'reprove')">Negar</button>
         `
     }
     var tbody = tabela.querySelector('tbody');
@@ -191,31 +257,52 @@ function gerarLinhas(tabela, arr)
         <td>
             <form method="post" action="">
             <input type="hidden" name="id" value="${dados.id}">
+            <input type="hidden" name="action" value="">
             ${acoes}
-            <button type="submit" name="action" value="exclude">Excluir</button>
+            <div id="confirmModal" class="modal">
+                <div class="modal-content">
+                    <p id="confirmMessage"></p>
+                    <button id="confirmBtn">Confirmar</button>
+                    <button id="cancelBtn">Cancelar</button>
+                </div>
+            </div>
             <button type="button">Editar</button>
-            <button type="submit" name="action" value="tabela">Ações</button>
+            <button type="button" onclick="confirmarAcao('Tem certeza que quer excluir a sugestão?', this.form, 'exclude')">Excluir</button>
         </td>
         `;
         tbody.appendChild(linha);
     });
 }
 
+
 function filtrar(elemento) {
-    console.log("Houve mudança");
     let arr = [];
-    var value = elemento.value;
-    if(value==="aprovados") {
-        arr = formularios_aprovados;
-    }
-    else if (value==="negados") {
-        arr = formularios_negados;
-    }
-    else if (value==="pendentes") {
-        arr = formularios_pendentes;
+
+    const filtro_nome = document.getElementById("busca_nome");
+    const filtro_servico = document.getElementById("selecao_servico");
+
+    const contador_resultados = document.getElementById("contador_resultados");
+
+    if (elemento) {
+        Filtro.status = elemento.value;
     }
 
-    var tabela = document.getElementById("tabela");
+    if(filtro_nome)
+    {
+        Filtro.nome = filtro_nome.value.toLowerCase().trim();
+    }
+
+    if (filtro_servico)
+    {
+        Filtro.servico = filtro_servico.value;
+    }
+
+    arr = Filtro.realizarFiltragem(formularios_todos);
+    contador_resultados.innerHTML = `
+        <p>${arr.length} resultados encontrados<p>
+    `;
+
+    const tabela = document.getElementById("tabela");
     excluirLinhas(tabela);
     gerarLinhas(tabela, arr);
 }
@@ -233,3 +320,4 @@ window.addEventListener('load', function() {
     initMapAdmin();
     initSortButtons();
 });
+
