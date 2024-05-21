@@ -48,15 +48,17 @@ function load_meu_plugin_styles() {
 
 // Enfileira o script JavaScript e passa os dados dos formulários aprovados para ele
 function enfileirar_scripts() {
+    global $wpdb;
+
     // Enfileira o script JavaScript
     wp_enqueue_script('script.js', 'assets/js/script.js', array('jquery'), '1.0', true);
     wp_enqueue_script('admin_script.js', 'includes/admin/admin_script.js', array('jquery'), '1.0', true);
    
     // Obtém os formulários aprovados
-    $formularios_aprovados = obter_formularios_aprovados();
+    $formularios_aprovados = obter_formularios_aprovados($wpdb);
 
     // Obtém todos os formulários
-    $formularios = obter_formularios();
+    $formularios = obter_formularios($wpdb);
 
     // Passa os dados dos formulários aprovados para o script JavaScript
     wp_localize_script('script.js', 'formularios_aprovados', $formularios_aprovados);
@@ -64,6 +66,7 @@ function enfileirar_scripts() {
     // Passa os dados de todos os formulários para o script JavaScript
     wp_localize_script('script.js', 'formularios_todos', $formularios);
 }
+
 add_action('wp_enqueue_scripts', 'enfileirar_scripts');
 add_action('admin_enqueue_scripts', 'enfileirar_scripts');
 
@@ -89,3 +92,15 @@ add_shortcode('lgbtq_connect', 'meu_plugin_shortcode');
 
 // Adiciona o nome do arquivo ao plugin
 define('MEU_PLUGIN_FILE', __FILE__);
+
+$config_path = ABSPATH . 'wp-config.php';
+$informacoes_bd = obter_informacoes_bd($config_path);
+
+if ($informacoes_bd) {
+    global $wpdb;
+    criar_tabela_formulario($wpdb);
+    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+} else {
+    $mensagem_erro = "Erro: Não foi possível obter as informações do banco de dados.";
+    wp_die($mensagem_erro);
+}
