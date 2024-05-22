@@ -24,7 +24,7 @@ function obter_informacoes_bd($config_path) {
 function criar_tabela_formulario($wpdb) {
     $table_name ='lc_formulario';
     $charset_collate = $wpdb->get_charset_collate();
-
+    
     if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
         $sql = "CREATE TABLE IF NOT EXISTS $table_name (
             id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -35,13 +35,12 @@ function criar_tabela_formulario($wpdb) {
             data_hora VARCHAR(100) NOT NULL,
             servico VARCHAR(30) NOT NULL,
             descricao TEXT NOT NULL,
-            situacao VARCHAR(20) NOT NULL DEFAULT 'pendente',
-            
+            situacao VARCHAR(20) NOT NULL DEFAULT 'pendente'
         ) $charset_collate;";
-
         dbDelta($sql);
     }
 }
+
 
 
 // Função para retornar os formulários aprovados (Return é um array)

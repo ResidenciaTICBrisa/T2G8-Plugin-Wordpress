@@ -46,6 +46,15 @@ function load_meu_plugin_styles() {
         array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
 }
 
+// Função para criar a tabela na ativação do plugin
+function add_tabela_bd() {
+    global $wpdb;
+    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+    criar_tabela_formulario($wpdb);
+}
+
+register_activation_hook(__FILE__, 'add_tabela_bd');
+
 // Enfileira o script JavaScript e passa os dados dos formulários aprovados para ele
 function enfileirar_scripts() {
     global $wpdb;
@@ -89,18 +98,3 @@ function meu_plugin_shortcode() {
 
 // Registra o shortcode com o nome 'meu_plugin'
 add_shortcode('lgbtq_connect', 'meu_plugin_shortcode');
-
-// Adiciona o nome do arquivo ao plugin
-define('MEU_PLUGIN_FILE', __FILE__);
-
-$config_path = ABSPATH . 'wp-config.php';
-$informacoes_bd = obter_informacoes_bd($config_path);
-
-if ($informacoes_bd) {
-    global $wpdb;
-    criar_tabela_formulario($wpdb);
-    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-} else {
-    $mensagem_erro = "Erro: Não foi possível obter as informações do banco de dados.";
-    wp_die($mensagem_erro);
-}
