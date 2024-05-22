@@ -1,8 +1,3 @@
----
-hide:
-    - navigation
----
-
 # **Backlog**
 
 Este documento oferece uma visão abrangente do backlog de nosso produto, destacando as funcionalidades, melhorias e tarefas prioritárias que nossa equipe de desenvolvimento planeja abordar. Ele atua como um guia essencial para alinhar nossos esforços com as demandas dos clientes e os objetivos empresariais, facilitando uma gestão eficiente do ciclo de desenvolvimento e garantindo a entrega constante de valor aos usuários finais.
