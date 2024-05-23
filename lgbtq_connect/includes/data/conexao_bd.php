@@ -35,7 +35,7 @@ function criar_tabela_formulario($wpdb) {
             data_hora VARCHAR(100) NOT NULL,
             servico VARCHAR(30) NOT NULL,
             descricao TEXT NOT NULL,
-            situacao VARCHAR(20) NOT NULL DEFAULT 'pendente'
+            situacao VARCHAR(20) NOT NULL DEFAULT 'Pendente'
         ) $charset_collate;";
         dbDelta($sql);
     }
