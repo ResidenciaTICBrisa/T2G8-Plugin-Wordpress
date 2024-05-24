@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 class ConexaoBDTest extends TestCase {
     public function testObterInformacoesBD() {
-        $mockConfigPath = 'wp-configMock.php';
+        $mockConfigPath = '../wp-configMock.php';
 
         // Cria um mock do arquivo wp-config.php
         file_put_contents($mockConfigPath, "<?php define('DB_NAME', 'test_db'); define('DB_USER', 'test_user'); define('DB_PASSWORD', 'test_pass'); define('DB_HOST', 'test_host');");
