@@ -30,7 +30,7 @@ class ConexaoBDTest extends TestCase {
     public function testCriarTabelaFormulario() {
         // Mock do objeto $wpdb
         $wpdb = $this->getMockBuilder('stdClass')
-                     ->setMethods(['get_charset_collate', 'get_var', 'query'])
+                     ->addMethods(['get_charset_collate', 'get_var', 'query'])
                      ->getMock();
 
         $wpdb->method('get_charset_collate')
@@ -72,7 +72,7 @@ class ConexaoBDTest extends TestCase {
     public function testObterFormulariosAprovados() {
         // Mock do objeto $wpdb
         $wpdb = $this->getMockBuilder('stdClass')
-                     ->setMethods(['get_results'])
+                     ->addMethods(['get_results'])
                      ->getMock();
 
         $wpdb->method('get_results')
@@ -95,7 +95,7 @@ class ConexaoBDTest extends TestCase {
     public function testObterFormularios() {
         // Mock do objeto $wpdb
         $wpdb = $this->getMockBuilder('stdClass')
-                     ->setMethods(['get_results'])
+                     ->addMethods(['get_results'])
                      ->getMock();
 
         $wpdb->method('get_results')

@@ -29,7 +29,7 @@ jobs:
       run: composer install --prefer-dist
 
     - name: Executar testes PHP
-      run: phpunit tests/php/*
+      run: vendor/bin/phpunit tests/php/*
 
     # Configurar Node.js e executar testes do Jest
     - name: Setup Node.js
