@@ -48,4 +48,3 @@ mínima em estilização de outras funcionalidade do wordpress.
 - Adição de artefatos na documentação: Arquitetura, requisitos, tutorial e documento de releases.
 
 - Atualização de artefatos pois foram levantados novos requisitos com o cliente.
-

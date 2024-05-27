@@ -1,8 +1,3 @@
----
-hide:
-    - navigation
----
-
 # **Criando ambiente para desenvolvimento**
 
 Os comandos listados a seguir são para dispositivos linux.

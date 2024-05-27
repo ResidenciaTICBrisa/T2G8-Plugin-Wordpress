@@ -29,4 +29,3 @@ Nesta sprint, estamos focando na continuação dos trabalhos iniciados na sprint
 | Análise sobre os comportamentos do plugin em dispositivos mobile|<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/128" target="_blank">#128</a></li>|
 
 
-
