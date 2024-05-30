@@ -3,7 +3,7 @@
 Plugin Name: LGBTQ+ Connect
 Plugin URI: https://residenciaticbrisa.github.io/T2G8-Plugin-Wordpress/
 Description: Mapa LGBTQ+ com cadastro e validação admin, promovendo locais acolhedores para a comunidade
-Version: 0.19.0
+Version: 0.20.0
 Author: Igor Brandão, Gustavo Linhares, Marcos Vinicius, Max Rohrer e Will Bernardo
 License: GPL v2 or later
 */
@@ -60,16 +60,27 @@ function enfileirar_scripts_admin() {
     wp_localize_script('admin_script.js', 'formularios_todos', $formularios);
 }
 
+// Função para criar a tabela na ativação do plugin
+function add_tabela_bd() {
+    global $wpdb;
+    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+    criar_tabela_formulario($wpdb);
+}
+
+register_activation_hook(__FILE__, 'add_tabela_bd');
+
 // Enfileira o script JavaScript e passa os dados dos formulários aprovados para ele
 function enfileirar_scripts() {
+    global $wpdb;
+
     // Enfileira o script JavaScript
     wp_enqueue_script('script.js', plugins_url('/assets/js/script.js', __FILE__), array('jquery'), '1.0', true);
    
     // Obtém os formulários aprovados
-    $formularios_aprovados = obter_formularios_aprovados();
+    $formularios_aprovados = obter_formularios_aprovados($wpdb);
 
     // Obtém todos os formulários
-    $formularios = obter_formularios();
+    $formularios = obter_formularios($wpdb);
 
     // Passa os dados dos formulários aprovados para o script JavaScript
     wp_localize_script('script.js', 'formularios_aprovados', $formularios_aprovados);
@@ -94,6 +105,3 @@ function meu_plugin_shortcode() {
 
 // Registra o shortcode com o nome 'meu_plugin'
 add_shortcode('lgbtq_connect', 'meu_plugin_shortcode');
-
-// Adiciona o nome do arquivo ao plugin
-define('MEU_PLUGIN_FILE', __FILE__);
