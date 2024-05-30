@@ -46,11 +46,12 @@ function load_meu_plugin_styles() {
 }
 
 function enfileirar_scripts_admin() {
+    global $wpdb;
     // Obtém os formulários aprovados
-    $formularios_aprovados = obter_formularios_aprovados();
+    $formularios_aprovados = obter_formularios_aprovados($wpdb);
 
     // Obtém todos os formulários
-    $formularios = obter_formularios();
+    $formularios = obter_formularios($wpdb);
 
     wp_enqueue_script('admin_script.js', plugin_dir_url(__FILE__) . 'includes/admin/admin_script.js', array('jquery'), '1.0', true);
     // Passa os dados dos formulários aprovados para o script JavaScript
