@@ -1,42 +1,23 @@
-var pagina = null;
-const mapas = {
-    "div_index" : "mapa_index",
-    "div_form" : "mapa_formulario",
-    "div_saida" : "mapa_saida"
-}
+let pagina = null;
 
-        // FUNÇÕES AUXILIARES
-function conseguirLocalizacao(mapa) {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function (position) {
-            var user_position = [];
-            user_position.push(position.coords.latitude); 
-            user_position.push(position.coords.longitude); 
-            mudarPosicao(mapa, user_position);
-        });
-    } else {
-        alert('Geolocalização não é suportada por este navegador.');
-    }
-    document.getElementById('latitude').value = '';
-    document.getElementById('longitude').value = '';
-}
-
-function mudarPosicao(mapa, posicao) {
-    mapa.setView(posicao, 13);
-}
-
-        // CLASSES
+       // CLASSES
 class Mapa {
     container;
 
+    static MAPAS = {
+        "div_index" : "mapa_index",
+        "div_form" : "mapa_formulario",
+        "div_saida" : "mapa_saida"
+    }
+
     constructor(container) {
-        this.container = container;
-        this.mapa = L.map(container, { doubleClickZoom: false }).setView([-15.8267, -47.9218], 13);
+        this.container = Mapa.MAPAS[container];
+        this.mapa = L.map(this.container, { doubleClickZoom: false }).setView([-15.8267, -47.9218], 13);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(this.mapa);
-
+        
         this.marcadores = [];
     }
 
@@ -49,9 +30,29 @@ class Mapa {
         this.mapa.setView(coordernadas, 13);
     }
 
+    conseguirLocalizacao() {
+        const self = this;
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                let user_position = [];
+                user_position.push(position.coords.latitude); 
+                user_position.push(position.coords.longitude); 
+                self.mudarLocalizacao(user_position);
+            });
+        } else {
+            alert('Geolocalização não é suportada por este navegador.');
+        }
+        document.getElementById('latitude').value = '';
+        document.getElementById('longitude').value = '';
+    }
+
     destruirMapa() {
         this.mapa.remove()
         this.mapa = null;
+    }
+
+    static sum(a, b) {
+        return a+b;
     }
 }
 
@@ -66,8 +67,8 @@ class Pagina {
 
     inicializar() {
         this.div.style.display = "block";
-        this.mapa = new Mapa(mapas[this.id]);
-        conseguirLocalizacao(this.mapa.mapa);
+        this.mapa = new Mapa(this.id);
+        this.mapa.conseguirLocalizacao();
     }
 
     destruir() {
@@ -150,24 +151,47 @@ class PaginaFormulario extends Pagina {
     }
 }
 
-const classes = new Map([
-    ['PaginaFormulario', PaginaFormulario],
-    ['PaginaComPopup', PaginaComPopup]
-  ]);
+// Padrão de projeto Factory Method
+class FabricaPagina {
 
-function inicializarPlugin()
+    // Map que relaciona strings com classes
+    static CLASSES = new Map([
+        ['PaginaFormulario', PaginaFormulario],
+        ['PaginaComPopup', PaginaComPopup]
+      ]);
+
+    // Método para criar uma nova página e retorná-la
+    static criar(tipo, id) {
+        if(!FabricaPagina.CLASSES.has(tipo))
+            throw new Error("Página inválida")
+        
+        return new(FabricaPagina.CLASSES.get(tipo))(id);
+    }
+}
+
+// Função que realiza a transição entre páginas
+// Chamada uma vez quando o plugin é inicializado e depois é chamada através de botões nas páginas
+function transicaoPagina(tipo, id)
 {
-    pagina = new PaginaComPopup("div_index");
+    // Se o plugin já foi inicializado, deleta a página anterior
+    if(pagina !== null) {
+        pagina.destruir();
+    }
+
+    pagina = FabricaPagina.criar(tipo, id)
     pagina.inicializar();
 }
 
-function transicaoPagina(proxPagina, id)
-{
-    pagina.destruir();
-    pagina = new(classes.get(proxPagina))(id);
-    pagina.inicializar();
-}
-
+// Inicializa o plugin
 window.onload = function () {
-    inicializarPlugin();
+    transicaoPagina("PaginaComPopup", "div_index");
+};
+
+// Exporta as classes
+module.exports = {
+    Mapa,
+    Pagina,
+    PaginaComPopup,
+    PaginaFormulario,
+    FabricaPagina
 };
