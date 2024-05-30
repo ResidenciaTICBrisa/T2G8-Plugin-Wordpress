@@ -33,10 +33,6 @@ class Filtro {
     }
 }
 
-window.onload = function () {
-    initMapAdmin();
-};
-
 function mostrarDescricaoCompleta(id) {
     var descricaoResumida = document.getElementById('descricaoResumida_' + id);
     var descricaoCompleta = document.getElementById('descricaoCompleta_' + id);
@@ -316,8 +312,8 @@ document.querySelectorAll('.ver-mais-btn').forEach(function(button) {
 });
 
 // Inicializa o mapa e os botões de ordenação quando a página carrega
-window.addEventListener('load', function() {
-    initMapAdmin();
+window.onload = function () {
     initSortButtons();
-});
+    initMapAdmin();
+};
 
