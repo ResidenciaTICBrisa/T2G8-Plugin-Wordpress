@@ -1,4 +1,15 @@
-# LGBTQ+ Connect
+<!-- --- 
+class: hide-navbar 
+--- -->
+
+<style>
+    titulo{
+        font-weight:bold;
+        font-size:96px;
+    }
+</style>
+
+<titulo>LGBTQ+ Connect</titulo>
 
 > Um plugin para WordPress projetado para simplificar o mapeamento georreferenciado de empreendimentos e serviços voltados para a comunidade LGBTQIAP+.
 

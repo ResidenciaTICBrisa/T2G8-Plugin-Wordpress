@@ -1,6 +1,6 @@
-<p align="center">
+<!-- <p align="center">
   <img src="_media/logo.png" width="200" />
-</p>
+</p> -->
 
 # T2G8-Plugin-Wordpress
 
