@@ -3,13 +3,25 @@ use PHPUnit\Framework\TestCase;
 
 include_once __DIR__ . '/../../lgbtq_connect/includes/admin/formulario-admin-page.php';
 
+// Defina uma classe `wpdb` fictícia se ela não existir
+if (!class_exists('wpdb')) {
+    class wpdb {
+        public function prepare($query, ...$args) {
+            return vsprintf(str_replace(['%s', '%d'], ['\'%s\'', '%d'], $query), $args);
+        }
+        public function query($query) {
+            return true;
+        }
+    }
+}
+
 class AlteraStatusTest extends TestCase {
     private $wpdb;
 
     protected function setUp(): void {
         // Mock do objeto $wpdb
         $this->wpdb = $this->getMockBuilder('wpdb')
-                           ->setMethods(['prepare', 'query'])
+                           ->onlyMethods(['prepare', 'query'])
                            ->getMock();
     }
 
