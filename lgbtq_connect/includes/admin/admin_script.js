@@ -178,19 +178,50 @@ function formatarDataHora(data) {
     return `${dia}/${mes}/${ano} ${hora}:${minutos}:${segundos}`;
 }
 
-// Pega uma array adequada e gera linhas na tabela
+function confirmarAcao(mensagem, formulario, acao) {
+    // Seleciona o modal e seus elementos
+    var modal = document.getElementById('confirmModal');
+    var confirmMessage = document.getElementById('confirmMessage');
+    var confirmBtn = document.getElementById('confirmBtn');
+    var cancelBtn = document.getElementById('cancelBtn');
+
+    // Define a mensagem do modal
+    confirmMessage.textContent = mensagem;
+
+    // Exibe o modal
+    modal.style.display = "block";
+
+    // Quando o usuário clica em "Confirmar"
+    confirmBtn.onclick = function() {
+        formulario.querySelector('input[name="action"]').value = acao;
+        formulario.submit();
+    };
+
+    // Quando o usuário clica em "Cancelar"
+    cancelBtn.onclick = function() {
+        modal.style.display = "none";
+    };
+
+    // Quando o usuário clica fora do modal
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    };
+}
+
 function gerarLinhas(tabela, arr)
 {
     const STATUS_BOTOES = {
         "Aprovado" : `
-        <button type="submit" name="action" value="reprove">Negar</button>
+        <button type="button" onclick="confirmarAcao('Tem certeza que quer negar a sugestão?', this.form, 'reprove')">Negar</button>
         `,
         "Negado" : `
-        <button type="submit" name="action" value="approve">Aprovar</button>
+        <button type="button" onclick="confirmarAcao('Tem certeza que quer aprovar a sugestão?', this.form, 'approve')">Aprovar</button>
         `,
         "Pendente" : `
-        <button type="submit" name="action" value="approve">Aprovar</button>
-        <button type="submit" name="action" value="reprove">Negar</button>
+        <button type="button" onclick="confirmarAcao('Tem certeza que quer aprovar a sugestão?', this.form, 'approve')">Aprovar</button>
+        <button type="button" onclick="confirmarAcao('Tem certeza que quer negar a sugestão?', this.form, 'reprove')">Negar</button>
         `
     }
     var tbody = tabela.querySelector('tbody');
@@ -226,14 +257,23 @@ function gerarLinhas(tabela, arr)
         <td>
             <form method="post" action="">
             <input type="hidden" name="id" value="${dados.id}">
+            <input type="hidden" name="action" value="">
             ${acoes}
+            <div id="confirmModal" class="modal">
+                <div class="modal-content">
+                    <p id="confirmMessage"></p>
+                    <button id="confirmBtn">Confirmar</button>
+                    <button id="cancelBtn">Cancelar</button>
+                </div>
+            </div>
             <button type="button">Editar</button>
-            <button type="submit" name="action" value="exclude">Excluir</button>
+            <button type="button" onclick="confirmarAcao('Tem certeza que quer excluir a sugestão?', this.form, 'exclude')">Excluir</button>
         </td>
         `;
         tbody.appendChild(linha);
     });
 }
+
 
 function filtrar(elemento) {
     let arr = [];
@@ -280,3 +320,4 @@ window.addEventListener('load', function() {
     initMapAdmin();
     initSortButtons();
 });
+
