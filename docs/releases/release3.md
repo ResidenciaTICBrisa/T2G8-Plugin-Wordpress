@@ -28,5 +28,19 @@ Nesta sprint, estamos focando na continuação dos trabalhos iniciados na sprint
 | Adição de filtros na interface por status de formulario|<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/127" target="_blank">#127</a></li>|
 | Análise sobre os comportamentos do plugin em dispositivos mobile|<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/128" target="_blank">#128</a></li>|
 
+## **Sprint 12**
+
+O objetivo principal dessa sprint é a reestruturação dos códigos do plugin. Durante a tentativa de criação de testes para o plugin mostrou-se necessário a reestruturação dos códigos (Php e JavaScript) pois estão muito integradas com os componentes do wordpress, inviabilizando a criação de testes. Também durante essa sprint será trabalhada a documentação do projeto e o desenvolvimento da gitpages para identificação visual com o plugin.
+
+|Descrição| Nº issue|
+|---------|---------|
+| Reestruturação das funções de conexao com o banco de dados DEV|<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/138" target="_blank">#138</a></li>|
+| Criação dos testes das funções de conexão com o banco de dados|<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/140" target="_blank">#140</a></li>|
+| Reestruturação das funções da interface do administrador|<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/141" target="_blank">#141</a></li>|
+| Reestruturação das funções de envio e recebimento de formulário|<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/142" target="_blank">#142</a></li>|
+| Estudo de testes unitários em JavaScript usando Jest|<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/143" target="_blank">#143</a></li>|
+| Trazer a identidade visual do produto para a documentação|<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/145" target="_blank">#145</a></li>|
+| Criação dos testes para as funções da interface do administrador (PHP)|<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/148" target="_blank">#148</a></li>|
+| Customizações visuais na documentação|<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/149" target="_blank">#149</a></li>|
 
 
