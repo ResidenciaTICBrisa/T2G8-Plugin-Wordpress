@@ -100,8 +100,53 @@ Este documento oferece uma visão abrangente do backlog de nosso produto, destac
 
 | Data       | Versão | Descrição            |         Autor             |
 |:----------:|:------:|:--------------------:|:-------------------------:|
-| 10/03/2024 | 0.1.1 | Criação do Documento Backlog com épicos, funcionalidades | @WillxBernardo |
-| 13/03/2024 | 0.1.2 | Criação do plugin protótipo que adiciona o formulário na página | @WillxBernardo |
-| 20/03/2024 | 0.1.3 | Implementação do uso da localização do usário dentro do plugin | @Max-Rohrer20 |
-| 28/03/2024 | 0.2.0 | Inicialização do plugin ser o mapa com acesso para o formulário | @WillxBernardo |
-| 05/04/2024 | 0.3.0 | Reestruturação do código base | @WillxBernardo |
+| 12/03/2024 | 0.1.0 | Criação do plugin protótipo (Plugin teste) | @WillxBernardo |
+| 14/03/2024 | 0.2.0 | Funcionalidade de criação da tabela no BD | @WillxBernardo |
+| 18/03/2024 | 0.3.0 | Adicionando formulário a tela do plugin | @WillxBernardo |
+| 18/03/2024 | 0.4.0 | Adicionando mapa no formulário (Overleaf)| @WillxBernardo |
+| 20/03/2024 | 0.4.0 | Mapa sendo iniciado na localização do usuário| @Max-Rohrer20 |
+| 26/03/2024 | 0.4.0 | Adição de interface de administração no painel WordPress| @Max-Rohrer20 |
+| 26/03/2024 | 0.5.0 | Adição da tabela com os formulários na interface | @Max-Rohrer20 |
+| 29/03/2024 | 0.5.1 | Bugfix: Login no wordpress| @WillxBernardo |
+| 02/04/2024 | 0.5.2 | Bugfix: Erro ao adicionar o admin menu (Interface)| @WillxBernardo |
+| 02/04/2024 | 0.5.3 | Bugfix: Erro ao se conectar ao banco de dados do wordpress| @WillxBernardo |
+| 02/04/2024 | 0.5.4 | Bugfix: Erro ao  excluir formulários na interface| @WillxBernardo |
+| 02/04/2024 | 0.5.5 | Bugfix: Redirecionamento após o envio de formulário| @WillxBernardo |
+| 07/04/2024 | 0.5.6 | Bugfix: Adição dos formulários enviados no Banco de dados | @WillxBernardo |
+| 09/04/2024 | 0.6.0 | Adição de novos campos no formulário | @WillxBernardo |
+| 10/04/2024 | 0.7.0 | Adicionando funcoes de aprovar e rejeitar na interface | @WillxBernardo |
+| 11/04/2024 | 0.8.0 | Adicionando funcionalidades de navegação via botão | @MarcosViniciusG |
+| 11/04/2024 | 0.9.0 | Adição das tabelas de Formulários Aprovados e Negados | @Max-Rohrer20 |
+| 11/04/2024 | 0.10.0 | Funcionalidades nos botões de aprovar e negar | @Max-Rohrer20 |
+| 11/04/2024 | 0.10.1 | Bugfix: Corrigindo formatação das tabelas do painel de administração| @Max-Rohrer20 |
+| 12/04/2024 | 0.11.0 | Botões de validação na interface do admin| @WillxBernardo |
+| 13/04/2024 | 0.12.0 | Botão ver mais do campo descrição da interface| @Punkrig |
+| 13/04/2024 | 0.12.1 | Bugfix: Envio de formulário sem localização| @Punkrig |
+| 14/04/2024 | 0.13.0 | Plotagem dos formulários em status aprovado nos mapas| @WillxBernardo |
+| 16/04/2024 | 0.14.0 | Botões de ordenação em ordem alfabética no campo nome| @Max-Rohrer20 |
+| 16/04/2024 | 0.15.0 | Popups nos marcadores dos mapas| @WillxBernardo |
+| 16/04/2024 | 0.16.0 | Mapa na interface do administrador | @MarcosViniciusG |
+| 17/04/2024 | 0.17.0 | Tipo de serviço 'outro' no formulário| @guslnhm |
+| 18/04/2024 | 0.18.0 | Destaque na linha da tabela após clique em marcador| @MarcosViniciusG |
+| 18/04/2024 | 0.19.0 | Popups contendo informações sobre o local| @Max-Rohrer20 |
+| 18/04/2024 | 0.20.0 | Botão ver menos no campo de descrição da tabela| @Punkrig |
+| 19/04/2024 | 0.20.1 | Bugfix: Armazenamento dos formulários com o tipo de serviço 'outro'| @guslnhm |
+| 19/04/2024 | 0.21.0 | Mecanismo de busca nos mapas| @WillxBernardo |
+| 23/04/2024 | 0.21.1 | Bugfix: Formulários com o tipo de serviço predefinidos| @guslnhm |
+| 23/04/2024 | 0.22.0 | Ordenação dos campos de e-mail e data e hora da interface do admin| @Max-Rohrer20 |
+| 23/04/2024 | 0.22.1 | Bugfix: Ordenação do campo de data e hora| @Max-Rohrer20 |
+| 23/04/2024 | 0.22.1 | Bugfix: duplicacao dos resultados nos campos de busca dos mapas| @WillxBernardo |
+| 23/04/2024 | 0.22.2 | Bugfix: Campo vazio no formulario | @WillxBernardo |
+| 01/05/2024 | 0.23.0 | Adicionando resultados limitados a quantidade e botao ver mais | @WillxBernardo |
+| 02/05/2024 | 0.23.1 | Bugfix: interface recarrega e não mostra mais o marcador excluido| @MarcosViniciusG |
+| 02/05/2024 | 0.24.0 | Funcionalidade de ver mais e ver menos resultados | @WillxBernardo |
+| 09/05/2024 | 0.25.0 | Envio de e-mail para o administrador do site | @Max-Rohrer20 |
+| 10/05/2024 | 0.26.0 | Filtro por status | @MarcosViniciusG |
+| 16/05/2024 | 0.27.0 | Filtro por nome | @MarcosViniciusG |
+| 16/05/2024 | 0.28.0 | Filtro por serviço | @MarcosViniciusG |
+| 16/05/2024 | 0.28.0 | Filtro por serviço | @MarcosViniciusG |
+| 16/05/2024 | 0.29.0 | Envio de e-mail para as mudanças de status dos formulários | @Max-Rohrer20  |
+| 16/05/2024 | 0.30.0 | Contador de resultados na interface do administrador | @MarcosViniciusG  |
+| 16/05/2024 | 0.31.0 | Notificação para acões do administrador | @Max-Rohrer20  |
+| 17/05/2024 | 0.31.1 |Bugfix: Botão de confirmação não funciona para todos os formulários|@MarcosViniciusG |
+| 22/05/2024 | 0.31.2 | Bugfix: Criação do BD ao ativar o plugin | @WillxBernardo |
