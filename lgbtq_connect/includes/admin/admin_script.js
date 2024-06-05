@@ -255,13 +255,6 @@ function gerarLinhas(tabela, arr)
             <input type="hidden" name="id" value="${dados.id}">
             <input type="hidden" name="action" value="">
             ${acoes}
-            <div id="confirmModal" class="modal">
-                <div class="modal-content">
-                    <p id="confirmMessage"></p>
-                    <button id="confirmBtn">Confirmar</button>
-                    <button id="cancelBtn">Cancelar</button>
-                </div>
-            </div>
             <button type="button">Editar</button>
             <button type="button" onclick="confirmarAcao('Tem certeza que quer excluir a sugestão?', this.form, 'exclude')">Excluir</button>
         </td>
