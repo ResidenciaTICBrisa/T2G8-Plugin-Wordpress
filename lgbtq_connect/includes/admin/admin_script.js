@@ -1,7 +1,7 @@
 class Filtro {
     static status = "Todos";
     static nome = "";
-    static servico = "todos";
+    static servico = "";
 
     static realizarFiltragem(arr) {
         const self = this;
@@ -20,7 +20,7 @@ class Filtro {
     }
     
     static checarNome(formulario) {
-        return(formulario.nome.toLowerCase().trim().startsWith(this.nome));
+        return(formulario.nome.toLowerCase().trim().startsWith(this.nome.toLowerCase().trim()));
     }
 
     static checarServico(formulario) {
@@ -278,7 +278,7 @@ function filtrar(elemento) {
 
     if(filtro_nome)
     {
-        Filtro.nome = filtro_nome.value.toLowerCase().trim();
+        Filtro.nome = filtro_nome.value
     }
 
     if (filtro_servico)
@@ -310,3 +310,7 @@ window.onload = function () {
     initMapAdmin();
 };
 
+// Exporta as classes
+module.exports = {
+    Filtro
+};
