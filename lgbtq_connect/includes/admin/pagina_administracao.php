@@ -90,6 +90,56 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
                     <button id="cancelBtn">Cancelar</button>
                 </div>
             </div>
+
+            <!-- Modal de Edição -->
+            <div id="editModal" style="display:none;">
+            <div>
+                <form id="editForm" method="post" action="">
+                    <input type="hidden" name="id" id="editId">
+
+
+                    <label for="nome" id="editLabelNome">Nome do local:</label>
+                    <input type="text" name="nome" id="editNome" required><br>
+
+                    <label for="email">Email:</label>
+                    <input type="email" name="email" id="editEmail" required><br>
+
+                    <label for="servico">Escolha o tipo de serviço:</label><br>
+                    <select id="editServico" name="servico" onchange="mostrarOutroEdit()" required>
+                        <option value="" selected disabled>Selecione...</option>
+                        <option value="bar/restaurante">Bares/restaurantes</option>
+                        <option value="entretenimento">Entretenimento</option>
+                        <option value="beleza">Beleza</option>
+                        <option value="hospedagem">Hospedagem</option>
+                        <option value="ensino">Ensino</option>
+                        <option value="academia">Academia</option>
+                        <option value="outro">Outro</option>
+                    </select>
+
+                    <div id="editOutroServico" class="escondido">
+                        <label for="servico_outro">Especifique:</label>
+                        <input type="text" name="servico_outro" id="editServicoOutro" maxlength="30" minlength="3">
+                    </div>
+
+                    <label for="descricao">Descrição:</label>
+                    <textarea name="descricao" id="editDescricao" rows="3" cols="70" placeholder="Descrição ..." required></textarea>
+
+                    <div class="search_wrapper">
+                        <input type="text" id="searchInputFormEdit" placeholder="Pesquise a cidade ou estado...">
+                        <button type="button" onclick="return searchButtonClickedFormEdit()" class="button_search">Pesquisar</button>
+                    </div>
+                    <div id="listaResultadosFormsEdit"></div>
+                    
+                    <div id="mapa_formulario_edit" style="height: 300px;margin-bottom:10px;"></div>
+                    <input type="hidden" name="latitude" id="editLatitude" required>
+                    <input type="hidden" name="longitude" id="editLongitude" required>
+
+                    <button type="submit">Salvar</button>
+                    <button type="button" id="cancelEditBtn">Cancelar</button>
+                </form>
+            </div>
+            </div>
+
             <table class="wp-list-table widefat striped" id="tabela">
                 <thead>
                         <tr>

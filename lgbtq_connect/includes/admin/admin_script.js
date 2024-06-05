@@ -255,12 +255,60 @@ function gerarLinhas(tabela, arr)
             <input type="hidden" name="id" value="${dados.id}">
             <input type="hidden" name="action" value="">
             ${acoes}
-            <button type="button">Editar</button>
+            <button type="button" onclick='abrirModalEdicao(${JSON.stringify(dados)})'>Editar</button>
             <button type="button" onclick="confirmarAcao('Tem certeza que quer excluir a sugestão?', this.form, 'exclude')">Excluir</button>
         </td>
         `;
         tbody.appendChild(linha);
     });
+}
+
+function abrirModalEdicao(dados) {
+    var modal = document.getElementById('editModal');
+    var cancelEditBtn = document.getElementById('cancelEditBtn');
+
+    // Preenche os campos do formulário com os dados fornecidos
+    document.getElementById('editId').value = dados.id;
+    document.getElementById('editNome').value = dados.nome;
+    document.getElementById('editEmail').value = dados.email;
+    document.getElementById('editLatitude').value = dados.latitude;
+    document.getElementById('editLongitude').value = dados.longitude;
+    document.getElementById('editServico').value = dados.servico;
+    document.getElementById('editDescricao').value = dados.descricao;
+
+    // Mostrar campo "Outro" se necessário
+    if (dados.servico === "outro") {
+        document.getElementById('editOutroServico').style.display = 'block';
+        document.getElementById('editServicoOutro').value = dados.servico_outro;
+    } else {
+        document.getElementById('editOutroServico').style.display = 'none';
+        document.getElementById('editServicoOutro').value = '';
+    }
+
+    // Exibe o modal de edição
+    modal.style.display = "block";
+
+    // Fecha o modal de edição quando o botão cancelar é clicado
+    cancelEditBtn.onclick = function() {
+        modal.style.display = "none";
+    };
+
+    // Fecha o modal de edição quando o usuário clica fora do modal
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    };
+}
+
+// Função para mostrar o campo "Outro" no modal de edição
+function mostrarOutroEdit() {
+    var servico = document.getElementById('editServico').value;
+    if (servico === 'outro') {
+        document.getElementById('editOutroServico').style.display = 'block';
+    } else {
+        document.getElementById('editOutroServico').style.display = 'none';
+    }
 }
 
 
