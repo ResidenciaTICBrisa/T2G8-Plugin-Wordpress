@@ -49,9 +49,9 @@ document.addEventListener('DOMContentLoaded', function () {
         if (nome === '' || email === '' || latitude === '' || longitude === '' || (servico === 'outro' && outroServico === '')) {
             alert('Por favor, preencha todos os campos.');
             return;
-            } else if (hasSpecialChars(nome) || hasSpecialChars(servico) || hasSpecialChars(descricao) || hasSpecialChars(outroServico)) {
+            } else if (hasSpecialChars(nome) || hasSpecialChars(descricao) || hasSpecialChars(outroServico)) {
                 alert("Não insira caracteres especiais");
-                console.log('Campos com caracteres especiais:', { nome, email, latitude, longitude, servico, descricao, outroServico });
+                console.log('Campos com caracteres especiais:', { nome, descricao, outroServico });
                 return;
         } else {
             // Serializa os dados do formulário
