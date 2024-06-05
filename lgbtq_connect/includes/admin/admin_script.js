@@ -31,6 +31,13 @@ class Filtro {
             return true;
         }
     }
+
+    static reiniciarFiltro()
+    {
+        this.status="Todos";
+        this.nome="";
+        this.servico="";
+    }
 }
 
 function mostrarDescricaoCompleta(id) {
@@ -312,5 +319,8 @@ window.onload = function () {
 
 // Exporta as classes
 module.exports = {
-    Filtro
+    Filtro,
+    adicionarZero,
+    formatarDataHora,
+    gerarLinhas
 };
