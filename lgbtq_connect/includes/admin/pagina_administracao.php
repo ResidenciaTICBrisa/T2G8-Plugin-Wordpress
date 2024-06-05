@@ -98,9 +98,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
                         </tr>
                 </thead>
                 <tbody>
-            <?php
-            echo '<script src="' . plugin_dir_url(__FILE__) . 'admin_script.js"></script>';
-            ?>
         </div>
     </div>
 
