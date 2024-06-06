@@ -104,22 +104,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
                     <label for="email">Email:</label>
                     <input type="email" name="email" id="editEmail" required><br>
 
-                    <label for="servico">Escolha o tipo de serviço:</label><br>
-                    <select id="editServico" name="servico" onchange="mostrarOutroEdit()" required>
-                        <option value="" selected disabled>Selecione...</option>
-                        <option value="bar/restaurante">Bares/restaurantes</option>
-                        <option value="entretenimento">Entretenimento</option>
-                        <option value="beleza">Beleza</option>
-                        <option value="hospedagem">Hospedagem</option>
-                        <option value="ensino">Ensino</option>
-                        <option value="academia">Academia</option>
-                        <option value="outro">Outro</option>
-                    </select>
-
-                    <div id="editOutroServico" class="escondido">
-                        <label for="servico_outro">Especifique:</label>
-                        <input type="text" name="servico_outro" id="editServicoOutro" maxlength="30" minlength="3">
-                    </div>
+                    <label for="servico">Tipo de serviço:</label><br>
+                    <input type="text" name="servico" id="editServico" maxlength="30" minlength="3">
 
                     <label for="descricao">Descrição:</label>
                     <textarea name="descricao" id="editDescricao" rows="3" cols="70" placeholder="Descrição ..." required></textarea>

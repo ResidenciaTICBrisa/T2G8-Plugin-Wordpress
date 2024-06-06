@@ -127,6 +127,21 @@ table th:last-child {
 
 }
 
+#editModal{
+    display: none;
+    position: fixed;
+    width: 80%;
+    height: 87%;
+    overflow: auto;
+    top: 10%;
+    left: 16%;
+    background-color: #fefefe;
+    border: 2px solid black;
+    border-radius: 10px;
+    z-index: 1001;
+}
+
+
 #confirmBtn, #cancelBtn {
     padding: 10px 20px;
     margin: 10px;

@@ -276,15 +276,6 @@ function abrirModalEdicao(dados) {
     document.getElementById('editServico').value = dados.servico;
     document.getElementById('editDescricao').value = dados.descricao;
 
-    // Mostrar campo "Outro" se necessário
-    if (dados.servico === "outro") {
-        document.getElementById('editOutroServico').style.display = 'block';
-        document.getElementById('editServicoOutro').value = dados.servico_outro;
-    } else {
-        document.getElementById('editOutroServico').style.display = 'none';
-        document.getElementById('editServicoOutro').value = '';
-    }
-
     // Exibe o modal de edição
     modal.style.display = "block";
 
@@ -299,16 +290,6 @@ function abrirModalEdicao(dados) {
             modal.style.display = "none";
         }
     };
-}
-
-// Função para mostrar o campo "Outro" no modal de edição
-function mostrarOutroEdit() {
-    var servico = document.getElementById('editServico').value;
-    if (servico === 'outro') {
-        document.getElementById('editOutroServico').style.display = 'block';
-    } else {
-        document.getElementById('editOutroServico').style.display = 'none';
-    }
 }
 
 
