@@ -59,6 +59,11 @@ button[data-id]:hover {
     text-decoration: underline;
 }
 
+@keyframes fadeOut {
+    0% { background-color: #90cc90!important;}
+    100% { background-color: transparent!important;}
+}
+
 .linha-destacada {
     animation: fadeOut 2s ease;
 }
