@@ -24,27 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return /[^a-zA-Z0-9 ]/.test(str);
         }
 
-        // Verifica a presença de caracteres especiais
-        console.log('Verificação de caracteres especiais:');
-        console.log('Nome:', nome, ' - ', hasSpecialChars(nome));
-        console.log('Email:', email, ' - ', hasSpecialChars(email));
-        console.log('Latitude:', latitude, ' - ', hasSpecialChars(latitude));
-        console.log('Longitude:', longitude, ' - ', hasSpecialChars(longitude));
-        console.log('Serviço:', servico, ' - ', hasSpecialChars(servico));
-        console.log('Descrição:', descricao, ' - ', hasSpecialChars(descricao));
-        console.log('Outro Serviço:', outroServico, ' - ', hasSpecialChars(outroServico));
-
-        // Log dos dados do formulário antes do envio
-        console.log('Dados do formulário:');
-        console.log({
-            nome: nome,
-            email: email,
-            latitude: latitude,
-            longitude: longitude,
-            servico: servico,
-            descricao: descricao,
-            outroServico: outroServico
-        });
+        
 
         if (nome === '' || email === '' || latitude === '' || longitude === '' || (servico === 'outro' && outroServico === '')) {
             alert('Por favor, preencha todos os campos.');
