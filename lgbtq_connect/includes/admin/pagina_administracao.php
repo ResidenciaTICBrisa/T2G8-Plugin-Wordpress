@@ -39,8 +39,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
 <!DOCTYPE html>
 <html>
 <head>
-    <!-- Linkando css -->
-    <link rel="stylesheet" href="<?php echo plugin_dir_url(__FILE__); ?>style-admin.css">
 </head>
 <body>
     <div id="div_admin"> 

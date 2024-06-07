@@ -60,11 +60,11 @@ button[data-id]:hover {
 }
 
 @keyframes fadeOut {
-    0% { background-color: #90cc90!important;}
-    100% { background-color: transparent!important;}
+    0% { background-color: #90cc90;}
+    100% { background-color: transparent;}
 }
 
-.linha-destacada {
+.linha-destacada td{
     animation: fadeOut 2s ease;
 }
 

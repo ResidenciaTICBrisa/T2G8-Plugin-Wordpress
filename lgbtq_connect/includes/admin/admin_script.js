@@ -161,11 +161,6 @@ function destacarLinhaTabela(id) {
 
     linha.classList.add('linha-destacada'); // Adiciona a classe 'linha-destacada'
     linha.scrollIntoView({ behavior: 'smooth' }); // Rola a página para a linha
-
-    // Remove a classe linha-destacada depois de um determinado tempo
-    setTimeout(function () {
-        linha.classList.remove('linha-destacada');
-    }, 2000);
 }
 
 function mostrarDescricaoCompleta(id) {
