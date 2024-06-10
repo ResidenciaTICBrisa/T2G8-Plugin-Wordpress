@@ -33,10 +33,6 @@ class Filtro {
     }
 }
 
-window.onload = function () {
-    initMapAdmin();
-};
-
 function mostrarDescricaoCompleta(id) {
     var descricaoResumida = document.getElementById('descricaoResumida_' + id);
     var descricaoCompleta = document.getElementById('descricaoCompleta_' + id);
@@ -259,13 +255,6 @@ function gerarLinhas(tabela, arr)
             <input type="hidden" name="id" value="${dados.id}">
             <input type="hidden" name="action" value="">
             ${acoes}
-            <div id="confirmModal" class="modal">
-                <div class="modal-content">
-                    <p id="confirmMessage"></p>
-                    <button id="confirmBtn">Confirmar</button>
-                    <button id="cancelBtn">Cancelar</button>
-                </div>
-            </div>
             <button type="button">Editar</button>
             <button type="button" onclick="confirmarAcao('Tem certeza que quer excluir a sugestão?', this.form, 'exclude')">Excluir</button>
         </td>
@@ -316,8 +305,8 @@ document.querySelectorAll('.ver-mais-btn').forEach(function(button) {
 });
 
 // Inicializa o mapa e os botões de ordenação quando a página carrega
-window.addEventListener('load', function() {
-    initMapAdmin();
+window.onload = function () {
     initSortButtons();
-});
+    initMapAdmin();
+};
 
