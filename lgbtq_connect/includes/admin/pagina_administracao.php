@@ -116,7 +116,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
                     </div>
                     <div id="listaResultadosFormsEdit"></div>
                     
-                    <div id="mapa_formulario_edit" style="height: 300px;margin-bottom:10px;"></div>
+                    <div id="mapa_formulario_edit" style="height: 300px;width: 300px;margin-bottom:10px;"></div>
                     <input type="hidden" name="latitude" id="editLatitude" required>
                     <input type="hidden" name="longitude" id="editLongitude" required>
 

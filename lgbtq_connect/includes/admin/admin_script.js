@@ -1,3 +1,6 @@
+let mapAdmin;
+let mapEdit;
+
 class Filtro {
     static status = "Todos";
     static nome = "";
@@ -67,12 +70,16 @@ function destacarLinhaTabela(id) {
 }
 
 function initMapAdmin() {
-    if(document.getElementById('mapa_admin') == null) 
-    {   
+    if (document.getElementById('mapa_admin') == null) {
         return;
     }
 
-    mapAdmin = L.map('mapa_admin', {doubleClickZoom: false}).setView([-15.8267, -47.9218], 13);
+    // Verifica se o mapa já foi inicializado e destrói se necessário
+    if (mapAdmin !== undefined) {
+        mapAdmin.remove();
+    }
+
+    mapAdmin = L.map('mapa_admin', { doubleClickZoom: false }).setView([-15.8267, -47.9218], 13);
 
     // Adiciona o provedor de mapa OpenStreetMap
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -81,10 +88,36 @@ function initMapAdmin() {
 
     formularios_aprovados.forEach(function(formulario) {
         L.marker([formulario.latitude, formulario.longitude]).addTo(mapAdmin).on('click', function() {
-
             destacarLinhaTabela(formulario.id);
         });
     });
+}
+
+function initMapEdit(latitude, longitude, nome, servico, descricao) {
+    document.getElementById('mapa_admin').style.display = "none";
+
+    // Verifica se o mapa já foi inicializado e destrói se necessário
+    if (mapEdit !== undefined) {
+        mapEdit.remove();
+    }
+
+    mapEdit = L.map('mapa_formulario_edit', { doubleClickZoom: false }).setView([-15.8267, -47.9218], 13);
+
+    // Adiciona o provedor de mapa OpenStreetMap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(mapEdit);
+
+    var popupConteudo = `
+    <div class="pop">
+        <h4><strong>${nome}</strong></h4>
+        <i>${servico}</i>
+        <div class="gradiente"></div>
+        <p><strong>${descricao}</strong></p>
+    </div>
+        `;
+
+    L.marker([latitude, longitude]).addTo(mapEdit).bindPopup(popupConteudo);
 }
 
 function initSortButtons() {
@@ -271,27 +304,37 @@ function abrirModalEdicao(dados) {
     document.getElementById('editId').value = dados.id;
     document.getElementById('editNome').value = dados.nome;
     document.getElementById('editEmail').value = dados.email;
-    document.getElementById('editLatitude').value = dados.latitude;
-    document.getElementById('editLongitude').value = dados.longitude;
     document.getElementById('editServico').value = dados.servico;
     document.getElementById('editDescricao').value = dados.descricao;
+
+    initMapEdit(dados.latitude, dados.longitude, dados.nome, dados.servico, dados.descricao);
 
     // Exibe o modal de edição
     modal.style.display = "block";
 
+    // Atualiza o tamanho do mapa e define a visualização após um pequeno atraso para garantir que o modal tenha sido completamente exibido
+    setTimeout(function() {
+        mapEdit.invalidateSize();
+        mapEdit.setView([dados.latitude, dados.longitude], 13);
+    }, 200);
+
     // Fecha o modal de edição quando o botão cancelar é clicado
     cancelEditBtn.onclick = function() {
-        modal.style.display = "none";
+        fecharEditor();
     };
 
     // Fecha o modal de edição quando o usuário clica fora do modal
     window.onclick = function(event) {
         if (event.target == modal) {
-            modal.style.display = "none";
+            fecharEditor();
         }
     };
 }
 
+function fecharEditor() {
+    document.getElementById('editModal').style.display = "none";
+    document.getElementById('mapa_admin').style.display = "block";
+}
 
 function filtrar(elemento) {
     let arr = [];
