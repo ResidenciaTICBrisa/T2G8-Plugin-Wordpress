@@ -334,6 +334,116 @@ function abrirModalEdicao(dados) {
 function fecharEditor() {
     document.getElementById('editModal').style.display = "none";
     document.getElementById('mapa_admin').style.display = "block";
+    document.getElementById('listaResultadosEdit').innerHTML = '';
+    document.getElementById('searchInputFormEdit').value = '';
+}
+
+function searchButtonClickedEdit() {
+    var searchTerm = document.getElementById('searchInputFormEdit').value;
+    searchLocations(searchTerm);
+}
+
+function searchLocations(query) {
+    resultados = [];
+    var apiUrl = 'https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(query);
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(location => {
+                resultados.push({
+                    display_name: location.display_name,
+                    lat: location.lat,
+                    lon: location.lon
+                });
+            });
+            imprimirResultados(resultados);
+            
+        })
+        .catch(error => {
+            console.error('Erro ao buscar locais:', error);
+        });
+}
+
+function imprimirResultados(resultados) {
+    var listaResultadosOcultados = [];
+    var listaResultados = document.getElementById('listaResultadosEdit');
+    
+    listaResultados.innerHTML = '';
+    var count = 0;
+    var div = document.createElement('div');
+    resultados.forEach(resultado => {
+        var divResultado = document.createElement('div');
+        divResultado.classList.add('celula_resultado');
+        divResultado.style.borderRadius = '3px';
+        divResultado.style.margin = '5px 5px 5px 0px';
+        divResultado.style.cursor = 'pointer';
+        divResultado.innerHTML = '<img src="https://i.imgur.com/4ZnmAxk.png" width="20px" height="20px">' + resultado.display_name;
+        divResultado.addEventListener('click', function () {
+            changeMapView(resultado.lat, resultado.lon);
+        });
+        count += 1;
+        if(count <=5){
+            div.appendChild(divResultado);
+        } else {
+            divResultado.style.display = 'none';
+            listaResultadosOcultados.push(divResultado);
+            div.appendChild(divResultado);
+        } 
+    });
+    
+
+    listaResultados.appendChild(div);
+
+    if (count > 5){
+        // Adicionando botão "Ver Mais"
+        var verMaisButton = document.createElement('button');
+        verMaisButton.textContent = 'Ver Mais';
+        verMaisButton.setAttribute('type', 'button');
+        verMaisButton.setAttribute('class', 'ver');
+        verMaisButton.addEventListener('click', function() {
+            MostrarMaisResultados();
+        });
+        
+        listaResultados.appendChild(verMaisButton);
+        
+        // Adicionando botão "Ver Menos"
+        var verMenosButton = document.createElement('button');
+        verMenosButton.textContent = 'Ver Menos';
+        verMenosButton.setAttribute('type', 'button');
+        verMenosButton.setAttribute('class', 'ver');
+        verMenosButton.addEventListener('click', function() {
+            MostrarMenosResultados();
+        });
+        verMenosButton.style.display = 'none';
+
+        listaResultados.appendChild(verMenosButton);
+
+        // Função para mostrar mais resultados
+        function MostrarMaisResultados() {
+            listaResultadosOcultados.forEach(resultado => {
+                resultado.style.display = 'block';
+            });
+            verMaisButton.style.display = 'none';
+            verMenosButton.style.display = 'block';
+        }
+
+        // Função para mostrar menos resultados
+        function MostrarMenosResultados() {
+            listaResultadosOcultados.forEach(resultado => {
+                resultado.style.display = 'none';
+            });
+            verMaisButton.style.display = 'block';
+            verMenosButton.style.display = 'none';
+        }
+    }
+
+    function changeMapView(lat, lng) {
+        if (mapEdit) {
+            mapEdit.setView([lat, lng], 13);
+        } else {
+            console.error("Mapa de edição não ativo");
+        }
+    }
 }
 
 function filtrar(elemento) {

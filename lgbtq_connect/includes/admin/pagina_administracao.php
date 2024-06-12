@@ -112,9 +112,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
 
                     <div class="search_wrapper">
                         <input type="text" id="searchInputFormEdit" placeholder="Pesquise a cidade ou estado...">
-                        <button type="button" onclick="return searchButtonClickedFormEdit()" class="button_search">Pesquisar</button>
+                        <button type="button" onclick="return searchButtonClickedEdit()" class="button_search">Pesquisar</button>
                     </div>
-                    <div id="listaResultadosFormsEdit"></div>
+
+                    <div id="listaResultadosEdit"></div>
                     
                     <div id="mapa_formulario_edit" style="height: 300px;width: 300px;margin-bottom:10px;"></div>
                     <input type="hidden" name="latitude" id="editLatitude" required>
