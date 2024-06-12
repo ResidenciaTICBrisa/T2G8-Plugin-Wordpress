@@ -2,7 +2,7 @@
 * [Home](README.md)
 * [Tutorial](tutorial.md)
 * [Preparando ambiente](preparandoambiente.md)
-* [Wireframes](wireframes.md)
+* [Wireframes](wireframe.md)
 * [Backlog](backlog.md)
 * [Arquitetura](arquitetura.md)
 * [Storymap](storymap.md)
