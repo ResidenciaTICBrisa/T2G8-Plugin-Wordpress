@@ -44,3 +44,17 @@ O objetivo principal dessa sprint é a reestruturação dos códigos do plugin. 
 | Customizações visuais na documentação|<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/149" target="_blank">#149</a></li>|
 
 
+## **Sprint 13**
+
+O objetivo principal dessa sprint é o início do desenvolvimento da tela de edição de formulários na interface, atualização da documentação após a transição da ferramenta Gitpages para Docsify e a revisão dos códigos JavaScript para criação de testes e correção dos erros de console que os navegadores indicam.
+
+|Descrição| Nº issue|
+|---------|---------|
+| Remoção do bug nas telas do plugin |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/74" target="_blank">#74</a></li>|
+|Atualização da documentação do projeto |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/152" target="_blank">#152</a></li>|
+| Pesquisa para a adição da funcionalidade de buscar endereço a partir das coordenadas  |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/154" target="_blank">#154</a></li>|
+| Corrigir o erro do gráfico da arquitetura na documentação do Docsify |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/155" target="_blank">#155</a></li>|
+| Implementação de testes para o código JS da página do administrador |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/156" target="_blank">#156</a></li>|
+| Implementação de testes para o código JS do shortcode |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/157" target="_blank">#157</a></li>|
+| Criação da tela básica de edição na interface do administrador |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/158" target="_blank">#158</a></li>|
+| Funcionalidades de exibição dos dados do formulário nos campos da tela de edição |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/159" target="_blank">#159</a></li>|
