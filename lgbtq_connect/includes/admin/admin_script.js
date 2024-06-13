@@ -1,5 +1,6 @@
 let mapAdmin;
 let mapEdit;
+let isSearching = false;
 
 class Filtro {
     static status = "Todos";
@@ -339,12 +340,16 @@ function fecharEditor() {
 }
 
 function searchButtonClickedEdit() {
+    if (isSearching) {
+        return; // Se uma busca já estiver em andamento, saia da função
+    }
+    isSearching = true; // Indica que uma busca está em andamento
     var searchTerm = document.getElementById('searchInputFormEdit').value;
     searchLocations(searchTerm);
 }
 
 function searchLocations(query) {
-    resultados = [];
+    var resultados = [];
     var apiUrl = 'https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(query);
     fetch(apiUrl)
         .then(response => response.json())
@@ -357,10 +362,11 @@ function searchLocations(query) {
                 });
             });
             imprimirResultados(resultados);
-            
+            isSearching = false; // Indica que a busca foi concluída
         })
         .catch(error => {
             console.error('Erro ao buscar locais:', error);
+            isSearching = false; // Indica que a busca foi concluída mesmo com erro
         });
 }
 
@@ -382,7 +388,7 @@ function imprimirResultados(resultados) {
             changeMapView(resultado.lat, resultado.lon);
         });
         count += 1;
-        if(count <=5){
+        if(count <= 5) {
             div.appendChild(divResultado);
         } else {
             divResultado.style.display = 'none';
@@ -391,10 +397,9 @@ function imprimirResultados(resultados) {
         } 
     });
     
-
     listaResultados.appendChild(div);
 
-    if (count > 5){
+    if (count > 5) {
         // Adicionando botão "Ver Mais"
         var verMaisButton = document.createElement('button');
         verMaisButton.textContent = 'Ver Mais';
@@ -445,7 +450,6 @@ function imprimirResultados(resultados) {
         }
     }
 }
-
 function filtrar(elemento) {
     let arr = [];
 
