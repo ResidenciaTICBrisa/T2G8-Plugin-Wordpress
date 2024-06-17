@@ -65,7 +65,6 @@ function destacarLinhaTabela(id) {
         linha.classList.remove('linha-destacada');
     }, 2000);
 }
-
 function initMapAdmin() {
     if(document.getElementById('mapa_admin') == null) 
     {   
@@ -86,7 +85,6 @@ function initMapAdmin() {
         });
     });
 }
-
 function initSortButtons() {
     // Adiciona um evento de clique aos botões de ordenação
     var sortButtons = document.querySelectorAll('.sort-btn');
@@ -150,7 +148,6 @@ function initSortButtons() {
         });
     });
 }
-
 // Limpa o conteúdo da tabela
 function excluirLinhas(tabela)
 {
@@ -205,7 +202,6 @@ function confirmarAcao(mensagem, formulario, acao) {
         }
     };
 }
-
 function gerarLinhas(tabela, arr)
 {
     const STATUS_BOTOES = {
@@ -244,8 +240,8 @@ function gerarLinhas(tabela, arr)
         linha.innerHTML = `
         <td>${dados.nome}</td>
         <td>${dados.email}</td>
-        <td>${dados.latitude}</td>
-        <td>${dados.longitude}</td>
+        <td>${dados.city}</td>
+        <td>${dados.road}</td>
         <td>${dados.servico}</td>
         <td>${descricao}</td>
         <td>${dataFormatada}</td>
