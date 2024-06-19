@@ -83,6 +83,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
             </select>
         </div>
         <div class="wrap">
+            <div id="confirmModal" class="modal">
+                <div class="modal-content">
+                    <p id="confirmMessage"></p>
+                    <button id="confirmBtn" onclick=>Confirmar</button>
+                    <button id="cancelBtn">Cancelar</button>
+                </div>
+            </div>
             <table class="wp-list-table widefat striped" id="tabela">
                 <thead>
                         <tr>
@@ -98,9 +105,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
                         </tr>
                 </thead>
                 <tbody>
-            <?php
-            echo '<script src="' . plugin_dir_url(__FILE__) . 'admin_script.js"></script>';
-            ?>
         </div>
     </div>
 
