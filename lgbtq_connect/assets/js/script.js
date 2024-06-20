@@ -50,10 +50,6 @@ class Mapa {
         this.mapa.remove()
         this.mapa = null;
     }
-
-    static sum(a, b) {
-        return a+b;
-    }
 }
 
 class Pagina {
