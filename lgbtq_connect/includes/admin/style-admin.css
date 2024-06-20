@@ -132,3 +132,32 @@ table th:last-child {
     margin: 10px;
     cursor: pointer;
 }
+#tabela {
+    border: 1px solid #dee2e6; /* Borda da tabela */
+    border-collapse: collapse; /* Colapsa as bordas */
+}
+
+#tabela th,
+#tabela td {
+    border: 1px solid #dee2e6; /* Borda das células */
+    padding: 8px; /* Espaçamento interno das células */
+}
+
+.sort-header {
+    cursor: pointer;
+}
+
+.sort-header .sort-btn {
+    border: none;
+    background: none;
+    padding: 0;
+    margin-left: 5px;
+}
+
+.sort-header .sort-icon {
+    font-size: 0.75rem;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f1f1f1;
+}

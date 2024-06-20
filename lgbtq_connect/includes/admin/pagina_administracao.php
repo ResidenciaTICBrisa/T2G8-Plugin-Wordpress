@@ -91,21 +91,27 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
                     <button id="cancelBtn">Cancelar</button>
                 </div>
             </div>
-            <table class="wp-list-table widefat striped" id="tabela">
-                <thead>
-                        <tr>
-                        <th class="sort-header">Nome <button class="sort-btn" data-order="asc"><span class="sort-icon">&#9652;</span></button></th>
-                        <th class="sort-header">Email <button class="sort-btn sort-by-email" data-order="asc"><span class="sort-icon">&#9652;</span></button></th>
-                        <th>Latitude</th>
-                        <th>Longitude</th>
-                        <th>Serviço</th>
-                        <th>Descrição</th>
-                        <th class="sort-header">Data e hora <button class="sort-btn sort-by-date" data-order="asc"><span class="sort-icon">&#9652;</span></button></th>
-                        <th>Status</th>
-                        <th>Ações</th>
-                        </tr>
+            <div class="container mt-5">
+            <table class="table table-striped table-hover" id="tabela">
+                <thead class="thead-light">
+                    <tr>
+                        <th class="sort-header" scope="col">Nome <button class="sort-btn" data-order="asc"><span class="sort-icon">&#9652;</span></button></th>
+                        <th class="sort-header" scope="col">Email <button class="sort-btn sort-by-email" data-order="asc"><span class="sort-icon">&#9652;</span></button></th>
+                        <th scope="col">Latitude</th>
+                        <th scope="col">Longitude</th>
+                        <th scope="col">Serviço</th>
+                        <th scope="col">Descrição</th>
+                        <th class="sort-header" scope="col">Data e hora <button class="sort-btn sort-by-date" data-order="asc"><span class="sort-icon">&#9652;</span></button></th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Ações</th>
+                    </tr>
                 </thead>
                 <tbody>
+                    <!-- Adicione aqui as linhas da tabela -->
+                </tbody>
+            </table>
+    </div>
+            
         </div>
     </div>
 
