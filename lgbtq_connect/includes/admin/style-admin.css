@@ -8,6 +8,7 @@
     position: relative;
     margin: 20px 10px 0px 0px;
     padding: 50px;
+    align-items: center;
 }
 
 #div-mapa_botoes {
@@ -21,24 +22,36 @@
 
 #filtros {
     display: flex;
-    align-items: center;
+    gap: 20px;
+    justify-content: center;
+    
 }
 
 .filtro {
     flex: 1;
     background-color: white;
+    display: flex;
+    align-items: center;
 }
 
 #busca_nome_container {
     display: flex;
     border: 1px solid grey;
+    border-radius: 10px;
+    width: 351.51px;
+    height: 40px;
 }
 
 #busca_nome {
     flex-grow: 2;
     border: none;
-}
 
+}
+#selecao_servico{
+    border-radius: 10px;
+    width: 351.51px;
+    height: 40px;
+}
 #busca_nome:focus {
     outline: none;
 }
@@ -69,6 +82,12 @@ button[data-id]:hover {
     margin-right: 1.5vw;
     position: relative; /* Adicionado para garantir que o z-index funcione */
     z-index: 1; /* Baixo z-index para o mapa */
+    width: 791px;
+    height: 279px;
+    gap: 0px;
+    border-radius: 20px;
+    opacity: 0px;
+
 }
 
 th {
@@ -160,4 +179,32 @@ table th:last-child {
 
 .table-hover tbody tr:hover {
     background-color: #f1f1f1;
+}
+.button-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 50px;
+}
+.btn-aprovado, .btn-negado, .btn-pendente{
+    border-radius: 20px;
+    width: 371px;
+    height: 70px;
+    color: white;
+    text-align:center;
+    border: none;
+
+}   
+.btn-pendente{
+    background: rgb(238,202,16);
+    background: linear-gradient(149deg, rgba(238,202,16,1) 14%, rgba(235,115,10,1) 65%, rgba(221,73,28,1) 99%);
+}
+.btn-negado{
+    background: rgb(238,16,24);
+    background: linear-gradient(149deg, rgba(238,16,24,1) 14%, rgba(153,10,235,1) 65%, rgba(221,28,145,1) 99%);
+}
+.btn-aprovado{
+    background: rgb(64,126,0);
+    background: linear-gradient(149deg, rgba(64,126,0,0.9752275910364145) 17%, rgba(60,235,10,0.865983893557423) 65%, rgba(3,153,15,1) 99%);
 }

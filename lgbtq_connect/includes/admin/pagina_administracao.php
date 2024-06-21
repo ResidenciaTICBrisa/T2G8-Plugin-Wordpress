@@ -58,21 +58,23 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
                 $aprovados = $wpdb->get_results($query_aprovados);
                 $negados = $wpdb->get_results($query_negados);
                 $pendentes = $wpdb->get_results($query_pendentes);
-                echo '<button value="Aprovado" onclick="filtrar(this)">' . count($aprovados) . ' Aprovados</button>';
-                echo '<button value="Negado" onclick="filtrar(this)">' . count($negados) . ' Negados</button>';
-                echo '<button value="Pendente" onclick="filtrar(this)">' . count($pendentes) . ' Pendentes</button>';
+                echo '<div class="button-container">';
+                    echo '<button value="Pendente" class="btn-pendente" onclick="filtrar(this)">' . count($pendentes) . ' Pendentes</button>';
+                    echo '<button value="Negado" class="btn-negado" onclick="filtrar(this)">' . count($negados) . ' Negados</button>';
+                    echo '<button value="Aprovado" class=" btn-aprovado" onclick="filtrar(this)">' . count($aprovados) . ' Aprovados</button>';
+                echo '</div>';        
             ?>
             </div>
         </div>
         <div id="contador_resultados">
         </div>
-        <div id=filtros>
+        <div id="filtros" >
             <form method="post">
                 <div id="busca_nome_container" class="filtro">
                     <input type="text" id="busca_nome" placeholder="Pesquise pelo nome" oninput="filtrar()">
                 </div>
             </form>
-            <select id="selecao_servico" class="filtro" onchange="filtrar()" required>
+            <select id="selecao_servico" class="filtro " onchange="filtrar()" required>
                 <option value="" selected disabled>Selecione...</option>
                 <option value="bar/restaurante">Bares/restaurantes</option>
                 <option value="entretenimento">Entretenimento</option>
