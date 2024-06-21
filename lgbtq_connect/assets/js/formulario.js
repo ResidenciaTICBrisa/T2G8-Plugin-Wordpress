@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Função para verificar caracteres especiais
         function hasSpecialChars(str) {
-            return /[^a-zA-Z0-9 ]/.test(str);
+            return /[!#$%&()*+\/<=>?@[\\\]_{|}]/.test(str);
         }
 
         
