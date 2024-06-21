@@ -118,8 +118,24 @@ function initMapEdit(latitude, longitude, nome, servico, descricao) {
     </div>
         `;
 
-    L.marker([latitude, longitude]).addTo(mapEdit).bindPopup(popupConteudo);
+    // Função para atualizar os inputs de latitude e longitude
+    function updateInputs(lat, lng) {
+        document.getElementById('editLatitude').value = lat;
+        document.getElementById('editLongitude').value = lng;
+    }
+
+    // Adiciona um marcador arrastável
+    var marker = L.marker([latitude, longitude], {
+        draggable: true
+    }).addTo(mapEdit).bindPopup(popupConteudo);
+
+    // Evento que é chamado quando o marcador é arrastado
+    marker.on('dragend', function (e) {
+        var newPosition = marker.getLatLng();
+        updateInputs(newPosition.lat, newPosition.lng);
+    });
 }
+
 
 function initSortButtons() {
     // Adiciona um evento de clique aos botões de ordenação

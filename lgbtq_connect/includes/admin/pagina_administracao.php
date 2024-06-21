@@ -14,14 +14,20 @@ function adicionar_pagina_administracao() {
 
 add_action('admin_menu', 'adicionar_pagina_administracao');
 
+require 'formulario-admin-page.php';
+
 // Função para mostrar os dados na página do painel de administração
 function mostrar_dados() {
     global $wpdb;
+
+     // Exibir mensagem de sucesso se os dados foram atualizados
+     if (isset($_GET['status']) && $_GET['status'] == 'success') {
+        echo '<div class="notice notice-success is-dismissible"><p>Formulário atualizado com sucesso!</p></div>';
+    }
+
     // Consulta os dados da tabela formulario
     $dados_formulario = $wpdb->get_results("SELECT * FROM lc_formulario");
     
-    require 'formulario-admin-page.php';
-
     // Verifica se o parâmetro "action" foi enviado via POST
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
     // Verifica a ação do formulário
@@ -94,9 +100,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
             <!-- Modal de Edição -->
             <div id="editModal" style="display:none;">
             <div>
-                <form id="editForm" method="post" action="">
+                <form id="editForm" method="post" action="<?php echo admin_url('admin.php?page=lc_admin'); ?>">
                     <input type="hidden" name="id" id="editId">
-
+                    <input type="hidden" name="action" value="update_form">
 
                     <label for="nome" id="editLabelNome">Nome do local:</label>
                     <input type="text" name="nome" id="editNome" required><br>
@@ -121,7 +127,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
                     <input type="hidden" name="latitude" id="editLatitude" required>
                     <input type="hidden" name="longitude" id="editLongitude" required>
 
-                    <button type="submit">Salvar</button>
+                    <button type="submit" action="atualizar_formulario($wpdb)">Salvar</button>
                     <button type="button" id="cancelEditBtn">Cancelar</button>
                 </form>
             </div>
