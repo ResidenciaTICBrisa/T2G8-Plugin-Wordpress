@@ -11,7 +11,7 @@
         <form method="post">
             <div class="search_wrapper">
                 <input type="text" id="searchInputIndex" placeholder="Pesquise a cidade ou estado...">
-                <button type="submit" onclick="return searchButtonClicked()" class="button_search">Pesquisar</button>
+                <button type="button" onclick="pesquisar('searchInputIndex', 'listaResultadosIndex')" class="button_search">Pesquisar</button>
             </div>
         </form>
         <div id="listaResultadosIndex"></div>
@@ -49,7 +49,7 @@
 
             <div class="search_wrapper">
                 <input type="text" id="searchInputForm" placeholder="Pesquise a cidade ou estado...">
-                <button type="button" onclick="return searchButtonClickedForm()" class="button_search">Pesquisar</button>
+                <button type="button" onclick="pesquisar('searchInputForm', 'listaResultadosForms')" class="button_search">Pesquisar</button>
             </div>
             <div id="listaResultadosForms"></div>
             <div id="mapa_formulario" style="height: 300px;margin-bottom:10px;"></div>
