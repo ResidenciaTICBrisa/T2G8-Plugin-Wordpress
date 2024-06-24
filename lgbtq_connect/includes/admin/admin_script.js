@@ -94,6 +94,49 @@ function initMapAdmin() {
     });
 }
 
+function initMapEdit(latitude, longitude, nome, servico, descricao) {
+    document.getElementById('mapa_admin').style.display = "none";
+
+    // Verifica se o mapa já foi inicializado e destrói se necessário
+    if (mapEdit !== undefined) {
+        mapEdit.remove();
+    }
+
+    mapEdit = L.map('mapa_formulario_edit', { doubleClickZoom: false }).setView([-15.8267, -47.9218], 13);
+
+    // Adiciona o provedor de mapa OpenStreetMap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(mapEdit);
+
+    var popupConteudo = `
+    <div class="pop">
+        <h4><strong>${nome}</strong></h4>
+        <i>${servico}</i>
+        <div class="gradiente"></div>
+        <p><strong>${descricao}</strong></p>
+    </div>
+        `;
+
+    // Função para atualizar os inputs de latitude e longitude
+    function updateInputs(lat, lng) {
+        document.getElementById('editLatitude').value = lat;
+        document.getElementById('editLongitude').value = lng;
+    }
+
+    // Adiciona um marcador arrastável
+    var marker = L.marker([latitude, longitude], {
+        draggable: true
+    }).addTo(mapEdit).bindPopup(popupConteudo);
+
+    // Evento que é chamado quando o marcador é arrastado
+    marker.on('dragend', function (e) {
+        var newPosition = marker.getLatLng();
+        updateInputs(newPosition.lat, newPosition.lng);
+    });
+}
+
+
 function initSortButtons() {
     // Adiciona um evento de clique aos botões de ordenação
     var sortButtons = document.querySelectorAll('.sort-btn');
@@ -468,4 +511,3 @@ window.onload = function () {
     initSortButtons();
     initMapAdmin();
 };
-
