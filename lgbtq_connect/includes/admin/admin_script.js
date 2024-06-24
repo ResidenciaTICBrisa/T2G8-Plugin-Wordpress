@@ -251,13 +251,24 @@ function gerarLinhas(tabela, arr)
         <td>${dataFormatada}</td>
         <td>${dados.situacao}</td>
         <td>
-            <form method="post" action="">
-            <input type="hidden" name="id" value="${dados.id}">
-            <input type="hidden" name="action" value="">
-            ${acoes}
-            <button type="button">Editar</button>
-            <button type="button" onclick="confirmarAcao('Tem certeza que quer excluir a sugestão?', this.form, 'exclude')">Excluir</button>
+            <div class="btn-group dropend">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    Ações
+                </button>
+                <ul class="dropdown-menu">
+                    <li>
+                        <form method="post" action="">
+                            <input type="hidden" name="id" value="${dados.id}">
+                            <input type="hidden" name="action" value="">
+                            ${acoes}
+                            <button type="button">Editar</button>
+                            <button type="button" onclick="confirmarAcao('Tem certeza que quer excluir a sugestão?', this.form, 'exclude')">Excluir</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
         </td>
+
         `;
         tbody.appendChild(linha);
     });

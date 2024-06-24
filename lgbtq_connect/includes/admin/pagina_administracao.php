@@ -94,7 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
                 </div>
             </div>
             <div class="container mt-5">
-            <table class="table table-striped table-hover" id="tabela">
+            <table class="table table-hover" id="tabela">
                 <thead class="thead-light">
                     <tr>
                         <th class="sort-header" scope="col">Nome <button class="sort-btn" data-order="asc"><span class="sort-icon">&#9652;</span></button></th>
