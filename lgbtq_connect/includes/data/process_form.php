@@ -11,13 +11,13 @@ function processar_formulario() {
         parse_str($_POST['formData'], $formFields);
 
         // Filtra o conteúdo enviado nos formulários
-        $nome = isset($formFields['nome']) ? Auxiliar_Process_Forms::sanitize_data($formFields['nome'], 'text') : '';
-        $email = isset($formFields['email']) ? Auxiliar_Process_Forms::sanitize_data($formFields['email'], 'email') : '';
-        $descricao = isset($formFields['descricao']) ? Auxiliar_Process_Forms::sanitize_data($formFields['descricao'], 'textarea') : ''; 
-        $latitude = isset($formFields['latitude']) ? Auxiliar_Process_Forms::sanitize_data($formFields['latitude'], 'float') : 0;
-        $longitude = isset($formFields['longitude']) ? Auxiliar_Process_Forms::sanitize_data($formFields['longitude'], 'float') : 0;
-        $servico = isset($formFields['servico']) ? Auxiliar_Process_Forms::sanitize_data($formFields['servico'], 'text') : '';
-
+        $nome = isset($formFields['nome']) ? filter_var($formFields['nome'], FILTER_SANITIZE_STRING) : '';
+        $email = isset($formFields['email']) ? filter_var($formFields['email'], FILTER_SANITIZE_EMAIL) : '';
+        $descricao = isset($formFields['descricao']) ? filter_var($formFields['descricao'], FILTER_SANITIZE_STRING) : ''; 
+        $latitude = isset($formFields['latitude']) ? filter_var($formFields['latitude'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION | FILTER_FLAG_ALLOW_THOUSAND | FILTER_FLAG_ALLOW_SCIENTIFIC) : 0;
+        $longitude = isset($formFields['longitude']) ? filter_var($formFields['longitude'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION | FILTER_FLAG_ALLOW_THOUSAND | FILTER_FLAG_ALLOW_SCIENTIFIC) : 0;
+        $servico = isset($formFields['servico']) ? filter_var($formFields['servico'], FILTER_SANITIZE_STRING) : '';
+        
         // Verifica se todos os campos necessários estão presentes
         if ($nome && $email && $descricao && $latitude && $longitude && $servico) {
             $data_hora_envio = Auxiliar_Process_Forms::get_current_time();
