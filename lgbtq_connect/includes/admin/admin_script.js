@@ -206,18 +206,17 @@ function confirmarAcao(mensagem, formulario, acao) {
     };
 }
 
-function gerarLinhas(tabela, arr)
-{
+function gerarLinhas(tabela, arr) {
     const STATUS_BOTOES = {
         "Aprovado" : `
-        <button type="button" onclick="confirmarAcao('Tem certeza que quer negar a sugestão?', this.form, 'reprove')">Negar</button>
+        <button type="button" class="btn btn-danger" onclick="confirmarAcao('Tem certeza que quer negar a sugestão?', this.form, 'reprove')">Negar</button>
         `,
         "Negado" : `
-        <button type="button" onclick="confirmarAcao('Tem certeza que quer aprovar a sugestão?', this.form, 'approve')">Aprovar</button>
+        <button type="button" class="btn btn-success" onclick="confirmarAcao('Tem certeza que quer aprovar a sugestão?', this.form, 'approve')">Aprovar</button>
         `,
         "Pendente" : `
-        <button type="button" onclick="confirmarAcao('Tem certeza que quer aprovar a sugestão?', this.form, 'approve')">Aprovar</button>
-        <button type="button" onclick="confirmarAcao('Tem certeza que quer negar a sugestão?', this.form, 'reprove')">Negar</button>
+        <button type="button" class="btn btn-success" onclick="confirmarAcao('Tem certeza que quer aprovar a sugestão?', this.form, 'approve')">Aprovar</button>
+        <button type="button" class="btn btn-danger" onclick="confirmarAcao('Tem certeza que quer negar a sugestão?', this.form, 'reprove')">Negar</button>
         `
     }
     var tbody = tabela.querySelector('tbody');
@@ -232,7 +231,7 @@ function gerarLinhas(tabela, arr)
             descricao = `
             <span id="descricaoResumida_${dados.id}">${dados.descricao.substring(0, 10)}...</span>
             <span id="descricaoCompleta_${dados.id}" style="display:none;">${dados.descricao}</span>
-            <button data-id="${dados.id}" onclick="mostrarDescricaoCompleta(${dados.id})">Ver mais</button>
+            <button data-id="${dados.id}" class="btn btn-link" onclick="mostrarDescricaoCompleta(${dados.id})">Ver mais</button>
             `
         }
         else {
@@ -257,12 +256,13 @@ function gerarLinhas(tabela, arr)
                 </button>
                 <ul class="dropdown-menu">
                     <li>
-                        <form method="post" action="">
+                        <form method="post" action="" class="d-flex flex-wrap">
                             <input type="hidden" name="id" value="${dados.id}">
                             <input type="hidden" name="action" value="">
+                            <button type="button" class="btn btn-primary">Editar</button>
+
                             ${acoes}
-                            <button type="button">Editar</button>
-                            <button type="button" onclick="confirmarAcao('Tem certeza que quer excluir a sugestão?', this.form, 'exclude')">Excluir</button>
+                            <button type="button" class="btn btn-danger" onclick="confirmarAcao('Tem certeza que quer excluir a sugestão?', this.form, 'exclude')">Excluir</button>
                         </form>
                     </li>
                 </ul>
