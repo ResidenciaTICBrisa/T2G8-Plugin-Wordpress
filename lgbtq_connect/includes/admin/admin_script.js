@@ -323,6 +323,8 @@ function abrirModalEdicao(dados) {
     document.getElementById('editEmail').value = dados.email;
     document.getElementById('editServico').value = dados.servico;
     document.getElementById('editDescricao').value = dados.descricao;
+    document.getElementById('editLatitude').value = dados.latitude;
+    document.getElementById('editLongitude').value = dados.longitude;
 
     initMapEdit(dados.latitude, dados.longitude, dados.nome, dados.servico, dados.descricao);
 
