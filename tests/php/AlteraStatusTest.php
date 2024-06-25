@@ -12,7 +12,34 @@ if (!class_exists('wpdb')) {
         public function query($query) {
             return true;
         }
+        public function update($table, $data, $where) {
+            return true;
+        }
     }
+}
+
+// Funções fictícias de sanitização
+if (!function_exists('sanitize_text_field')) {
+    function sanitize_text_field($str) {
+        return $str;
+    }
+}
+if (!function_exists('sanitize_email')) {
+    function sanitize_email($email) {
+        return $email;
+    }
+}
+if (!function_exists('sanitize_textarea_field')) {
+    function sanitize_textarea_field($str) {
+        return $str;
+    }
+}
+
+// Função wp_die customizada para testes
+class WPDieException extends Exception {}
+
+function wp_die($message) {
+    throw new WPDieException($message);
 }
 
 class AlteraStatusTest extends TestCase {
@@ -21,10 +48,55 @@ class AlteraStatusTest extends TestCase {
     protected function setUp(): void {
         // Mock do objeto $wpdb
         $this->wpdb = $this->getMockBuilder('wpdb')
-                           ->onlyMethods(['prepare', 'query'])
+                           ->onlyMethods(['prepare', 'query', 'update'])
                            ->getMock();
     }
 
+    // Testes para a função atualizar_formulario
+    public function test_atualizar_formulario_success() {
+        // Mock de $_POST
+        $_POST['id'] = 1;
+        $_POST['nome'] = 'Teste Nome';
+        $_POST['email'] = 'teste@example.com';
+        $_POST['servico'] = 'Teste Serviço';
+        $_POST['descricao'] = 'Teste Descrição';
+        $_POST['latitude'] = '12.345678';
+        $_POST['longitude'] = '98.7654321';
+
+        // Defina o que o mock do $wpdb->update deve retornar
+        $this->wpdb->expects($this->once())
+                   ->method('update')
+                   ->with(
+                       $this->equalTo('lc_formulario'),
+                       $this->equalTo([
+                           'nome' => 'Teste Nome',
+                           'email' => 'teste@example.com',
+                           'servico' => 'Teste Serviço',
+                           'descricao' => 'Teste Descrição',
+                           'latitude' => '12.345678',
+                           'longitude' => '98.7654321',
+                       ]),
+                       $this->equalTo(['id' => 1])
+                   )
+                   ->willReturn(1);
+
+        // Chame a função atualizar_formulario
+        atualizar_formulario($this->wpdb);
+    }
+
+    public function test_atualizar_formulario_missing_data() {
+        // Limpe o $_POST para garantir que está vazio
+        $_POST = [];
+
+        // Capture a saída para verificar se wp_die foi chamado
+        $this->expectException(WPDieException::class);
+        $this->expectExceptionMessage('Dados insuficientes');
+
+        // Chame a função atualizar_formulario e verifique se wp_die é chamado
+        atualizar_formulario($this->wpdb);
+    }
+
+    // Testes para a função alteraStatus
     public function testAlteraStatusReturnsFalseWhenWpdbNotSet() {
         $result = alteraStatus(null, 1, 'new_status');
         $this->assertFalse($result);
@@ -74,3 +146,4 @@ class AlteraStatusTest extends TestCase {
         $this->assertTrue($result);
     }
 }
+?>
