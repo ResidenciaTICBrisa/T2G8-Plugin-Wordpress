@@ -102,6 +102,95 @@ table th:last-child {
     border-top-right-radius: 20px !important;
 }
 
+.title{
+    font-weight:bold;
+    font-size: 24px;
+    margin-bottom:20px;
+    text-align: center;
+    color: black;
+}
+
+.blue_button, .button_search, .ver{
+    width:100%;
+    background-color: #2a75f3;
+    padding:10px;
+    border:none;
+    border-radius: 10px;
+    color:white;
+    text-align:center;
+    align-items: center;
+    font-size: 16px;
+}
+
+.button_search{
+    width: 17%;
+}
+
+.ver {
+    margin: auto;
+    display : block;
+    width: 10%;
+    height: 20px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    font-size: 0.75rem;
+    padding: 0px;
+}
+
+#editSalvar, #editCancelar {
+    width: 17%;
+    background-color: #2a75f3;
+    padding:10px;
+    border:none;
+    border-radius: 20px;
+    color:white;
+    text-align:center;
+    align-items: center;
+}
+
+#editSalvar {
+    margin-right: auto;
+    margin-left: 21px;
+}
+
+#editCancelar {
+    background-color: #F5F5F5;
+    color: #707070;
+    border: solid 2px;
+    margin-left: auto;
+    margin-right: 21px;
+}
+
+#editFechar {
+    float: right;
+    padding: 0;
+    border: none;   
+    background: none;  
+}
+
+#editNome, #editEmail, #editDescricao, #editServico, #searchInputFormEdit{
+    width:97%;
+    resize:none;
+    background-color:#F5F5F5;
+    margin-bottom:10px;
+    border: 1px solid #D0D0D0;
+    border-radius:10px;
+    padding:10px;
+    font-size: 16px;
+}
+
+#searchInputFormEdit{
+    width: 77%;
+    margin: 0 auto;
+    padding:10px !important;
+    margin-left:0px;
+}
+
+.blue_button:hover, .button_search:hover, .ver:hover, #editSalvar{
+    background-color: #1266f1;
+}
+
 .modal {
     display: none;
     position: fixed;
@@ -129,23 +218,110 @@ table th:last-child {
 
 }
 
-#editModal{
-    display: none;
+#editPopup {
     position: fixed;
-    width: 80%;
-    height: 87%;
-    overflow: auto;
-    top: 10%;
-    left: 16%;
-    background-color: #fefefe;
-    border: 2px solid black;
-    border-radius: 10px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+
+#editModal {
+    position: absolute;
+    width: 65%;
+    height: auto;
+    background-color: white;
     z-index: 1001;
+    border-radius: 15px; /* Adjust the value to your desired roundness */
+    box-shadow: 2px 2px 5px #d0d0d0;
+    padding: 50px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
+#editModal::before {
+    content: "";
+    position: absolute;
+    top: -3px; /* Adjust based on border width */
+    left: -3px; /* Adjust based on border width */
+    width: calc(100% + 6px); /* Adjust based on border width */
+    height: calc(100% + 6px); /* Adjust based on border width */
+    background: linear-gradient(to bottom right, red, hotpink, blue, lime, yellow);
+    border-radius: 18px; /* Adjust for border radius + border width */
+    z-index: -1; /* Ensure the pseudo-element is behind the modal content */
+}
+
+#editModal::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border-radius: 15px; /* Same as #editModal border-radius */
+    z-index: -1; /* Ensure the pseudo-element is behind the modal content but above the gradient border */
+    box-sizing: border-box; /* Ensure the padding and border width are considered */
+}
+
+#listaResultadosEdit{
+    background-color: white;
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
+#listaResultadosForms, #listaResultadosIndex{
+    background-color: white;
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
+.celula_resultado{
+    background-color: #F5F5F5;
+    width:97%;
+    text-align:center;
+    font-size:16px;
+    padding:10px;
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    margin:20px;
+    border-radius:10px !important;
+}
+
+.celula_resultado:hover{
+    background-color: #E6E6E6;
+}
+
+.celula_resultado:active{
+    background-color: #ccc;
+}
+
+.search_wrapper{
+    background-color: white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
 
 #confirmBtn, #cancelBtn {
     padding: 10px 20px;
     margin: 10px;
     cursor: pointer;
+}
+
+#editDivBotoes {
+    width: 100%;
+    display: flex;
+    font-size: 16px;
+}
+
+#editLabelNome, #editLabelEmail, #editLabelServico, #editLabelDescricao {
+    font-size: 18px;
 }

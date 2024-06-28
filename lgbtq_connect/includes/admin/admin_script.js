@@ -210,8 +210,6 @@ function initMapAdmin() {
 }
 
 function initMapEdit(latitude, longitude, nome, servico, descricao) {
-    document.getElementById('mapa_admin').style.display = "none";
-
     // Verifica se o mapa já foi inicializado e destrói se necessário
     if (mapEdit !== undefined) {
         mapEdit.remove();
@@ -249,6 +247,8 @@ function initMapEdit(latitude, longitude, nome, servico, descricao) {
         var newPosition = marker.getLatLng();
         updateInputs(newPosition.lat, newPosition.lng);
     });
+
+    document.getElementById('mapa_admin').style.display = "block";
 }
 
 function confirmarAcao(mensagem, formulario, acao) {
@@ -284,8 +284,8 @@ function confirmarAcao(mensagem, formulario, acao) {
 }
 
 function abrirModalEdicao(dados) {
-    var modal = document.getElementById('editModal');
-    var cancelEditBtn = document.getElementById('cancelEditBtn');
+    const popup = document.getElementById("editPopup") 
+    const modal = document.getElementById('editModal');
 
     // Preenche os campos do formulário com os dados fornecidos
     document.getElementById('editId').value = dados.id;
@@ -299,6 +299,7 @@ function abrirModalEdicao(dados) {
     initMapEdit(dados.latitude, dados.longitude, dados.nome, dados.servico, dados.descricao);
 
     // Exibe o modal de edição
+    popup.style.display = "flex";
     modal.style.display = "block";
 
     // Atualiza o tamanho do mapa e define a visualização após um pequeno atraso para garantir que o modal tenha sido completamente exibido
@@ -307,10 +308,7 @@ function abrirModalEdicao(dados) {
         mapEdit.setView([dados.latitude, dados.longitude], 13);
     }, 200);
 
-    // Fecha o modal de edição quando o botão cancelar é clicado
-    cancelEditBtn.onclick = function() {
-        fecharEditor();
-    };
+    modal.scrollIntoView({ behavior: 'smooth' });
 
     // Fecha o modal de edição quando o usuário clica fora do modal
     window.onclick = function(event) {
@@ -321,6 +319,7 @@ function abrirModalEdicao(dados) {
 }
 
 function fecharEditor() {
+    document.getElementById('editPopup').style.display = "none";
     document.getElementById('editModal').style.display = "none";
     document.getElementById('mapa_admin').style.display = "block";
     document.getElementById('listaResultadosEdit').innerHTML = '';
