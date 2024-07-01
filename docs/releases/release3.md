@@ -44,3 +44,45 @@ O objetivo principal dessa sprint é a reestruturação dos códigos do plugin. 
 | Customizações visuais na documentação|<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/149" target="_blank">#149</a></li>|
 
 
+## **Sprint 13**
+
+O objetivo principal dessa sprint é o início do desenvolvimento da tela de edição de formulários na interface, atualização da documentação após a transição da ferramenta Gitpages para Docsify e a revisão dos códigos JavaScript para criação de testes e correção dos erros de console que os navegadores indicam.
+
+|Descrição| Nº issue|
+|---------|---------|
+| Remoção do bug nas telas do plugin |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/74" target="_blank">#74</a></li>|
+|Atualização da documentação do projeto |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/152" target="_blank">#152</a></li>|
+| Pesquisa para a adição da funcionalidade de buscar endereço a partir das coordenadas  |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/154" target="_blank">#154</a></li>|
+| Corrigir o erro do gráfico da arquitetura na documentação do Docsify |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/155" target="_blank">#155</a></li>|
+| Implementação de testes para o código JS da página do administrador |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/156" target="_blank">#156</a></li>|
+| Implementação de testes para o código JS do shortcode |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/157" target="_blank">#157</a></li>|
+| Criação da tela básica de edição na interface do administrador |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/158" target="_blank">#158</a></li>|
+| Funcionalidades de exibição dos dados do formulário nos campos da tela de edição |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/159" target="_blank">#159</a></li>|
+
+## **Sprint 14**
+
+O objetivo dessa sprint é a continuação do desenvolvimento da ferramenta de edição dos formulários, atualização da documentação, desenvolvimento do visual da interface do administrador, adição de um marcador personalizado nos mapas e desenvolvimento do desing da tela de edição.
+
+|Descrição| Nº issue|
+|---------|---------|
+| Adição do mapa na tela edição + funcionalidade de busca|<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/160" target="_blank">#160</a></li>|
+| Atualização dos artefatos da documentação|<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/162" target="_blank">#162</a></li>|
+| Desenvolvimento do desing da interface|<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/163" target="_blank">#163</a></li>|
+| Desenvolvimento do design da tela de edição|<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/164" target="_blank">#164</a></li>|
+| Marcador personalizado|<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/166" target="_blank">#166</a></li>|
+| Campo de busca no mapa da edição |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/167" target="_blank">#167</a></li>|
+| Resultados repetidos na busca (tela de edição)|<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/168" target="_blank">#168</a></li>|
+| Salvar alterações na tela de edição |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/169" target="_blank">#169</a></li>|
+| Implementação de testes para o código JS da página do administrador e refatoração parcial do código JS do shortcode|<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/171" target="_blank">#171</a></li>|
+
+
+## **Sprint 15**
+
+O objetivo principal dessa sprint é a finalização da tela de edição para disponibilização da funcionalidade no ambiente de produção. Além de alguns ajustes no desenvolvimento do front end da tela de edição de acordo com o wireframe disponibilizado, resolução de bugs da tela de edição, criação do teste para a funcionalidade de editar os dados do formulário, finalizar transição da gitpages para docsify na documentação, adição da Sprint 15 na documentação.
+
+|Descrição| Nº issue|
+|---------|---------|
+| Desenvolvimento do front end da tela de edição |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/173" target="_blank">#173</a></li>|
+| Criação do teste para a funcionalidade de editar os dados do formulário|<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/175" target="_blank">#175</a></li>|
+| Finalizar transição da gitpages para docsify na documentação|<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/176" target="_blank">#176</a></li>|
+| Adição da Sprint 15 na documentação |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/177" target="_blank">#177</a></li>|

@@ -1,6 +1,11 @@
+let mapAdmin;
+let mapEdit;
+let isSearching = false;
+
 class Filtro {
     static status = "Todos";
     static nome = "";
+    static servico = "todos";
     static servico = "";
 
     static realizarFiltragem(arr) {
@@ -9,7 +14,6 @@ class Filtro {
             return (self.checarStatus(formulario) && self.checarNome(formulario) && self.checarServico(formulario));
         });
     }
-
     static checarStatus(formulario) {
         if (this.status !== "Todos") {
             return (this.status == formulario.situacao);
@@ -18,7 +22,7 @@ class Filtro {
             return true;
         }
     }
-    
+
     static checarNome(formulario) {
         return(formulario.nome.toLowerCase().trim().startsWith(this.nome.toLowerCase().trim()));
     }
@@ -68,7 +72,7 @@ class Tabela {
         const hora = Tabela.adicionarZero(data.getHours());
         const minutos = Tabela.adicionarZero(data.getMinutes());
         const segundos = Tabela.adicionarZero(data.getSeconds());
-    
+
         return `${dia}/${mes}/${ano} ${hora}:${minutos}:${segundos}`;
     }
 
@@ -103,7 +107,7 @@ class Tabela {
             `
         }
         const tbody = this.tabela.querySelector('tbody');
-    
+
         this.arr.forEach(dados => {
             const linha = document.createElement('tr');
             linha.id = "formulario-" + dados.id;
@@ -120,9 +124,9 @@ class Tabela {
             else {
                 descricao = dados.descricao;
             }
-            
+
             let acoes = STATUS_BOTOES[dados.situacao];
-    
+
             linha.innerHTML = `
             <td id="formulario-${dados.id}-nome">${dados.nome}</td>
             <td id="formulario-${dados.id}-email">${dados.email}</td>
@@ -137,7 +141,7 @@ class Tabela {
                 <input type="hidden" name="id" value="${dados.id}">
                 <input type="hidden" name="action" value="">
                 ${acoes}
-                <button type="button">Editar</button>
+                <button type="button" onclick='abrirModalEdicao(${JSON.stringify(dados)})'>Editar</button>
                 <button type="button" onclick="confirmarAcao('Tem certeza que quer excluir a sugestão?', this.form, 'exclude')">Excluir</button>
             </td>
             `;
@@ -161,13 +165,15 @@ function destacarLinhaTabela(id) {
 
     linha.classList.add('linha-destacada'); // Adiciona a classe 'linha-destacada'
     linha.scrollIntoView({ behavior: 'smooth' }); // Rola a página para a linha
+    setTimeout(function () {
+        linha.classList.remove('linha-destacada');
+    }, 3000);
 }
 
 function mostrarDescricaoCompleta(id) {
     var descricaoResumida = document.getElementById('descricaoResumida_' + id);
     var descricaoCompleta = document.getElementById('descricaoCompleta_' + id);
     var botao = document.querySelector('button[data-id="' + id + '"]');
-
     if (descricaoResumida.style.display === 'none') {
         descricaoResumida.style.display = 'inline';
         descricaoCompleta.style.display = 'none';
@@ -180,12 +186,16 @@ function mostrarDescricaoCompleta(id) {
 }
 
 function initMapAdmin() {
-    if(document.getElementById('mapa_admin') == null) 
-    {   
+    if (document.getElementById('mapa_admin') == null) {
         return;
     }
 
-    mapAdmin = L.map('mapa_admin', {doubleClickZoom: false}).setView([-15.8267, -47.9218], 13);
+    // Verifica se o mapa já foi inicializado e destrói se necessário
+    if (mapAdmin !== undefined) {
+        mapAdmin.remove();
+    }
+
+    mapAdmin = L.map('mapa_admin', { doubleClickZoom: false }).setView([-15.8267, -47.9218], 13);
 
     // Adiciona o provedor de mapa OpenStreetMap
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -194,10 +204,51 @@ function initMapAdmin() {
 
     formularios_aprovados.forEach(function(formulario) {
         L.marker([formulario.latitude, formulario.longitude]).addTo(mapAdmin).on('click', function() {
-
             destacarLinhaTabela(formulario.id);
         });
     });
+}
+
+function initMapEdit(latitude, longitude, nome, servico, descricao) {
+    // Verifica se o mapa já foi inicializado e destrói se necessário
+    if (mapEdit !== undefined) {
+        mapEdit.remove();
+    }
+
+    mapEdit = L.map('mapa_formulario_edit', { doubleClickZoom: false }).setView([-15.8267, -47.9218], 13);
+
+    // Adiciona o provedor de mapa OpenStreetMap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(mapEdit);
+
+    var popupConteudo = `
+    <div class="pop">
+        <h4><strong>${nome}</strong></h4>
+        <i>${servico}</i>
+        <div class="gradiente"></div>
+        <p><strong>${descricao}</strong></p>
+    </div>
+        `;
+
+    // Função para atualizar os inputs de latitude e longitude
+    function updateInputs(lat, lng) {
+        document.getElementById('editLatitude').value = lat;
+        document.getElementById('editLongitude').value = lng;
+    }
+
+    // Adiciona um marcador arrastável
+    var marker = L.marker([latitude, longitude], {
+        draggable: true
+    }).addTo(mapEdit).bindPopup(popupConteudo);
+
+    // Evento que é chamado quando o marcador é arrastado
+    marker.on('dragend', function (e) {
+        var newPosition = marker.getLatLng();
+        updateInputs(newPosition.lat, newPosition.lng);
+    });
+
+    document.getElementById('mapa_admin').style.display = "block";
 }
 
 function confirmarAcao(mensagem, formulario, acao) {
@@ -232,20 +283,174 @@ function confirmarAcao(mensagem, formulario, acao) {
     };
 }
 
+function abrirModalEdicao(dados) {
+    const popup = document.getElementById("editPopup") 
+    const modal = document.getElementById('editModal');
+
+    // Preenche os campos do formulário com os dados fornecidos
+    document.getElementById('editId').value = dados.id;
+    document.getElementById('editNome').value = dados.nome;
+    document.getElementById('editEmail').value = dados.email;
+    document.getElementById('editServico').value = dados.servico;
+    document.getElementById('editDescricao').value = dados.descricao;
+    document.getElementById('editLatitude').value = dados.latitude;
+    document.getElementById('editLongitude').value = dados.longitude;
+
+    initMapEdit(dados.latitude, dados.longitude, dados.nome, dados.servico, dados.descricao);
+
+    // Exibe o modal de edição
+    popup.style.display = "flex";
+    modal.style.display = "block";
+
+    // Atualiza o tamanho do mapa e define a visualização após um pequeno atraso para garantir que o modal tenha sido completamente exibido
+    setTimeout(function() {
+        mapEdit.invalidateSize();
+        mapEdit.setView([dados.latitude, dados.longitude], 13);
+    }, 200);
+
+    modal.scrollIntoView({ behavior: 'smooth' });
+
+    // Fecha o modal de edição quando o usuário clica fora do modal
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            fecharEditor();
+        }
+    };
+}
+
+function fecharEditor() {
+    document.getElementById('editPopup').style.display = "none";
+    document.getElementById('editModal').style.display = "none";
+    document.getElementById('mapa_admin').style.display = "block";
+    document.getElementById('listaResultadosEdit').innerHTML = '';
+    document.getElementById('searchInputFormEdit').value = '';
+}
+
+function searchButtonClickedEdit() {
+    if (isSearching) {
+        return; // Se uma busca já estiver em andamento, saia da função
+    }
+    isSearching = true; // Indica que uma busca está em andamento
+    var searchTerm = document.getElementById('searchInputFormEdit').value;
+    searchLocations(searchTerm);
+}
+
+function searchLocations(query) {
+    var resultados = [];
+    var apiUrl = 'https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(query);
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(location => {
+                resultados.push({
+                    display_name: location.display_name,
+                    lat: location.lat,
+                    lon: location.lon
+                });
+            });
+            imprimirResultados(resultados);
+            isSearching = false; // Indica que a busca foi concluída
+        })
+        .catch(error => {
+            console.error('Erro ao buscar locais:', error);
+            isSearching = false; // Indica que a busca foi concluída mesmo com erro
+        });
+}
+
+function imprimirResultados(resultados) {
+    var listaResultadosOcultados = [];
+    var listaResultados = document.getElementById('listaResultadosEdit');
+    
+    listaResultados.innerHTML = '';
+    var count = 0;
+    var div = document.createElement('div');
+    resultados.forEach(resultado => {
+        var divResultado = document.createElement('div');
+        divResultado.classList.add('celula_resultado');
+        divResultado.style.borderRadius = '3px';
+        divResultado.style.margin = '5px 5px 5px 0px';
+        divResultado.style.cursor = 'pointer';
+        divResultado.innerHTML = '<img src="https://i.imgur.com/4ZnmAxk.png" width="20px" height="20px">' + resultado.display_name;
+        divResultado.addEventListener('click', function () {
+            changeMapView(resultado.lat, resultado.lon);
+        });
+        count += 1;
+        if(count <= 5) {
+            div.appendChild(divResultado);
+        } else {
+            divResultado.style.display = 'none';
+            listaResultadosOcultados.push(divResultado);
+            div.appendChild(divResultado);
+        } 
+    });
+    
+    listaResultados.appendChild(div);
+
+    if (count > 5) {
+        // Adicionando botão "Ver Mais"
+        var verMaisButton = document.createElement('button');
+        verMaisButton.textContent = 'Ver Mais';
+        verMaisButton.setAttribute('type', 'button');
+        verMaisButton.setAttribute('class', 'ver');
+        verMaisButton.addEventListener('click', function() {
+            MostrarMaisResultados();
+        });
+        
+        listaResultados.appendChild(verMaisButton);
+        
+        // Adicionando botão "Ver Menos"
+        var verMenosButton = document.createElement('button');
+        verMenosButton.textContent = 'Ver Menos';
+        verMenosButton.setAttribute('type', 'button');
+        verMenosButton.setAttribute('class', 'ver');
+        verMenosButton.addEventListener('click', function() {
+            MostrarMenosResultados();
+        });
+        verMenosButton.style.display = 'none';
+
+        listaResultados.appendChild(verMenosButton);
+
+        // Função para mostrar mais resultados
+        function MostrarMaisResultados() {
+            listaResultadosOcultados.forEach(resultado => {
+                resultado.style.display = 'block';
+            });
+            verMaisButton.style.display = 'none';
+            verMenosButton.style.display = 'block';
+        }
+
+        // Função para mostrar menos resultados
+        function MostrarMenosResultados() {
+            listaResultadosOcultados.forEach(resultado => {
+                resultado.style.display = 'none';
+            });
+            verMaisButton.style.display = 'block';
+            verMenosButton.style.display = 'none';
+        }
+    }
+
+    function changeMapView(lat, lng) {
+        if (mapEdit) {
+            mapEdit.setView([lat, lng], 13);
+        } else {
+            console.error("Mapa de edição não ativo");
+        }
+    }
+}
+
 function filtrar(elemento) {
     let arr = [];
 
     const filtro_nome = document.getElementById("busca_nome");
     const filtro_servico = document.getElementById("selecao_servico");
-
     const contador_resultados = document.getElementById("contador_resultados");
-
     if (elemento) {
         Filtro.status = elemento.value;
     }
 
     if(filtro_nome)
     {
+        Filtro.nome = filtro_nome.value.toLowerCase().trim();
         Filtro.nome = filtro_nome.value
     }
 
@@ -253,7 +458,6 @@ function filtrar(elemento) {
     {
         Filtro.servico = filtro_servico.value;
     }
-
     arr = Filtro.realizarFiltragem(formularios_todos);
     contador_resultados.innerHTML = `
         <p>${arr.length} resultados encontrados<p>
@@ -296,7 +500,7 @@ function ordenar(elemento) {
         // Caso padrão: ordenação por nome
         Ordenador.coluna = "nome"
     }
-    
+
     const tabelaObj = new Tabela([], tabela);
     tabelaObj.arr = Ordenador.realizarOrdenacao(tabelaObj.arr);
 
