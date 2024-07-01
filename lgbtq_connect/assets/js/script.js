@@ -12,9 +12,9 @@ class Mapa {
     container;
 
     static MAPAS = {
-        "div_index" : "mapa_index",
-        "div_form" : "mapa_formulario",
-        "div_saida" : "mapa_saida"
+        "div_index": "mapa_index",
+        "div_form": "mapa_formulario",
+        "div_saida": "mapa_saida"
     }
 
     constructor(container) {
@@ -24,7 +24,7 @@ class Mapa {
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(this.mapa);
-        
+
         this.marcadores = [];
     }
 
@@ -42,8 +42,8 @@ class Mapa {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function (position) {
                 let user_position = [];
-                user_position.push(position.coords.latitude); 
-                user_position.push(position.coords.longitude); 
+                user_position.push(position.coords.latitude);
+                user_position.push(position.coords.longitude);
                 self.mudarLocalizacao(user_position);
             });
         } else {
@@ -56,10 +56,6 @@ class Mapa {
     destruirMapa() {
         this.mapa.remove();
         this.mapa = null;
-    }
-
-    static sum(a, b) {
-        return a + b;
     }
 }
 
@@ -78,7 +74,7 @@ class Pagina {
     }
 
     destruir() {
-        if(this.mapa !== null) {
+        if (this.mapa !== null) {
             this.mapa.destruirMapa();
         }
         this.div.style.display = "none";
@@ -89,7 +85,7 @@ class PaginaComPopup extends Pagina {
     inicializar() {
         super.inicializar();
 
-        for(var i = 0; i < formularios_aprovados.length; i++) {
+        for (var i = 0; i < formularios_aprovados.length; i++) {
             var formulario = formularios_aprovados[i];
             var popupConteudo = `
                 <div class="pop">
@@ -99,7 +95,7 @@ class PaginaComPopup extends Pagina {
                     <p><strong>${formulario.descricao}</strong></p>
                 </div>
             `;
-            this.mapa.adicionarMarcador(L.marker([formulario.latitude, formulario.longitude], {icon: personalIcon}).bindPopup(popupConteudo));
+            this.mapa.adicionarMarcador(L.marker([formulario.latitude, formulario.longitude], { icon: personalIcon }).bindPopup(popupConteudo));
         }
     }
 
@@ -113,9 +109,9 @@ class PaginaFormulario extends Pagina {
         super.inicializar();
         this.marcador = null;
         var self = this;
-        this.mapa.mapa.on('click', function(e) {
-            if(self.marcador == null) {
-                self.marcador = L.marker(e.latlng, {icon: personalIcon}).addTo(self.mapa.mapa);
+        this.mapa.mapa.on('click', function (e) {
+            if (self.marcador == null) {
+                self.marcador = L.marker(e.latlng, { icon: personalIcon }).addTo(self.mapa.mapa);
             }
             self.marcador.setLatLng(e.latlng);
 
@@ -127,7 +123,7 @@ class PaginaFormulario extends Pagina {
             document.getElementById('longitude').value = lng;
         });
 
-        this.mapa.mapa.on('contextmenu', function(e) {
+        this.mapa.mapa.on('contextmenu', function (e) {
             // Verifica se existe um marcador atual
             if (self.marcador !== null) {
                 // Remove o marcador do mapa
@@ -138,9 +134,9 @@ class PaginaFormulario extends Pagina {
             }
         });
 
-        for(var i = 0; i < formularios_aprovados.length; i++) {
+        for (var i = 0; i < formularios_aprovados.length; i++) {
             var formulario = formularios_aprovados[i];
-            this.mapa.adicionarMarcador(L.marker([formulario.latitude, formulario.longitude], {icon: personalIcon}));
+            this.mapa.adicionarMarcador(L.marker([formulario.latitude, formulario.longitude], { icon: personalIcon }));
         }
     }
 
@@ -160,10 +156,10 @@ class FabricaPagina {
 
     // Método para criar uma nova página e retorná-la
     static criar(tipo, id) {
-        if(!FabricaPagina.CLASSES.has(tipo))
+        if (!FabricaPagina.CLASSES.has(tipo))
             throw new Error("Página inválida");
-        
-        return new(FabricaPagina.CLASSES.get(tipo))(id);
+
+        return new (FabricaPagina.CLASSES.get(tipo))(id);
     }
 }
 
@@ -171,7 +167,7 @@ class FabricaPagina {
 // Chamada uma vez quando o plugin é inicializado e depois é chamada através de botões nas páginas
 function transicaoPagina(tipo, id) {
     // Se o plugin já foi inicializado, deleta a página anterior
-    if(pagina !== null) {
+    if (pagina !== null) {
         pagina.destruir();
     }
 
@@ -180,6 +176,5 @@ function transicaoPagina(tipo, id) {
 }
 
 // Inicializa o plugin
-window.onload = function() {
-    transicaoPagina("PaginaComPopup", "div_index");
-};
+window.onload = function () {
+    transicaoPagina("PaginaComPopup", "div_index")

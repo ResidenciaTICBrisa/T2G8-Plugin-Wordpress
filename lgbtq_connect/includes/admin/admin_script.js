@@ -20,21 +20,19 @@ class Filtro {
     static checarStatus(formulario) {
         if (this.status !== "Todos") {
             return (this.status == formulario.situacao);
-        }
-        else {
+        } else {
             return true;
         }
     }
     
     static checarNome(formulario) {
-        return(formulario.nome.toLowerCase().trim().startsWith(this.nome.toLowerCase().trim()));
+        return (formulario.nome.toLowerCase().trim().startsWith(this.nome.toLowerCase().trim()));
     }
 
     static checarServico(formulario) {
         if (this.servico !== "") {
-            return(this.servico == formulario.servico);
-        }
-        else {
+            return (this.servico == formulario.servico);
+        } else {
             return true;
         }
     }
@@ -61,7 +59,7 @@ class Ordenador {
     }
 }
 
-// Classe Singleton com todo os métodos e atributos relacionado a tabela
+// Classe Singleton com todos os métodos e atributos relacionados à tabela
 class Tabela {
     static adicionarZero(numero) {
         return numero < 10 ? '0' + numero : numero;
