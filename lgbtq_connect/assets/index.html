@@ -11,7 +11,7 @@
         <form method="post">
             <div class="search_wrapper">
                 <input type="text" id="searchInputIndex" placeholder="Pesquise a cidade ou estado...">
-                <button type="submit" onclick="return searchButtonClicked()" class="button_search">Pesquisar</button>
+                <button type="button" onclick="pesquisar('searchInputIndex', 'listaResultadosIndex')" class="button_search">Pesquisar</button>
             </div>
         </form>
         <div id="listaResultadosIndex"></div>
@@ -26,7 +26,7 @@
 
             <label for="email">Email:</label>
             <input type="email" name="email" id="email_f" required><br>
-
+            
             <label for="servico">Escolha o tipo de serviço:</label><br>
             <select id="servico" name="servico" onchange="mostrarOutro()" required>
                 <option value="" selected disabled>Selecione...</option>
@@ -42,6 +42,7 @@
             <div id="outroServico" class="escondido">
                 <label for="servico_outro">Especifique:</label>
                 <input type="text" name="servico_outro" id="servico_outro" maxlength="30" minlength="3">
+    
             </div>
             
             <label for="descricao">Descrição:</label>
@@ -49,7 +50,7 @@
 
             <div class="search_wrapper">
                 <input type="text" id="searchInputForm" placeholder="Pesquise a cidade ou estado...">
-                <button type="button" onclick="return searchButtonClickedForm()" class="button_search">Pesquisar</button>
+                <button type="button" onclick="pesquisar('searchInputForm', 'listaResultadosForms')" class="button_search">Pesquisar</button>
             </div>
             <div id="listaResultadosForms"></div>
             <div id="mapa_formulario" style="height: 300px;margin-bottom:10px;"></div>

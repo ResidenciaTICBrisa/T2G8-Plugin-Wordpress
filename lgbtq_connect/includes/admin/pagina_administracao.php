@@ -14,14 +14,20 @@ function adicionar_pagina_administracao() {
 
 add_action('admin_menu', 'adicionar_pagina_administracao');
 
+require 'formulario-admin-page.php';
+
 // Função para mostrar os dados na página do painel de administração
 function mostrar_dados() {
     global $wpdb;
+
+     // Exibir mensagem de sucesso se os dados foram atualizados
+     if (isset($_GET['status']) && $_GET['status'] == 'success') {
+        echo '<div class="notice notice-success is-dismissible"><p>Formulário atualizado com sucesso!</p></div>';
+    }
+
     // Consulta os dados da tabela formulario
     $dados_formulario = $wpdb->get_results("SELECT * FROM lc_formulario");
     
-    require 'formulario-admin-page.php';
-
     // Verifica se o parâmetro "action" foi enviado via POST
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
     // Verifica a ação do formulário
@@ -39,11 +45,56 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
 <!DOCTYPE html>
 <html>
 <head>
+<<<<<<< HEAD
 
     <link rel="stylesheet" href="<?php echo plugin_dir_url(__FILE__); ?>style-admin.css">
+=======
+>>>>>>> developer
 </head>
 <body>
     <div id="div_admin"> 
+        <!-- Modal de Edição -->
+        <div id="editPopup" style="display:none;"></div>
+        <div id="editModal" style="display:none;">
+            <button type="button" id="editFechar" onclick="fecharEditor()">
+                <svg height="30px" id="Layer_1" style="enable-background:new 0 0 512 512; cursor: pointer;" version="1.1" viewBox="0 0 512 512" width="30px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <path d="M443.6,387.1L312.4,255.4l131.5-130c5.4-5.4,5.4-14.2,0-19.6l-37.4-37.6c-2.6-2.6-6.1-4-9.8-4c-3.7,0-7.2,1.5-9.8,4  L256,197.8L124.9,68.3c-2.6-2.6-6.1-4-9.8-4c-3.7,0-7.2,1.5-9.8,4L68,105.9c-5.4,5.4-5.4,14.2,0,19.6l131.5,130L68.4,387.1  c-2.6,2.6-4.1,6.1-4.1,9.8c0,3.7,1.4,7.2,4.1,9.8l37.4,37.6c2.7,2.7,6.2,4.1,9.8,4.1c3.5,0,7.1-1.3,9.8-4.1L256,313.1l130.7,131.1  c2.7,2.7,6.2,4.1,9.8,4.1c3.5,0,7.1-1.3,9.8-4.1l37.4-37.6c2.6-2.6,4.1-6.1,4.1-9.8C447.7,393.2,446.2,389.7,443.6,387.1z"/>
+                </svg>
+            </button>
+            <div class="title">Editar os dados do formulário<br></div>
+            <form id="editForm" method="post" action="<?php echo admin_url('admin.php?page=lc_admin'); ?>">
+                <input type="hidden" name="id" id="editId">
+                <input type="hidden" name="action" value="update_form">
+
+                <label for="nome" id="editLabelNome">Nome do local:</label>
+                <input type="text" name="nome" id="editNome" required><br>
+
+                <label for="email" id="editLabelEmail">Email:</label>
+                <input type="email" name="email" id="editEmail" required><br>
+
+                <label for="servico" id="editLabelServico">Tipo de serviço:</label><br>
+                <input type="text" name="servico" id="editServico" maxlength="30" minlength="3">
+
+                <label for="descricao" id="editLabelDescricao">Descrição:</label>
+                <textarea name="descricao" id="editDescricao" rows="3" cols="70" placeholder="Descrição ..." required></textarea>
+
+                <div class="search_wrapper">
+                    <input type="text" id="searchInputFormEdit" placeholder="Pesquise a cidade ou estado...">
+                    <button type="button" onclick="return searchButtonClickedEdit()" class="button_search" style="cursor: pointer;">Pesquisar</button>
+                </div>
+
+                <div id="listaResultadosEdit"></div>
+                    
+                <div id="mapa_formulario_edit" style="height: 300px;margin-bottom:10px; border-radius:10px;"></div>
+                <input type="hidden" name="latitude" id="editLatitude" required>
+                <input type="hidden" name="longitude" id="editLongitude" required>
+
+                <div id=editDivBotoes>
+                    <button type="button" id="editCancelar" onclick="fecharEditor()" style="cursor: pointer;">Cancelar</button>
+                    <button type="submit" action="atualizar_formulario($wpdb)" id="editSalvar" style="cursor: pointer;">Salvar</button>
+                </div>
+            </form>
+        </div>
         <div id="div-mapa_botoes">
             <div id="mapa_admin" class="div-mapa_botoes_filho" style="height: 300px; width: 60%; margin-bottom: 10px;"></div>
             <div id="botoes_admin" class="div-mapa_botoes_filho" style="width: 30%; margin-bottom: 10px;">
@@ -63,8 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
             ?>
             </div>
         </div>
-        <div id="contador_resultados">
-        </div>
+        <div id="contador_resultados"></div>
         <div id=filtros>
             <form method="post">
                 <div id="busca_nome_container" class="filtro">
@@ -93,18 +143,26 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
             <table class="wp-list-table widefat striped" id="tabela">
                 <thead>
                         <tr>
+<<<<<<< HEAD
                         <th class="sort-header">Nome <button class="sort-btn" data-order="asc"><span class="sort-icon">&#9652;</span></button></th>
                         <th class="sort-header">Email <button class="sort-btn sort-by-email" data-order="asc"><span class="sort-icon">&#9652;</span></button></th>
                         <th>Cidade</th>
                         <th>Rua</th>
+=======
+                        <th class="sort-header">Nome <button class="sort-btn" data-order="asc" onclick="ordenar(this)"><span class="sort-icon">&#9652;</span></button></th>
+                        <th class="sort-header">Email <button class="sort-btn sort-by-email" data-order="asc" onclick="ordenar(this)"><span class="sort-icon">&#9652;</span></button></th>
+                        <th>Latitude</th>
+                        <th>Longitude</th>
+>>>>>>> developer
                         <th>Serviço</th>
                         <th>Descrição</th>
-                        <th class="sort-header">Data e hora <button class="sort-btn sort-by-date" data-order="asc"><span class="sort-icon">&#9652;</span></button></th>
+                        <th class="sort-header">Data e hora <button class="sort-btn sort-by-date" data-order="asc" onclick="ordenar(this)"><span class="sort-icon">&#9652;</span></button></th>
                         <th>Status</th>
                         <th>Ações</th>
                         </tr>
                 </thead>
                 <tbody>
+                </tbody>
         </div>
     </div>
 
