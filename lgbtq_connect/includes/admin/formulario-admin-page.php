@@ -1,4 +1,9 @@
 <?php
+global $wpdb;
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action']) && $_POST['action'] === 'update_form') {
+    atualizar_formulario($wpdb);
+}
+
 // Função para encontrar a página ou postagem que contém o shortcode do plugin
 function encontrar_pagina_com_shortcode($shortcode) {
     // Obtém todas as páginas do site
@@ -119,3 +124,35 @@ function excluir_formulario($id) {
     // Redireciona de volta paloucademia de policiara a mesma página após a atualização
     echo '<script>window.location.href = window.location.href;</script>';
 }
+
+// Função para processar a atualização do formulário
+function atualizar_formulario($wpdb) {
+    // Verifique se os dados necessários estão presentes
+    if (!isset($_POST['id'], $_POST['nome'], $_POST['email'], $_POST['servico'], $_POST['descricao'], $_POST['latitude'], $_POST['longitude'])) {
+        wp_die('Dados insuficientes');
+    }
+
+    $id = intval($_POST['id']);
+    $nome = sanitize_text_field($_POST['nome']);
+    $email = sanitize_email($_POST['email']);
+    $servico = sanitize_text_field($_POST['servico']);
+    $descricao = sanitize_textarea_field($_POST['descricao']);
+    $latitude = sanitize_text_field($_POST['latitude']);
+    $longitude = sanitize_text_field($_POST['longitude']);
+
+    // Atualiza os dados no banco de dados
+    $tabela = "lc_formulario";
+    $dados = array(
+        'nome' => $nome,
+        'email' => $email,
+        'servico' => $servico,
+        'descricao' => $descricao,
+        'latitude' => $latitude,
+        'longitude' => $longitude,
+    );
+
+    $condicoes = array('id' => $id);
+
+    $resultado = $wpdb->update($tabela, $dados, $condicoes);
+}
+    

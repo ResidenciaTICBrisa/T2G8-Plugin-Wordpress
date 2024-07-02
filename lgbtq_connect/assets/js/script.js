@@ -178,3 +178,4 @@ function transicaoPagina(tipo, id) {
 // Inicializa o plugin
 window.onload = function () {
     transicaoPagina("PaginaComPopup", "div_index")
+}
