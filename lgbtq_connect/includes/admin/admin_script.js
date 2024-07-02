@@ -5,7 +5,6 @@ let isSearching = false;
 class Filtro {
     static status = "Todos";
     static nome = "";
-    static servico = "todos";
     static servico = "";
 
     static realizarFiltragem(arr) {
@@ -17,30 +16,27 @@ class Filtro {
     static checarStatus(formulario) {
         if (this.status !== "Todos") {
             return (this.status == formulario.situacao);
-        }
-        else {
+        } else {
             return true;
         }
     }
 
     static checarNome(formulario) {
-        return(formulario.nome.toLowerCase().trim().startsWith(this.nome.toLowerCase().trim()));
+        return (formulario.nome.toLowerCase().trim().startsWith(this.nome.toLowerCase().trim()));
     }
 
     static checarServico(formulario) {
         if (this.servico !== "") {
-            return(this.servico == formulario.servico);
-        }
-        else {
+            return (this.servico == formulario.servico);
+        } else {
             return true;
         }
     }
 
-    static reiniciarFiltro()
-    {
-        this.status="Todos";
-        this.nome="";
-        this.servico="";
+    static reiniciarFiltro() {
+        this.status = "Todos";
+        this.nome = "";
+        this.servico = "";
     }
 }
 
@@ -59,7 +55,7 @@ class Ordenador {
     }
 }
 
-// Classe Singleton com todo os métodos e atributos relacionado a tabela
+// Classe Singleton com todos os métodos e atributos relacionados à tabela
 class Tabela {
     static adicionarZero(numero) {
         return numero < 10 ? '0' + numero : numero;
@@ -77,8 +73,8 @@ class Tabela {
     }
 
     constructor(arr, tabela) {
-        if(Tabela.instance)
-            return Tabela.instance
+        if (Tabela.instance)
+            return Tabela.instance;
 
         this.arr = arr;
         this.tabela = tabela;
@@ -88,20 +84,19 @@ class Tabela {
     // Limpa o conteúdo da tabela
     excluirLinhas() {
         const tbody = this.tabela.querySelector('tbody');
-        tbody.innerHTML="";
+        tbody.innerHTML = "";
     }
 
     // Gera novas linhas na tabela de acordo com a array definida
-    gerarLinhas()
-    {
+    gerarLinhas() {
         const STATUS_BOTOES = {
-            "Aprovado" : `
+            "Aprovado": `
             <button type="button" onclick="confirmarAcao('Tem certeza que quer negar a sugestão?', this.form, 'reprove')">Negar</button>
             `,
-            "Negado" : `
+            "Negado": `
             <button type="button" onclick="confirmarAcao('Tem certeza que quer aprovar a sugestão?', this.form, 'approve')">Aprovar</button>
             `,
-            "Pendente" : `
+            "Pendente": `
             <button type="button" onclick="confirmarAcao('Tem certeza que quer aprovar a sugestão?', this.form, 'approve')">Aprovar</button>
             <button type="button" onclick="confirmarAcao('Tem certeza que quer negar a sugestão?', this.form, 'reprove')">Negar</button>
             `
@@ -114,14 +109,13 @@ class Tabela {
             let descricao;
             let data = new Date(dados.data_hora);
             let dataFormatada = Tabela.formatarDataHora(data);
-            if (dados.descricao.length > 10){
+            if (dados.descricao.length > 10) {
                 descricao = `
                 <span id="descricaoResumida_${dados.id}">${dados.descricao.substring(0, 10)}...</span>
                 <span id="descricaoCompleta_${dados.id}" style="display:none;">${dados.descricao}</span>
                 <button data-id="${dados.id}" onclick="mostrarDescricaoCompleta(${dados.id})">Ver mais</button>
-                `
-            }
-            else {
+                `;
+            } else {
                 descricao = dados.descricao;
             }
 
@@ -152,9 +146,9 @@ class Tabela {
 
 function destacarLinhaTabela(id) {
     let tabela = document.getElementById("tabela");
-    let linha = document.getElementById(("formulario-" +id));
+    let linha = document.getElementById(("formulario-" + id));
 
-    if(linha===null) {
+    if (linha === null) {
         return;
     }
 
@@ -186,13 +180,15 @@ function mostrarDescricaoCompleta(id) {
 }
 
 function initMapAdmin() {
-    if (document.getElementById('mapa_admin') == null) {
-        return;
-    }
+    // Definindo o ícone personalizado no escopo global
+    const personalIcon = L.icon({
+        iconUrl: 'https://res.cloudinary.com/dxsx0emuu/image/upload/f_auto,q_auto/lc_marker',
+        iconSize: [20, 30], // tamanho do ícone
+        popupAnchor: [1, -10]
+    });
 
-    // Verifica se o mapa já foi inicializado e destrói se necessário
-    if (mapAdmin !== undefined) {
-        mapAdmin.remove();
+    if (document.getElementById('mapa_admin') == null) {   
+        return;
     }
 
     mapAdmin = L.map('mapa_admin', { doubleClickZoom: false }).setView([-15.8267, -47.9218], 13);
@@ -202,14 +198,21 @@ function initMapAdmin() {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(mapAdmin);
 
-    formularios_aprovados.forEach(function(formulario) {
-        L.marker([formulario.latitude, formulario.longitude]).addTo(mapAdmin).on('click', function() {
+    formularios_aprovados.forEach(function (formulario) {
+        L.marker([formulario.latitude, formulario.longitude], { icon: personalIcon }).addTo(mapAdmin).on('click', function () {
             destacarLinhaTabela(formulario.id);
         });
     });
 }
 
 function initMapEdit(latitude, longitude, nome, servico, descricao) {
+    // Definindo o ícone personalizado no escopo global
+    const personalIcon = L.icon({
+        iconUrl: 'https://res.cloudinary.com/dxsx0emuu/image/upload/f_auto,q_auto/lc_marker',
+        iconSize: [20, 30], // tamanho do ícone
+        popupAnchor: [1, -10]
+    });
+
     // Verifica se o mapa já foi inicializado e destrói se necessário
     if (mapEdit !== undefined) {
         mapEdit.remove();
@@ -238,9 +241,10 @@ function initMapEdit(latitude, longitude, nome, servico, descricao) {
     }
 
     // Adiciona um marcador arrastável
-    var marker = L.marker([latitude, longitude], {
-        draggable: true
-    }).addTo(mapEdit).bindPopup(popupConteudo);
+    var marker = L.marker(
+        [latitude, longitude],
+        {draggable: true, icon: personalIcon }
+    ).addTo(mapEdit).bindPopup(popupConteudo);
 
     // Evento que é chamado quando o marcador é arrastado
     marker.on('dragend', function (e) {
@@ -265,18 +269,18 @@ function confirmarAcao(mensagem, formulario, acao) {
     modal.style.display = "block";
 
     // Quando o usuário clica em "Confirmar"
-    confirmBtn.onclick = function() {
+    confirmBtn.onclick = function () {
         formulario.querySelector('input[name="action"]').value = acao;
         formulario.submit();
     };
 
     // Quando o usuário clica em "Cancelar"
-    cancelBtn.onclick = function() {
+    cancelBtn.onclick = function () {
         modal.style.display = "none";
     };
 
     // Quando o usuário clica fora do modal
-    window.onclick = function(event) {
+    window.onclick = function (event) {
         if (event.target == modal) {
             modal.style.display = "none";
         }
@@ -448,14 +452,11 @@ function filtrar(elemento) {
         Filtro.status = elemento.value;
     }
 
-    if(filtro_nome)
-    {
-        Filtro.nome = filtro_nome.value.toLowerCase().trim();
-        Filtro.nome = filtro_nome.value
+    if (filtro_nome) {
+        Filtro.nome = filtro_nome.value;
     }
 
-    if (filtro_servico)
-    {
+    if (filtro_servico) {
         Filtro.servico = filtro_servico.value;
     }
     arr = Filtro.realizarFiltragem(formularios_todos);
@@ -467,7 +468,7 @@ function filtrar(elemento) {
     const tabelaObj = new Tabela([], tabela);
     tabelaObj.arr = arr;
 
-    tabelaObj.excluirLinhas()
+    tabelaObj.excluirLinhas();
     tabelaObj.gerarLinhas();
 }
 
@@ -491,26 +492,24 @@ function ordenar(elemento) {
 
     // Determina o critério de ordenação com base na classe do botão
     if (elemento.classList.contains('sort-by-date')) {
-        Ordenador.coluna = "data_hora"
-    }
-    else if (elemento.classList.contains('sort-by-email')) {
-        Ordenador.coluna = "email"
-    }
-    else {
+        Ordenador.coluna = "data_hora";
+    } else if (elemento.classList.contains('sort-by-email')) {
+        Ordenador.coluna = "email";
+    } else {
         // Caso padrão: ordenação por nome
-        Ordenador.coluna = "nome"
+        Ordenador.coluna = "nome";
     }
 
     const tabelaObj = new Tabela([], tabela);
     tabelaObj.arr = Ordenador.realizarOrdenacao(tabelaObj.arr);
 
     tabelaObj.excluirLinhas();
-    tabelaObj.gerarLinhas()
+    tabelaObj.gerarLinhas();
 }
 
 // Adiciona um evento de clique a todos os botões de "Ver mais/menos"
-document.querySelectorAll('.ver-mais-btn').forEach(function(button) {
-    button.addEventListener('click', function() {
+document.querySelectorAll('.ver-mais-btn').forEach(function (button) {
+    button.addEventListener('click', function () {
         var id = button.getAttribute('data-id');
         mostrarDescricaoCompleta(id);
     });
@@ -525,5 +524,5 @@ window.onload = function () {
 module.exports = {
     Filtro,
     Ordenador,
-    Tabela,
+    Tabela
 };
