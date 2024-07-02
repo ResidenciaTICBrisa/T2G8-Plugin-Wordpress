@@ -194,11 +194,16 @@ table th:last-child {
     color: white;
     text-align:center;
     border: none;
-
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 28px;
+    
 }   
 .btn-pendente{
     background: rgb(238,202,16);
     background: linear-gradient(149deg, rgba(238,202,16,1) 14%, rgba(235,115,10,1) 65%, rgba(221,73,28,1) 99%);
+    
 }
 .btn-negado{
     background: rgb(238,16,24);

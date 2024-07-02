@@ -42,6 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
     <!-- Linkando css -->
     <link rel="stylesheet" href="<?php echo plugin_dir_url(__FILE__); ?>style-admin.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
     <div id="div_admin"> 
@@ -59,9 +60,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
                 $negados = $wpdb->get_results($query_negados);
                 $pendentes = $wpdb->get_results($query_pendentes);
                 echo '<div class="button-container">';
-                    echo '<button value="Pendente" class="btn-pendente" onclick="filtrar(this)">' . count($pendentes) . ' Pendentes</button>';
-                    echo '<button value="Negado" class="btn-negado" onclick="filtrar(this)">' . count($negados) . ' Negados</button>';
-                    echo '<button value="Aprovado" class=" btn-aprovado" onclick="filtrar(this)">' . count($aprovados) . ' Aprovados</button>';
+                    echo '<button value="Pendente" class="btn-pendente" onclick="filtrar(this)">' 
+                    . count($pendentes) . 
+                    ' novas solicitações
+                    <i class="bi bi-arrow-right-circle"></i>
+                    </button>';
+                    echo '<button value="Negado" class="btn-negado" onclick="filtrar(this)">' 
+                    . count($negados) . 
+                    ' solicitações negadas
+                    <i class="bi bi-arrow-right-circle"></i>
+                    </button>';
+                    echo '<button value="Aprovado" class=" btn-aprovado" onclick="filtrar(this)">' 
+                    . count($aprovados) . 
+                    ' solicitações aprovadas
+                    <i class="bi bi-arrow-right-circle"></i>
+                    </button>';
                 echo '</div>';        
             ?>
             </div>
@@ -86,13 +99,24 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
             </select>
         </div>
         <div class="wrap">
-            <div id="confirmModal" class="modal">
-                <div class="modal-content">
-                    <p id="confirmMessage"></p>
-                    <button id="confirmBtn" onclick=>Confirmar</button>
-                    <button id="cancelBtn">Cancelar</button>
+        <div id="confirmModal" class="modal" tabindex="-1">
+            <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Confirmação</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p id="confirmMessage"></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button id="cancelBtn" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button id="confirmBtn" type="button" class="btn btn-primary">Confirmar</button>
+                        </div>
+                    </div>
                 </div>
-            </div>
+        </div>
+
             <div class="container mt-5">
             <table class="table table-hover" id="tabela">
                 <thead class="thead-light">
