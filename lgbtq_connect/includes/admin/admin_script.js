@@ -1,9 +1,3 @@
-// Definindo o ícone personalizado no escopo global
-var personalIcon = L.icon({
-    iconUrl: 'https://res.cloudinary.com/dxsx0emuu/image/upload/f_auto,q_auto/lc_marker',
-    iconSize: [20, 30], // tamanho do ícone
-    popupAnchor: [1, -10]
-});
 let mapAdmin;
 let mapEdit;
 let isSearching = false;
@@ -186,6 +180,13 @@ function mostrarDescricaoCompleta(id) {
 }
 
 function initMapAdmin() {
+    // Definindo o ícone personalizado no escopo global
+    const personalIcon = L.icon({
+        iconUrl: 'https://res.cloudinary.com/dxsx0emuu/image/upload/f_auto,q_auto/lc_marker',
+        iconSize: [20, 30], // tamanho do ícone
+        popupAnchor: [1, -10]
+    });
+
     if (document.getElementById('mapa_admin') == null) {   
         return;
     }
@@ -205,6 +206,13 @@ function initMapAdmin() {
 }
 
 function initMapEdit(latitude, longitude, nome, servico, descricao) {
+    // Definindo o ícone personalizado no escopo global
+    const personalIcon = L.icon({
+        iconUrl: 'https://res.cloudinary.com/dxsx0emuu/image/upload/f_auto,q_auto/lc_marker',
+        iconSize: [20, 30], // tamanho do ícone
+        popupAnchor: [1, -10]
+    });
+
     // Verifica se o mapa já foi inicializado e destrói se necessário
     if (mapEdit !== undefined) {
         mapEdit.remove();
@@ -516,5 +524,5 @@ window.onload = function () {
 module.exports = {
     Filtro,
     Ordenador,
-    Tabela,
+    Tabela
 };
