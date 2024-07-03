@@ -45,11 +45,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
 <!DOCTYPE html>
 <html>
 <head>
-<<<<<<< HEAD
-
-    <link rel="stylesheet" href="<?php echo plugin_dir_url(__FILE__); ?>style-admin.css">
-=======
->>>>>>> developer
 </head>
 <body>
     <div id="div_admin"> 
@@ -143,17 +138,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
             <table class="wp-list-table widefat striped" id="tabela">
                 <thead>
                         <tr>
-<<<<<<< HEAD
-                        <th class="sort-header">Nome <button class="sort-btn" data-order="asc"><span class="sort-icon">&#9652;</span></button></th>
-                        <th class="sort-header">Email <button class="sort-btn sort-by-email" data-order="asc"><span class="sort-icon">&#9652;</span></button></th>
-                        <th>Cidade</th>
-                        <th>Rua</th>
-=======
                         <th class="sort-header">Nome <button class="sort-btn" data-order="asc" onclick="ordenar(this)"><span class="sort-icon">&#9652;</span></button></th>
                         <th class="sort-header">Email <button class="sort-btn sort-by-email" data-order="asc" onclick="ordenar(this)"><span class="sort-icon">&#9652;</span></button></th>
-                        <th>Latitude</th>
-                        <th>Longitude</th>
->>>>>>> developer
+                        <th>Cidade</th>
+                        <th>Rua</th>
                         <th>Serviço</th>
                         <th>Descrição</th>
                         <th class="sort-header">Data e hora <button class="sort-btn sort-by-date" data-order="asc" onclick="ordenar(this)"><span class="sort-icon">&#9652;</span></button></th>
