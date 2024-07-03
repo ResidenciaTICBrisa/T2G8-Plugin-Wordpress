@@ -256,13 +256,13 @@ function gerarLinhas(tabela, arr) {
                 </button>
                 <ul class="dropdown-menu">
                     <li>
-                        <form method="post" action="" class="d-flex flex-wrap">
+                        <form method="post" action="" class="d-flex flex-wrap justify-content-between my-1">
                             <input type="hidden" name="id" value="${dados.id}">
                             <input type="hidden" name="action" value="">
-                            <button type="button" class="btn btn-primary">Editar</button>
+                            <button type="button" class="btn btn-primary mb-1">Editar</button>
 
                             ${acoes}
-                            <button type="button" class="btn btn-danger" onclick="confirmarAcao('Tem certeza que quer excluir a sugestão?', this.form, 'exclude')">Excluir</button>
+                            <button type="button" class="btn btn-danger mt-1"  onclick="confirmarAcao('Tem certeza que quer excluir a sugestão?', this.form, 'exclude')">Excluir</button>
                         </form>
                     </li>
                 </ul>
