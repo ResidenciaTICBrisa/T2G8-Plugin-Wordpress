@@ -125,21 +125,7 @@ function excluir_formulario($id) {
     echo '<script>window.location.href = window.location.href;</script>';
 }
 
-// Função para processar a atualização do formulário
-function atualizar_formulario($wpdb) {
-    // Verifique se os dados necessários estão presentes
-    if (!isset($_POST['id'], $_POST['nome'], $_POST['email'], $_POST['servico'], $_POST['descricao'], $_POST['latitude'], $_POST['longitude'])) {
-        wp_die('Dados insuficientes');
-    }
-
-    $id = intval($_POST['id']);
-    $nome = sanitize_text_field($_POST['nome']);
-    $email = sanitize_email($_POST['email']);
-    $servico = sanitize_text_field($_POST['servico']);
-    $descricao = sanitize_textarea_field($_POST['descricao']);
-    $latitude = sanitize_text_field($_POST['latitude']);
-    $longitude = sanitize_text_field($_POST['longitude']);
-
+function conseguir_rua_e_cidade($latitude, $longitude) {
     $url = "https://nominatim.openstreetmap.org/reverse?format=json&lat=$latitude&lon=$longitude&addressdetails=1";
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
@@ -162,6 +148,26 @@ function atualizar_formulario($wpdb) {
                 (isset($locationData['address']['town']) ? $locationData['address']['town'] : 
                 (isset($locationData['address']['village']) ? $locationData['address']['village'] : 'Cidade não encontrada'));
     }
+
+    return array($road, $city);
+}
+
+// Função para processar a atualização do formulário
+function atualizar_formulario($wpdb) {
+    // Verifique se os dados necessários estão presentes
+    if (!isset($_POST['id'], $_POST['nome'], $_POST['email'], $_POST['servico'], $_POST['descricao'], $_POST['latitude'], $_POST['longitude'])) {
+        wp_die('Dados insuficientes');
+    }
+
+    $id = intval($_POST['id']);
+    $nome = sanitize_text_field($_POST['nome']);
+    $email = sanitize_email($_POST['email']);
+    $servico = sanitize_text_field($_POST['servico']);
+    $descricao = sanitize_textarea_field($_POST['descricao']);
+    $latitude = sanitize_text_field($_POST['latitude']);
+    $longitude = sanitize_text_field($_POST['longitude']);
+
+    list($road, $city) = conseguir_rua_e_cidade($latitude, $longitude);
 
     // Atualiza os dados no banco de dados
     $tabela = "lc_formulario";
