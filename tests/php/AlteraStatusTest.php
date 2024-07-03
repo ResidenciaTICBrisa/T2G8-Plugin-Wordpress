@@ -81,7 +81,7 @@ class AlteraStatusTest extends TestCase {
                            'latitude' => '12.345678',
                            'longitude' => '98.7654321',
                            'road' => 'Mock Rua',
-                           'city' => 'Mock Cidade',
+                           'city' => 'Mock Cidade'
                        ]),
                        $this->equalTo(['id' => 1])
                    )
@@ -99,8 +99,12 @@ class AlteraStatusTest extends TestCase {
         $this->expectException(WPDieException::class);
         $this->expectExceptionMessage('Dados insuficientes');
 
+        $mock_conseguir_rua_e_cidade = function($latitude, $longitude) {
+            return ['Mock Rua', 'Mock Cidade'];
+        };
+
         // Chame a função atualizar_formulario e verifique se wp_die é chamado
-        atualizar_formulario($this->wpdb);
+        atualizar_formulario($this->wpdb, $mock_conseguir_rua_e_cidade);
     }
 
     // Testes para a função alteraStatus
