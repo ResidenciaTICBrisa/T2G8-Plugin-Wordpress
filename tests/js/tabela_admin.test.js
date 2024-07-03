@@ -9,6 +9,8 @@ describe("manipulação da tabela do admin", () => {
         "nome": "Cabana",
         "email": "exemplo1@gmail.com",
         "latitude": 50.2,
+        "city": "Cidade das boas",
+        "road": "Rua das boas",
         "longitude": 20.3,
         "data_hora": "2024-01-01 00:00:00",
         "servico": "entretenimento",
@@ -47,10 +49,10 @@ describe("manipulação da tabela do admin", () => {
         expect(document.getElementById("formulario-1-email").innerHTML).toBe("exemplo1@gmail.com");
 
         // Verifica se a latitude está correta
-        expect(document.getElementById("formulario-1-latitude").innerHTML).toBe("50.2");
+        expect(document.getElementById("formulario-1-cidade").innerHTML).toBe("Cidade das boas");
 
         // Verifica se a longitude está correta
-        expect(document.getElementById("formulario-1-longitude").innerHTML).toBe("20.3");
+        expect(document.getElementById("formulario-1-rua").innerHTML).toBe("Rua das boas");
 
         // Verifica se a data e hora está correta
         expect(document.getElementById("formulario-1-data_hora").innerHTML).toBe("01/01/2024 00:00:00");
