@@ -64,13 +64,9 @@ class AlteraStatusTest extends TestCase {
         $_POST['longitude'] = '98.7654321';
 
         // Mock da função conseguir_rua_e_cidade
-        $this->getMockBuilder('stdClass')
-             ->setMethods(['conseguir_rua_e_cidade'])
-             ->getMock();
-
-        function conseguir_rua_e_cidade($latitude, $longitude) {
+        $mock_conseguir_rua_e_cidade = function($latitude, $longitude) {
             return ['Mock Rua', 'Mock Cidade'];
-        }
+        };
 
         // Defina o que o mock do $wpdb->update deve retornar
         $this->wpdb->expects($this->once())
@@ -92,7 +88,7 @@ class AlteraStatusTest extends TestCase {
                    ->willReturn(1);
         
         // Chame a função atualizar_formulario
-        atualizar_formulario($this->wpdb);
+        atualizar_formulario($this->wpdb, $mock_conseguir_rua_e_cidade);
     }
 
     public function test_atualizar_formulario_missing_data() {
