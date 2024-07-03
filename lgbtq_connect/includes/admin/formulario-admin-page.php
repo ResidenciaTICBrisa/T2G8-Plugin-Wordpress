@@ -140,6 +140,29 @@ function atualizar_formulario($wpdb) {
     $latitude = sanitize_text_field($_POST['latitude']);
     $longitude = sanitize_text_field($_POST['longitude']);
 
+    $url = "https://nominatim.openstreetmap.org/reverse?format=json&lat=$latitude&lon=$longitude&addressdetails=1";
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36');
+    $response = curl_exec($ch);
+    curl_close($ch);
+    $locationData = json_decode($response, true);
+
+    // Adicione um log para a resposta da API
+    error_log(print_r($locationData, true));
+
+    if (isset($locationData['error'])) {
+        $road = 'Rua não encontrada';
+        $city = 'Cidade não encontrada';
+    } else {
+        $road = isset($locationData['address']['road']) ? $locationData['address']['road'] : 
+                (isset($locationData['address']['pedestrian']) ? $locationData['address']['pedestrian'] : 'Rua não encontrada');
+        $city = isset($locationData['address']['city']) ? $locationData['address']['city'] : 
+                (isset($locationData['address']['town']) ? $locationData['address']['town'] : 
+                (isset($locationData['address']['village']) ? $locationData['address']['village'] : 'Cidade não encontrada'));
+    }
+
     // Atualiza os dados no banco de dados
     $tabela = "lc_formulario";
     $dados = array(
@@ -149,6 +172,8 @@ function atualizar_formulario($wpdb) {
         'descricao' => $descricao,
         'latitude' => $latitude,
         'longitude' => $longitude,
+        'road' => $road,
+        'city' => $city,
     );
 
     $condicoes = array('id' => $id);
