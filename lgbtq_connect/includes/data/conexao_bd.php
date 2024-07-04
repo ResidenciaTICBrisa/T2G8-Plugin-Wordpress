@@ -1,10 +1,10 @@
 <?php
 /**
- * Nesse arquivo são armazenados as funcionalidades de conexão com o banco de dados
- * configurados no arquivo wp-config.php do wordpress
+ * Nesse arquivo são armazenadas as funcionalidades de conexão com o banco de dados
+ * configurados no arquivo wp-config.php do WordPress.
  */
 
-// Obtém as informações de banco de dados
+// Obtém as informações do banco de dados
 function obter_informacoes_bd($config_path) {
     if (file_exists($config_path)) {
         require_once($config_path);
@@ -22,7 +22,7 @@ function obter_informacoes_bd($config_path) {
 
 // Criação da tabela para armazenamento dos formulários cadastrados
 function criar_tabela_formulario($wpdb) {
-    $table_name ='lc_formulario';
+    $table_name = 'lc_formulario';
     $charset_collate = $wpdb->get_charset_collate();
     
     if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
@@ -32,6 +32,8 @@ function criar_tabela_formulario($wpdb) {
             email VARCHAR(255) NOT NULL,
             latitude FLOAT(10, 6) NOT NULL,
             longitude FLOAT(10, 6) NOT NULL,
+            road VARCHAR(255),
+            city VARCHAR(255),
             data_hora VARCHAR(100) NOT NULL,
             servico VARCHAR(30) NOT NULL,
             descricao TEXT NOT NULL,
@@ -40,8 +42,6 @@ function criar_tabela_formulario($wpdb) {
         dbDelta($sql);
     }
 }
-
-
 
 // Função para retornar os formulários aprovados (Return é um array)
 function obter_formularios_aprovados($wpdb) {
@@ -72,14 +72,15 @@ function obter_formularios($wpdb) {
     $query = "SELECT * FROM lc_formulario";
     $dados_formulario = $wpdb->get_results($query);
 
-    // Array para armazenar os formulários aprovados
+    // Arraylongitude para armazenar os formulários aprovados
     $formularios = array();
 
     // Itera sobre cada formulário
     foreach ($dados_formulario as $formulario) {
-        // Verifica se o formulário está aprovado 
+        // Adiciona cada formulário ao array de formulários
         $formularios[] = $formulario;
     }
     
     return $formularios;
 }
+?>

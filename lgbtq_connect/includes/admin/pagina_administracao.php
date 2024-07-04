@@ -45,9 +45,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
 <!DOCTYPE html>
 <html>
 <head>
-
-    <!-- Linkando css -->
-    <link rel="stylesheet" href="<?php echo plugin_dir_url(__FILE__); ?>style-admin.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
@@ -171,13 +168,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
             <table class="table table-hover" id="tabela">
                 <thead class="thead-light">
                     <tr>
-                        <th class="sort-header" scope="col">Nome <button class="sort-btn" data-order="asc"><span class="sort-icon">&#9652;</span></button></th>
-                        <th class="sort-header" scope="col">Email <button class="sort-btn sort-by-email" data-order="asc"><span class="sort-icon">&#9652;</span></button></th>
-                        <th scope="col">Latitude</th>
-                        <th scope="col">Longitude</th>
+                        <th class="sort-header" scope="col">Nome <button class="sort-btn" data-order="asc" onclick="ordenar(this)"><span class="sort-icon">&#9652;</span></button></th>
+                        <th class="sort-header" scope="col">Email <button class="sort-btn sort-by-email" data-order="asc" onclick="ordenar(this)"><span class="sort-icon">&#9652;</span></button></th>
+                        <th scope="col">Cidade</th>
+                        <th scope="col">Rua</th>
                         <th scope="col">Serviço</th>
                         <th scope="col">Descrição</th>
-                        <th class="sort-header" scope="col">Data e hora <button class="sort-btn sort-by-date" data-order="asc"><span class="sort-icon">&#9652;</span></button></th>
+                        <th class="sort-header" scope="col">Data e hora <button class="sort-btn sort-by-date" data-order="asc" onclick="ordenar(this)"><span class="sort-icon">&#9652;</span></button></th>
                         <th scope="col">Status</th>
                         <th scope="col">Ações</th>
                     </tr>
