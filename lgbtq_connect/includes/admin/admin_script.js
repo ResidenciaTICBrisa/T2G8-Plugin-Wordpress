@@ -208,17 +208,18 @@ function confirmarAcao(mensagem, formulario, acao) {
 
 function gerarLinhas(tabela, arr) {
     const STATUS_BOTOES = {
-        "Aprovado" : `
-        <button type="button" class="btn btn-danger" onclick="confirmarAcao('Tem certeza que quer negar a sugestão?', this.form, 'reprove')">Negar</button>
+        "Aprovado": `
+            <button type="button" class="btn btn-danger" onclick="confirmarAcao('Tem certeza que quer negar a sugestão?', this.form, 'reprove')">Negar</button>
         `,
-        "Negado" : `
-        <button type="button" class="btn btn-success" onclick="confirmarAcao('Tem certeza que quer aprovar a sugestão?', this.form, 'approve')">Aprovar</button>
+        "Negado": `
+            <button type="button" class="btn btn-success" onclick="confirmarAcao('Tem certeza que quer aprovar a sugestão?', this.form, 'approve')">Aprovar</button>
         `,
-        "Pendente" : `
-        <button type="button" class="btn btn-success" onclick="confirmarAcao('Tem certeza que quer aprovar a sugestão?', this.form, 'approve')">Aprovar</button>
-        <button type="button" class="btn btn-danger" onclick="confirmarAcao('Tem certeza que quer negar a sugestão?', this.form, 'reprove')">Negar</button>
+        "Pendente": `
+            <button type="button" class="btn btn-success" onclick="confirmarAcao('Tem certeza que quer aprovar a sugestão?', this.form, 'approve')">Aprovar</button>
+            <button type="button" class="btn btn-danger" onclick="confirmarAcao('Tem certeza que quer negar a sugestão?', this.form, 'reprove')">Negar</button>
         `
-    }
+    };
+
     var tbody = tabela.querySelector('tbody');
 
     arr.forEach(dados => {
@@ -227,51 +228,217 @@ function gerarLinhas(tabela, arr) {
         var descricao;
         var data = new Date(dados.data_hora);
         var dataFormatada = formatarDataHora(data);
-        if (dados.descricao.length > 10){
+        
+        if (dados.descricao.length > 10) {
             descricao = `
-            <span id="descricaoResumida_${dados.id}">${dados.descricao.substring(0, 10)}...</span>
-            <span id="descricaoCompleta_${dados.id}" style="display:none;">${dados.descricao}</span>
-            <button data-id="${dados.id}" class="btn btn-link" onclick="mostrarDescricaoCompleta(${dados.id})">Ver mais</button>
-            `
-        }
-        else {
+                <span id="descricaoResumida_${dados.id}">${dados.descricao.substring(0, 10)}...</span>
+                <span id="descricaoCompleta_${dados.id}" style="display:none;">${dados.descricao}</span>
+                <button data-id="${dados.id}" class="btn btn-link" onclick="mostrarDescricaoCompleta(${dados.id})">Ver mais</button>
+            `;
+        } else {
             descricao = dados.descricao;
         }
-        
-        acoes = STATUS_BOTOES[dados.situacao];
+
+        var acoes = STATUS_BOTOES[dados.situacao];
 
         linha.innerHTML = `
-        <td>${dados.nome}</td>
-        <td>${dados.email}</td>
-        <td>${dados.latitude}</td>
-        <td>${dados.longitude}</td>
-        <td>${dados.servico}</td>
-        <td>${descricao}</td>
-        <td>${dataFormatada}</td>
-        <td>${dados.situacao}</td>
-        <td>
-            <div class="btn-group dropend">
-                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    Ações
-                </button>
-                <ul class="dropdown-menu">
-                    <li>
-                        <form method="post" action="" class="d-flex flex-wrap justify-content-between my-1">
-                            <input type="hidden" name="id" value="${dados.id}">
-                            <input type="hidden" name="action" value="">
-                            <button type="button" class="btn btn-primary mb-1">Editar</button>
-
-                            ${acoes}
-                            <button type="button" class="btn btn-danger mt-1"  onclick="confirmarAcao('Tem certeza que quer excluir a sugestão?', this.form, 'exclude')">Excluir</button>
-                        </form>
-                    </li>
-                </ul>
-            </div>
-        </td>
-
+            <td>${dados.nome}</td>
+            <td>${dados.email}</td>
+            <td>${dados.latitude}</td>
+            <td>${dados.longitude}</td>
+            <td>${dados.servico}</td>
+            <td>${descricao}</td>
+            <td>${dataFormatada}</td>
+            <td>${dados.situacao}</td>
+            <td>
+                <div class="btn-group dropend">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        Ações
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <form method="post" action="" class="d-flex flex-wrap justify-content-between my-1">
+                                <input type="hidden" name="id" value="${dados.id}">
+                                <input type="hidden" name="action" value="">
+                                <button type="button" class="btn btn-primary mb-1" onclick="abrirModalEdicao(${JSON.stringify(dados)})">Editar</button>
+                                ${acoes}
+                                <button type="button" class="btn btn-danger mt-1" onclick="confirmarAcao('Tem certeza que quer excluir a sugestão?', this.form, 'exclude')">Excluir</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </td>
         `;
+        
         tbody.appendChild(linha);
     });
+}
+
+function mostrarDescricaoCompleta(id) {
+    var descricaoResumida = document.getElementById(`descricaoResumida_${id}`);
+    var descricaoCompleta = document.getElementById(`descricaoCompleta_${id}`);
+
+    if (descricaoResumida && descricaoCompleta) {
+        descricaoResumida.style.display = 'none';
+        descricaoCompleta.style.display = 'inline';
+    }
+}
+
+function abrirModalEdicao(dados) {
+    const popup = document.getElementById("editPopup") 
+    const modal = document.getElementById('editModal');
+
+    // Preenche os campos do formulário com os dados fornecidos
+    document.getElementById('editId').value = dados.id;
+    document.getElementById('editNome').value = dados.nome;
+    document.getElementById('editEmail').value = dados.email;
+    document.getElementById('editServico').value = dados.servico;
+    document.getElementById('editDescricao').value = dados.descricao;
+    document.getElementById('editLatitude').value = dados.latitude;
+    document.getElementById('editLongitude').value = dados.longitude;
+
+    initMapEdit(dados.latitude, dados.longitude, dados.nome, dados.servico, dados.descricao);
+
+    // Exibe o modal de edição
+    popup.style.display = "flex";
+    modal.style.display = "block";
+
+    // Atualiza o tamanho do mapa e define a visualização após um pequeno atraso para garantir que o modal tenha sido completamente exibido
+    setTimeout(function() {
+        mapEdit.invalidateSize();
+        mapEdit.setView([dados.latitude, dados.longitude], 13);
+    }, 200);
+
+    modal.scrollIntoView({ behavior: 'smooth' });
+
+    // Fecha o modal de edição quando o usuário clica fora do modal
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            fecharEditor();
+        }
+    };
+}
+
+function fecharEditor() {
+    document.getElementById('editPopup').style.display = "none";
+    document.getElementById('editModal').style.display = "none";
+    document.getElementById('mapa_admin').style.display = "block";
+    document.getElementById('listaResultadosEdit').innerHTML = '';
+    document.getElementById('searchInputFormEdit').value = '';
+}
+
+function searchButtonClickedEdit() {
+    if (isSearching) {
+        return; // Se uma busca já estiver em andamento, saia da função
+    }
+    isSearching = true; // Indica que uma busca está em andamento
+    var searchTerm = document.getElementById('searchInputFormEdit').value;
+    searchLocations(searchTerm);
+}
+
+function searchLocations(query) {
+    var resultados = [];
+    var apiUrl = 'https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(query);
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(location => {
+                resultados.push({
+                    display_name: location.display_name,
+                    lat: location.lat,
+                    lon: location.lon
+                });
+            });
+            imprimirResultados(resultados);
+            isSearching = false; // Indica que a busca foi concluída
+        })
+        .catch(error => {
+            console.error('Erro ao buscar locais:', error);
+            isSearching = false; // Indica que a busca foi concluída mesmo com erro
+        });
+}
+
+function imprimirResultados(resultados) {
+    var listaResultadosOcultados = [];
+    var listaResultados = document.getElementById('listaResultadosEdit');
+    
+    listaResultados.innerHTML = '';
+    var count = 0;
+    var div = document.createElement('div');
+    resultados.forEach(resultado => {
+        var divResultado = document.createElement('div');
+        divResultado.classList.add('celula_resultado');
+        divResultado.style.borderRadius = '3px';
+        divResultado.style.margin = '5px 5px 5px 0px';
+        divResultado.style.cursor = 'pointer';
+        divResultado.innerHTML = '<img src="https://i.imgur.com/4ZnmAxk.png" width="20px" height="20px">' + resultado.display_name;
+        divResultado.addEventListener('click', function () {
+            changeMapView(resultado.lat, resultado.lon);
+        });
+        count += 1;
+        if(count <= 5) {
+            div.appendChild(divResultado);
+        } else {
+            divResultado.style.display = 'none';
+            listaResultadosOcultados.push(divResultado);
+            div.appendChild(divResultado);
+        } 
+    });
+    
+    listaResultados.appendChild(div);
+
+    if (count > 5) {
+        // Adicionando botão "Ver Mais"
+        var verMaisButton = document.createElement('button');
+        verMaisButton.textContent = 'Ver Mais';
+        verMaisButton.setAttribute('type', 'button');
+        verMaisButton.setAttribute('class', 'ver');
+        verMaisButton.addEventListener('click', function() {
+            MostrarMaisResultados();
+        });
+        
+        listaResultados.appendChild(verMaisButton);
+        
+        // Adicionando botão "Ver Menos"
+        var verMenosButton = document.createElement('button');
+        verMenosButton.textContent = 'Ver Menos';
+        verMenosButton.setAttribute('type', 'button');
+        verMenosButton.setAttribute('class', 'ver');
+        verMenosButton.addEventListener('click', function() {
+            MostrarMenosResultados();
+        });
+        verMenosButton.style.display = 'none';
+
+        listaResultados.appendChild(verMenosButton);
+
+        // Função para mostrar mais resultados
+        function MostrarMaisResultados() {
+            listaResultadosOcultados.forEach(resultado => {
+                resultado.style.display = 'block';
+            });
+            verMaisButton.style.display = 'none';
+            verMenosButton.style.display = 'block';
+        }
+
+        // Função para mostrar menos resultados
+        function MostrarMenosResultados() {
+            listaResultadosOcultados.forEach(resultado => {
+                resultado.style.display = 'none';
+            });
+            verMaisButton.style.display = 'block';
+            verMenosButton.style.display = 'none';
+        }
+    }
+}
+
+function mostrarDescricaoCompleta(id) {
+    var descricaoResumida = document.getElementById(`descricaoResumida_${id}`);
+    var descricaoCompleta = document.getElementById(`descricaoCompleta_${id}`);
+
+    if (descricaoResumida && descricaoCompleta) {
+        descricaoResumida.style.display = 'none';
+        descricaoCompleta.style.display = 'inline';
+    }
 }
 
 
