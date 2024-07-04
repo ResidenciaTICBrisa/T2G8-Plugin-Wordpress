@@ -123,18 +123,19 @@
     display:none;
 }
 
-.leaflet-popup-content h4{
+.leaflet-popup-content h4 {
     font-family: Arial, sans-serif; 
     font-size: 15px;
-    line-height: 10%;
+    line-height: 1.2; /* Ajuste a altura da linha para 120% */
     color: #000000;
     text-align: center;
+    word-wrap: break-word; /* Permite a quebra de palavras longas */
+    overflow-wrap: break-word; /* Permite a quebra de palavras longas */
+    white-space: normal; /* Permite que o texto quebre em várias linhas */
 }
 .leaflet-popup-content p{
     font-family: Arial, sans-serif;
     text-align: center;
-    /* line-height: 10%; */
-    /* font-size: 15px; */
     color: #000000;
 }
 .leaflet-popup-content i{

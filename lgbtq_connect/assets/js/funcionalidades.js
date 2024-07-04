@@ -143,8 +143,3 @@ function updateSelectValue(){
 }
 
 document.getElementById("meu_formulario").addEventListener("submit",updateSelectValue);
-
-// Exporta as classes
-module.exports = {
-    Pesquisador
-};

@@ -124,8 +124,8 @@ class Tabela {
             linha.innerHTML = `
             <td id="formulario-${dados.id}-nome">${dados.nome}</td>
             <td id="formulario-${dados.id}-email">${dados.email}</td>
-            <td id="formulario-${dados.id}-latitude">${dados.latitude}</td>
-            <td id="formulario-${dados.id}-longitude">${dados.longitude}</td>
+            <td id="formulario-${dados.id}-cidade">${dados.city}</td>
+            <td id="formulario-${dados.id}-rua">${dados.road}</td>
             <td id="formulario-${dados.id}-servico">${dados.servico}</td>
             <td id="formulario-${dados.id}-descricao">${descricao}</td>
             <td id="formulario-${dados.id}-data_hora">${dataFormatada}</td>
@@ -178,6 +178,8 @@ function mostrarDescricaoCompleta(id) {
         botao.innerText = 'Ver menos';
     }
 }
+
+
 
 function initMapAdmin() {
     // Definindo o ícone personalizado no escopo global
@@ -233,7 +235,7 @@ function initMapEdit(latitude, longitude, nome, servico, descricao) {
         <p><strong>${descricao}</strong></p>
     </div>
         `;
-
+    
     // Função para atualizar os inputs de latitude e longitude
     function updateInputs(lat, lng) {
         document.getElementById('editLatitude').value = lat;
@@ -246,7 +248,6 @@ function initMapEdit(latitude, longitude, nome, servico, descricao) {
         {draggable: true, icon: personalIcon }
     ).addTo(mapEdit).bindPopup(popupConteudo);
 
-    // Evento que é chamado quando o marcador é arrastado
     marker.on('dragend', function (e) {
         var newPosition = marker.getLatLng();
         updateInputs(newPosition.lat, newPosition.lng);
@@ -288,7 +289,7 @@ function confirmarAcao(mensagem, formulario, acao) {
 }
 
 function abrirModalEdicao(dados) {
-    const popup = document.getElementById("editPopup") 
+    const popup = document.getElementById("editPopup"); 
     const modal = document.getElementById('editModal');
 
     // Preenche os campos do formulário com os dados fornecidos
@@ -316,7 +317,7 @@ function abrirModalEdicao(dados) {
 
     // Fecha o modal de edição quando o usuário clica fora do modal
     window.onclick = function(event) {
-        if (event.target == modal) {
+        if (event.target == popup) {
             fecharEditor();
         }
     };
@@ -364,7 +365,7 @@ function searchLocations(query) {
 function imprimirResultados(resultados) {
     var listaResultadosOcultados = [];
     var listaResultados = document.getElementById('listaResultadosEdit');
-    
+
     listaResultados.innerHTML = '';
     var count = 0;
     var div = document.createElement('div');
@@ -387,7 +388,7 @@ function imprimirResultados(resultados) {
             div.appendChild(divResultado);
         } 
     });
-    
+
     listaResultados.appendChild(div);
 
     if (count > 5) {
@@ -399,9 +400,9 @@ function imprimirResultados(resultados) {
         verMaisButton.addEventListener('click', function() {
             MostrarMaisResultados();
         });
-        
+
         listaResultados.appendChild(verMaisButton);
-        
+
         // Adicionando botão "Ver Menos"
         var verMenosButton = document.createElement('button');
         verMenosButton.textContent = 'Ver Menos';

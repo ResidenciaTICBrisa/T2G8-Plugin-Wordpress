@@ -1,7 +1,34 @@
 <?php
 global $wpdb;
+$conseguir_rua_e_cidade = function ($latitude, $longitude) {
+    $url = "https://nominatim.openstreetmap.org/reverse?format=json&lat=$latitude&lon=$longitude&addressdetails=1";
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36');
+    $response = curl_exec($ch);
+    curl_close($ch);
+    $locationData = json_decode($response, true);
+
+    // Adicione um log para a resposta da API
+    error_log(print_r($locationData, true));
+
+    if (isset($locationData['error'])) {
+        $road = 'Rua não encontrada';
+        $city = 'Cidade não encontrada';
+    } else {
+        $road = isset($locationData['address']['road']) ? $locationData['address']['road'] : 
+                (isset($locationData['address']['pedestrian']) ? $locationData['address']['pedestrian'] : 'Rua não encontrada');
+        $city = isset($locationData['address']['city']) ? $locationData['address']['city'] : 
+                (isset($locationData['address']['town']) ? $locationData['address']['town'] : 
+                (isset($locationData['address']['village']) ? $locationData['address']['village'] : 'Cidade não encontrada'));
+    }
+
+    return array($road, $city);
+};
+
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action']) && $_POST['action'] === 'update_form') {
-    atualizar_formulario($wpdb);
+    atualizar_formulario($wpdb, $conseguir_rua_e_cidade);
 }
 
 // Função para encontrar a página ou postagem que contém o shortcode do plugin
@@ -126,7 +153,7 @@ function excluir_formulario($id) {
 }
 
 // Função para processar a atualização do formulário
-function atualizar_formulario($wpdb) {
+function atualizar_formulario($wpdb, $funcao_localizacao) {
     // Verifique se os dados necessários estão presentes
     if (!isset($_POST['id'], $_POST['nome'], $_POST['email'], $_POST['servico'], $_POST['descricao'], $_POST['latitude'], $_POST['longitude'])) {
         wp_die('Dados insuficientes');
@@ -140,6 +167,8 @@ function atualizar_formulario($wpdb) {
     $latitude = sanitize_text_field($_POST['latitude']);
     $longitude = sanitize_text_field($_POST['longitude']);
 
+    list($road, $city) = $funcao_localizacao($latitude, $longitude);
+
     // Atualiza os dados no banco de dados
     $tabela = "lc_formulario";
     $dados = array(
@@ -149,10 +178,11 @@ function atualizar_formulario($wpdb) {
         'descricao' => $descricao,
         'latitude' => $latitude,
         'longitude' => $longitude,
+        'road' => $road,
+        'city' => $city,
     );
 
     $condicoes = array('id' => $id);
 
     $resultado = $wpdb->update($tabela, $dados, $condicoes);
 }
-    
