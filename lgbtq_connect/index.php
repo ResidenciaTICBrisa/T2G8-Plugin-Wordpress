@@ -61,6 +61,11 @@ function enfileirar_scripts_admin() {
     wp_localize_script('admin_script.js', 'formularios_todos', $formularios);
 }
 
+function enfileirar_styles_admin()
+{
+    wp_enqueue_style('admin-style', plugin_dir_url(__FILE__) . 'includes/admin/style-admin.css', array(), '1.0');
+}
+
 // Função para criar a tabela na ativação do plugin
 function add_tabela_bd() {
     global $wpdb;
@@ -91,6 +96,7 @@ function enfileirar_scripts() {
 }
 
 add_action('admin_enqueue_scripts', 'enfileirar_scripts_admin');
+add_action('admin_enqueue_scripts', 'enfileirar_styles_admin');
 
 // Função para adicionar o shortcode
 function meu_plugin_shortcode() {
