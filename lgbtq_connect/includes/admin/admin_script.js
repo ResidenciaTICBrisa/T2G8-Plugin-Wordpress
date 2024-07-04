@@ -91,16 +91,17 @@ class Tabela {
     gerarLinhas() {
         const STATUS_BOTOES = {
             "Aprovado": `
-            <button type="button" onclick="confirmarAcao('Tem certeza que quer negar a sugestão?', this.form, 'reprove')">Negar</button>
+                <button type="button" class="btn btn-danger" onclick="confirmarAcao('Tem certeza que quer negar a sugestão?', this.form, 'reprove')">Negar</button>
             `,
             "Negado": `
-            <button type="button" onclick="confirmarAcao('Tem certeza que quer aprovar a sugestão?', this.form, 'approve')">Aprovar</button>
+                <button type="button" class="btn btn-success" onclick="confirmarAcao('Tem certeza que quer aprovar a sugestão?', this.form, 'approve')">Aprovar</button>
             `,
             "Pendente": `
-            <button type="button" onclick="confirmarAcao('Tem certeza que quer aprovar a sugestão?', this.form, 'approve')">Aprovar</button>
-            <button type="button" onclick="confirmarAcao('Tem certeza que quer negar a sugestão?', this.form, 'reprove')">Negar</button>
+                <button type="button" class="btn btn-success" onclick="confirmarAcao('Tem certeza que quer aprovar a sugestão?', this.form, 'approve')">Aprovar</button>
+                <button type="button" class="btn btn-danger" onclick="confirmarAcao('Tem certeza que quer negar a sugestão?', this.form, 'reprove')">Negar</button>
             `
-        }
+        };
+
         const tbody = this.tabela.querySelector('tbody');
 
         this.arr.forEach(dados => {
@@ -131,14 +132,24 @@ class Tabela {
             <td id="formulario-${dados.id}-data_hora">${dataFormatada}</td>
             <td id="formulario-${dados.id}-situacao">${dados.situacao}</td>
             <td id="formulario-${dados.id}-acoes">
-                <form method="post" action="">
-                <input type="hidden" name="id" value="${dados.id}">
-                <input type="hidden" name="action" value="">
-                ${acoes}
-                <button type="button" onclick='abrirModalEdicao(${JSON.stringify(dados)})'>Editar</button>
-                <button type="button" onclick="confirmarAcao('Tem certeza que quer excluir a sugestão?', this.form, 'exclude')">Excluir</button>
-            </td>
-            `;
+            <div class="btn-group dropend">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    Ações
+                </button>
+                <ul class="dropdown-menu">
+                    <li>
+                        <form method="post" action="" class="d-flex flex-wrap justify-content-between my-1">
+                            <input type="hidden" name="id" value="${dados.id}">
+                            <input type="hidden" name="action" value="">
+                            <button type="button" class="btn btn-primary mb-1" onclick='abrirModalEdicao(${JSON.stringify(dados)})'>Editar</button>
+                            ${acoes}
+                            <button type="button" class="btn btn-danger mt-1" onclick="confirmarAcao('Tem certeza que quer excluir a sugestão?', this.form, 'exclude')">Excluir</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </td>
+    `;
             tbody.appendChild(linha);
         });
     }
@@ -168,6 +179,7 @@ function mostrarDescricaoCompleta(id) {
     var descricaoResumida = document.getElementById('descricaoResumida_' + id);
     var descricaoCompleta = document.getElementById('descricaoCompleta_' + id);
     var botao = document.querySelector('button[data-id="' + id + '"]');
+
     if (descricaoResumida.style.display === 'none') {
         descricaoResumida.style.display = 'inline';
         descricaoCompleta.style.display = 'none';
@@ -178,8 +190,6 @@ function mostrarDescricaoCompleta(id) {
         botao.innerText = 'Ver menos';
     }
 }
-
-
 
 function initMapAdmin() {
     // Definindo o ícone personalizado no escopo global
@@ -270,18 +280,18 @@ function confirmarAcao(mensagem, formulario, acao) {
     modal.style.display = "block";
 
     // Quando o usuário clica em "Confirmar"
-    confirmBtn.onclick = function () {
+    confirmBtn.onclick = function() {
         formulario.querySelector('input[name="action"]').value = acao;
         formulario.submit();
     };
 
     // Quando o usuário clica em "Cancelar"
-    cancelBtn.onclick = function () {
+    cancelBtn.onclick = function() {
         modal.style.display = "none";
     };
 
     // Quando o usuário clica fora do modal
-    window.onclick = function (event) {
+    window.onclick = function(event) {
         if (event.target == modal) {
             modal.style.display = "none";
         }
@@ -431,14 +441,6 @@ function imprimirResultados(resultados) {
             });
             verMaisButton.style.display = 'block';
             verMenosButton.style.display = 'none';
-        }
-    }
-
-    function changeMapView(lat, lng) {
-        if (mapEdit) {
-            mapEdit.setView([lat, lng], 13);
-        } else {
-            console.error("Mapa de edição não ativo");
         }
     }
 }

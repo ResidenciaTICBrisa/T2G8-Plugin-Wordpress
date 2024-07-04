@@ -45,6 +45,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
 <!DOCTYPE html>
 <html>
 <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
     <div id="div_admin"> 
@@ -103,20 +105,36 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
                 $aprovados = $wpdb->get_results($query_aprovados);
                 $negados = $wpdb->get_results($query_negados);
                 $pendentes = $wpdb->get_results($query_pendentes);
-                echo '<button value="Aprovado" onclick="filtrar(this)">' . count($aprovados) . ' Aprovados</button>';
-                echo '<button value="Negado" onclick="filtrar(this)">' . count($negados) . ' Negados</button>';
-                echo '<button value="Pendente" onclick="filtrar(this)">' . count($pendentes) . ' Pendentes</button>';
+                echo '<div class="button-container">';
+                    echo '<button value="Pendente" class="btn-pendente" onclick="filtrar(this)">' 
+                    . count($pendentes) . 
+                    ' novas solicitações
+                    <i class="bi bi-arrow-right-circle"></i>
+                    </button>';
+                    echo '<button value="Negado" class="btn-negado" onclick="filtrar(this)">' 
+                    . count($negados) . 
+                    ' solicitações negadas
+                    <i class="bi bi-arrow-right-circle"></i>
+                    </button>';
+                    echo '<button value="Aprovado" class=" btn-aprovado" onclick="filtrar(this)">' 
+                    . count($aprovados) . 
+                    ' solicitações aprovadas
+                    <i class="bi bi-arrow-right-circle"></i>
+                    </button>';
+                echo '</div>';        
             ?>
             </div>
         </div>
-        <div id="contador_resultados"></div>
-        <div id=filtros>
+        <div id="contador_resultados">
+        </div>
+        <div id="filtros" >
+
             <form method="post">
                 <div id="busca_nome_container" class="filtro">
                     <input type="text" id="busca_nome" placeholder="Pesquise pelo nome" oninput="filtrar()">
                 </div>
             </form>
-            <select id="selecao_servico" class="filtro" onchange="filtrar()" required>
+            <select id="selecao_servico" class="filtro " onchange="filtrar()" required>
                 <option value="" selected disabled>Selecione...</option>
                 <option value="bar/restaurante">Bares/restaurantes</option>
                 <option value="entretenimento">Entretenimento</option>
@@ -128,29 +146,46 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
             </select>
         </div>
         <div class="wrap">
-            <div id="confirmModal" class="modal">
-                <div class="modal-content">
-                    <p id="confirmMessage"></p>
-                    <button id="confirmBtn" onclick=>Confirmar</button>
-                    <button id="cancelBtn">Cancelar</button>
+        <div id="confirmModal" class="modal" tabindex="-1">
+            <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">ATENÇÃO!</h5>
+                        </div>
+                        <div class="modal-body">
+                            <p id="confirmMessage"></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button id="cancelBtn" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button id="confirmBtn" type="button" class="btn btn-primary">Confirmar</button>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <table class="wp-list-table widefat striped" id="tabela">
-                <thead>
-                        <tr>
-                        <th class="sort-header">Nome <button class="sort-btn" data-order="asc" onclick="ordenar(this)"><span class="sort-icon">&#9652;</span></button></th>
-                        <th class="sort-header">Email <button class="sort-btn sort-by-email" data-order="asc" onclick="ordenar(this)"><span class="sort-icon">&#9652;</span></button></th>
-                        <th>Cidade</th>
-                        <th>Rua</th>
-                        <th>Serviço</th>
-                        <th>Descrição</th>
-                        <th class="sort-header">Data e hora <button class="sort-btn sort-by-date" data-order="asc" onclick="ordenar(this)"><span class="sort-icon">&#9652;</span></button></th>
-                        <th>Status</th>
-                        <th>Ações</th>
-                        </tr>
+
+        </div>
+
+            <div class="container mt-5">
+            <table class="table table-hover" id="tabela">
+                <thead class="thead-light">
+                    <tr>
+                        <th class="sort-header" scope="col">Nome <button class="sort-btn" data-order="asc" onclick="ordenar(this)"><span class="sort-icon">&#9652;</span></button></th>
+                        <th class="sort-header" scope="col">Email <button class="sort-btn sort-by-email" data-order="asc" onclick="ordenar(this)"><span class="sort-icon">&#9652;</span></button></th>
+                        <th scope="col">Cidade</th>
+                        <th scope="col">Rua</th>
+                        <th scope="col">Serviço</th>
+                        <th scope="col">Descrição</th>
+                        <th class="sort-header" scope="col">Data e hora <button class="sort-btn sort-by-date" data-order="asc" onclick="ordenar(this)"><span class="sort-icon">&#9652;</span></button></th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Ações</th>
+                    </tr>
                 </thead>
                 <tbody>
+                    <!-- Adicione aqui as linhas da tabela -->
                 </tbody>
+            </table>
+    </div>
+            
+
         </div>
     </div>
 
@@ -159,6 +194,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
     <!-- Carregue o Leaflet antes de qualquer script que o utilize -->
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   
 </body>
 </html>
