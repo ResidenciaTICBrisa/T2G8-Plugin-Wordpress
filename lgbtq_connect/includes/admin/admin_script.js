@@ -191,17 +191,22 @@ function mostrarDescricaoCompleta(id) {
     }
 }
 
-function initMapAdmin() {
-    // Definindo o ícone personalizado no escopo global
-    const personalIcon = L.icon({
-        iconUrl: 'https://res.cloudinary.com/dxsx0emuu/image/upload/f_auto,q_auto/lc_marker',
-        iconSize: [20, 30], // tamanho do ícone
+function getMarcador(url)
+{
+    const icon = L.icon({
+        iconUrl: url,
+        iconSize: [40, 40], // tamanho do ícone
         popupAnchor: [1, -10]
     });
+    return icon;
+}
 
+function initMapAdmin() {
     if (document.getElementById('mapa_admin') == null) {   
         return;
     }
+
+    const personalIcon = getMarcador(marcador_url);
 
     mapAdmin = L.map('mapa_admin', { doubleClickZoom: false }).setView([-15.8267, -47.9218], 13);
 
@@ -218,17 +223,12 @@ function initMapAdmin() {
 }
 
 function initMapEdit(latitude, longitude, nome, servico, descricao) {
-    // Definindo o ícone personalizado no escopo global
-    const personalIcon = L.icon({
-        iconUrl: 'https://res.cloudinary.com/dxsx0emuu/image/upload/f_auto,q_auto/lc_marker',
-        iconSize: [20, 30], // tamanho do ícone
-        popupAnchor: [1, -10]
-    });
-
     // Verifica se o mapa já foi inicializado e destrói se necessário
     if (mapEdit !== undefined) {
         mapEdit.remove();
     }
+
+    const personalIcon = getMarcador(marcador_url);
 
     mapEdit = L.map('mapa_formulario_edit', { doubleClickZoom: false }).setView([-15.8267, -47.9218], 13);
 
