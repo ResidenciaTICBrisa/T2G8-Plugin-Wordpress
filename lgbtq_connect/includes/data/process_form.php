@@ -11,15 +11,39 @@ function processar_formulario() {
         parse_str($_POST['formData'], $formFields);
 
         // Filtra o conteúdo enviado nos formulários
-        $nome = isset($formFields['nome']) ? Auxiliar_Process_Forms::sanitize_data($formFields['nome'], 'text') : '';
-        $email = isset($formFields['email']) ? Auxiliar_Process_Forms::sanitize_data($formFields['email'], 'email') : '';
-        $descricao = isset($formFields['descricao']) ? Auxiliar_Process_Forms::sanitize_data($formFields['descricao'], 'textarea') : ''; 
-        $latitude = isset($formFields['latitude']) ? Auxiliar_Process_Forms::sanitize_data($formFields['latitude'], 'float') : 0;
-        $longitude = isset($formFields['longitude']) ? Auxiliar_Process_Forms::sanitize_data($formFields['longitude'], 'float') : 0;
-        $servico = isset($formFields['servico']) ? Auxiliar_Process_Forms::sanitize_data($formFields['servico'], 'text') : '';
-
+        $nome = isset($formFields['nome']) ? filter_var($formFields['nome'], FILTER_SANITIZE_STRING) : '';
+        $email = isset($formFields['email']) ? filter_var($formFields['email'], FILTER_SANITIZE_EMAIL) : '';
+        $descricao = isset($formFields['descricao']) ? filter_var($formFields['descricao'], FILTER_SANITIZE_STRING) : ''; 
+        $latitude = isset($formFields['latitude']) ? filter_var($formFields['latitude'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION | FILTER_FLAG_ALLOW_THOUSAND | FILTER_FLAG_ALLOW_SCIENTIFIC) : 0;
+        $longitude = isset($formFields['longitude']) ? filter_var($formFields['longitude'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION | FILTER_FLAG_ALLOW_THOUSAND | FILTER_FLAG_ALLOW_SCIENTIFIC) : 0;
+        $servico = isset($formFields['servico']) ? filter_var($formFields['servico'], FILTER_SANITIZE_STRING) : '';
+        
         // Verifica se todos os campos necessários estão presentes
         if ($nome && $email && $descricao && $latitude && $longitude && $servico) {
+            // Obter o endereço usando a API do Nominatim com cURL
+            $url = "https://nominatim.openstreetmap.org/reverse?format=json&lat=$latitude&lon=$longitude&addressdetails=1";
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36');
+            $response = curl_exec($ch);
+            curl_close($ch);
+            $locationData = json_decode($response, true);
+
+            // Adicione um log para a resposta da API
+            error_log(print_r($locationData, true));
+
+            if (isset($locationData['error'])) {
+                $road = 'Rua não encontrada';
+                $city = 'Cidade não encontrada';
+            } else {
+                $road = isset($locationData['address']['road']) ? $locationData['address']['road'] : 
+                        (isset($locationData['address']['pedestrian']) ? $locationData['address']['pedestrian'] : 'Rua não encontrada');
+                $city = isset($locationData['address']['city']) ? $locationData['address']['city'] : 
+                        (isset($locationData['address']['town']) ? $locationData['address']['town'] : 
+                        (isset($locationData['address']['village']) ? $locationData['address']['village'] : 'Cidade não encontrada'));
+            }
+
             $data_hora_envio = Auxiliar_Process_Forms::get_current_time();
 
             // Insere os dados no banco de dados
@@ -29,6 +53,8 @@ function processar_formulario() {
                 'descricao' => $descricao,
                 'latitude' => $latitude,
                 'longitude' => $longitude,
+                'road' => $road,
+                'city' => $city,
                 'data_hora' => $data_hora_envio,
                 'servico' => $servico
             ));
@@ -45,8 +71,9 @@ function processar_formulario() {
             $local_cadastrado = 'Nome do Local: ' . $nome . "\n";
             $tipo_servico = 'Tipo de Serviço: ' . $servico . "\n";
             $data_hora_cadastro = 'Data e Hora do Cadastro: ' . $data_hora_formatada . "\n";
+            $endereco_informado = 'Rua: ' . $road . "\n" . 'Cidade: ' . $city . "\n";
             // Constrói a mensagem do e-mail
-            $message = 'Olá! Uma nova resposta foi feita no seu formulário. Aqui estão os detalhes:' . "\n" . $local_cadastrado . $tipo_servico . $data_hora_cadastro . 'Verifique sua área de administração para mais informações: ' . $admin_panel_url;
+            $message = 'Olá! Uma nova resposta foi feita no seu formulário. Aqui estão os detalhes:' . "\n" . $local_cadastrado . $tipo_servico . $data_hora_cadastro . $endereco_informado . 'Verifique sua área de administração para mais informações: ' . $admin_panel_url;
 
             $subject = 'LGBTQ+ Connect - Nova solicitação de plotagem recebida';
             // Envie o e-mail de notificação para o administrador do site
@@ -54,7 +81,7 @@ function processar_formulario() {
 
             // Envie o e-mail de confirmação para o usuário
             $subject_user = 'LGBTQ+ Connect - Sua solicitação de plotagem foi recebida';
-            $message_user = 'Olá! Sua solicitação de plotagem foi recebida. Aqui estão os detalhes:' . "\n" . $local_cadastrado . $tipo_servico . $data_hora_cadastro . 'Você será notificado quando sua solicitação for processada. Obrigado!';
+            $message_user = 'Olá! Sua solicitação de plotagem foi recebida. Aqui estão os detalhes:' . "\n" . $local_cadastrado . $tipo_servico . $data_hora_cadastro . $endereco_informado . 'Você será notificado quando sua solicitação for processada. Obrigado!';
 
             Auxiliar_Process_Forms::send_email($email, $subject_user, $message_user);
         } else {
