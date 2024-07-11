@@ -215,6 +215,40 @@ function initMapAdmin() {
             destacarLinhaTabela(formulario.id);
         });
     });
+
+
+    var CustomControl = L.Control.extend({
+        options: {
+            position: 'bottomright'
+        },
+
+        onAdd: function (map) {
+            var container = L.DomUtil.create('div', 'leaflet-control-custom');
+
+            container.onclick = function () {
+                if (!document.fullscreenElement) {
+                    map.getContainer().requestFullscreen();
+                } else {
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                    }
+                }
+            };
+
+            // Adiciona ouvintes para mudança de estado de tela cheia
+            document.addEventListener('fullscreenchange', function () {
+                if (document.fullscreenElement) {
+                    container.classList.add('fullscreen');
+                } else {
+                    container.classList.remove('fullscreen');
+                }
+            });
+
+            return container;
+        }
+    });
+
+    mapAdmin.addControl(new CustomControl());
 }
 
 function initMapEdit(latitude, longitude, nome, servico, descricao) {
@@ -236,6 +270,40 @@ function initMapEdit(latitude, longitude, nome, servico, descricao) {
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(mapEdit);
+
+
+    var CustomControl = L.Control.extend({
+        options: {
+            position: 'bottomright'
+        },
+
+        onAdd: function (map) {
+            var container = L.DomUtil.create('div', 'leaflet-control-custom');
+
+            container.onclick = function () {
+                if (!document.fullscreenElement) {
+                    map.getContainer().requestFullscreen();
+                } else {
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                    }
+                }
+            };
+
+            // Adiciona ouvintes para mudança de estado de tela cheia
+            document.addEventListener('fullscreenchange', function () {
+                if (document.fullscreenElement) {
+                    container.classList.add('fullscreen');
+                } else {
+                    container.classList.remove('fullscreen');
+                }
+            });
+
+            return container;
+        }
+    });
+
+    mapEdit.addControl(new CustomControl());
 
     var popupConteudo = `
     <div class="pop">
