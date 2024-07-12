@@ -81,6 +81,22 @@ button[data-id]:hover {
     animation: fadeOut 2s ease;
 }
 
+.leaflet-control-custom {
+    background-color: white;
+    background-image: url('../../assets/imgs/fullscreen.svg'); /* Corrigido para incluir url() */
+    background-size: cover;
+    width: 30px;
+    height: 30px;
+    border: solid #dadacffd 1px;
+    border-radius: 3px;
+    cursor: pointer !important;
+}
+
+.leaflet-control-custom.fullscreen {
+    cursor: pointer !important;
+    background-image: url('../../assets/imgs/skipfullscreen.svg');
+}
+
 #mapa_admin {
     border-radius: 20px;
     margin-top: 1.5vw;

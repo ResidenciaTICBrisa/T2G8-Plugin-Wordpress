@@ -26,6 +26,39 @@ class Mapa {
         }).addTo(this.mapa);
 
         this.marcadores = [];
+
+        var CustomControl = L.Control.extend({
+            options: {
+                position: 'bottomright'
+            },
+
+            onAdd: function (map) {
+                var container = L.DomUtil.create('div', 'leaflet-control-custom');
+
+                container.onclick = function () {
+                    if (!document.fullscreenElement) {
+                        map.getContainer().requestFullscreen();
+                    } else {
+                        if (document.exitFullscreen) {
+                            document.exitFullscreen();
+                        }
+                    }
+                };
+
+                // Adiciona ouvintes para mudança de estado de tela cheia
+                document.addEventListener('fullscreenchange', function () {
+                    if (document.fullscreenElement) {
+                        container.classList.add('fullscreen');
+                    } else {
+                        container.classList.remove('fullscreen');
+                    }
+                });
+
+                return container;
+            }
+        });
+
+        this.mapa.addControl(new CustomControl());
     }
 
     adicionarMarcador(marcador) {
