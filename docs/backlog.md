@@ -145,3 +145,16 @@ Este documento oferece uma visão abrangente do backlog de nosso produto, destac
 | 16/05/2024 | 0.31.0 | Notificação para acões do administrador | @Max-Rohrer20  |
 | 17/05/2024 | 0.31.1 |Bugfix: Botão de confirmação não funciona para todos os formulários|@MarcosViniciusG |
 | 22/05/2024 | 0.31.2 | Bugfix: Criação do BD ao ativar o plugin | @WillxBernardo |
+| 05/06/2024 | 0.31.3 | Bugfix:  Apenas o primeiro formulário na página do admin é modificado| @MarcosViniciusG |
+| 05/06/2024 | 0.31.4 | Bugfix:  Filtrando caracteres especiais em alguns campos| @Punkrig |
+| 07/06/2024 | 0.31.5 | Bugfix:  Não funcionamento do destaque de linha nas tabelas| @MarcosViniciusG |
+| 17/06/2024 | 0.32.0 | Feat: Adição de localização de endereço a partir da Latitude e Longitude| @Max-Rohrer20 |
+| 21/06/2024 | 0.33.0 | Feat: Tela de edição na interface do administrador| @WillxBernardo |
+| 25/06/2024 | 0.33.1 | Bugfix: Inicializacao dos campos de latitude e longitude| @WillxBernardo |
+| 27/06/2024 | 0.33.2 | Bugfix: corrigido a estilização de elementos HTML fora do escopo do plugin| @MarcosViniciusG |
+| 28/06/2024 | 0.33.2 | Bugfix: Correção do css do pop-up para corrigir a linha que estava ficando sobreposta| @Max-Rohrer20 |
+| 03/07/2024 | 0.33.3 | Bugfix:  atualizado os testes PHP para mockar a função de conseguir a rua e cidade (novamente novamente)| @MarcosViniciusG |
+| 03/07/2024 | 0.33.4 | Bugfix: a cidade e a rua são atualizadas quando a localização é editada no formulário| @MarcosViniciusG |
+| 03/07/2024 | 0.33.5 | Bugfix: Modificação do conjunto de testes da tabela para se adaptar as mudanças realizadas na tabela| @MarcosViniciusG |
+| 11/07/2024 | 0.34.0 | Feat: Adicionando funcionalidade de fullscreen nos mapas | @WillxBernardo |
+
