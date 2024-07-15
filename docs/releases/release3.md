@@ -86,3 +86,25 @@ O objetivo principal dessa sprint é a finalização da tela de edição para di
 | Criação do teste para a funcionalidade de editar os dados do formulário|<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/175" target="_blank">#175</a></li>|
 | Finalizar transição da gitpages para docsify na documentação|<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/176" target="_blank">#176</a></li>|
 | Adição da Sprint 15 na documentação |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/177" target="_blank">#177</a></li>|
+
+
+## **Sprint 16**
+
+O objetivo dessa sprint é o inicio do polimento do plugin, análise de comportamentos em ambiente de produção e ajustes em na interface do administrador.
+
+|Descrição| Nº issue|
+|---------|---------|
+| Criação dos marcadores personalizados |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/186" target="_blank">#186</a></li>|
+| Tratamento de dados na tela de edição |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/187" target="_blank">#187</a></li>|
+| Alerta visual nos campos inválidos |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/188" target="_blank">#188</a></li>|
+| Botão para tela cheia nos mapas |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/189" target="_blank">#189</a></li>|
+
+
+## **Sprint 17**
+
+
+|Descrição| Nº issue|
+|---------|---------|
+| Melhoria na landing page da documentação |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/191" target="_blank">#191</a></li>|
+| Script para preenchimento do banco de dados |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/192" target="_blank">#192</a></li>|
+| Melhoria do bloco de ações da tabela do administrador |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/193" target="_blank">#193</a></li>|
