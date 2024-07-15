@@ -53,3 +53,14 @@ docker compose ps
     * Na tela de plugins do wordpress clique em adicionar plugin, navegue para o repositório do projeto e selecione o arquivo zipado do plugin
 
 - Em qualquer página do seu site escreva o seguinte shortcode: **[lgbtq_connect]**
+
+## **Preenchimento do banco de dados automático**
+
+- Para execução do script de preenchimento certifique-se da tabela 'lc_formulario' estar vazia.
+
+- Os dados inseridos tem a finalidade apenas para testes de estresse, não contendo dados reais.
+
+- Para execução basta apenas acessar: http://localhost:8082/wp-content/plugins/plugin-prototipo/preenche_bd.php/
+
+- Verifique a inclusão das linhas acessando
+    <a href="http://localhost:8083" style="color: green;" target="_blank">phpMyAdmin</a>
