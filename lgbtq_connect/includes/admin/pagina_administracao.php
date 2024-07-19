@@ -88,8 +88,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
 
                 <div id=editDivBotoes>
                     <button type="button" id="editCancelar" onclick="fecharEditor()" style="cursor: pointer;">Cancelar</button>
-                    <button type="submit" action="atualizar_formulario($wpdb)" id="editSalvar" style="cursor: pointer;">Salvar</button>
-                </div>
+                    <button type="submit" id="editSalvar" style="cursor: pointer;">Salvar</button>
+                    </div>
             </form>
         </div>
         <div id="div-mapa_botoes">

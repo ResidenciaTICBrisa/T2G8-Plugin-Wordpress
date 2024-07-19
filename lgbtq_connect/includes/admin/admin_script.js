@@ -373,13 +373,13 @@ function abrirModalEdicao(dados) {
     // Preenche os campos do formulário com os dados fornecidos
     document.getElementById('editId').value = dados.id;
     document.getElementById('editNome').value = dados.nome;
-    document.getElementById('editEmail').value = dados.email;
+    document.getElementById('editEmail').value = dados.email; // Email não é filtrado
     document.getElementById('editServico').value = dados.servico;
     document.getElementById('editDescricao').value = dados.descricao;
-    document.getElementById('editLatitude').value = dados.latitude;
-    document.getElementById('editLongitude').value = dados.longitude;
+    document.getElementById('editLatitude').value = parseFloat(dados.latitude);
+    document.getElementById('editLongitude').value = parseFloat(dados.longitude);
 
-    initMapEdit(dados.latitude, dados.longitude, dados.nome, dados.servico, dados.descricao);
+    initMapEdit(parseFloat(dados.latitude), parseFloat(dados.longitude), dados.nome, dados.servico, dados.descricao);
 
     // Exibe o modal de edição
     popup.style.display = "flex";
@@ -388,7 +388,7 @@ function abrirModalEdicao(dados) {
     // Atualiza o tamanho do mapa e define a visualização após um pequeno atraso para garantir que o modal tenha sido completamente exibido
     setTimeout(function() {
         mapEdit.invalidateSize();
-        mapEdit.setView([dados.latitude, dados.longitude], 13);
+        mapEdit.setView([parseFloat(dados.latitude), parseFloat(dados.longitude)], 13);
     }, 200);
 
     modal.scrollIntoView({ behavior: 'smooth' });
@@ -400,6 +400,35 @@ function abrirModalEdicao(dados) {
         }
     };
 }
+
+// Função para filtrar caracteres especiais e exibir um alerta
+function filtrarCaracteresEspeciais(texto, campo) {
+    const regex = /[!#$%&()*+\/<=>?@[\\\]_{|}]/;
+    if (regex.test(texto)) {
+        alert(`O campo ${campo} contém caracteres especiais que não são permitidos.`);
+        return false; // Retorna false se caracteres especiais forem encontrados
+    }
+    return true;
+}
+
+// Adiciona um event listener ao formulário para validar os dados ao enviar
+document.getElementById('editForm').addEventListener('submit', function(event) {
+    const id = document.getElementById('editId').value;
+    const nome = document.getElementById('editNome').value;
+    const email = document.getElementById('editEmail').value; // Email não é filtrado
+    const servico = document.getElementById('editServico').value;
+    const descricao = document.getElementById('editDescricao').value;
+
+    // Verifica cada campo para caracteres especiais
+    if (!filtrarCaracteresEspeciais(id, 'ID') || 
+        !filtrarCaracteresEspeciais(nome, 'Nome') || 
+        !filtrarCaracteresEspeciais(servico, 'Serviço') || 
+        !filtrarCaracteresEspeciais(descricao, 'Descrição')) {
+        event.preventDefault(); // Impede o envio do formulário
+        alert(`O campo ${campo} contém caracteres especiais que não são permitidos.`);
+
+    }
+});
 
 function fecharEditor() {
     document.getElementById('editPopup').style.display = "none";
