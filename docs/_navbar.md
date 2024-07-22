@@ -13,6 +13,7 @@
     * [Ata reunião 3](/atas/ata-reuniao3.md)
     * [Ata reunião 4](/atas/ata-reuniao4.md)
     * [Ata reunião 5](/atas/ata-reuniao5.md)
+    * [Ata reunião 6](/atas/ata-reuniao6.md)
 * Releases
     * [Release 1](/releases/release1.md)
     * [Release 2](/releases/release2.md)
