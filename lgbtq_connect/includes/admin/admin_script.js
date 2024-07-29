@@ -402,7 +402,7 @@ function abrirModalEdicao(dados) {
 }
 
 // Função para filtrar caracteres especiais e exibir um alerta
-function filtrarCaracteresEspeciais(texto, campo) {
+ function filtrarCaracteresEspeciais(texto, campo) {
     const regex = /[!#$%&()*+\/<=>?@[\\\]_{|}]/;
     if (regex.test(texto)) {
         alert(`O campo ${campo} contém caracteres especiais que não são permitidos.`);
@@ -411,24 +411,32 @@ function filtrarCaracteresEspeciais(texto, campo) {
     return true;
 }
 
-// Adiciona um event listener ao formulário para validar os dados ao enviar
-document.getElementById('editForm').addEventListener('submit', function(event) {
-    const id = document.getElementById('editId').value;
-    const nome = document.getElementById('editNome').value;
-    const email = document.getElementById('editEmail').value; // Email não é filtrado
-    const servico = document.getElementById('editServico').value;
-    const descricao = document.getElementById('editDescricao').value;
+// Função para adicionar o event listener ao formulário
+ function adicionarListenerFormulario() {
+    const form = document.getElementById('editForm');
+    if (form) {
+        form.addEventListener('submit', function(event) {
+            const id = document.getElementById('editId').value;
+            const nome = document.getElementById('editNome').value;
+            const email = document.getElementById('editEmail').value;
+            const servico = document.getElementById('editServico').value;
+            const descricao = document.getElementById('editDescricao').value;
 
-    // Verifica cada campo para caracteres especiais
-    if (!filtrarCaracteresEspeciais(id, 'ID') || 
-        !filtrarCaracteresEspeciais(nome, 'Nome') || 
-        !filtrarCaracteresEspeciais(servico, 'Serviço') || 
-        !filtrarCaracteresEspeciais(descricao, 'Descrição')) {
-        event.preventDefault(); // Impede o envio do formulário
-        alert(`O campo ${campo} contém caracteres especiais que não são permitidos.`);
-
+            // Verifica cada campo para caracteres especiais
+            if (!filtrarCaracteresEspeciais(id, 'ID') || 
+                !filtrarCaracteresEspeciais(nome, 'Nome') || 
+                !filtrarCaracteresEspeciais(servico, 'Serviço') || 
+                !filtrarCaracteresEspeciais(descricao, 'Descrição')) {
+                event.preventDefault(); // Impede o envio do formulário
+                alert('Um ou mais campos contêm caracteres especiais que não são permitidos.');
+            }
+        });
+    } else {
+        console.warn('O formulário com o ID "editForm" não foi encontrado.');
     }
-});
+}
+// Chama a função para adicionar o listener ao formulário quando o DOM estiver pronto
+document.addEventListener('DOMContentLoaded', adicionarListenerFormulario);
 
 function fecharEditor() {
     document.getElementById('editPopup').style.display = "none";
