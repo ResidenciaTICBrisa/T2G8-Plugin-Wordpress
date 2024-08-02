@@ -7,32 +7,9 @@ class Filtro {
     static nome = "";
     static servico = "";
 
-    static realizarFiltragem(arr) {
-        const self = this;
-        return arr.filter(function (formulario) {
-            return (self.checarStatus(formulario) && self.checarNome(formulario) && self.checarServico(formulario));
-        });
+    static realizarFiltragem() {
     }
-    static checarStatus(formulario) {
-        if (this.status !== "Todos") {
-            return (this.status == formulario.situacao);
-        } else {
-            return true;
-        }
-    }
-
-    static checarNome(formulario) {
-        return (formulario.nome.toLowerCase().trim().startsWith(this.nome.toLowerCase().trim()));
-    }
-
-    static checarServico(formulario) {
-        if (this.servico !== "") {
-            return (this.servico == formulario.servico);
-        } else {
-            return true;
-        }
-    }
-
+    
     static reiniciarFiltro() {
         this.status = "Todos";
         this.nome = "";
@@ -44,15 +21,118 @@ class Ordenador {
     static coluna = "nome";
     static ordem = "asc";
 
-    static realizarOrdenacao(arr) {
-        const self = this;
-        return arr.sort(function (a, b) {
-            const aValue = a[self.coluna].trim().toLowerCase();
-            const bValue = b[self.coluna].trim().toLowerCase();
-
-            return (self.ordem === 'asc') ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
-        });
+    static realizarOrdenacao() {
+        
     }
+}
+
+class Paginacao {
+    static pagina=1;
+    static max_paginas=9;
+
+    static mudarPagina(n) {
+        if(n >= 1 && n <= this.max_paginas)
+            this.pagina = n;
+
+    }
+
+    static gerarIndices(el) {
+        this.criarSeta(el, "voltar");
+        let grande = this.max_paginas >= 7;
+
+        let paginas = this.max_paginas;
+        if(grande)
+            paginas = 3;
+
+        for(let i=1; i<=paginas; i++) {
+            this.criarIndice(i, el);
+            if(grande && this.pagina===paginas && i==this.pagina)
+                this.criarIndice(i+1, el);
+        }
+
+        if(grande) {
+            this.criarReticencias(el);
+
+            if(this.pagina > 3 && this.pagina < (this.max_paginas - 2)) {
+                if(this.pagina -1 > 3)
+                    this.criarIndice(this.pagina-1, el)
+
+                this.criarIndice(this.pagina, el);
+
+                if(this.pagina+1 < (this.max_paginas-2))
+                    this.criarIndice(this.pagina+1, el)
+
+                this.criarReticencias(el);            
+            }
+
+            for(let i=this.max_paginas-2; i<=this.max_paginas; i++) {
+                if(grande && this.pagina==(this.max_paginas-2) && i==this.pagina)
+                    this.criarIndice(i-1, el);
+                this.criarIndice(i, el);
+            }
+        }
+
+        this.criarSeta(el, "avancar");
+    }
+
+    static criarSeta(el, tipo) {
+        const self = this;
+        let liEl =  document.createElement('li');
+        let aEl = document.createElement('a');
+
+        let p;
+        let simbolo;
+        if(tipo==="voltar") {
+            p=-1;
+            simbolo = "«";
+        }
+        else if(tipo==="avancar") {
+            p=1;
+            simbolo = "»";
+        }
+        else 
+            return;
+
+        aEl.href = "#";
+        aEl.onclick = function() { mudarPagina(self.pagina+p) };
+        aEl.classList.add("paginacao-seta");
+        aEl.innerHTML = simbolo;
+
+        liEl.appendChild(aEl);
+        el.appendChild(liEl);
+    }
+
+    static criarIndice(i, el) {
+        let liEl =  document.createElement('li');
+        let aEl = document.createElement('a');
+
+        aEl.href = "#";
+        aEl.onclick = function() { mudarPagina(i) };
+        aEl.id = `pagina-${i}`;
+        aEl.innerHTML = `${i}`;
+                
+        if(i==this.pagina)
+            aEl.classList.add("pagina-selecionada");
+
+        liEl.appendChild(aEl);
+        el.appendChild(liEl);
+    }
+
+    static criarReticencias(el) {
+        let dotEl = document.createElement('li');
+        dotEl.innerHTML = "<a>...</a>"
+        el.appendChild(dotEl);
+    }
+
+    static excluirIndices(el) {
+        el.innerHTML = "";
+    }
+}
+
+function realizarQuery(chamador) {
+    if(typeof(chamador)==Filtro) {
+        
+    } 
 }
 
 // Classe Singleton com todos os métodos e atributos relacionados à tabela
@@ -156,8 +236,8 @@ class Tabela {
 }
 
 function destacarLinhaTabela(id) {
-    let tabela = document.getElementById("tabela");
-    let linha = document.getElementById(("formulario-" + id));
+    const tabela = document.getElementById("tabela");
+    const linha = document.getElementById(("formulario-" + id));
 
     if (linha === null) {
         return;
@@ -569,7 +649,7 @@ function filtrar(elemento) {
     }
     arr = Filtro.realizarFiltragem(formularios_todos);
     contador_resultados.innerHTML = `
-        <p>${arr.length} resultados encontrados<p>
+        <p style='font-size:large;'>${arr.length} resultados encontrados<p>
     `;
 
     const tabela = document.getElementById("tabela");
@@ -609,10 +689,22 @@ function ordenar(elemento) {
     }
 
     const tabelaObj = new Tabela([], tabela);
-    tabelaObj.arr = Ordenador.realizarOrdenacao(tabelaObj.arr);
+    tabelaObj.arr = Ordenador.realizarQuery();
 
     tabelaObj.excluirLinhas();
     tabelaObj.gerarLinhas();
+}
+
+function mudarPagina(n) {
+    Paginacao.mudarPagina(n);
+
+    if(n < 1)
+        return;
+
+    const lista = document.getElementById("admin-paginacao");
+
+    Paginacao.excluirIndices(lista);
+    Paginacao.gerarIndices(lista);
 }
 
 // Adiciona um evento de clique a todos os botões de "Ver mais/menos"

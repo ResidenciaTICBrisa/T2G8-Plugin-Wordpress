@@ -54,11 +54,9 @@ function enfileirar_scripts_admin() {
     $formularios = obter_formularios($wpdb);
 
     wp_enqueue_script('admin_script.js', plugin_dir_url(__FILE__) . 'includes/admin/admin_script.js', array('jquery'), '1.0', true);
+    
     // Passa os dados dos formulários aprovados para o script JavaScript
     wp_localize_script('admin_script.js', 'formularios_aprovados', $formularios_aprovados);
-
-    // Passa os dados de todos os formulários para o script JavaScript
-    wp_localize_script('admin_script.js', 'formularios_todos', $formularios);
 }
 
 function enfileirar_styles_admin()
