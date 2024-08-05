@@ -870,3 +870,209 @@ a:focus {
   color: inherit;
 }
 /*# sourceMappingURL=style.css.map */
+
+#introtext {
+	--b: .5em; /* border width */
+	--c: 3em; /* corner size */
+	--r: 2em; /* corner rounding */
+	position: relative;
+	margin: 1em auto;
+	border: solid var(--b) transparent;
+	padding: 1em;
+	max-width: 35em;
+	font: 1.25em ubuntu, sans-serif;
+	
+	&::before {
+		position: absolute;
+		z-index: -1;
+		inset: calc(-1*var(--b));
+		border: inherit;
+		border-radius: var(--r);
+		background: linear-gradient(rgb(229, 0, 0), rgb(255, 141, 0), rgb(255, 238, 0), rgb(2, 129, 33), rgb(0, 76, 255), rgb(119, 0, 136)) border-box;
+		--corner: 
+			conic-gradient(from -90deg at var(--c) var(--c), red 25%, #0000 0) 
+				0 0/ calc(100% - var(--c))  calc(100% - var(--c)) border-box;
+		--inner: conic-gradient(red 0 0) padding-box;
+		-webkit-mask: var(--corner), var(--inner);
+		-webkit-mask-composite: source-out;
+						mask: var(--corner) subtract, var(--inner);
+		content: ''
+	}
+}
+
+.box_text_animado {
+  background-color: transparent;
+  border-radius: 3px;
+  color: black;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 300px;
+  transform-style: preserve-3d;
+  perspective: 2000px;
+  transition: 0.4s;
+  text-align: center;
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: 20px solid #fff;
+    border-top: 20px solid #fff;
+    border-left: 20px solid #fff;
+    box-sizing: border-box;
+    border-image: linear-gradient(to right, rgb(229, 0, 0), rgb(255, 141, 0), rgb(255, 238, 0), rgb(2, 129, 33), rgb(0, 76, 255), rgb(119, 0, 136)) 1;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-bottom: 20px solid #fff;
+    border-right: 20px solid #fff;
+    border-image: linear-gradient(to left, rgb(229, 0, 0), rgb(255, 141, 0), rgb(255, 238, 0), rgb(2, 129, 33), rgb(0, 76, 255), rgb(119, 0, 136)) 1;
+    box-sizing: border-box;
+  }
+  .icon-left {
+    font-size: 25px;
+    height: 50px;
+    width: 50px;
+    line-height: 50px !important;
+    background-color: #fff;
+    color: #fff;
+  }
+  .icon2 {
+    position: absolute;
+    background-color: transparent;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+  }
+  .text_animado {
+    position: absolute;
+    top: 30px;
+    left: -30px;
+    width: calc(100% + 60px);
+    height: calc(100% - 60px);
+    background-color: #fff;
+    border-radius: 3px;
+    transition: .4s;
+    .icon1 {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    #animado_texto {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      text-align: center;
+      justify-content: center;
+      width: 100%;
+      padding: 30px 60px;
+      line-height: 1.5;
+      box-sizing: border-box;
+      #animado_texto {
+        font-size: 15px;
+      }
+    }
+  }
+  &:hover {
+    .text_animado {
+      transform: rotateY(20deg) skewY(-3deg)
+    }
+    transform: translate(-50%, -50%) rotateY(-20deg) skewY(3deg)
+  }
+}
+
+.lc_card {
+  width: 100%;
+  max-width: 300px;
+  min-width: 200px;
+  height: 250px;
+  background-color: #7335b7;
+  margin: 10px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.24);
+  border: 2px solid rgba(7, 7, 7, 0.12);
+  font-size: 16px;
+  transition: all 0.3s ease;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  text-decoration: none; 
+    color: inherit; 
+}
+
+.lc_icon {
+  margin: 0 auto;
+  width: 100%;
+  height: 80px;
+  max-width: 80px;
+  font-size: 38px;
+  background: linear-gradient(90deg, #7eaaff 0%, #ff48fb 40%, rgba(0, 0, 0, 0.28) 60%);
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.8s ease;
+  background-position: 0px;
+  background-size: 200px;
+}
+
+.lc_card .title {
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  margin-top: 30px;
+  color: white;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+}
+
+.lc_card .text {
+  width: 80%;
+  margin: 0 auto;
+  font-size: 13px;
+  text-align: center;
+  margin-top: 20px;
+  color: white;
+  font-weight: 200;
+  letter-spacing: 2px;
+  opacity: 0;
+  max-height: 0;
+  transition: all 0.3s ease;
+}
+
+.lc_card:hover {
+  height: 270px;
+}
+
+.lc_card:hover .text {
+  transition: all 0.3s ease;
+  opacity: 1;
+  max-height: 40px;
+}
+
+.lc_card:hover .lc_icon {
+  background-position: -120px;
+  transition: all 0.3s ease;
+}
+
+.lc_card:hover .lc_icon svg path {
+  fill: url('#gradientColor');
+  transition: all 0.3s ease;
+}

@@ -26,6 +26,8 @@
   <!-- responsive style -->
   <link href="css/responsive.css" rel="stylesheet" />
 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/font/bootstrap-icons.min.css">
+
 </head>
 
 <body>
@@ -69,24 +71,19 @@
     <!-- end header section -->
     <!-- slider section -->
     <section class="slider_section">
+      <div class="fixed-img">
+        <img src="images/logo.png" style="height: 30em; width: 30em; margin-left: 5em;"alt="LGBTQ+ Connect">
+      </div>
       <div id="customCarousel1" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
           <div class="carousel-item active">
             <div class="container">
               <div class="row">
                 <div class="col-md-6">
-                  <div class="img-box">
-                    <img src="images/logo.png" alt="Imagem 1">
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="detail-box">
-                    <h1>
-                      Bem-vindo ao LGBTQ+ Connect!
-                    </h1>
-                    <p>
-                      Nosso plugin conecta empreendimentos e serviços LGBTQIAPN+ friendly com a comunidade, promovendo inclusão e apoio mútuo.
-                    </p>
+                  <div class="detail-box" style="width: 30em; margin-left: 5em;">
+                    <h2>
+                      Descubra Locais Amigáveis à Comunidade LGBTQ+ com Facilidade!
+                    </h2>
                     <div class="btn-box">
                     </div>
                   </div>
@@ -98,18 +95,10 @@
             <div class="container">
               <div class="row">
                 <div class="col-md-6">
-                  <div class="img-box">
-                    <img src="images/logo.png" alt="Imagem 2">
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="detail-box">
-                    <h1>
-                      Sobre o Projeto
-                    </h1>
-                    <p>
-                      Desenvolvemos um plugin de rastreamento de Safe Zones no Brasil, permitindo identificar e compartilhar locais seguros para a comunidade LGBTQIAPN+.
-                    </p>
+                  <div class="detail-box" style="width: 30em; margin-left: 5em;">
+                    <h2>
+                      Receba novas solicitações de locais para serem adicionados ao mapa!
+                    </h2>
                     <div class="btn-box">
                     </div>
                   </div>
@@ -121,18 +110,10 @@
             <div class="container">
               <div class="row">
                 <div class="col-md-6">
-                  <div class="img-box">
-                    <img src="images/logo.png" alt="Imagem 3">
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="detail-box">
-                    <h1>
-                      Funcionalidades Principais
-                    </h1>
-                    <p>
-                      Nosso produto oferece navegação intuitiva, adição de novos locais e avaliações de segurança, promovendo a comunicação em tempo real entre os usuários.
-                    </p>
+                  <div class="detail-box" style="width: 30em; margin-left: 5em;">
+                    <h2>
+                      Acesse e gerencie todos os locais diretamente do painel administrativo do WordPress!
+                    </h2>
                     <div class="btn-box">
                     </div>
                   </div>
@@ -154,6 +135,14 @@
 
   <!-- service section -->
   <section class="service_section layout_padding">
+    <h1>
+      <strong>
+        <span style="color: rgb(229, 0, 0);">L</span><span style="color: rgb(255, 141, 0)">G</span><span style="color: rgb(255, 238, 0)">B</span><span style="color: rgb(2, 129, 33)">T</span><span style="color: rgb(0, 76, 255)">Q</span><span>+</span> <span style="color: rgb(119, 0, 136)">C<span style="color: rgb(229, 0, 0)">o</span><span style="color: rgb(255, 141, 0)">n</span><span style="color: rgb(255, 238, 0)">n</span><span style="color: rgb(2, 129, 33)">e</span><span style="color: rgb(0, 76, 255)">c</span><span style="color: rgb(119, 0, 136)">t</span>
+      </strong>
+    </h1>
+    <div id="introtext">
+      Nosso plugin permite que você adicione um mapa interativo ao seu site, destacando locais seguros e acolhedores para a comunidade LGBTQ+. Com uma interface fácil de usar, os visitantes podem sugerir novos locais e o administrador pode aprovar, editar ou excluir essas sugestões diretamente do painel do WordPress. Mantenha seu mapa sempre atualizado e torne seu site uma referência em inclusão!
+    </div>
     <div class="container">
       <div class="heading_container">
         <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor" class="bi bi-wordpress" viewBox="0 0 16 16">
@@ -167,7 +156,7 @@
         </h2>
         <br>
         <p>
-          O LGBTQ+ Connect é um plugin desenvolvido para WordPress com o objetivo de promover a segurança e a inclusão da comunidade LGBTQIAPN+. Nosso plugin permite aos usuários identificar e compartilhar áreas seguras, conhecidas como Safe Zones, em suas comunidades, abrangendo locais como bares, restaurantes, centros comunitários e outros estabelecimentos acolhedores.
+          Nosso plugin é desenvolvido para o Wordpress com o objetivo de ajudar na construção de ferramentas que auxiliem a comunidade LGBTQ+ na internet.
         </p>
       </div>
       <div class="row">
@@ -243,11 +232,8 @@
           </div>
         </div>
       </div>
-      <div class="btn-box">
-        <a href="">
-          View More
-        </a>
-      </div>
+
+      <!-- BOTA -->
     </div>
   </section>
   <!-- end service section -->
@@ -258,267 +244,97 @@
     <div class="container  ">
       <div class="row">
         <div class="col-md-6">
-          <div class="detail-box">
-            <div class="heading_container">
-              <h2>
-                About Us
-              </h2>
+          <div class="box_text_animado">
+            <div class="icon-left icon2">
+                <?xml version="1.0" encoding="utf-8"?>
+                <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                <svg width="50px" height="50px" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--emojione" preserveAspectRatio="xMidYMid meet">
+                    <path fill="#ed4c5c" d="M52.382 5.075C40.137 3.203 24.137 28.036 9.213 20.497c-.582-1.575-1.143-3.158-1.725-4.73C25.077 19.105 33.07-2.995 50.658.345c.584 1.572 1.14 3.156 1.724 4.73">
+                    </path>
+                    <path fill="#ff8736" d="M54.105 9.804C43.762 7.786 22.512 31.453 10.938 25.227c-.585-1.573-1.14-3.157-1.725-4.73C26.802 23.835 34.794 1.734 52.382 5.075c.584 1.572 1.14 3.156 1.723 4.729">
+                    </path>
+                    <path fill="#ffce31" d="M55.83 14.535C45.762 12.744 27.086 38.25 12.662 29.957c-.585-1.573-1.142-3.157-1.725-4.73C28.525 28.566 36.52 6.467 54.105 9.805c.585 1.574 1.142 3.157 1.725 4.73">
+                    </path>
+                    <path fill="#83bf4f" d="M57.556 19.265c-9.711-1.521-31.086 25.813-43.171 15.422c-.584-1.572-1.139-3.157-1.723-4.73c17.585 3.341 25.579-18.762 43.168-15.422c.583 1.573 1.142 3.156 1.726 4.73">
+                    </path>
+                    <path fill="#275fd9" d="M59.278 23.995C48.22 22.161 28.595 50.453 16.109 39.418c-.584-1.574-1.144-3.156-1.725-4.73c17.588 3.338 25.582-18.761 43.171-15.422c.583 1.573 1.141 3.155 1.723 4.729">
+                    </path>
+                    <path fill="#9028e0" d="M61 28.726c-17.583-3.34-25.579 18.761-43.166 15.421c-.584-1.572-1.142-3.156-1.725-4.729c17.588 3.338 25.581-18.762 43.169-15.423c.583 1.575 1.142 3.158 1.722 4.731">
+                    </path>
+                    <g fill="#3e4347">
+                        <circle cx="5.168" cy="13.336" r="2.168"></circle>
+                        <path d="M7.04 14.49l-2.56.929L22.186 64h2.896z"></path>
+                        <path d="M3.688 15.602l4.076-1.48l.37 1.017l-4.077 1.48z"></path>
+                    </g>
+                </svg>
             </div>
-            <p>
-              There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration
-              in some form, by injected humour, or randomised words which don't look even slightly believable. If you
-              are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in
-              the middle of text. All
-            </p>
-            <a href="">
-              Read More
-            </a>
+            <div class="text_animado">
+              <div class="icon-left icon1">
+                <?xml version="1.0" encoding="utf-8"?>
+                <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                <svg width="50px" height="50px" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--emojione" preserveAspectRatio="xMidYMid meet">
+                    <path fill="#ed4c5c" d="M52.382 5.075C40.137 3.203 24.137 28.036 9.213 20.497c-.582-1.575-1.143-3.158-1.725-4.73C25.077 19.105 33.07-2.995 50.658.345c.584 1.572 1.14 3.156 1.724 4.73">
+                    </path>
+                    <path fill="#ff8736" d="M54.105 9.804C43.762 7.786 22.512 31.453 10.938 25.227c-.585-1.573-1.14-3.157-1.725-4.73C26.802 23.835 34.794 1.734 52.382 5.075c.584 1.572 1.14 3.156 1.723 4.729">
+                    </path>
+                    <path fill="#ffce31" d="M55.83 14.535C45.762 12.744 27.086 38.25 12.662 29.957c-.585-1.573-1.142-3.157-1.725-4.73C28.525 28.566 36.52 6.467 54.105 9.805c.585 1.574 1.142 3.157 1.725 4.73">
+                    </path>
+                    <path fill="#83bf4f" d="M57.556 19.265c-9.711-1.521-31.086 25.813-43.171 15.422c-.584-1.572-1.139-3.157-1.723-4.73c17.585 3.341 25.579-18.762 43.168-15.422c.583 1.573 1.142 3.156 1.726 4.73">
+                    </path>
+                    <path fill="#275fd9" d="M59.278 23.995C48.22 22.161 28.595 50.453 16.109 39.418c-.584-1.574-1.144-3.156-1.725-4.73c17.588 3.338 25.582-18.761 43.171-15.422c.583 1.573 1.141 3.155 1.723 4.729">
+                    </path>
+                    <path fill="#9028e0" d="M61 28.726c-17.583-3.34-25.579 18.761-43.166 15.421c-.584-1.572-1.142-3.156-1.725-4.729c17.588 3.338 25.581-18.762 43.169-15.423c.583 1.575 1.142 3.158 1.722 4.731">
+                    </path>
+                    <g fill="#3e4347">
+                        <circle cx="5.168" cy="13.336" r="2.168"></circle>
+                        <path d="M7.04 14.49l-2.56.929L22.186 64h2.896z"></path>
+                        <path d="M3.688 15.602l4.076-1.48l.37 1.017l-4.077 1.48z"></path>
+                    </g>
+                </svg>
+              </div>
+              <div>
+                <p id="animado_texto"><strong>Nossa ferramenta é ideal para sites que desejam promover a inclusão e fornecer recursos valiosos à comunidade LGBTQ+. Simplifique a descoberta de locais amigáveis e ajude a criar um ambiente mais seguro e acolhedor para todos.</strong></p>
+              </div>
+            </div>
           </div>
         </div>
         <div class="col-md-6 ">
           <div class="img-box">
-            <img src="images/about-img.png" alt="">
+            <img src="images/representacaomapa.png" alt="">
           </div>
         </div>
-
       </div>
     </div>
   </section>
 
   <!-- end about section -->
 
-  <!-- case section -->
-
-  <section class="case_section layout_padding">
-    <div class="container">
-      <div class="heading_container">
-        <h2>
-          Our Case Studies
-        </h2>
-      </div>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="box">
-            <div class="img-box">
-              <img src="images/case-1.jpg" alt="">
-            </div>
-            <div class="detail-box">
-              <h5>
-                Sit amet consectetur adipisicing elit
-              </h5>
-              <p>
-                Alteration in some form, by injected humour, or randomised words which don't look even slightly believable.
-              </p>
-              <a href="">
-                <span>
-                  Read More
-                </span>
-                <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
-              </a>
-            </div>
+  <!-- opcoes section -->
+  <section style="display: flex; flex-direction: column; align-items: center; margin: 10em 0 10em 0;">
+    <h2>Utilize o LGBTQ+ Connect !</h2>
+    <div id="actions" style="display: flex; flex-direction: row;">
+      <a href="download.html" class="lc_card">
+        <div class="card-content">
+          <div class="lc_icon" style="border: 2px solid #1d1c1c;">
+            <i class="bi bi-download"></i>
           </div>
+          <p class="title">Download</p>
+          <p class="text">Acesse para realizar o download do LGBTQ+ Connect!</p>
         </div>
-        <div class="col-md-6">
-          <div class="box">
-            <div class="img-box">
-              <img src="images/case-2.jpg" alt="">
-            </div>
-            <div class="detail-box">
-              <h5>
-                Excepturi placeat nihil eos maxime
-              </h5>
-              <p>
-                Alteration in some form, by injected humour, or randomised words which don't look even slightly believable.
-              </p>
-              <a href="">
-                <span>
-                  Read More
-                </span>
-                <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
-              </a>
-            </div>
+      </a>
+      <a href="tutorial.html" class="lc_card">
+        <div class="card-content">
+          <div class="lc_icon" style="border: 2px solid #1d1c1c;">
+            <i class="bi bi-exclamation-triangle"></i>
           </div>
+          <p class="title">Tutorial</p>
+          <p class="text">Acesse para ver o tutorial de uso do plugin no WordPress!</p>
         </div>
-      </div>
+      </a>
     </div>
-  </section>
+   </section>
 
-  <!-- end case section -->
-
-  <!-- client section -->
-  <section class="client_section ">
-    <div class="container">
-      <div class="heading_container heading_center">
-        <h2>
-          Testimonial
-        </h2>
-      </div>
-    </div>
-    <div id="customCarousel2" class="carousel slide" data-ride="carousel">
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <div class="container">
-            <div class="row">
-              <div class="col-md-10 mx-auto">
-                <div class="box">
-                  <div class="img-box">
-                    <img src="images/client.jpg" alt="">
-                  </div>
-                  <div class="detail-box">
-                    <div class="client_info">
-                      <div class="client_name">
-                        <h5>
-                          Morojink
-                        </h5>
-                        <h6>
-                          Customer
-                        </h6>
-                      </div>
-                      <i class="fa fa-quote-left" aria-hidden="true"></i>
-                    </div>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                      labore
-                      et
-                      dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                      aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                      cillum
-                      dolore eu fugia
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <div class="container">
-            <div class="row">
-              <div class="col-md-10 mx-auto">
-                <div class="box">
-                  <div class="img-box">
-                    <img src="images/client.jpg" alt="">
-                  </div>
-                  <div class="detail-box">
-                    <div class="client_info">
-                      <div class="client_name">
-                        <h5>
-                          Morojink
-                        </h5>
-                        <h6>
-                          Customer
-                        </h6>
-                      </div>
-                      <i class="fa fa-quote-left" aria-hidden="true"></i>
-                    </div>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                      labore
-                      et
-                      dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                      aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                      cillum
-                      dolore eu fugia
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <div class="container">
-            <div class="row">
-              <div class="col-md-10 mx-auto">
-                <div class="box">
-                  <div class="img-box">
-                    <img src="images/client.jpg" alt="">
-                  </div>
-                  <div class="detail-box">
-                    <div class="client_info">
-                      <div class="client_name">
-                        <h5>
-                          Morojink
-                        </h5>
-                        <h6>
-                          Customer
-                        </h6>
-                      </div>
-                      <i class="fa fa-quote-left" aria-hidden="true"></i>
-                    </div>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                      labore
-                      et
-                      dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                      aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                      cillum
-                      dolore eu fugia
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <ol class="carousel-indicators">
-        <li data-target="#customCarousel2" data-slide-to="0" class="active"></li>
-        <li data-target="#customCarousel2" data-slide-to="1"></li>
-        <li data-target="#customCarousel2" data-slide-to="2"></li>
-      </ol>
-    </div>
-  </section>
-  <!-- end client section -->
-
-
-
-  <!-- contact section -->
-
-  <section class="contact_section layout_padding">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-5 col-lg-4 offset-md-1">
-          <div class="form_container">
-            <div class="heading_container">
-              <h2>
-                Request A Call back
-              </h2>
-            </div>
-            <form action="">
-              <div>
-                <input type="text" placeholder="Full Name " />
-              </div>
-              <div>
-                <input type="email" placeholder="Email" />
-              </div>
-              <div>
-                <input type="text" placeholder="Phone number" />
-              </div>
-              <div>
-                <input type="text" class="message-box" placeholder="Message" />
-              </div>
-              <div class="d-flex ">
-                <button>
-                  SEND
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-7 px-0">
-          <div class="map_container">
-            <div class="map">
-              <div id="googleMap"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- end contact section -->
-
+  
   <div class="footer_container">
     <!-- info section -->
 
