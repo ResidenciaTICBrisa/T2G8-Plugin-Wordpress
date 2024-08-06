@@ -438,6 +438,13 @@ function abrirModalEdicao(dados) {
 // Chama a função para adicionar o listener ao formulário quando o DOM estiver pronto
 document.addEventListener('DOMContentLoaded', adicionarListenerFormulario);
 
+document.addEventListener('DOMContentLoaded', function() {
+    var btnPendente = document.getElementById('botao_inicial');
+    if (btnPendente) {
+        btnPendente.click();
+    }
+});
+
 function fecharEditor() {
     document.getElementById('editPopup').style.display = "none";
     document.getElementById('editModal').style.display = "none";
@@ -549,13 +556,34 @@ function imprimirResultados(resultados) {
         }
     }
 }
+function destacarBotao(elemento, situacao){
+    // Remove a rotação de todos os ícones
+    document.querySelectorAll('button').forEach(btn => {
+        const icon = btn.querySelector('i');
+        if (icon) {
+            icon.classList.remove('lc_rotate');
+        }
+        btn.style.color = ''; // Restaura a cor padrão do texto
+    });
+
+    // Adiciona a rotação ao ícone do botão clicado
+    const icon = elemento.querySelector('i');
+    if (icon) {
+        icon.classList.add('lc_rotate');
+    }
+
+    elemento.style.color = 'black';
+
+    titulo_tabela = document.getElementById('titulo_tabela');
+    titulo_tabela.innerHTML = 'Formulários ' + situacao;
+}
 
 function filtrar(elemento) {
     let arr = [];
 
     const filtro_nome = document.getElementById("busca_nome");
-    const filtro_servico = document.getElementById("selecao_servico");
-    const contador_resultados = document.getElementById("contador_resultados");
+    const filtro_servico = document.getElementById("selecao_servico");   
+        
     if (elemento) {
         Filtro.status = elemento.value;
     }
@@ -568,9 +596,6 @@ function filtrar(elemento) {
         Filtro.servico = filtro_servico.value;
     }
     arr = Filtro.realizarFiltragem(formularios_todos);
-    contador_resultados.innerHTML = `
-        <p>${arr.length} resultados encontrados<p>
-    `;
 
     const tabela = document.getElementById("tabela");
     const tabelaObj = new Tabela([], tabela);
