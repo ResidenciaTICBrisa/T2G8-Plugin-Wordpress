@@ -22,9 +22,11 @@
 
 #filtros {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: 20px;
     justify-content: center;
-    
+    margin-top: 3em;
 }
 
 .filtro {
@@ -48,6 +50,7 @@
 
 }
 #selecao_servico{
+    margin-left: 2em;
     border-radius: 10px;
     width: 351.51px;
     height: 40px;
@@ -385,7 +388,6 @@ table th:last-child {
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    margin-top: 50px;
 }
 .btn-aprovado, .btn-negado, .btn-pendente{
     border-radius: 20px;
@@ -425,3 +427,64 @@ table th:last-child {
     font-size: 18px;
 }
 
+.lc_rotate {
+    transform: rotate(90deg);
+    transition: transform 0.3s ease;
+}
+
+.lc_loader-container {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+}
+
+.lc_loader {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    animation: loader1776 2s linear infinite;
+    box-sizing: border-box;
+}
+
+.lc_loader::before, .lc_loader::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    box-sizing: border-box;
+}
+
+.lc_loader::before {
+    border: 5px solid;
+    border-color: rgb(235, 169, 47) transparent transparent rgb(43, 145, 87);
+}
+
+.lc_loader::after {
+    border: 5px solid;
+    border-color: transparent rgb(20, 102, 226) rgb(224, 71, 71) transparent;
+    animation: loader1776 2s linear infinite;
+    animation-delay: -1s; /* Slight delay for the second half of the border */
+}
+
+@keyframes loader1776 {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.lc_counter {
+    font-weight: bold;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+    color: black;
+    z-index: 1;
+    text-align: center;
+}

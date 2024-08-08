@@ -7,7 +7,7 @@ function adicionar_pagina_administracao() {
         'manage_options',
         'lc_admin',
         'mostrar_dados',
-        'dashicons-admin-users',
+        'dashicons-location',
         6
     );
 }
@@ -106,44 +106,54 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
                 $negados = $wpdb->get_results($query_negados);
                 $pendentes = $wpdb->get_results($query_pendentes);
                 echo '<div class="button-container">';
-                    echo '<button value="Pendente" class="btn-pendente" onclick="filtrar(this)">' 
-                    . count($pendentes) . 
-                    ' novas solicitações
-                    <i class="bi bi-arrow-right-circle"></i>
-                    </button>';
-                    echo '<button value="Negado" class="btn-negado" onclick="filtrar(this)">' 
-                    . count($negados) . 
-                    ' solicitações negadas
-                    <i class="bi bi-arrow-right-circle"></i>
-                    </button>';
-                    echo '<button value="Aprovado" class=" btn-aprovado" onclick="filtrar(this)">' 
-                    . count($aprovados) . 
-                    ' solicitações aprovadas
-                    <i class="bi bi-arrow-right-circle"></i>
-                    </button>';
+                    echo '<h2>Formulários</h2>';
+                    echo '<button value="Pendente" id="botao_inicial" class="btn-pendente" onclick="filtrar(this); destacarBotao(this, \'Pendentes\')"> 
+                            <div class="lc_loader-container">
+                                <div class="lc_loader"></div>
+                                <div class="lc_counter">' . count($pendentes) . '</div>
+                            </div>
+                            Pendentes
+                            <i class="bi bi-arrow-right-circle"></i>
+                        </button>';
+                    echo '<button value="Aprovado" class=" btn-aprovado" onclick="filtrar(this); destacarBotao(this, \'Aprovados\')">
+                            <div class="lc_loader-container">
+                                <div class="lc_loader"></div>
+                                <div class="lc_counter">'. count($aprovados) .'</div>
+                            </div>
+                            Aprovados
+                            <i class="bi bi-arrow-right-circle"></i>
+                        </button>';
+                    echo '<button value="Negado" class="btn-negado" onclick="filtrar(this); destacarBotao(this, \'Negados\')">
+                            <div class="lc_loader-container">
+                                <div class="lc_loader"></div>
+                                <div class="lc_counter">'. count($negados) . '</div>
+                            </div>
+                            Negados
+                            <i class="bi bi-arrow-right-circle"></i>
+                        </button>';
                 echo '</div>';        
             ?>
             </div>
         </div>
-        <div id="contador_resultados">
-        </div>
-        <div id="filtros" >
-
-            <form method="post">
-                <div id="busca_nome_container" class="filtro">
-                    <input type="text" id="busca_nome" placeholder="Pesquise pelo nome" oninput="filtrar()">
-                </div>
-            </form>
-            <select id="selecao_servico" class="filtro " onchange="filtrar()" required>
-                <option value="" selected disabled>Selecione...</option>
-                <option value="bar/restaurante">Bares/restaurantes</option>
-                <option value="entretenimento">Entretenimento</option>
-                <option value="beleza">Beleza</option>
-                <option value="hospedagem">Hospedagem</option>
-                <option value="ensino">Ensino</option>
-                <option value="academia">Academia</option>
-                <option value="">Todos</option>
-            </select>
+        <div id="filtros">
+            <h3 id="titulo_tabela"></h3>
+            <div style="display:flex; flex-direction: row; space-between:">
+                <form method="post">
+                    <div id="busca_nome_container" class="filtro">
+                        <input type="text" id="busca_nome" placeholder="Pesquise pelo nome" oninput="filtrar()">
+                    </div>
+                </form>
+                <select id="selecao_servico" class="filtro " onchange="filtrar()" required>
+                    <option value="" selected disabled>Selecione...</option>
+                    <option value="bar/restaurante">Bares/restaurantes</option>
+                    <option value="entretenimento">Entretenimento</option>
+                    <option value="beleza">Beleza</option>
+                    <option value="hospedagem">Hospedagem</option>
+                    <option value="ensino">Ensino</option>
+                    <option value="academia">Academia</option>
+                    <option value="">Todos</option>
+                </select>
+            </div>
         </div>
         <div class="wrap">
         <div id="confirmModal" class="modal" tabindex="-1">
