@@ -7,7 +7,7 @@ function adicionar_pagina_administracao() {
         'manage_options',
         'lc_admin',
         'mostrar_dados',
-        'dashicons-admin-users',
+        'dashicons-location',
         6
     );
 }
@@ -107,21 +107,31 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
                 $pendentes = $wpdb->get_var($query_pendentes);
 
                 echo '<div class="button-container">';
-                    echo '<button value="Pendente" class="btn-pendente" onclick="filtrar(this)">' 
-                    . $pendentes . 
-                    ' novas solicitações
-                    <i class="bi bi-arrow-right-circle"></i>
-                    </button>';
-                    echo '<button value="Negado" class="btn-negado" onclick="filtrar(this)">' 
-                    . $negados . 
-                    ' solicitações negadas
-                    <i class="bi bi-arrow-right-circle"></i>
-                    </button>';
-                    echo '<button value="Aprovado" class=" btn-aprovado" onclick="filtrar(this)">' 
-                    . $aprovados . 
-                    ' solicitações aprovadas
-                    <i class="bi bi-arrow-right-circle"></i>
-                    </button>';
+                    echo '<h2>Formulários</h2>';
+                    echo '<button value="Pendente" id="botao_inicial" class="btn-pendente" onclick="filtrar(this); destacarBotao(this, \'Pendentes\')"> 
+                            <div class="lc_loader-container">
+                                <div class="lc_loader"></div>
+                                <div class="lc_counter">' . $pendentes . '</div>
+                            </div>
+                            Pendentes
+                            <i class="bi bi-arrow-right-circle"></i>
+                        </button>';
+                    echo '<button value="Aprovado" class=" btn-aprovado" onclick="filtrar(this); destacarBotao(this, \'Aprovados\')">
+                            <div class="lc_loader-container">
+                                <div class="lc_loader"></div>
+                                <div class="lc_counter">'. $aprovados .'</div>
+                            </div>
+                            Aprovados
+                            <i class="bi bi-arrow-right-circle"></i>
+                        </button>';
+                    echo '<button value="Negado" class="btn-negado" onclick="filtrar(this); destacarBotao(this, \'Negados\')">
+                            <div class="lc_loader-container">
+                                <div class="lc_loader"></div>
+                                <div class="lc_counter">'. $negados . '</div>
+                            </div>
+                            Negados
+                            <i class="bi bi-arrow-right-circle"></i>
+                        </button>';
                 echo '</div>';        
             ?>
             </div>
