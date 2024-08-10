@@ -2,16 +2,21 @@ let mapAdmin;
 let mapEdit;
 let isSearching = false;
 
+const  ajaxUrl = my_ajax_object.ajax_url;
+
 class Filtro {
-    static status = "Todos";
+    static status = "Pendente";
     static nome = "";
     static servico = "";
 
-    static realizarFiltragem() {
+    static preencherQuery(dados) {
+        dados['status'] = this.status;
+        dados['nome'] = this.nome;
+        dados['servico'] = this.servico;
     }
     
     static reiniciarFiltro() {
-        this.status = "Todos";
+        this.status = "";
         this.nome = "";
         this.servico = "";
     }
@@ -21,19 +26,28 @@ class Ordenador {
     static coluna = "nome";
     static ordem = "asc";
 
-    static realizarOrdenacao() {
-        
+    static preencherQuery(dados) {
+        dados['coluna'] = this.coluna;
+        dados['ordem'] = this.ordem;
     }
 }
 
 class Paginacao {
     static pagina=1;
-    static max_paginas=9;
+    static max_paginas=20;
+
+    static preencherQuery(dados) {
+        dados['pagina'] = this.pagina;
+    }
+
+    static mudarMaxPaginas(n) {
+        this.max_paginas = n;
+        this.mudarPagina(1);
+    }
 
     static mudarPagina(n) {
         if(n >= 1 && n <= this.max_paginas)
             this.pagina = n;
-
     }
 
     static gerarIndices(el) {
@@ -127,12 +141,6 @@ class Paginacao {
     static excluirIndices(el) {
         el.innerHTML = "";
     }
-}
-
-function realizarQuery(chamador) {
-    if(typeof(chamador)==Filtro) {
-        
-    } 
 }
 
 // Classe Singleton com todos os métodos e atributos relacionados à tabela
@@ -635,7 +643,6 @@ function filtrar(elemento) {
 
     const filtro_nome = document.getElementById("busca_nome");
     const filtro_servico = document.getElementById("selecao_servico");
-    const contador_resultados = document.getElementById("contador_resultados");
     if (elemento) {
         Filtro.status = elemento.value;
     }
@@ -647,17 +654,8 @@ function filtrar(elemento) {
     if (filtro_servico) {
         Filtro.servico = filtro_servico.value;
     }
-    arr = Filtro.realizarFiltragem(formularios_todos);
-    contador_resultados.innerHTML = `
-        <p style='font-size:large;'>${arr.length} resultados encontrados<p>
-    `;
 
-    const tabela = document.getElementById("tabela");
-    const tabelaObj = new Tabela([], tabela);
-    tabelaObj.arr = arr;
-
-    tabelaObj.excluirLinhas();
-    tabelaObj.gerarLinhas();
+    realizarQuery("Filtro");
 }
 
 function ordenar(elemento) {
@@ -688,11 +686,7 @@ function ordenar(elemento) {
         Ordenador.coluna = "nome";
     }
 
-    const tabelaObj = new Tabela([], tabela);
-    tabelaObj.arr = Ordenador.realizarQuery();
-
-    tabelaObj.excluirLinhas();
-    tabelaObj.gerarLinhas();
+    realizarQuery("Ordenador");
 }
 
 function mudarPagina(n) {
@@ -705,6 +699,54 @@ function mudarPagina(n) {
 
     Paginacao.excluirIndices(lista);
     Paginacao.gerarIndices(lista);
+    realizarQuery("Paginacao");
+}
+
+function realizarQuery(chamador) {
+    let dados = {};
+    Filtro.preencherQuery(dados);
+    Ordenador.preencherQuery(dados);
+    Paginacao.preencherQuery(dados);
+
+    const tabela = document.getElementById("tabela");
+    const contador_resultados = document.getElementById("contador_resultados");
+    const lista = document.getElementById("admin-paginacao");
+
+    if(chamador==="Filtro" || chamador==="Ordenador")
+        dados['pagina'] = 1;
+
+    $.ajax({
+        type: 'POST',
+        url: ajaxUrl,
+        data: {
+            action: 'realizarQuery', // Hook de ação para o lado do servidor
+            formData: dados, // Data do formulário
+        },
+        success: function (resposta) {
+            // Resposta caso dê certo
+
+            let data = resposta['data'];
+            const tabelaObj = new Tabela([], tabela);
+            tabelaObj.arr = data['resultados'];
+
+            tabelaObj.excluirLinhas();
+            tabelaObj.gerarLinhas();
+
+            if(chamador==="Filtro" || chamador==="Ordenador") {
+                Paginacao.mudarMaxPaginas(Math.ceil(data['total_items'] / 10));
+                Paginacao.excluirIndices(lista);
+                Paginacao.gerarIndices(lista);
+            }
+
+            contador_resultados.innerHTML = `
+                <p>${data['total_items']} resultados encontrados</p>
+            `
+        },
+        error: function (xhr, status, error) {
+            // Resposta caso dê errado
+            console.error('Erro no envio do formulário:', error);
+        },
+    });
 }
 
 // Adiciona um evento de clique a todos os botões de "Ver mais/menos"
@@ -718,6 +760,7 @@ document.querySelectorAll('.ver-mais-btn').forEach(function (button) {
 // Inicializa o mapa e os botões de ordenação quando a página carrega
 window.onload = function () {
     initMapAdmin();
+    realizarQuery("Filtro");
 };
 
 // Exporta as classes
