@@ -511,4 +511,5 @@ table th:last-child {
     height: 100%; /* Garante que todos os botões ocupem a mesma altura */
     flex: 1; /* Faz com que os botões cresçam igualmente dentro do contêiner */
     width: 100px;
+    margin: 5px;
 }
