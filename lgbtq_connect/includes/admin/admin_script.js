@@ -136,17 +136,24 @@ class Tabela {
                 <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                     Ações
                 </button>
-                <ul class="dropdown-menu">
-                    <li>
-                        <form method="post" action="" class="d-flex flex-wrap justify-content-between my-1">
-                            <input type="hidden" name="id" value="${dados.id}">
-                            <input type="hidden" name="action" value="">
-                            <button type="button" class="btn btn-primary mb-1" onclick='abrirModalEdicao(${JSON.stringify(dados)})'>Editar</button>
-                            ${acoes}
-                            <button type="button" class="btn btn-danger mt-1" onclick="confirmarAcao('Tem certeza que quer excluir a sugestão?', this.form, 'exclude')">Excluir</button>
-                        </form>
-                    </li>
-                </ul>
+       <ul class="dropdown-menu">
+            <li>
+                <form method="post" action="" class="d-flex flex-column align-items-center my-1 w-100">
+                    <input type="hidden" name="id" value="${dados.id}">
+                    <input type="hidden" name="action" value="">
+                    <div class="d-flex flex-wrap gap-2"> <!-- Contêiner flexível para os botões -->
+
+                        <button type="button" class="btn btn-primary  w-50" onclick='abrirModalEdicao(${JSON.stringify(dados)})'>Editar</button>
+                        ${acoes}
+                        <button type="button" class="btn btn-danger w-50 " onclick="confirmarAcao('Tem certeza que quer excluir a sugestão?', this.form, 'exclude')">Excluir</button>
+                    </div>
+                </form>
+            </li>
+        </ul>
+
+
+
+
             </div>
         </td>
     `;
