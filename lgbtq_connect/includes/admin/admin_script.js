@@ -534,7 +534,7 @@ function abrirModalEdicao(dados) {
 document.addEventListener('DOMContentLoaded', adicionarListenerFormulario);
 
 document.addEventListener('DOMContentLoaded', function() {
-    var btnPendente = document.getElementById('botao_inicial');
+    const btnPendente = document.getElementById('botao_inicial');
     if (btnPendente) {
         btnPendente.click();
     }
@@ -795,7 +795,6 @@ document.querySelectorAll('.ver-mais-btn').forEach(function (button) {
 // Inicializa o mapa e os botões de ordenação quando a página carrega
 window.onload = function () {
     initMapAdmin();
-    realizarQuery("Filtro");
 };
 
 // Exporta as classes
