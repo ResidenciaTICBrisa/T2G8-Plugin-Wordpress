@@ -136,11 +136,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
             ?>
             </div>
         </div>
-        <div id="contador_resultados">
-        </div>
         <div id="filtros" >
-            <input type="text" id="busca_nome" placeholder="Pesquise pelo nome" oninput="filtrar()">
-            <select id="selecao_servico" class="filtro " onchange="filtrar()" required>
+            <h3 id="titulo_tabela"></h3>
+            <div style="display:flex; flex-direction: row; space-between:">
+                <form method="post">
+                    <div id="busca_nome_container" class="filtro">
+                        <input type="text" id="busca_nome" placeholder="Pesquise pelo nome" oninput="filtrar()">
+                    </div>
+                </form>
+            <select id="selecao_servico" class="filtro" onchange="filtrar()" required>
                 <option value="" selected disabled>Selecione...</option>
                 <option value="bar/restaurante">Bares/restaurantes</option>
                 <option value="entretenimento">Entretenimento</option>
@@ -150,7 +154,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
                 <option value="academia">Academia</option>
                 <option value="">Todos</option>
             </select>
+            </div>
         </div>
+        <div id="contador_resultados"></div>
         <div class="wrap">
         <div id="confirmModal" class="modal" tabindex="-1">
             <div class="modal-dialog">
