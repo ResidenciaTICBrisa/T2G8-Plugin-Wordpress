@@ -53,12 +53,18 @@ function enfileirar_scripts_admin() {
     // Obtém todos os formulários
     $formularios = obter_formularios($wpdb);
 
+    // Url do marcador
+    $marcador_url = plugin_dir_url( __FILE__ ) . 'assets/imgs/custom_marker.png';
+
     wp_enqueue_script('admin_script.js', plugin_dir_url(__FILE__) . 'includes/admin/admin_script.js', array('jquery'), '1.0', true);
     // Passa os dados dos formulários aprovados para o script JavaScript
     wp_localize_script('admin_script.js', 'formularios_aprovados', $formularios_aprovados);
 
     // Passa os dados de todos os formulários para o script JavaScript
     wp_localize_script('admin_script.js', 'formularios_todos', $formularios);
+
+    // Passa o url do marcador
+    wp_localize_script('admin_script.js', 'marcador_url', $marcador_url);
 }
 
 function enfileirar_styles_admin()
@@ -82,6 +88,9 @@ function enfileirar_scripts() {
     // Enfileira o script JavaScript
     wp_enqueue_script('script.js', plugins_url('/assets/js/script.js', __FILE__), array('jquery'), '1.0', true);
    
+    // Url do marcador
+    $marcador_url = plugin_dir_url( __FILE__ ) . 'assets/imgs/custom_marker.png';
+
     // Obtém os formulários aprovados
     $formularios_aprovados = obter_formularios_aprovados($wpdb);
 
@@ -93,6 +102,9 @@ function enfileirar_scripts() {
 
     // Passa os dados de todos os formulários para o script JavaScript
     wp_localize_script('script.js', 'formularios_todos', $formularios);
+
+    // Passa o url do marcador
+    wp_localize_script('script.js', 'marcador_url', $marcador_url);
 }
 
 add_action('admin_enqueue_scripts', 'enfileirar_scripts_admin');
