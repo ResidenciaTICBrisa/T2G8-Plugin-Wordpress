@@ -10,8 +10,61 @@
         <div class="title">Encontre empreendimentos e serviços já identificados como LGBTQ+ friendly:<br></div>
         <form method="post">
             <div class="search_wrapper">
-                <input type="text" id="searchInputIndex" placeholder="Pesquise a cidade ou estado...">
-                <button type="button" onclick="pesquisar('searchInputIndex', 'listaResultadosIndex')" class="button_search">Pesquisar</button>
+                <button id="filtro_servico" type="button" onclick="abrirFiltroServico()">
+                    <p>Filtro por serviço</p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-circle" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293z"/>
+                    </svg>
+                </button>
+                <div id="modal_filtro" style="display: none;">
+                    <div style="display: flex; flex-direction: row; font-size: 10px;">
+                        <div>
+                            <label class="label_servico">
+                                <input type="checkbox" class="name_servico" value="restaurant" checked>
+                                Bares/restaurantes
+                            </label>
+                            <br>
+                            <label class="label_servico">
+                                <input type="checkbox" class="name_servico" value="cafe" checked>
+                                Entretenimento
+                            </label>
+                            <br>
+                            <label class="label_servico">
+                                <input type="checkbox" class="name_servico" value="bar" checked>
+                                Beleza
+                            </label>
+                            <br>
+                            <label class="label_servico">
+                                <input type="checkbox" class="name_servico" value="bar" checked>
+                                Hospedagem
+                            </label>
+                        </div>
+                        <div>
+                            <label class="label_servico">
+                                <input type="checkbox" class="name_servico" value="bar" checked>
+                                Ensino
+                            </label>
+                            <br>
+                            <label class="label_servico">
+                                <input type="checkbox" class="name_servico" value="bar" checked>
+                                Academia
+                            </label>
+                            <br>
+                            <label class="label_servico">
+                                <input type="checkbox" class="name_servico" value="bar" checked>
+                                Outros
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: flex; flex-direction: row; justify-content: center; width: 45%;">
+                    <input type="text" id="searchInputIndex" placeholder="Pesquise a cidade ou estado...">
+                    <button type="button" onclick="pesquisar('searchInputIndex', 'listaResultadosIndex')" class="button_search">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                            </svg>
+                    </button>
+                </div>
             </div>
         </form>
         <div id="listaResultadosIndex"></div>

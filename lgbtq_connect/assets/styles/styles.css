@@ -32,6 +32,7 @@
 
 .button_search{
     width: 17%;
+    cursor: pointer;
 }
 
 .ver {
@@ -61,10 +62,10 @@
 }
 
 #searchInputIndex, #searchInputForm{
-    width: 77%;
-    margin: 0 auto;
+    width: 90%;
     padding:10px !important;
-    margin-left:0px;
+    margin-bottom: 0;
+    margin-right: 2%;
 }
 
 #servico{
@@ -206,9 +207,48 @@
     background-color: #ccc;
 }
 
-.search_wrapper{
+.search_wrapper {
     background-color: white;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    position: relative; 
 }
+
+#filtro_servico {
+    outline: none;
+    width: 45%;
+    font-family: inter, sans-serif;
+    height: 40px;
+    font-weight: 550;
+    background-color: #f5f5f5;
+    border: 1px solid rgb(209, 216, 212);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#modal_filtro {
+    width: 41.5%;
+    position: absolute;
+    top: 105%;
+    left: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    z-index: 2000;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.label_servico{
+    font-size: 12.5px;
+}
+
+.name_servico {
+    color: green;
+    accent-color: green;
+}
+
