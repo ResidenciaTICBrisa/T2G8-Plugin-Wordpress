@@ -212,3 +212,39 @@ function transicaoPagina(tipo, id) {
 window.onload = function () {
     transicaoPagina("PaginaComPopup", "div_index")
 }
+
+function abrirFiltroServico(){
+    const modal = document.getElementById('modal_filtro');
+    const botao = document.getElementById('filtro_servico');
+
+    // Alterna entre mostrar e esconder o modal
+    if (modal.style.display === "none" || modal.style.display === "") {
+        modal.style.display = "block";
+        botao.style.backgroundColor = '#5882c9';
+        botao.style.border = '1px solid #4374ca';
+    } else {
+        modal.style.display = "none";
+        botao.style.backgroundColor = '#f5f5f5';
+        botao.style.border = '1px solid rgb(209, 216, 212)';
+    }
+
+    
+}
+
+// Previne o fechamento do modal ao clicar nos checkboxes
+document.querySelectorAll('.name_servico').forEach(checkbox => {
+    checkbox.addEventListener('click', function(event) {
+        event.stopPropagation(); // Impede que o clique se propague e feche o modal
+    });
+});
+
+// Fechar o modal se clicar fora dele
+window.onclick = function(event) {
+    const modal = document.getElementById('modal_filtro');
+    const botao = document.getElementById('filtro_servico');
+    if (event.target !== modal && event.target !== document.getElementById('filtro_servico')) {
+        modal.style.display = "none";
+        botao.style.backgroundColor = '#f5f5f5';
+        botao.style.border = '1px solid rgb(209, 216, 212)';
+    }
+};
