@@ -228,6 +228,12 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+    cursor: pointer;
+}
+
+#filtro_servico p, 
+#filtro_servico svg {
+    pointer-events: none;
 }
 
 #modal_filtro {
@@ -247,8 +253,30 @@
     font-size: 12.5px;
 }
 
-.name_servico {
-    color: green;
+.name_servico[value="bar/restaurante"] {
+    accent-color: red;
+}
+
+.name_servico[value="entretenimento"] {
+    accent-color: orange;
+}
+
+.name_servico[value="beleza"] {
+    accent-color: yellow;
+}
+
+.name_servico[value="hospedagem"] {
     accent-color: green;
 }
 
+.name_servico[value="ensino"] {
+    accent-color: blue;
+}
+
+.name_servico[value="academia"] {
+    accent-color: purple;
+}
+
+.name_servico[value="outros"] {
+    accent-color: gray;
+}
