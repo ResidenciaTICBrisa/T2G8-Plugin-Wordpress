@@ -213,8 +213,8 @@ class Tabela {
             linha.innerHTML = `
             <td id="formulario-${dados.id}-nome">${dados.nome}</td>
             <td id="formulario-${dados.id}-email">${dados.email}</td>
-            <td id="formulario-${dados.id}-cidade">${dados.city}</td>
-            <td id="formulario-${dados.id}-rua">${dados.road}</td>
+            <td id="formulario-${dados.id}-cidade">${dados.cidade}</td>
+            <td id="formulario-${dados.id}-rua">${dados.rua}</td>
             <td id="formulario-${dados.id}-servico">${dados.servico}</td>
             <td id="formulario-${dados.id}-descricao">${descricao}</td>
             <td id="formulario-${dados.id}-data_hora">${dataFormatada}</td>
