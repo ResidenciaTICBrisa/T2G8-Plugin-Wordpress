@@ -36,9 +36,7 @@
     align-items: center;
 }
 
-#busca_nome_container {
-    display: flex;
-    border: 1px solid grey;
+#selecao_servico, #busca_nome{
     border-radius: 10px;
     width: 351.51px;
     height: 40px;
@@ -399,9 +397,9 @@ table th:last-child {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 28px;
-    
+    font-size: 28px;    
 }   
+
 .btn-pendente{
     background: rgb(238,202,16);
     background: linear-gradient(149deg, rgba(238,202,16,1) 14%, rgba(235,115,10,1) 65%, rgba(221,73,28,1) 99%);
@@ -425,6 +423,47 @@ table th:last-child {
 
 #editLabelNome, #editLabelEmail, #editLabelServico, #editLabelDescricao {
     font-size: 18px;
+}
+
+#tabela tr:nth-child(odd) td {
+    background-color: #00000015;
+}
+
+.paginacao {
+    margin: 10px;
+    display: inline;
+}
+
+.paginacao li {
+    display: inline;
+}
+
+.paginacao a {
+    font-size: large;
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    transition: background-color .3s;
+}
+
+.paginacao a.paginacao-seta {
+    border: 1.5px solid #ddd;
+    border-image: linear-gradient(to bottom right, red, hotpink, blue, lime, yellow) 5;
+}
+  
+.paginacao a:hover:not(.pagina-selecionada) {background-color: #ddd;}
+
+.wrap-paginacao {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.pagina-selecionada {
+    background-color: blue;
+    color: white !important;
 }
 
 .lc_rotate {
