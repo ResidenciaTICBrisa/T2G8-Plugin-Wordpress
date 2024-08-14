@@ -16,11 +16,15 @@ error_reporting(E_ALL);
 // Inclui os arquivos necessários
 include_once(plugin_dir_path(__FILE__) . 'includes/data/conexao_bd.php');
 include_once(plugin_dir_path(__FILE__) . 'includes/data/process_form.php');
+include_once(plugin_dir_path(__FILE__) . 'includes/admin/realizar-query.php');
 include_once(plugin_dir_path(__FILE__) . 'includes/admin/pagina_administracao.php');
 
 // Adiciona um gancho para processar o formulário quando o WordPress estiver processando solicitações
 add_action('wp_ajax_processar_formulario', 'processar_formulario');
 add_action('wp_ajax_nopriv_processar_formulario', 'processar_formulario');
+
+add_action('wp_ajax_realizarQuery', 'realizarQuery');
+add_action('wp_ajax_nopriv_realizarQuery', 'realizarQuery');
 
 // Função para carregar o conteúdo do arquivo HTML
 function load_meu_plugin_html() {
@@ -54,11 +58,12 @@ function enfileirar_scripts_admin() {
     $formularios = obter_formularios($wpdb);
 
     wp_enqueue_script('admin_script.js', plugin_dir_url(__FILE__) . 'includes/admin/admin_script.js', array('jquery'), '1.0', true);
+    
+    wp_localize_script( 'admin_script.js', 'my_ajax_object',
+        array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
+
     // Passa os dados dos formulários aprovados para o script JavaScript
     wp_localize_script('admin_script.js', 'formularios_aprovados', $formularios_aprovados);
-
-    // Passa os dados de todos os formulários para o script JavaScript
-    wp_localize_script('admin_script.js', 'formularios_todos', $formularios);
 }
 
 function enfileirar_styles_admin()
