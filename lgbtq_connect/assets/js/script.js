@@ -1,11 +1,17 @@
 let pagina = null;
 
-// Definindo o ícone personalizado no escopo global
-const personalIcon = L.icon({
-    iconUrl: marcador_url,
-    iconSize: [40, 40], // tamanho do ícone
-    popupAnchor: [1, -10]
-});
+// Função getMarcador
+function getMarcador(url) {
+    const icon = L.icon({
+        iconUrl: url,
+        iconSize: [40, 40], // tamanho do ícone
+        popupAnchor: [1, -10]
+    });
+    return icon;
+}
+
+// Definindo o ícone personalizado no escopo global usando a função getMarcador
+const personalIcon = getMarcador(marcador_url_padrao);
 
 // CLASSES
 class Mapa {
@@ -61,7 +67,7 @@ class Mapa {
         this.mapa.addControl(new CustomControl());
     }
 
-    adicionarMarcador(marcador) {
+       adicionarMarcador(marcador) {
         marcador.addTo(this.mapa);
         this.marcadores.push(marcador);
     }

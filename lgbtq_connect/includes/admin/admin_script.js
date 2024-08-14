@@ -213,7 +213,7 @@ function initMapAdmin() {
         return;
     }
 
-    const personalIcon = getMarcador(marcador_url);
+    const personalIcon = getMarcador(marcador_url_padrao);
 
     mapAdmin = L.map('mapa_admin', { doubleClickZoom: false }).setView([-15.8267, -47.9218], 13);
 
@@ -269,7 +269,7 @@ function initMapEdit(latitude, longitude, nome, servico, descricao) {
         mapEdit.remove();
     }
 
-    const personalIcon = getMarcador(marcador_url);
+    const personalIcon = getMarcador(marcador_url_padrao);
 
     mapEdit = L.map('mapa_formulario_edit', { doubleClickZoom: false }).setView([-15.8267, -47.9218], 13);
 
