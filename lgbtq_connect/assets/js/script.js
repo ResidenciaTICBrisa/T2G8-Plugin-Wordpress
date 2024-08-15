@@ -154,6 +154,8 @@ class PaginaFormulario extends Pagina {
             // Atualiza os valores dos campos de entrada ocultos
             document.getElementById('latitude').value = lat;
             document.getElementById('longitude').value = lng;
+
+            Verificador.verificarCoordenadas();
         });
 
         this.mapa.mapa.on('contextmenu', function (e) {
@@ -163,6 +165,7 @@ class PaginaFormulario extends Pagina {
                 self.mapa.mapa.removeLayer(self.marcador);
                 document.getElementById('latitude').value = '';
                 document.getElementById('longitude').value = '';
+                Verificador.verificarCoordenadas();
                 self.marcador = null;
             }
         });
@@ -210,7 +213,14 @@ function transicaoPagina(tipo, id) {
 
 // Inicializa o plugin
 window.onload = function () {
-    transicaoPagina("PaginaComPopup", "div_index")
+    transicaoPagina("PaginaComPopup", "div_index");
+    Verificador.nome = document.getElementById("nome");
+    Verificador.email = document.getElementById("email_f");
+    Verificador.servico = document.getElementById("servico"); 
+    Verificador.servico_outro = document.getElementById("servico_outro");
+    Verificador.descricao = document.getElementById("descricao");
+    Verificador.latitude = document.getElementById("latitude");
+    Verificador.longitude = document.getElementById("longitude"); 
 }
 
 function abrirFiltroServico(){

@@ -55,10 +55,13 @@
     width:97%;
     resize:none;
     background-color:#F5F5F5;
-    margin-bottom:10px;
     border: 1px solid #D0D0D0;
     border-radius:10px;
     padding:10px;
+}
+
+#nomePacote, #emailPacote, #descricaoPacote, #outroServico {
+    margin-bottom:10px;
 }
 
 #searchInputIndex, #searchInputForm{
@@ -279,4 +282,42 @@
 
 .name_servico[value="outros"] {
     accent-color: gray;
+}
+
+.entrada-valida input {
+    border-color: lightgreen!important;
+}
+
+.entrada-valida textarea {
+    border-color: lightgreen!important;
+}
+
+.entrada-valida select {
+    border-color: lightgreen!important;
+}
+
+.entrada-valida label {
+    color: lightgreen!important;
+}
+
+.entrada-invalida input {
+    border-color: red!important;
+}
+
+.entrada-invalida textarea {
+    border-color: red!important;
+}
+
+.entrada-invalida select {
+    border-color: red!important;
+}
+
+.entrada-invalida label {
+    color: red;
+}
+
+.entrada-invalida p {
+    display: block!important;
+    font-size: small;
+    color: red;
 }
