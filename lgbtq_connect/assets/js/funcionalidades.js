@@ -124,11 +124,10 @@ function mostrarOutro() {
     var outroInput = document.getElementById("servico_outro");
     if (select.value === "outro") {
         outroCampo.classList.remove("escondido");
-        outroInput.setAttribute("required", "required");
     }
     else {
         outroCampo.classList.add("escondido");
-        outroInput.removeAttribute("required");
+        outroInput.value = "";
     }
 }
 

@@ -74,43 +74,57 @@
 
     <div id="div_form" style="display: none;">
         <form id="meu_formulario" method="post" action="#">
-            <label for="nome" id="labelnome">Nome do local:</label>
-            <input type="text" name="nome" id="nome" required><br>
-
-            <label for="email">Email:</label>
-            <input type="email" name="email" id="email_f" required><br>
+            <div id="nomePacote">
+                <label for="nome" id="labelnome">Nome do local:</label>
+                <p style="display: none;">O nome deve ter no mínimo 3 caracteres e não conter nenhum caractere especial (#, *, &, etc)</p>
+                <input type="text" name="nome" id="nome" oninput="Verificador.verificarNome()">
+            </div>
+                
+            <div id="emailPacote">
+                <label for="email">Email:</label>
+                <p style="display: none;">O email deve estar em um formato válido. Exemplo: examplo@gmail.com</p>
+                <input type="email" name="email" id="email_f" oninput="Verificador.verificarEmail()"><br>
+            </div>
             
-            <label for="servico">Escolha o tipo de serviço:</label><br>
-            <select id="servico" name="servico" onchange="mostrarOutro()" required>
-                <option value="" selected disabled>Selecione...</option>
-                <option value="bar/restaurante">Bares/restaurantes</option>
-                <option value="entretenimento">Entretenimento</option>
-                <option value="beleza">Beleza</option>
-                <option value="hospedagem">Hospedagem</option>
-                <option value="ensino">Ensino</option>
-                <option value="academia">Academia</option>
-                <option value="outro">Outro</option>
-            </select>
+            <div id="servicoPacote">
+                <label for="servico">Escolha o tipo de serviço:</label><br>
+                <p style="display: none;">Escolha algum serviço</p>
+                <select id="servico" name="servico" onchange="mostrarOutro()">
+                    <option value="" selected disabled>Selecione...</option>
+                    <option value="bar/restaurante">Bares/restaurantes</option>
+                    <option value="entretenimento">Entretenimento</option>
+                    <option value="beleza">Beleza</option>
+                    <option value="hospedagem">Hospedagem</option>
+                    <option value="ensino">Ensino</option>
+                    <option value="academia">Academia</option>
+                    <option value="outro">Outro</option>
+                </select>
+            </div>
 
             <div id="outroServico" class="escondido">
                 <label for="servico_outro">Especifique:</label>
-                <input type="text" name="servico_outro" id="servico_outro" maxlength="30" minlength="3">
-    
+                <p style="display: none;">O serviço deve ter no mínimo 3 caracteres e no máximo 30 caracteres e não conter nenhum caractere especial</p>
+                <input type="text" name="servico_outro" id="servico_outro" oninput="Verificador.verificarServico()" maxlength="30" minlength="3">
             </div>
             
-            <label for="descricao">Descrição:</label>
-            <textarea name="descricao" id="descricao" rows="3" cols="70" placeholder="Descrição ..." required></textarea>
+            <div id="descricaoPacote">
+                <label for="descricao">Descrição:</label>
+                <p style="display: none;">A descrição deve ter no mínimo 3 caracteres e não conter nenhum caractere especial (#, *, &, etc)</p>
+                <textarea name="descricao" id="descricao" rows="3" cols="70" placeholder="Descrição ..." oninput="Verificador.verificarDescricao()"></textarea>
+            </div>
 
             <div class="search_wrapper">
                 <input type="text" id="searchInputForm" placeholder="Pesquise a cidade ou estado...">
                 <button type="button" onclick="pesquisar('searchInputForm', 'listaResultadosForms')" class="button_search">Pesquisar</button>
             </div>
             <div id="listaResultadosForms"></div>
-            <div id="mapa_formulario" style="height: 300px;margin-bottom:10px;"></div>
-
             <!-- Input de latitude e longitude -->
-            <input type="hidden" name="latitude" id="latitude" required>
-            <input type="hidden" name="longitude" id="longitude" required>
+            <div id="coordenadasPacote">
+                <p style="display: none;">Escolha algum lugar para poder enviar o formulário</p>
+                <input type="hidden" name="latitude" id="latitude">
+                <input type="hidden" name="longitude" id="longitude">
+            </div>
+            <div id="mapa_formulario" style="height: 300px;margin-bottom:10px;"></div>
 
             <input class="blue_button" type="submit" value="Enviar">
         </form>
