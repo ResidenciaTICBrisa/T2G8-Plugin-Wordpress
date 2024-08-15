@@ -43,7 +43,7 @@ class Verificador {
             verificacao = false;
 
         if (verificacao) {
-            let padrao = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]+?/;
+            let padrao = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
             verificacao = padrao.test(this.email.value);
         }
 
