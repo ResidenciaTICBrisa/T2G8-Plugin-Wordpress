@@ -1,73 +1,96 @@
-var ajaxUrl = my_ajax_object.ajax_url;
+const ajaxUrl = my_ajax_object.ajax_url;
 
-document.addEventListener('DOMContentLoaded', function () {
-    // Verifica se há dados no localStorage e os exibe
-    if (localStorage.getItem('formData')) {
-        console.log('Dados enviados anteriormente:');
-        console.log(JSON.parse(localStorage.getItem('formData')));
-        localStorage.removeItem('formData'); // Limpa os dados após exibi-los
+// Função para verificar se a entrada livre possui algum caractere especial
+// Retorna verdadeiro se tem
+// Retorna falso se não tem
+function temCaractereEspecial(el) {
+    let tem = /[!#$%&()*+\/<=>?@[\\\]_{|}]/.test(el.value);
+
+    if(tem) {
+        el.classList.add('entrada-invalida');
+    }
+    else {
+        el.classList.remove('entrada-invalida');
     }
 
+    return tem;
+}
+
+// Função para verificar se a entrada está vazia
+// Retorna verdadeiro se estiver vazia
+// Retorna falso se não estiver vazia
+function entradaEstaVazia(el) {
+    let esta = (el.value === '');
+
+    if(esta) {
+        el.classList.add('entrada-invalida');
+    }
+    else {
+        el.classList.remove('entrada-invalida');
+    }
+
+    return esta;
+}
+
+document.addEventListener('DOMContentLoaded', function () {
     $('#meu_formulario').on('submit', function (e) {
         e.preventDefault(); 
 
-        var nome = document.getElementById('nome').value;
-        var email = document.getElementById('email_f').value;
-        var latitude = document.getElementById('latitude').value;
-        var longitude = document.getElementById('longitude').value;
-        var servico = document.getElementById('servico').value;
-        var descricao = document.getElementById('descricao').value;
-        var outroServico = document.getElementById('servico_outro').value;
+        const nome = document.getElementById('nome');
+        const email = document.getElementById('email_f');
+        const latitude = document.getElementById('latitude');
+        const longitude = document.getElementById('longitude');
+        const servico = document.getElementById('servico');
+        const descricao = document.getElementById('descricao')
+        const outroServico = document.getElementById('servico_outro');
 
-        // Função para verificar caracteres especiais
-        function hasSpecialChars(str) {
-            return /[!#$%&()*+\/<=>?@[\\\]_{|}]/.test(str);
-        }
+        // Todas as entradas do formulário em uma array
+        const entradas = [nome, email, latitude, longitude, descricao, servico, outroServico];
 
+        // Entradas livres são aquelas que o usuário pode digitar
+        const entradasLivres = [nome, descricao, outroServico];
         
-
-        if (nome === '' || email === '' || latitude === '' || longitude === '' || (servico === 'outro' && outroServico === '')) {
-            alert('Por favor, preencha todos os campos.');
-            return;
-            } else if (hasSpecialChars(nome) || hasSpecialChars(descricao) || hasSpecialChars(outroServico)) {
-                alert("Não insira caracteres especiais");
-                console.log('Campos com caracteres especiais:', { nome, descricao, outroServico });
-                return;
-        } else {
-            // Serializa os dados do formulário
-            var formData = $(this).serialize();
-            var formDataObject = {
-                nome: nome,
-                email: email,
-                latitude: latitude,
-                longitude: longitude,
-                servico: servico,
-                descricao: descricao,
-                outroServico: outroServico
-            };
-
-            // Armazena os dados no localStorage
-            localStorage.setItem('formData', JSON.stringify(formDataObject));
-
-            // Envia o pedido do AJAX
-            $.ajax({
-                type: 'POST',
-                url: ajaxUrl,
-                data: {
-                    action: 'processar_formulario', // Hook de ação para o lado do servidor
-                    formData: formData, // Data do formulário
-                },
-                success: function (response) {
-                    // Resposta caso dê certo
-                    console.log('Resposta do servidor:', response);
-                    // Se o envio for bem-sucedido, executar a função exit_page()
-                    transicaoPagina("PaginaComPopup", "div_saida");
-                },
-                error: function (xhr, status, error) {
-                    // Resposta caso dê errado
-                    console.error('Erro no envio do formulário:', error);
-                },
-            });
+        // Verificar se todas as entradas do formulário estão preenchidas
+        let temEntradaVazia = false;
+        for(let i=0; i<entradas.length; i++) {
+            if(!temEntradaVazia)
+                temEntradaVazia = entradaEstaVazia(entradas[i]);
+            else
+                entradaEstaVazia(entradas[i]);
         }
+
+        // Verificar se todas as entradas livres do formulário não tem caracteres especiais
+        let temEntradaComCaractereEspecial = false;
+        for(let i=0; i<entradasLivres.length; i++) {
+            if(!temEntradaComCaractereEspecial)
+                temEntradaComCaractereEspecial = temCaractereEspecial(entradasLivres[i]);
+            else
+                temCaractereEspecial(entradasLivres[i])
+        }
+     
+        // Encerra a função caso as entradas forem inválidas
+        if(temEntradaVazia || temEntradaComCaractereEspecial)
+            return;
+
+        // Serializa os dados do formulário
+        let formData = $(this).serialize();
+        
+        // Envia o pedido POST assíncrono por meio do AJAX
+        $.ajax({
+            type: 'POST',
+            url: ajaxUrl,
+            data: {
+                action: 'processar_formulario', // Hook de ação para o lado do servidor
+                formData: formData, // Data do formulário
+            },
+            success: function (response) {
+                // Se o envio for bem-sucedido, realiza a transição para a página de finalização
+                transicaoPagina("PaginaComPopup", "div_saida");
+            },
+            error: function (xhr, status, error) {
+                // Resposta caso dê errado
+                console.error('Erro no envio do formulário:', error);
+            },
+        });
     });
 });

@@ -75,13 +75,13 @@
     <div id="div_form" style="display: none;">
         <form id="meu_formulario" method="post" action="#">
             <label for="nome" id="labelnome">Nome do local:</label>
-            <input type="text" name="nome" id="nome" required><br>
+            <input type="text" name="nome" id="nome"><br>
 
             <label for="email">Email:</label>
-            <input type="email" name="email" id="email_f" required><br>
+            <input type="email" name="email" id="email_f"><br>
             
             <label for="servico">Escolha o tipo de serviço:</label><br>
-            <select id="servico" name="servico" onchange="mostrarOutro()" required>
+            <select id="servico" name="servico" onchange="mostrarOutro()">
                 <option value="" selected disabled>Selecione...</option>
                 <option value="bar/restaurante">Bares/restaurantes</option>
                 <option value="entretenimento">Entretenimento</option>
@@ -99,7 +99,7 @@
             </div>
             
             <label for="descricao">Descrição:</label>
-            <textarea name="descricao" id="descricao" rows="3" cols="70" placeholder="Descrição ..." required></textarea>
+            <textarea name="descricao" id="descricao" rows="3" cols="70" placeholder="Descrição ..."></textarea>
 
             <div class="search_wrapper">
                 <input type="text" id="searchInputForm" placeholder="Pesquise a cidade ou estado...">
@@ -109,8 +109,8 @@
             <div id="mapa_formulario" style="height: 300px;margin-bottom:10px;"></div>
 
             <!-- Input de latitude e longitude -->
-            <input type="hidden" name="latitude" id="latitude" required>
-            <input type="hidden" name="longitude" id="longitude" required>
+            <input type="hidden" name="latitude" id="latitude">
+            <input type="hidden" name="longitude" id="longitude">
 
             <input class="blue_button" type="submit" value="Enviar">
         </form>
