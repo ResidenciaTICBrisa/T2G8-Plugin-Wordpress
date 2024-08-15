@@ -2,39 +2,21 @@ let mapAdmin;
 let mapEdit;
 let isSearching = false;
 
+const  ajaxUrl = my_ajax_object.ajax_url;
+
 class Filtro {
-    static status = "Todos";
+    static status = "Pendente";
     static nome = "";
     static servico = "";
 
-    static realizarFiltragem(arr) {
-        const self = this;
-        return arr.filter(function (formulario) {
-            return (self.checarStatus(formulario) && self.checarNome(formulario) && self.checarServico(formulario));
-        });
+    static preencherQuery(dados) {
+        dados['status'] = this.status;
+        dados['nome'] = this.nome;
+        dados['servico'] = this.servico;
     }
-    static checarStatus(formulario) {
-        if (this.status !== "Todos") {
-            return (this.status == formulario.situacao);
-        } else {
-            return true;
-        }
-    }
-
-    static checarNome(formulario) {
-        return (formulario.nome.toLowerCase().trim().startsWith(this.nome.toLowerCase().trim()));
-    }
-
-    static checarServico(formulario) {
-        if (this.servico !== "") {
-            return (this.servico == formulario.servico);
-        } else {
-            return true;
-        }
-    }
-
+    
     static reiniciarFiltro() {
-        this.status = "Todos";
+        this.status = "";
         this.nome = "";
         this.servico = "";
     }
@@ -44,14 +26,120 @@ class Ordenador {
     static coluna = "nome";
     static ordem = "asc";
 
-    static realizarOrdenacao(arr) {
-        const self = this;
-        return arr.sort(function (a, b) {
-            const aValue = a[self.coluna].trim().toLowerCase();
-            const bValue = b[self.coluna].trim().toLowerCase();
+    static preencherQuery(dados) {
+        dados['coluna'] = this.coluna;
+        dados['ordem'] = this.ordem;
+    }
+}
 
-            return (self.ordem === 'asc') ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
-        });
+class Paginacao {
+    static pagina=1;
+    static max_paginas=20;
+
+    static preencherQuery(dados) {
+        dados['pagina'] = this.pagina;
+    }
+
+    static mudarMaxPaginas(n) {
+        this.max_paginas = n;
+        this.mudarPagina(1);
+    }
+
+    static mudarPagina(n) {
+        if(n >= 1 && n <= this.max_paginas)
+            this.pagina = n;
+    }
+
+    static gerarIndices(el) {
+        this.criarSeta(el, "voltar");
+        let grande = this.max_paginas >= 7;
+
+        let paginas = this.max_paginas;
+        if(grande)
+            paginas = 3;
+
+        for(let i=1; i<=paginas; i++) {
+            this.criarIndice(i, el);
+            if(grande && this.pagina===paginas && i==this.pagina)
+                this.criarIndice(i+1, el);
+        }
+
+        if(grande) {
+            this.criarReticencias(el);
+
+            if(this.pagina > 3 && this.pagina < (this.max_paginas - 2)) {
+                if(this.pagina -1 > 3)
+                    this.criarIndice(this.pagina-1, el)
+
+                this.criarIndice(this.pagina, el);
+
+                if(this.pagina+1 < (this.max_paginas-2))
+                    this.criarIndice(this.pagina+1, el)
+
+                this.criarReticencias(el);            
+            }
+
+            for(let i=this.max_paginas-2; i<=this.max_paginas; i++) {
+                if(grande && this.pagina==(this.max_paginas-2) && i==this.pagina)
+                    this.criarIndice(i-1, el);
+                this.criarIndice(i, el);
+            }
+        }
+
+        this.criarSeta(el, "avancar");
+    }
+
+    static criarSeta(el, tipo) {
+        const self = this;
+        let liEl =  document.createElement('li');
+        let aEl = document.createElement('a');
+
+        let p;
+        let simbolo;
+        if(tipo==="voltar") {
+            p=-1;
+            simbolo = "«";
+        }
+        else if(tipo==="avancar") {
+            p=1;
+            simbolo = "»";
+        }
+        else 
+            return;
+
+        aEl.href = "#";
+        aEl.onclick = function() { mudarPagina(self.pagina+p) };
+        aEl.classList.add("paginacao-seta");
+        aEl.innerHTML = simbolo;
+
+        liEl.appendChild(aEl);
+        el.appendChild(liEl);
+    }
+
+    static criarIndice(i, el) {
+        let liEl =  document.createElement('li');
+        let aEl = document.createElement('a');
+
+        aEl.href = "#";
+        aEl.onclick = function() { mudarPagina(i) };
+        aEl.id = `pagina-${i}`;
+        aEl.innerHTML = `${i}`;
+                
+        if(i==this.pagina)
+            aEl.classList.add("pagina-selecionada");
+
+        liEl.appendChild(aEl);
+        el.appendChild(liEl);
+    }
+
+    static criarReticencias(el) {
+        let dotEl = document.createElement('li');
+        dotEl.innerHTML = "<a>...</a>"
+        el.appendChild(dotEl);
+    }
+
+    static excluirIndices(el) {
+        el.innerHTML = "";
     }
 }
 
@@ -125,8 +213,8 @@ class Tabela {
             linha.innerHTML = `
             <td id="formulario-${dados.id}-nome">${dados.nome}</td>
             <td id="formulario-${dados.id}-email">${dados.email}</td>
-            <td id="formulario-${dados.id}-cidade">${dados.city}</td>
-            <td id="formulario-${dados.id}-rua">${dados.road}</td>
+            <td id="formulario-${dados.id}-cidade">${dados.cidade}</td>
+            <td id="formulario-${dados.id}-rua">${dados.rua}</td>
             <td id="formulario-${dados.id}-servico">${dados.servico}</td>
             <td id="formulario-${dados.id}-descricao">${descricao}</td>
             <td id="formulario-${dados.id}-data_hora">${dataFormatada}</td>
@@ -163,8 +251,8 @@ class Tabela {
 }
 
 function destacarLinhaTabela(id) {
-    let tabela = document.getElementById("tabela");
-    let linha = document.getElementById(("formulario-" + id));
+    const tabela = document.getElementById("tabela");
+    const linha = document.getElementById(("formulario-" + id));
 
     if (linha === null) {
         return;
@@ -446,7 +534,7 @@ function abrirModalEdicao(dados) {
 document.addEventListener('DOMContentLoaded', adicionarListenerFormulario);
 
 document.addEventListener('DOMContentLoaded', function() {
-    var btnPendente = document.getElementById('botao_inicial');
+    const btnPendente = document.getElementById('botao_inicial');
     if (btnPendente) {
         btnPendente.click();
     }
@@ -589,8 +677,7 @@ function filtrar(elemento) {
     let arr = [];
 
     const filtro_nome = document.getElementById("busca_nome");
-    const filtro_servico = document.getElementById("selecao_servico");   
-        
+    const filtro_servico = document.getElementById("selecao_servico");
     if (elemento) {
         Filtro.status = elemento.value;
     }
@@ -602,14 +689,8 @@ function filtrar(elemento) {
     if (filtro_servico) {
         Filtro.servico = filtro_servico.value;
     }
-    arr = Filtro.realizarFiltragem(formularios_todos);
 
-    const tabela = document.getElementById("tabela");
-    const tabelaObj = new Tabela([], tabela);
-    tabelaObj.arr = arr;
-
-    tabelaObj.excluirLinhas();
-    tabelaObj.gerarLinhas();
+    realizarQuery("Filtro");
 }
 
 function ordenar(elemento) {
@@ -640,11 +721,67 @@ function ordenar(elemento) {
         Ordenador.coluna = "nome";
     }
 
-    const tabelaObj = new Tabela([], tabela);
-    tabelaObj.arr = Ordenador.realizarOrdenacao(tabelaObj.arr);
+    realizarQuery("Ordenador");
+}
 
-    tabelaObj.excluirLinhas();
-    tabelaObj.gerarLinhas();
+function mudarPagina(n) {
+    Paginacao.mudarPagina(n);
+
+    if(n < 1)
+        return;
+
+    const lista = document.getElementById("admin-paginacao");
+
+    Paginacao.excluirIndices(lista);
+    Paginacao.gerarIndices(lista);
+    realizarQuery("Paginacao");
+}
+
+function realizarQuery(chamador) {
+    let dados = {};
+    Filtro.preencherQuery(dados);
+    Ordenador.preencherQuery(dados);
+    Paginacao.preencherQuery(dados);
+
+    const tabela = document.getElementById("tabela");
+    const contador_resultados = document.getElementById("contador_resultados");
+    const lista = document.getElementById("admin-paginacao");
+
+    if(chamador==="Filtro" || chamador==="Ordenador")
+        dados['pagina'] = 1;
+
+    $.ajax({
+        type: 'POST',
+        url: ajaxUrl,
+        data: {
+            action: 'realizarQuery', // Hook de ação para o lado do servidor
+            formData: dados, // Data do formulário
+        },
+        success: function (resposta) {
+            // Resposta caso dê certo
+
+            let data = resposta['data'];
+            const tabelaObj = new Tabela([], tabela);
+            tabelaObj.arr = data['resultados'];
+
+            tabelaObj.excluirLinhas();
+            tabelaObj.gerarLinhas();
+
+            if(chamador==="Filtro" || chamador==="Ordenador") {
+                Paginacao.mudarMaxPaginas(Math.ceil(data['total_items'] / 10));
+                Paginacao.excluirIndices(lista);
+                Paginacao.gerarIndices(lista);
+            }
+
+            contador_resultados.innerHTML = `
+                <p>${data['total_items']} resultados encontrados</p>
+            `
+        },
+        error: function (xhr, status, error) {
+            // Resposta caso dê errado
+            console.error('Erro no envio do formulário:', error);
+        },
+    });
 }
 
 // Adiciona um evento de clique a todos os botões de "Ver mais/menos"

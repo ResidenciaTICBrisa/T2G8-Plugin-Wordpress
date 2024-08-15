@@ -218,3 +218,85 @@ function transicaoPagina(tipo, id) {
 window.onload = function () {
     transicaoPagina("PaginaComPopup", "div_index")
 }
+
+function abrirFiltroServico(){
+    const modal = document.getElementById('modal_filtro');
+    const botao = document.getElementById('filtro_servico');
+
+    // Alterna entre mostrar e esconder o modal
+    if (modal.style.display === "none" || modal.style.display === "") {
+        modal.style.display = "block";
+        botao.style.backgroundColor = '#e2e2e2';
+        botao.style.border = '1px solid #979797';
+    } else {
+        modal.style.display = "none";
+        botao.style.backgroundColor = '#f5f5f5';
+        botao.style.border = '1px solid rgb(209, 216, 212)';
+    }
+
+    
+}
+
+// Previne o fechamento do modal ao clicar nos checkboxes
+document.querySelectorAll('.name_servico').forEach(checkbox => {
+    checkbox.addEventListener('click', function(event) {
+        event.stopPropagation(); // Impede que o clique se propague e feche o modal
+    });
+});
+
+// Fechar o modal se clicar fora dele
+window.onclick = function(event) {
+    const modal = document.getElementById('modal_filtro');
+    const botao = document.getElementById('filtro_servico');
+    if (event.target !== modal && event.target !== document.getElementById('filtro_servico')) {
+        modal.style.display = "none";
+        botao.style.backgroundColor = '#f5f5f5';
+        botao.style.border = '1px solid rgb(209, 216, 212)';
+    }
+};
+
+// Capturando o checklist para gerar marcadores
+document.querySelectorAll('.name_servico').forEach(function(checkbox) {
+    checkbox.addEventListener('change', function() {
+        filtrarServicos();
+    });
+});
+
+
+function filtrarServicos() {
+    // Obter os serviços selecionados
+    const servicosSelecionados = Array.from(document.querySelectorAll('.name_servico:checked')).map(cb => cb.value);
+
+    // Se "Outros" estiver selecionado, adicionar lógica para filtrar todos os serviços não pré-definidos
+    const servicosPreDefinidos = ["bar/restaurante", "entretenimento", "bar", "beleza", "hospedagem", "ensino", "academia"];
+    const outrosSelecionado = servicosSelecionados.includes("outros");
+
+    // Filtrar os formulários aprovados com base nos serviços selecionados
+    const filtrados = formularios_aprovados.filter(formulario => {
+        return servicosSelecionados.includes(formulario.servico) || 
+               (outrosSelecionado && !servicosPreDefinidos.includes(formulario.servico));
+    });
+
+    // Chamar a função para atualizar o mapa com os serviços filtrados
+    atualizarMapaComFiltrados(filtrados);
+}
+
+
+function atualizarMapaComFiltrados(filtrados) {
+    // Limpar marcadores do mapa antes de aplicar o filtro
+    pagina.mapa.marcadores.forEach(marcador => pagina.mapa.mapa.removeLayer(marcador));
+    pagina.mapa.marcadores = [];
+
+    // Aplicar o filtro e adicionar os novos marcadores
+    filtrados.forEach(formulario => {
+        const popupConteudo = `
+            <div class="pop">
+                <h4><strong>${formulario.nome}</strong></h4>
+                <i>${formulario.servico}</i>
+                <div class="gradiente"></div>
+                <p><strong>${formulario.descricao}</strong></p>
+            </div>
+        `;
+        pagina.mapa.adicionarMarcador(L.marker([formulario.latitude, formulario.longitude], { icon: personalIcon }).bindPopup(popupConteudo));
+    });
+}

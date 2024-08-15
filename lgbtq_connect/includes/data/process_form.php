@@ -34,12 +34,12 @@ function processar_formulario() {
             error_log(print_r($locationData, true));
 
             if (isset($locationData['error'])) {
-                $road = 'Rua não encontrada';
-                $city = 'Cidade não encontrada';
+                $rua = 'Rua não encontrada';
+                $cidade = 'Cidade não encontrada';
             } else {
-                $road = isset($locationData['address']['road']) ? $locationData['address']['road'] : 
+                $rua = isset($locationData['address']['road']) ? $locationData['address']['road'] : 
                         (isset($locationData['address']['pedestrian']) ? $locationData['address']['pedestrian'] : 'Rua não encontrada');
-                $city = isset($locationData['address']['city']) ? $locationData['address']['city'] : 
+                $cidade = isset($locationData['address']['city']) ? $locationData['address']['city'] : 
                         (isset($locationData['address']['town']) ? $locationData['address']['town'] : 
                         (isset($locationData['address']['village']) ? $locationData['address']['village'] : 'Cidade não encontrada'));
             }
@@ -53,8 +53,8 @@ function processar_formulario() {
                 'descricao' => $descricao,
                 'latitude' => $latitude,
                 'longitude' => $longitude,
-                'road' => $road,
-                'city' => $city,
+                'rua' => $rua,
+                'cidade' => $cidade,
                 'data_hora' => $data_hora_envio,
                 'servico' => $servico
             ));
@@ -71,7 +71,7 @@ function processar_formulario() {
             $local_cadastrado = 'Nome do Local: ' . $nome . "\n";
             $tipo_servico = 'Tipo de Serviço: ' . $servico . "\n";
             $data_hora_cadastro = 'Data e Hora do Cadastro: ' . $data_hora_formatada . "\n";
-            $endereco_informado = 'Rua: ' . $road . "\n" . 'Cidade: ' . $city . "\n";
+            $endereco_informado = 'Rua: ' . $rua . "\n" . 'Cidade: ' . $cidade . "\n";
             // Constrói a mensagem do e-mail
             $message = 'Olá! Uma nova resposta foi feita no seu formulário. Aqui estão os detalhes:' . "\n" . $local_cadastrado . $tipo_servico . $data_hora_cadastro . $endereco_informado . 'Verifique sua área de administração para mais informações: ' . $admin_panel_url;
 

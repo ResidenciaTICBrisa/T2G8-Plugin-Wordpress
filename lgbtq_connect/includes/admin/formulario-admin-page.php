@@ -14,17 +14,17 @@ $conseguir_rua_e_cidade = function ($latitude, $longitude) {
     error_log(print_r($locationData, true));
 
     if (isset($locationData['error'])) {
-        $road = 'Rua não encontrada';
-        $city = 'Cidade não encontrada';
+        $rua = 'Rua não encontrada';
+        $cidade = 'Cidade não encontrada';
     } else {
-        $road = isset($locationData['address']['road']) ? $locationData['address']['road'] : 
+        $rua = isset($locationData['address']['road']) ? $locationData['address']['road'] : 
                 (isset($locationData['address']['pedestrian']) ? $locationData['address']['pedestrian'] : 'Rua não encontrada');
-        $city = isset($locationData['address']['city']) ? $locationData['address']['city'] : 
+        $cidade = isset($locationData['address']['city']) ? $locationData['address']['city'] : 
                 (isset($locationData['address']['town']) ? $locationData['address']['town'] : 
                 (isset($locationData['address']['village']) ? $locationData['address']['village'] : 'Cidade não encontrada'));
     }
 
-    return array($road, $city);
+    return array($rua, $cidade);
 };
 
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action']) && $_POST['action'] === 'update_form') {
@@ -167,7 +167,7 @@ function atualizar_formulario($wpdb, $funcao_localizacao) {
     $latitude = sanitize_text_field($_POST['latitude']);
     $longitude = sanitize_text_field($_POST['longitude']);
 
-    list($road, $city) = $funcao_localizacao($latitude, $longitude);
+    list($rua, $cidade) = $funcao_localizacao($latitude, $longitude);
 
     // Atualiza os dados no banco de dados
     $tabela = "lc_formulario";
@@ -178,8 +178,8 @@ function atualizar_formulario($wpdb, $funcao_localizacao) {
         'descricao' => $descricao,
         'latitude' => $latitude,
         'longitude' => $longitude,
-        'road' => $road,
-        'city' => $city,
+        'rua' => $rua,
+        'cidade' => $cidade,
     );
 
     $condicoes = array('id' => $id);
