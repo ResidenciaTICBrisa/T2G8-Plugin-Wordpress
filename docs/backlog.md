@@ -157,4 +157,23 @@ Este documento oferece uma visão abrangente do backlog de nosso produto, destac
 | 03/07/2024 | 0.33.4 | Bugfix: a cidade e a rua são atualizadas quando a localização é editada no formulário| @MarcosViniciusG |
 | 03/07/2024 | 0.33.5 | Bugfix: Modificação do conjunto de testes da tabela para se adaptar as mudanças realizadas na tabela| @MarcosViniciusG |
 | 11/07/2024 | 0.34.0 | Feat: Adicionando funcionalidade de fullscreen nos mapas | @WillxBernardo |
-
+| 11/07/2024 | 0.34.1 | Style: Adicionando estilização do botão de tela cheia | @WillxBernardo |
+| 15/07/2024 | 0.35.0 | Dev: Adicionando script para preenchimento do banco de dados | @WillxBernardo |
+| 19/07/2024 | 0.35.1 | Bugfix: caracteres | @Punkrig |
+| 29/07/2024 | 0.35.2 | Teste: caracteres | @Punkrig |
+| 02/08/2024 | 0.36.0 | Feat: Front-end da paginação da tabela dos formulários | @MarcosViniciusG |
+| 06/08/2024 | 0.37.0 | Feat: Mecanismos de sinalizacão de tabela selecionada | @WillxBernardo |
+| 08/08/2024 | 0.38.0 | Feat: Adicão do bloco do plugin no editor de blocos do wordpress | @WillxBernardo |
+| 10/08/2024 | 0.39.0 | Feat: adicionado a lógica do backend da paginação | @MarcosViniciusG |
+| 11/08/2024 | 0.39.1 | Style: butões da página admin; - Alinhando os butões da página admin | @Punkrig |
+| 12/08/2024 | 0.40.0 | Feat: Arquivo de desinstalacao do plugin | @WillxBernardo |
+| 12/08/2024 | 0.40.1 | Feat: retirado os testes JavaScript pois eles não refletem mais as necessidades do código atualmente | @MarcosViniciusG |
+| 13/08/2024 | 0.41.0 | Feat: Adicionando corpo do filtro por servico no mapa | @WillxBernardo |
+| 13/08/2024 | 0.41.1 | Feat: Funcionalidades para uso do filtro na pagina | @WillxBernardo |
+| 13/08/2024 | 0.41.2 | Feat: Filtros de marcadores no mapa da tela inicial | @WillxBernardo |
+| 13/08/2024 | 0.41.3 | Refactor: Alterando nomes do BD em inglês para português | @WillxBernardo |
+| 14/08/2024 | 0.41.4 | Bugfix: adicionado o parâmetro --passWithNoTests para poder passar o testes automatizados JS sem a presença de testes | @MarcosViniciusG |
+| 14/08/2024 | 0.41.5 | Dev: Atualizando testes para novo BD | @WillxBernardo |
+| 15/08/2024 | 0.42.0 | Refactor: Foram criadas funções para verificar se as entradas dos inputs dos formulários está correta | @MarcosViniciusG |
+| 15/08/2024 | 0.42.1 | Feat: Foram implementados alertas visuais nos campos do formulário | @MarcosViniciusG |
+| 15/08/2024 | 0.42.2 | Bugfix: Corrigido bug onde alguns emails válidos não eram aceitos | @MarcosViniciusG |
