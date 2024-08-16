@@ -1,7 +1,8 @@
 let pagina = null;
 
 // Função getMarcador
-function getMarcador(url) {
+function getMarcador(tipoServico) {
+    const url = marcadores[tipoServico] || marcadores['outro']; // Pega o marcador específico ou o marcador padrão
     const icon = L.icon({
         iconUrl: url,
         iconSize: [40, 40], // tamanho do ícone
@@ -11,7 +12,7 @@ function getMarcador(url) {
 }
 
 // Definindo o ícone personalizado no escopo global usando a função getMarcador
-const personalIcon = getMarcador(marcador_url_padrao);
+const personalIcon = getMarcador();
 
 // CLASSES
 class Mapa {
@@ -134,12 +135,11 @@ class PaginaComPopup extends Pagina {
                     <p><strong>${formulario.descricao}</strong></p>
                 </div>
             `;
-            this.mapa.adicionarMarcador(L.marker([formulario.latitude, formulario.longitude], { icon: personalIcon }).bindPopup(popupConteudo));
-        }
-    }
 
-    destruir() {
-        super.destruir();
+            // Usa a função getMarcador passando o tipo de serviço
+            const icon = getMarcador(formulario.servico);
+            this.mapa.adicionarMarcador(L.marker([formulario.latitude, formulario.longitude], { icon: icon }).bindPopup(popupConteudo));
+        }
     }
 }
 
@@ -148,9 +148,11 @@ class PaginaFormulario extends Pagina {
         super.inicializar();
         this.marcador = null;
         var self = this;
+
         this.mapa.mapa.on('click', function (e) {
             if (self.marcador == null) {
-                self.marcador = L.marker(e.latlng, { icon: personalIcon }).addTo(self.mapa.mapa);
+                const icon = getMarcador(document.getElementById('servico').value); // Supõe que você tenha um campo com o serviço selecionado
+                self.marcador = L.marker(e.latlng, { icon: icon }).addTo(self.mapa.mapa);
             }
             self.marcador.setLatLng(e.latlng);
 
@@ -175,13 +177,9 @@ class PaginaFormulario extends Pagina {
 
         for (var i = 0; i < formularios_aprovados.length; i++) {
             var formulario = formularios_aprovados[i];
-            this.mapa.adicionarMarcador(L.marker([formulario.latitude, formulario.longitude], { icon: personalIcon }));
+            const icon = getMarcador(formulario.servico);
+            this.mapa.adicionarMarcador(L.marker([formulario.latitude, formulario.longitude], { icon: icon }));
         }
-    }
-
-    destruir() {
-        super.destruir();
-        document.getElementById("meu_formulario").reset();
     }
 }
 

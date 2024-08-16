@@ -285,9 +285,9 @@ function mostrarDescricaoCompleta(id) {
         botao.innerText = 'Ver menos';
     }
 }
-
-function getMarcador(url)
-{
+// Função para definir o tipo de marcadores
+function getMarcador(tipoServico) {
+    const url = marcadores[tipoServico] || marcadores['outro']; // Pega o marcador específico ou o marcador padrão
     const icon = L.icon({
         iconUrl: url,
         iconSize: [40, 40], // tamanho do ícone
@@ -295,13 +295,10 @@ function getMarcador(url)
     });
     return icon;
 }
-
 function initMapAdmin() {
     if (document.getElementById('mapa_admin') == null) {   
         return;
     }
-
-    const personalIcon = getMarcador(marcador_url_padrao);
 
     mapAdmin = L.map('mapa_admin', { doubleClickZoom: false }).setView([-15.8267, -47.9218], 13);
 
@@ -311,11 +308,12 @@ function initMapAdmin() {
     }).addTo(mapAdmin);
 
     formularios_aprovados.forEach(function (formulario) {
+        // Obtenha o marcador específico para o tipo de serviço do formulário
+        const personalIcon = getMarcador(formulario.servico);
         L.marker([formulario.latitude, formulario.longitude], { icon: personalIcon }).addTo(mapAdmin).on('click', function () {
             destacarLinhaTabela(formulario.id);
         });
     });
-
 
     var CustomControl = L.Control.extend({
         options: {
@@ -357,7 +355,7 @@ function initMapEdit(latitude, longitude, nome, servico, descricao) {
         mapEdit.remove();
     }
 
-    const personalIcon = getMarcador(marcador_url_padrao);
+    const personalIcon = getMarcador();
 
     mapEdit = L.map('mapa_formulario_edit', { doubleClickZoom: false }).setView([-15.8267, -47.9218], 13);
 
