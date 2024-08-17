@@ -80,8 +80,8 @@ class AlteraStatusTest extends TestCase {
                            'descricao' => 'Teste Descrição',
                            'latitude' => '12.345678',
                            'longitude' => '98.7654321',
-                           'road' => 'Mock Rua',
-                           'city' => 'Mock Cidade'
+                           'rua' => 'Mock Rua',
+                           'cidade' => 'Mock Cidade'
                        ]),
                        $this->equalTo(['id' => 1])
                    )

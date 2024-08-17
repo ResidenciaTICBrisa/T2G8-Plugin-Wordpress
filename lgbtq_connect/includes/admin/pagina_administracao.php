@@ -7,7 +7,7 @@ function adicionar_pagina_administracao() {
         'manage_options',
         'lc_admin',
         'mostrar_dados',
-        'dashicons-admin-users',
+        'dashicons-location',
         6
     );
 }
@@ -88,8 +88,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
 
                 <div id=editDivBotoes>
                     <button type="button" id="editCancelar" onclick="fecharEditor()" style="cursor: pointer;">Cancelar</button>
-                    <button type="submit" action="atualizar_formulario($wpdb)" id="editSalvar" style="cursor: pointer;">Salvar</button>
-                </div>
+                    <button type="submit" id="editSalvar" style="cursor: pointer;">Salvar</button>
+                    </div>
             </form>
         </div>
         <div id="div-mapa_botoes">
@@ -98,43 +98,53 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
             <?php
                 global $wpdb;
 
-                $query_aprovados = "SELECT * FROM lc_formulario WHERE situacao='Aprovado'";
-                $query_negados = "SELECT * FROM lc_formulario WHERE situacao='Negado'";
-                $query_pendentes = "SELECT * FROM lc_formulario WHERE situacao='Pendente'";
+                $query_aprovados = "SELECT COUNT(*) FROM lc_formulario WHERE situacao='Aprovado'";
+                $query_negados = "SELECT COUNT(*) FROM lc_formulario WHERE situacao='Negado'";
+                $query_pendentes = "SELECT COUNT(*) FROM lc_formulario WHERE situacao='Pendente'";
 
-                $aprovados = $wpdb->get_results($query_aprovados);
-                $negados = $wpdb->get_results($query_negados);
-                $pendentes = $wpdb->get_results($query_pendentes);
+                $aprovados = $wpdb->get_var($query_aprovados);
+                $negados = $wpdb->get_var($query_negados);
+                $pendentes = $wpdb->get_var($query_pendentes);
+
                 echo '<div class="button-container">';
-                    echo '<button value="Pendente" class="btn-pendente" onclick="filtrar(this)">' 
-                    . count($pendentes) . 
-                    ' novas solicitações
-                    <i class="bi bi-arrow-right-circle"></i>
-                    </button>';
-                    echo '<button value="Negado" class="btn-negado" onclick="filtrar(this)">' 
-                    . count($negados) . 
-                    ' solicitações negadas
-                    <i class="bi bi-arrow-right-circle"></i>
-                    </button>';
-                    echo '<button value="Aprovado" class=" btn-aprovado" onclick="filtrar(this)">' 
-                    . count($aprovados) . 
-                    ' solicitações aprovadas
-                    <i class="bi bi-arrow-right-circle"></i>
-                    </button>';
+                    echo '<h2>Formulários</h2>';
+                    echo '<button value="Pendente" id="botao_inicial" class="btn-pendente" onclick="filtrar(this); destacarBotao(this, \'Pendentes\')"> 
+                            <div class="lc_loader-container">
+                                <div class="lc_loader"></div>
+                                <div class="lc_counter">' . $pendentes . '</div>
+                            </div>
+                            Pendentes
+                            <i class="bi bi-arrow-right-circle"></i>
+                        </button>';
+                    echo '<button value="Aprovado" class=" btn-aprovado" onclick="filtrar(this); destacarBotao(this, \'Aprovados\')">
+                            <div class="lc_loader-container">
+                                <div class="lc_loader"></div>
+                                <div class="lc_counter">'. $aprovados .'</div>
+                            </div>
+                            Aprovados
+                            <i class="bi bi-arrow-right-circle"></i>
+                        </button>';
+                    echo '<button value="Negado" class="btn-negado" onclick="filtrar(this); destacarBotao(this, \'Negados\')">
+                            <div class="lc_loader-container">
+                                <div class="lc_loader"></div>
+                                <div class="lc_counter">'. $negados . '</div>
+                            </div>
+                            Negados
+                            <i class="bi bi-arrow-right-circle"></i>
+                        </button>';
                 echo '</div>';        
             ?>
             </div>
         </div>
-        <div id="contador_resultados">
-        </div>
         <div id="filtros" >
-
-            <form method="post">
-                <div id="busca_nome_container" class="filtro">
-                    <input type="text" id="busca_nome" placeholder="Pesquise pelo nome" oninput="filtrar()">
-                </div>
-            </form>
-            <select id="selecao_servico" class="filtro " onchange="filtrar()" required>
+            <h3 id="titulo_tabela"></h3>
+            <div style="display:flex; flex-direction: row; space-between:">
+                <form method="post">
+                    <div id="busca_nome_container" class="filtro">
+                        <input type="text" id="busca_nome" placeholder="Pesquise pelo nome" oninput="filtrar()">
+                    </div>
+                </form>
+            <select id="selecao_servico" class="filtro" onchange="filtrar()" required>
                 <option value="" selected disabled>Selecione...</option>
                 <option value="bar/restaurante">Bares/restaurantes</option>
                 <option value="entretenimento">Entretenimento</option>
@@ -144,7 +154,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
                 <option value="academia">Academia</option>
                 <option value="">Todos</option>
             </select>
+            </div>
         </div>
+        <div id="contador_resultados"></div>
         <div class="wrap">
         <div id="confirmModal" class="modal" tabindex="-1">
             <div class="modal-dialog">
@@ -164,7 +176,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
 
         </div>
 
-            <div class="container mt-5">
+            <div class="container mt-5" style="overflow-x:auto;">
             <table class="table table-hover" id="tabela">
                 <thead class="thead-light">
                     <tr>
@@ -183,8 +195,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
                     <!-- Adicione aqui as linhas da tabela -->
                 </tbody>
             </table>
-    </div>
-            
+        </div>
+        <div class="wrap-paginacao">
+            <ul id="admin-paginacao" class="paginacao">
+                <!-- Adicione aqui os índices das páginas -->
+                <li>
+                    <a href="#" class="pagina-selecionada" onclick="mudarPagina(1)" id="pagina-1">1</a>
+                </li>
+            </ul>
+        </div>
 
         </div>
     </div>
