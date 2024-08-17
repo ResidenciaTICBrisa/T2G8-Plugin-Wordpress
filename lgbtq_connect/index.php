@@ -57,6 +57,17 @@ function enfileirar_scripts_admin() {
     // Obtém todos os formulários
     $formularios = obter_formularios($wpdb);
 
+    // Url dos Marcadores
+    $marcadores = array(
+        'academia' => plugin_dir_url(__FILE__) . 'assets/imgs/Marker_Academia.png',
+        'bar/restaurante' => plugin_dir_url(__FILE__) . 'assets/imgs/Marker_Bares_Restaurante.png',
+        'beleza' => plugin_dir_url(__FILE__) . 'assets/imgs/Marker_Beleza.png',
+        'ensino' => plugin_dir_url(__FILE__) . 'assets/imgs/Marker_Ensino.png',
+        'entretenimento' => plugin_dir_url(__FILE__) . 'assets/imgs/Marker_Entretenimento.png',
+        'hospedagem' => plugin_dir_url(__FILE__) . 'assets/imgs/Marker_Hospedagem.png',
+        'outro' => plugin_dir_url(__FILE__) . 'assets/imgs/Marker_Padrao.png',
+    );
+
     wp_enqueue_script('admin_script.js', plugin_dir_url(__FILE__) . 'includes/admin/admin_script.js', array('jquery'), '1.0', true);
     
     wp_localize_script( 'admin_script.js', 'my_ajax_object',
@@ -64,6 +75,12 @@ function enfileirar_scripts_admin() {
 
     // Passa os dados dos formulários aprovados para o script JavaScript
     wp_localize_script('admin_script.js', 'formularios_aprovados', $formularios_aprovados);
+
+    // Passa os dados de todos os formulários para o script JavaScript
+    wp_localize_script('admin_script.js', 'formularios_todos', $formularios);
+
+    // Passa o url do marcador
+    wp_localize_script('admin_script.js', 'marcadores', $marcadores);
 }
 
 function enfileirar_styles_admin()
@@ -86,10 +103,21 @@ function enfileirar_scripts() {
 
     // Enfileira o script JavaScript
     wp_enqueue_script('script.js', plugins_url('/assets/js/script.js', __FILE__), array('jquery'), '1.0', true);
-   
+
     // Obtém os formulários aprovados
     $formularios_aprovados = obter_formularios_aprovados($wpdb);
-
+    
+    // Url dos Marcadores
+    $marcadores = array(
+        'academia' => plugin_dir_url(__FILE__) . 'assets/imgs/Marker_Academia.png',
+        'bar/restaurante' => plugin_dir_url(__FILE__) . 'assets/imgs/Marker_Bares_Restaurante.png',
+        'beleza' => plugin_dir_url(__FILE__) . 'assets/imgs/Marker_Beleza.png',
+        'ensino' => plugin_dir_url(__FILE__) . 'assets/imgs/Marker_Ensino.png',
+        'entretenimento' => plugin_dir_url(__FILE__) . 'assets/imgs/Marker_Entretenimento.png',
+        'hospedagem' => plugin_dir_url(__FILE__) . 'assets/imgs/Marker_Hospedagem.png',
+        'outro' => plugin_dir_url(__FILE__) . 'assets/imgs/Marker_Padrao.png',
+    );
+    
     // Obtém todos os formulários
     $formularios = obter_formularios($wpdb);
 
@@ -98,6 +126,9 @@ function enfileirar_scripts() {
 
     // Passa os dados de todos os formulários para o script JavaScript
     wp_localize_script('script.js', 'formularios_todos', $formularios);
+
+    // Passa o url do marcador
+    wp_localize_script('script.js', 'marcadores', $marcadores);
 }
 
 add_action('admin_enqueue_scripts', 'enfileirar_scripts_admin');

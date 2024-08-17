@@ -21,7 +21,6 @@ class Filtro {
         this.servico = "";
     }
 }
-
 class Ordenador {
     static coluna = "nome";
     static ordem = "asc";
@@ -31,7 +30,6 @@ class Ordenador {
         dados['ordem'] = this.ordem;
     }
 }
-
 class Paginacao {
     static pagina=1;
     static max_paginas=20;
@@ -285,79 +283,100 @@ function mostrarDescricaoCompleta(id) {
         botao.innerText = 'Ver menos';
     }
 }
-
-function initMapAdmin() {
-    // Definindo o ícone personalizado no escopo global
-    const personalIcon = L.icon({
-        iconUrl: 'https://res.cloudinary.com/dxsx0emuu/image/upload/f_auto,q_auto/lc_marker',
-        iconSize: [20, 30], // tamanho do ícone
+// Função para definir o tipo de marcadores
+function getMarcador(tipoServico) {
+    const url = marcadores[tipoServico] || marcadores['outro']; // Pega o marcador específico ou o marcador padrão
+    const icon = L.icon({
+        iconUrl: url,
+        iconSize: [60, 60], // tamanho do ícone
         popupAnchor: [1, -10]
     });
-
+    return icon;
+}
+function initMapAdmin() {
     if (document.getElementById('mapa_admin') == null) {   
         return;
     }
 
-    mapAdmin = L.map('mapa_admin', { doubleClickZoom: false }).setView([-15.8267, -47.9218], 13);
+    // Função para inicializar o mapa com a localização do usuário
+    function iniciarMapaComLocalizacao(lat, lng) {
+        mapAdmin = L.map('mapa_admin', { doubleClickZoom: false }).setView([lat, lng], 13);
 
-    // Adiciona o provedor de mapa OpenStreetMap
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(mapAdmin);
+        // Adiciona o provedor de mapa OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(mapAdmin);
 
-    formularios_aprovados.forEach(function (formulario) {
-        L.marker([formulario.latitude, formulario.longitude], { icon: personalIcon }).addTo(mapAdmin).on('click', function () {
-            destacarLinhaTabela(formulario.id);
-        });
-    });
-
-
-    var CustomControl = L.Control.extend({
-        options: {
-            position: 'bottomright'
-        },
-
-        onAdd: function (map) {
-            var container = L.DomUtil.create('div', 'leaflet-control-custom');
-
-            container.onclick = function () {
-                if (!document.fullscreenElement) {
-                    map.getContainer().requestFullscreen();
-                } else {
-                    if (document.exitFullscreen) {
-                        document.exitFullscreen();
-                    }
-                }
-            };
-
-            // Adiciona ouvintes para mudança de estado de tela cheia
-            document.addEventListener('fullscreenchange', function () {
-                if (document.fullscreenElement) {
-                    container.classList.add('fullscreen');
-                } else {
-                    container.classList.remove('fullscreen');
-                }
+        formularios_aprovados.forEach(function (formulario) {
+            // Obtenha o marcador específico para o tipo de serviço do formulário
+            const personalIcon = getMarcador(formulario.servico);
+            L.marker([formulario.latitude, formulario.longitude], { icon: personalIcon }).addTo(mapAdmin).on('click', function () {
+                destacarLinhaTabela(formulario.id);
             });
+        });
 
-            return container;
+        var CustomControl = L.Control.extend({
+            options: {
+                position: 'bottomright'
+            },
+
+            onAdd: function (map) {
+                var container = L.DomUtil.create('div', 'leaflet-control-custom');
+
+                container.onclick = function () {
+                    if (!document.fullscreenElement) {
+                        map.getContainer().requestFullscreen();
+                    } else {
+                        if (document.exitFullscreen) {
+                            document.exitFullscreen();
+                        }
+                    }
+                };
+
+                // Adiciona ouvintes para mudança de estado de tela cheia
+                document.addEventListener('fullscreenchange', function () {
+                    if (document.fullscreenElement) {
+                        container.classList.add('fullscreen');
+                    } else {
+                        container.classList.remove('fullscreen');
+                    }
+                });
+
+                return container;
+            }
+        });
+
+        mapAdmin.addControl(new CustomControl());
+    }
+
+    // Função para lidar com a localização do usuário
+    function obterLocalizacao() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (posicao) {
+                const lat = posicao.coords.latitude;
+                const lng = posicao.coords.longitude;
+                iniciarMapaComLocalizacao(lat, lng);
+            }, function () {
+                // Se a localização não puder ser obtida, inicializa o mapa com uma localização padrão
+                iniciarMapaComLocalizacao(-15.8267, -47.9218);
+            });
+        } else {
+            // Se a geolocalização não é suportada, inicializa o mapa com uma localização padrão
+            iniciarMapaComLocalizacao(-15.8267, -47.9218);
         }
-    });
+    }
 
-    mapAdmin.addControl(new CustomControl());
+    obterLocalizacao();
 }
 
-function initMapEdit(latitude, longitude, nome, servico, descricao) {
-    // Definindo o ícone personalizado no escopo global
-    const personalIcon = L.icon({
-        iconUrl: 'https://res.cloudinary.com/dxsx0emuu/image/upload/f_auto,q_auto/lc_marker',
-        iconSize: [20, 30], // tamanho do ícone
-        popupAnchor: [1, -10]
-    });
 
+function initMapEdit(latitude, longitude, nome, servico, descricao) {
     // Verifica se o mapa já foi inicializado e destrói se necessário
     if (mapEdit !== undefined) {
         mapEdit.remove();
     }
+
+    const personalIcon = getMarcador();
 
     mapEdit = L.map('mapa_formulario_edit', { doubleClickZoom: false }).setView([-15.8267, -47.9218], 13);
 

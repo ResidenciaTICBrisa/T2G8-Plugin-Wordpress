@@ -1,12 +1,5 @@
 let pagina = null;
 
-// Definindo o ícone personalizado no escopo global
-var personalIcon = L.icon({
-    iconUrl: 'https://res.cloudinary.com/dxsx0emuu/image/upload/f_auto,q_auto/lc_marker',
-    iconSize: [20, 30], // tamanho do ícone
-    popupAnchor: [1, -10]
-});
-
 // CLASSES
 class Mapa {
     container;
@@ -61,7 +54,7 @@ class Mapa {
         this.mapa.addControl(new CustomControl());
     }
 
-    adicionarMarcador(marcador) {
+       adicionarMarcador(marcador) {
         marcador.addTo(this.mapa);
         this.marcadores.push(marcador);
     }
@@ -128,12 +121,11 @@ class PaginaComPopup extends Pagina {
                     <p><strong>${formulario.descricao}</strong></p>
                 </div>
             `;
-            this.mapa.adicionarMarcador(L.marker([formulario.latitude, formulario.longitude], { icon: personalIcon }).bindPopup(popupConteudo));
-        }
-    }
 
-    destruir() {
-        super.destruir();
+            // Usa a função getMarcador passando o tipo de serviço
+            const icon = getMarcador(formulario.servico);
+            this.mapa.adicionarMarcador(L.marker([formulario.latitude, formulario.longitude], { icon: icon }).bindPopup(popupConteudo));
+        }
     }
 }
 
@@ -142,9 +134,12 @@ class PaginaFormulario extends Pagina {
         super.inicializar();
         this.marcador = null;
         var self = this;
+
         this.mapa.mapa.on('click', function (e) {
             if (self.marcador == null) {
-                self.marcador = L.marker(e.latlng, { icon: personalIcon }).addTo(self.mapa.mapa);
+                // Usa o valor do serviço selecionado para definir o ícone
+                const icon = getMarcador(document.getElementById('servico').value);
+                self.marcador = L.marker(e.latlng, { icon: icon }).addTo(self.mapa.mapa);
             }
             self.marcador.setLatLng(e.latlng);
 
@@ -170,15 +165,12 @@ class PaginaFormulario extends Pagina {
             }
         });
 
+        // Adiciona marcadores ao mapa com base em formulários aprovados
         for (var i = 0; i < formularios_aprovados.length; i++) {
             var formulario = formularios_aprovados[i];
-            this.mapa.adicionarMarcador(L.marker([formulario.latitude, formulario.longitude], { icon: personalIcon }));
+            const icon = getMarcador(formulario.servico);
+            this.mapa.adicionarMarcador(L.marker([formulario.latitude, formulario.longitude], { icon: icon }));
         }
-    }
-
-    destruir() {
-        super.destruir();
-        document.getElementById("meu_formulario").reset();
     }
 }
 
@@ -198,6 +190,19 @@ class FabricaPagina {
         return new (FabricaPagina.CLASSES.get(tipo))(id);
     }
 }
+// Função getMarcador
+function getMarcador(tipoServico) {
+    const url = marcadores[tipoServico] || marcadores['outro']; // Pega o marcador específico ou o marcador padrão
+    const icon = L.icon({
+        iconUrl: url,
+        iconSize: [60, 60], // tamanho do ícone
+        popupAnchor: [1, -10]
+    });
+    return icon;
+}
+
+// Definindo o ícone personalizado no escopo global usando a função getMarcador
+const personalIcon = getMarcador();
 
 // Função que realiza a transição entre páginas
 // Chamada uma vez quando o plugin é inicializado e depois é chamada através de botões nas páginas
@@ -266,7 +271,6 @@ document.querySelectorAll('.name_servico').forEach(function(checkbox) {
     });
 });
 
-
 function filtrarServicos() {
     // Obter os serviços selecionados
     const servicosSelecionados = Array.from(document.querySelectorAll('.name_servico:checked')).map(cb => cb.value);
@@ -293,6 +297,8 @@ function atualizarMapaComFiltrados(filtrados) {
 
     // Aplicar o filtro e adicionar os novos marcadores
     filtrados.forEach(formulario => {
+        // Define o ícone com base no serviço do formulário
+        const icon = getMarcador(formulario.servico);
         const popupConteudo = `
             <div class="pop">
                 <h4><strong>${formulario.nome}</strong></h4>
@@ -301,6 +307,6 @@ function atualizarMapaComFiltrados(filtrados) {
                 <p><strong>${formulario.descricao}</strong></p>
             </div>
         `;
-        pagina.mapa.adicionarMarcador(L.marker([formulario.latitude, formulario.longitude], { icon: personalIcon }).bindPopup(popupConteudo));
+        pagina.mapa.adicionarMarcador(L.marker([formulario.latitude, formulario.longitude], { icon: icon }).bindPopup(popupConteudo));
     });
 }
