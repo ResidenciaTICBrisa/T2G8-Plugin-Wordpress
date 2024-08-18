@@ -1010,7 +1010,6 @@ a:focus {
   align-items: center;
   flex-direction: column;
   cursor: pointer;
-  font-family: 'Poppins', sans-serif;
   text-decoration: none; 
     color: inherit; 
 }
@@ -1355,4 +1354,216 @@ a:focus {
   display: flex;
   justify-content: center;
   font-weight: bold;
+}
+
+
+.lc_olcards, .lc_olcards * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+  
+.lc_olcards {
+    list-style: none;
+    counter-reset: cardCount;
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    --cardsGap: 1rem;
+    gap: var(--cardsGap);
+    padding-bottom: var(--cardsGap);
+}
+
+.lc_olcards li {
+    counter-increment: cardCount;
+    display: flex;
+    color: white;
+    --labelOffset: 1rem;
+    --arrowClipSize: 1.5rem;
+    margin-top: var(--labelOffset);
+}
+  
+.lc_olcards li::before {
+    content: counter(cardCount, decimal-leading-zero);
+    background: rgb(255, 255, 255);
+    border: 1.5px solid rgb(221, 221, 221);
+    color: var(--cardColor);
+    font-size: 2em;
+    font-weight: 700;
+    transform: translateY(calc(-1 * var(--labelOffset)));
+    margin-right: calc(-1 * var(--labelOffset));
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-inline: 0.5em;
+}
+  
+.lc_olcards li .lc_tutorial_content {
+    background-color: var(--cardColor);
+    --inlinePadding: 1em;
+    --boxPadding: 0.5em;
+    display: grid;
+    padding: var(--boxPadding) calc(var(--inlinePadding) + var(--arrowClipSize))
+      var(--boxPadding) calc(var(--inlinePadding) + var(--labelOffset));
+    grid-template-areas:
+      "icon title"
+      "icon text";
+    gap: 0.25em 1em;
+    clip-path: polygon(
+      0 0,
+      calc(100% - var(--arrowClipSize)) 0,
+      100% 50%,
+      calc(100% - var(--arrowClipSize)) 100%,
+      calc(100% - var(--arrowClipSize)) calc(100% + var(--cardsGap)),
+      0 calc(100% + var(--cardsGap))
+    );
+    position: relative;
+}
+
+.lc_olcards li .lc_tutorial_content::before {
+    content: "";
+    position: absolute;
+    width: var(--labelOffset);
+    height: var(--labelOffset);
+    background: var(--cardColor);
+    left: 0;
+    bottom: 0;
+    clip-path: polygon(0 0, 100% 0, 0 100%);
+    filter: brightness(0.75);
+}
+
+.lc_olcards li .lc_tutorial_content::after {
+    content: "";
+    height: var(--cardsGap);
+    width: var(--cardsGap);
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.25), transparent 50%);
+    left: 0;
+    top: 100%;
+}
+
+.lc_olcards li .icon {
+    grid-area: icon;
+    align-self: center;
+    font-size: 2em;
+}
+
+.lc_olcards li .lc_tutorial_content .lc_title_ind {
+    grid-area: title;
+    font-size: 1.25em;
+    font-weight: 700;
+}
+
+.lc_slider {
+    position: relative;
+    overflow: hidden;
+    background: #15001f;
+    border: 1px solid #c042ff;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 2px 2px 10px 4px #210330;
+}
+
+.lc_slider-inner {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    margin-top: 45px; /* Ajuste a margem para acomodar a titlebar */
+}
+
+.lc_tutorial_card {
+    min-width: 100%;
+    box-sizing: border-box;
+    position: relative;
+    margin-bottom: 50px;
+}
+
+.lc_tutorial_card img {
+    width: 100%;
+    margin-top: 50px;
+    height: auto; /* Mantém a proporção da imagem */
+}
+
+.lc_titlebar {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    font-size: 21px;
+    font-weight: 450;
+    background-color: #2e0043;
+    width: 100%;
+    text-align: right;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    padding: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adicionado para um efeito de sombra leve */
+}
+
+.lc_tutorial_uso_buttons button {
+    width: 40px;
+    height: 35px;
+    margin-right: 5px;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    transition: 0.2s;
+}
+
+.lc_tutorial_uso_buttons button svg path,
+.lc_tutorial_uso_buttons button svg rect,
+.lc_tutorial_uso_buttons button svg polygon {
+    fill: #ffffff;
+}
+
+.lc_tutorial_uso_buttons button svg {
+    width: 10px; /* Ajustado para se parecer mais com o exemplo */
+    height: 10px;
+}
+
+.lc_tutorial_uso_close:hover {
+    background-color: #e81123;
+}
+
+.lc_tutorial_uso_maximize:hover {
+    background-color: #c042ff2e;
+}
+
+.lc_tutorial_uso_minimize:hover {
+    background-color: #c042ff2e;
+}
+
+.lc_prev,
+.lc_next {
+    position: absolute;
+    top: 50%;
+    width: 40px;
+    height: 40px;
+    background-color: #33333333;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transform: translateY(-50%);
+    z-index: 2;
+}
+
+.lc_prev {
+    left: 0;
+}
+
+.lc_next {
+    right: 0;
+}
+
+.lc_text_tutorial_uso {
+    font-weight: bold;
+    display: flex; 
+    justify-content: center; 
+    align-items: center; /* Centraliza o texto verticalmente */
+    color: white;
+    font-size: 16px;
+    background-color: #60008d;
+    padding: 20px; /* Adiciona algum preenchimento para o texto */
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 50px;
 }

@@ -27,7 +27,6 @@
   <link href="css/responsive.css" rel="stylesheet" />
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/font/bootstrap-icons.min.css">
-
 </head>
 
 <body>
@@ -71,9 +70,220 @@
   <!-- end header section -->
 
   <!-- Content section -->
-  <section>
-    <div>
-      content
+  <section style="margin: 10vh 0 10vh 0;">
+    <div style="display: flex; justify-content: center;">
+      <h2><strong>Primeiros passos com o LGBTQ+ Connect</strong></h2>
+    </div>
+    <div style="margin: 10vh 10vw 10vh 10vw;">
+      <p style="font-size: 20px;">Bem-vindo ao tutorial de como utilizar o nosso plugin no WordPress, que facilita a georreferência de locais amigáveis à comunidade LGBTQ+. Nesse tutorial iremos apresentar como adicionar as telas em sua página e as ferramentas de gerenciamento dos formulários enviados.</p>
+    </div>
+    <div style="margin-left: 15vw;">
+      <ol class="lc_olcards">
+        <li style="--cardColor:#fc374e">
+                <div class="lc_tutorial_content" style="display: flex; align-items: center;">
+                    <img style="width: 30px; height: 30px;" src="images/Marker_Padrao.png" alt="">
+                    <div class="lc_title_ind">Conheça as telas do LGBTQ+ Connect!</div>
+                </div>
+        </li>
+            <div>
+                <div class="lc_slider" style="margin-left: 10vh; height: 613px; width: 480px;">
+                    <div class="lc_titlebar">
+                        <span class="lc_tutorial_uso_buttons">
+                            <button class="lc_tutorial_uso_minimize">
+                                <svg viewBox="0 0 10.2 1" y="0px" x="0px">
+                                    <rect height="1" width="10.2" y="50%" x="0"></rect>
+                                </svg>
+                            </button>
+                            <button class="lc_tutorial_uso_maximize">
+                                <svg viewBox="0 0 10 10">
+                                    <path d="M0,0v10h10V0H0z M9,9H1V1h8V9z"></path>
+                                </svg>
+                            </button>
+                            <button class="lc_tutorial_uso_close">
+                                <svg viewBox="0 0 10 10">
+                                    <polygon points="10.2,0.7 9.5,0 5.1,4.4 0.7,0 0,0.7 4.4,5.1 0,9.5 0.7,10.2 5.1,5.8 9.5,10.2 10.2,9.5 5.8,5.1"></polygon>
+                                </svg>
+                            </button>
+                        </span>
+                    </div>
+                    <div class="lc_slider-inner">
+                        <div class="lc_tutorial_card">
+                            <div class="lc_text_tutorial_uso">
+                                <p>Mapa com os locais aprovados</p>
+                            </div>
+                            <img src="images/tutorial_uso/tela6-tutorialuso.png" alt="">
+                        </div>
+                        <div class="lc_tutorial_card">
+                          <div class="lc_text_tutorial_uso">
+                              <p>Filtragem de pins por tipo de serviço</p>
+                          </div>
+                          <img src="images/tutorial_uso/tela6.2-tutorialuso.png" alt="">
+                      </div>
+                      <div class="lc_tutorial_card">
+                        <div class="lc_text_tutorial_uso">
+                            <p>Busca de endereços para redirecionamento no mapa</p>
+                        </div>
+                        <img src="images/tutorial_uso/tela6.1-tutorialuso.png" alt="">
+                    </div>
+                        <div class="lc_tutorial_card">
+                            <div class="lc_text_tutorial_uso">
+                                <p>Formulário para solicitar adição de um novo local</p>
+                            </div>
+                            <img src="images/tutorial_uso/tela7-tutorialuso.png" alt="">
+                        </div>
+                        <div class="lc_tutorial_card">
+                            <div class="lc_text_tutorial_uso">
+                                <p>Tela de confirmação de envio</p>
+                            </div>
+                            <img src="images/tutorial_uso/tela8-tutorialuso.png" alt="">
+                        </div>
+                    </div>
+                    <button class="lc_prev">❮</button>
+                    <button class="lc_next">❯</button>
+            </div>
+        <li style="--cardColor:#36aeb3; margin-top: 10vh;">
+                <div class="lc_tutorial_content" style="display: flex; align-items: center;">
+                    <img style="width: 30px; height: 30px;" src="images/Marker_Padrao.png" alt="">
+                    <div class="lc_title_ind">Adicionando as telas em sua página!</div>
+                </div>
+        </li>
+            <div style="margin-left: 5vw;">
+                <div class="lc_slider" style="margin-top: 5vh;  height: 412px; width: 700px;">
+                    <div class="lc_titlebar">
+                        <span class="lc_tutorial_uso_buttons">
+                            <button class="lc_tutorial_uso_minimize">
+                                <svg viewBox="0 0 10.2 1" y="0px" x="0px">
+                                    <rect height="1" width="10.2" y="50%" x="0"></rect>
+                                </svg>
+                            </button>
+                            <button class="lc_tutorial_uso_maximize">
+                                <svg viewBox="0 0 10 10">
+                                    <path d="M0,0v10h10V0H0z M9,9H1V1h8V9z"></path>
+                                </svg>
+                            </button>
+                            <button class="lc_tutorial_uso_close">
+                                <svg viewBox="0 0 10 10">
+                                    <polygon points="10.2,0.7 9.5,0 5.1,4.4 0.7,0 0,0.7 4.4,5.1 0,9.5 0.7,10.2 5.1,5.8 9.5,10.2 10.2,9.5 5.8,5.1"></polygon>
+                                </svg>
+                            </button>
+                        </span>
+                    </div>
+                    <div class="lc_slider-inner">
+                        <div class="lc_tutorial_card">
+                            <div class="lc_text_tutorial_uso">
+                                <p>Opção 1: Clique em adicionar bloco</p>
+                            </div>
+                            <img src="images/tutorial_uso/tela1-tutorialuso.png" alt="">
+                        </div>
+                        <div class="lc_tutorial_card">
+                            <div class="lc_text_tutorial_uso">
+                                <p>Opção 1: Clique no bloco LGBTQ+ Connect</p>
+                            </div>
+                            <img src="images/tutorial_uso/tela2-tutorialuso.png" alt="">
+                        </div>
+                        <div class="lc_tutorial_card">
+                            <div class="lc_text_tutorial_uso">
+                                <p>Opção 1: Será exibido o indicador do local onde as telas serão exibidas</p>
+                            </div>
+                            <img src="images/tutorial_uso/tela3-tutorialuso.png" alt="">
+                        </div>
+                        <div class="lc_tutorial_card">
+                            <div class="lc_text_tutorial_uso">
+                                <p>Opção 2: Escrevendo o shortcode '[lgbtq_connect]' na página</p>
+                            </div>
+                            <img src="images/tutorial_uso/tela4-tutorialuso.png" alt="">
+                        </div>
+                        <div class="lc_tutorial_card">
+                            <div class="lc_text_tutorial_uso">
+                                <p>Telas adicionadas com sucesso!</p>
+                            </div>
+                            <img src="images/tutorial_uso/tela5-tutorialuso.png" alt="">
+                        </div>
+                    </div>
+                    <button class="lc_prev">❮</button>
+                    <button class="lc_next">❯</button>
+            </div>
+        <li style="--cardColor:#162d59; margin-top: 10vh; margin-left: -5vw;">
+          <div class="lc_tutorial_content" style="display: flex; align-items: center;">
+                    <img style="width: 30px; height: 30px;" src="images/Marker_Padrao.png" alt="">
+            <div class="lc_title_ind">Utilizando a interface do administrador!</div>
+          </div>
+        </li>
+            <div>
+                <div class="lc_slider" style="height: 419px; width: 700px; margin-top: 5vh;">
+                    <div class="lc_titlebar">
+                        <span class="lc_tutorial_uso_buttons">
+                            <button class="lc_tutorial_uso_minimize">
+                                <svg viewBox="0 0 10.2 1" y="0px" x="0px">
+                                    <rect height="1" width="10.2" y="50%" x="0"></rect>
+                                </svg>
+                            </button>
+                            <button class="lc_tutorial_uso_maximize">
+                                <svg viewBox="0 0 10 10">
+                                    <path d="M0,0v10h10V0H0z M9,9H1V1h8V9z"></path>
+                                </svg>
+                            </button>
+                            <button class="lc_tutorial_uso_close">
+                                <svg viewBox="0 0 10 10">
+                                    <polygon points="10.2,0.7 9.5,0 5.1,4.4 0.7,0 0,0.7 4.4,5.1 0,9.5 0.7,10.2 5.1,5.8 9.5,10.2 10.2,9.5 5.8,5.1"></polygon>
+                                </svg>
+                            </button>
+                        </span>
+                    </div>
+                    <div class="lc_slider-inner">
+                        <div class="lc_tutorial_card">
+                            <div class="lc_text_tutorial_uso">
+                                <p>Aqui é a interface do administrador</p>
+                            </div>
+                            <img src="images/tutorial_uso/tela9-tutorialuso.png" alt="">
+                        </div>
+                        <div class="lc_tutorial_card">
+                          <div class="lc_text_tutorial_uso">
+                              <p>Botões para escolha de exibição da tabela</p>
+                          </div>
+                          <img src="images/tutorial_uso/tela9.1-tutorialuso.png" alt="">
+                        </div>
+                        <div class="lc_tutorial_card">
+                            <div class="lc_text_tutorial_uso">
+                                <p>Filtros na tabela por nome e tipo de serviço</p>
+                            </div>
+                            <img src="images/tutorial_uso/tela10-tutorialuso.png" alt="">
+                        </div>
+                        <div class="lc_tutorial_card">
+                            <div class="lc_text_tutorial_uso">
+                                <p>Tabela onde os formulários são exibidos</p>
+                            </div>
+                            <img src="images/tutorial_uso/tela11-tutorialuso.png" alt="">
+                        </div>
+                        <div class="lc_tutorial_card">
+                          <div class="lc_text_tutorial_uso">
+                              <p>Clicando no botão ações são exibidas algumas ferramentas do administrador</p>
+                          </div>
+                          <img src="images/tutorial_uso/tela11.1-tutorialuso.png" alt="">
+                      </div>
+                        <div class="lc_tutorial_card">
+                            <div class="lc_text_tutorial_uso">
+                                <p>As ações incluem: Editar, Aprovar, Negar ou excluir o formulário</p>
+                            </div>
+                            <img src="images/tutorial_uso/tela12-tutorialuso.png" alt="">
+                        </div>
+                        <div class="lc_tutorial_card">
+                            <div class="lc_text_tutorial_uso">
+                                <p>Tela de edição do formulário enviado</p>
+                            </div>
+                            <img src="images/tutorial_uso/tela13-tutorialuso.png" alt="">
+                        </div>
+                        <div class="lc_tutorial_card">
+                            <div class="lc_text_tutorial_uso">
+                                <p>Após uma ação uma caixa de confirmação é exibida</p>
+                            </div>
+                            <img src="images/tutorial_uso/tela14-tutorialuso.png" alt="">
+                        </div>
+                    </div>
+                    <button class="lc_prev">❮</button>
+                    <button class="lc_next">❯</button>
+            </div>
+      </ol>
     </div>
   </section>
   
@@ -168,7 +378,37 @@
   <!-- Google Map -->
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap"></script>
   <!-- End Google Map -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const sliders = document.querySelectorAll('.lc_slider');
 
+        sliders.forEach(slider => {
+            const sliderInner = slider.querySelector('.lc_slider-inner');
+            const cards = slider.querySelectorAll('.lc_tutorial_card');
+            const prevButton = slider.querySelector('.lc_prev');
+            const nextButton = slider.querySelector('.lc_next');
+            let index = 0;
+
+            function showSlide(n) {
+                if (n >= cards.length) index = 0;
+                if (n < 0) index = cards.length - 1;
+                sliderInner.style.transform = `translateX(-${index * 100}%)`;
+            }
+
+            nextButton.addEventListener('click', () => {
+                index++;
+                showSlide(index);
+            });
+
+            prevButton.addEventListener('click', () => {
+                index--;
+                showSlide(index);
+            });
+
+            showSlide(index);
+        });
+    });
+  </script>
 </body>
 
 </html>
