@@ -105,7 +105,6 @@ class Paginacao {
         else 
             return;
 
-        aEl.href = "#";
         aEl.onclick = function() { mudarPagina(self.pagina+p) };
         aEl.classList.add("paginacao-seta");
         aEl.innerHTML = simbolo;
@@ -118,7 +117,6 @@ class Paginacao {
         let liEl =  document.createElement('li');
         let aEl = document.createElement('a');
 
-        aEl.href = "#";
         aEl.onclick = function() { mudarPagina(i) };
         aEl.id = `pagina-${i}`;
         aEl.innerHTML = `${i}`;
@@ -780,7 +778,7 @@ function realizarQuery(chamador) {
             }
 
             contador_resultados.innerHTML = `
-                <p>${data['total_items']} resultados encontrados</p>
+                <p id="lc_contador_resultados">${data['total_items']} resultados encontrados</p>
             `
         },
         error: function (xhr, status, error) {
