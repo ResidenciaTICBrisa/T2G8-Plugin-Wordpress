@@ -110,7 +110,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
                     echo '<h2>Formulários</h2>';
                     echo '<button value="Pendente" id="botao_inicial" class="btn-pendente" onclick="filtrar(this); destacarBotao(this, \'Pendentes\')"> 
                             <div class="lc_loader-container">
-                                <div class="lc_loader"></div>
                                 <div class="lc_counter">' . $pendentes . '</div>
                             </div>
                             Pendentes
@@ -118,7 +117,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
                         </button>';
                     echo '<button value="Aprovado" class=" btn-aprovado" onclick="filtrar(this); destacarBotao(this, \'Aprovados\')">
                             <div class="lc_loader-container">
-                                <div class="lc_loader"></div>
                                 <div class="lc_counter">'. $aprovados .'</div>
                             </div>
                             Aprovados
@@ -126,7 +124,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
                         </button>';
                     echo '<button value="Negado" class="btn-negado" onclick="filtrar(this); destacarBotao(this, \'Negados\')">
                             <div class="lc_loader-container">
-                                <div class="lc_loader"></div>
                                 <div class="lc_counter">'. $negados . '</div>
                             </div>
                             Negados
