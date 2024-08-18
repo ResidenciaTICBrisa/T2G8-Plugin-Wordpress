@@ -248,26 +248,6 @@ class Tabela {
     }
 }
 
-function destacarLinhaTabela(id) {
-    const tabela = document.getElementById("tabela");
-    const linha = document.getElementById(("formulario-" + id));
-
-    if (linha === null) {
-        return;
-    }
-
-    // Loop para remover a linha-destacada de todas as linhas
-    for (let i = 0, row; (row = tabela.rows[i]); i++) {
-        row.classList.remove('linha-destacada');
-    }
-
-    linha.classList.add('linha-destacada'); // Adiciona a classe 'linha-destacada'
-    linha.scrollIntoView({ behavior: 'smooth' }); // Rola a página para a linha
-    setTimeout(function () {
-        linha.classList.remove('linha-destacada');
-    }, 3000);
-}
-
 function mostrarDescricaoCompleta(id) {
     var descricaoResumida = document.getElementById('descricaoResumida_' + id);
     var descricaoCompleta = document.getElementById('descricaoCompleta_' + id);
@@ -308,11 +288,18 @@ function initMapAdmin() {
         }).addTo(mapAdmin);
 
         formularios_aprovados.forEach(function (formulario) {
+            let popupConteudo = `
+                <div class="pop">
+                    <h4><strong>${formulario.nome}</strong></h4>
+                    <i>${formulario.servico}</i>
+                    <div class="gradiente"></div>
+                    <p><strong>${formulario.descricao}</strong></p>
+                </div>
+            `;
+
             // Obtenha o marcador específico para o tipo de serviço do formulário
             const personalIcon = getMarcador(formulario.servico);
-            L.marker([formulario.latitude, formulario.longitude], { icon: personalIcon }).addTo(mapAdmin).on('click', function () {
-                destacarLinhaTabela(formulario.id);
-            });
+            L.marker([formulario.latitude, formulario.longitude], { icon: personalIcon }).addTo(mapAdmin).bindPopup(popupConteudo);
         });
 
         var CustomControl = L.Control.extend({

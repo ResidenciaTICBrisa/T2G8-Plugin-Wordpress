@@ -509,3 +509,40 @@ table th:last-child {
     width: 100px;
     margin: 5px;
 }
+
+.gradiente {
+    width: 100%; 
+    height: 2px; 
+    background-image: linear-gradient(to right, 
+    red, hotpink, blue, lime, yellow);
+
+}
+.pop{
+    font-family: Arial, sans-serif;
+    text-align: center;
+    color: #6d6d6d;
+    word-wrap: break-word;
+}
+
+.leaflet-popup-content h4 {
+    font-family: Arial, sans-serif; 
+    font-size: 15px;
+    line-height: 1.2; /* Ajuste a altura da linha para 120% */
+    color: #000000;
+    text-align: center;
+    word-wrap: break-word; /* Permite a quebra de palavras longas */
+    overflow-wrap: break-word; /* Permite a quebra de palavras longas */
+    white-space: normal; /* Permite que o texto quebre em várias linhas */
+}
+.leaflet-popup-content p{
+    font-family: Arial, sans-serif;
+    text-align: center;
+    color: #000000;
+}
+.leaflet-popup-content i{
+    font-family: Arial, sans-serif;
+    text-align: left;
+    line-height: 10%;
+    font-size: 15px;
+    color: #6d6d6d;
+}
