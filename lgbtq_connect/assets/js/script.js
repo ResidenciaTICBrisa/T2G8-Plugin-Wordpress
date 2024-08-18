@@ -54,7 +54,7 @@ class Mapa {
         this.mapa.addControl(new CustomControl());
     }
 
-       adicionarMarcador(marcador) {
+    adicionarMarcador(marcador) {
         marcador.addTo(this.mapa);
         this.marcadores.push(marcador);
     }
@@ -124,7 +124,11 @@ class PaginaComPopup extends Pagina {
 
             // Usa a função getMarcador passando o tipo de serviço
             const icon = getMarcador(formulario.servico);
-            this.mapa.adicionarMarcador(L.marker([formulario.latitude, formulario.longitude], { icon: icon }).bindPopup(popupConteudo));
+            if (icon) {
+                this.mapa.adicionarMarcador(L.marker([formulario.latitude, formulario.longitude], { icon: icon }).bindPopup(popupConteudo));
+            } else {
+                console.error('Erro ao criar o ícone para:', formulario.servico);
+            }
         }
     }
 }
@@ -136,22 +140,18 @@ class PaginaFormulario extends Pagina {
         var self = this;
 
         this.mapa.mapa.on('click', function (e) {
-            if (self.marcador == null) {
-                // Usa o valor do serviço selecionado para definir o ícone
-                const icon = getMarcador(document.getElementById('servico').value);
+            if (self.marcador === null) {
+                const icon = getMarcador(undefined, true); 
                 self.marcador = L.marker(e.latlng, { icon: icon }).addTo(self.mapa.mapa);
+            } else {
+                self.marcador.setLatLng(e.latlng);
             }
-            self.marcador.setLatLng(e.latlng);
-
-            var lat = e.latlng.lat; // Latitude
-            var lng = e.latlng.lng; // Longitude
-
-            // Atualiza os valores dos campos de entrada ocultos
-            document.getElementById('latitude').value = lat;
-            document.getElementById('longitude').value = lng;
-
+            document.getElementById('latitude').value = e.latlng.lat;
+            document.getElementById('longitude').value = e.latlng.lng;
+        
             Verificador.verificarCoordenadas();
         });
+        
 
         this.mapa.mapa.on('contextmenu', function (e) {
             // Verifica se existe um marcador atual
@@ -169,7 +169,11 @@ class PaginaFormulario extends Pagina {
         for (var i = 0; i < formularios_aprovados.length; i++) {
             var formulario = formularios_aprovados[i];
             const icon = getMarcador(formulario.servico);
-            this.mapa.adicionarMarcador(L.marker([formulario.latitude, formulario.longitude], { icon: icon }));
+            if (icon) {
+                this.mapa.adicionarMarcador(L.marker([formulario.latitude, formulario.longitude], { icon: icon }));
+            } else {
+                console.error('Erro ao criar o ícone para:', formulario.servico);
+            }
         }
     }
 }
@@ -190,16 +194,31 @@ class FabricaPagina {
         return new (FabricaPagina.CLASSES.get(tipo))(id);
     }
 }
-// Função getMarcador
-function getMarcador(tipoServico) {
-    const url = marcadores[tipoServico] || marcadores['outro']; // Pega o marcador específico ou o marcador padrão
-    const icon = L.icon({
+
+// Define a URL do ícone padrão
+const DEFAULT_ICON_URL = marcador_mapa; // Usa a URL definida pelo PHP
+
+// Função para obter o ícone do marcador
+function getMarcador(tipoServico = 'outro', usarPadrao = false) {
+    const url = usarPadrao ? marcadores['outro'] : (marcadores[tipoServico] || marcadores['outro']);
+    
+    // Verifica se a URL está definida e válida
+    if (!url) {
+        console.error('URL do ícone não foi definida corretamente:', { tipoServico, usarPadrao });
+        return L.icon({
+            iconUrl: DEFAULT_ICON_URL, // Usa a URL do ícone padrão
+            iconSize: [60, 60],
+            popupAnchor: [1, -10]
+        });
+    }
+
+    return L.icon({
         iconUrl: url,
-        iconSize: [60, 60], // tamanho do ícone
+        iconSize: [60, 60],
         popupAnchor: [1, -10]
     });
-    return icon;
 }
+
 
 // Definindo o ícone personalizado no escopo global usando a função getMarcador
 const personalIcon = getMarcador();
@@ -242,7 +261,6 @@ function abrirFiltroServico(){
         botao.style.backgroundColor = '#f5f5f5';
         botao.style.border = '1px solid rgb(209, 216, 212)';
     }
-
     
 }
 
@@ -257,56 +275,12 @@ document.querySelectorAll('.name_servico').forEach(checkbox => {
 window.onclick = function(event) {
     const modal = document.getElementById('modal_filtro');
     const botao = document.getElementById('filtro_servico');
-    if (event.target !== modal && event.target !== document.getElementById('filtro_servico')) {
+    if (event.target === modal) {
         modal.style.display = "none";
         botao.style.backgroundColor = '#f5f5f5';
         botao.style.border = '1px solid rgb(209, 216, 212)';
     }
-};
-
-// Capturando o checklist para gerar marcadores
-document.querySelectorAll('.name_servico').forEach(function(checkbox) {
-    checkbox.addEventListener('change', function() {
-        filtrarServicos();
-    });
-});
-
-function filtrarServicos() {
-    // Obter os serviços selecionados
-    const servicosSelecionados = Array.from(document.querySelectorAll('.name_servico:checked')).map(cb => cb.value);
-
-    // Se "Outros" estiver selecionado, adicionar lógica para filtrar todos os serviços não pré-definidos
-    const servicosPreDefinidos = ["bar/restaurante", "entretenimento", "bar", "beleza", "hospedagem", "ensino", "academia"];
-    const outrosSelecionado = servicosSelecionados.includes("outros");
-
-    // Filtrar os formulários aprovados com base nos serviços selecionados
-    const filtrados = formularios_aprovados.filter(formulario => {
-        return servicosSelecionados.includes(formulario.servico) || 
-               (outrosSelecionado && !servicosPreDefinidos.includes(formulario.servico));
-    });
-
-    // Chamar a função para atualizar o mapa com os serviços filtrados
-    atualizarMapaComFiltrados(filtrados);
 }
 
-
-function atualizarMapaComFiltrados(filtrados) {
-    // Limpar marcadores do mapa antes de aplicar o filtro
-    pagina.mapa.marcadores.forEach(marcador => pagina.mapa.mapa.removeLayer(marcador));
-    pagina.mapa.marcadores = [];
-
-    // Aplicar o filtro e adicionar os novos marcadores
-    filtrados.forEach(formulario => {
-        // Define o ícone com base no serviço do formulário
-        const icon = getMarcador(formulario.servico);
-        const popupConteudo = `
-            <div class="pop">
-                <h4><strong>${formulario.nome}</strong></h4>
-                <i>${formulario.servico}</i>
-                <div class="gradiente"></div>
-                <p><strong>${formulario.descricao}</strong></p>
-            </div>
-        `;
-        pagina.mapa.adicionarMarcador(L.marker([formulario.latitude, formulario.longitude], { icon: icon }).bindPopup(popupConteudo));
-    });
-}
+// Adiciona a lógica para o botão de filtro
+document.getElementById("filtro_servico").addEventListener("click", abrirFiltroServico);
