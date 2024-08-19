@@ -501,14 +501,15 @@ function abrirModalEdicao(dados) {
 }
 
 // Função para filtrar caracteres especiais e exibir um alerta
- function filtrarCaracteresEspeciais(texto, campo) {
-    const regex = /[!#$%&()*+\/<=>?@[\\\]_{|}]/;
+function filtrarCaracteresEspeciais(texto, campo) {
+    const regex = /[!#$%&()*+\<=>?@[\\\]_{|}]/;
     if (regex.test(texto)) {
         alert(`O campo ${campo} contém caracteres especiais que não são permitidos.`);
         return false; // Retorna false se caracteres especiais forem encontrados
     }
     return true;
 }
+
 
 // Função para adicionar o event listener ao formulário
  function adicionarListenerFormulario() {
