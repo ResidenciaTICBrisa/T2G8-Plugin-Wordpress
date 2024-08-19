@@ -13,11 +13,19 @@
 
 #div-mapa_botoes {
     display: flex;
+    gap: 2em;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
 }
 
 .div-mapa_botoes_filho {
+    display: flex;
     flex: 1;
     background-color: white;
+    height: 300px;  
+    margin-bottom: 10px;
+    justify-content: center;
 }
 
 #filtros {
@@ -31,9 +39,21 @@
 
 .filtro {
     flex: 1;
-    background-color: white;
     display: flex;
     align-items: center;
+    align-content: flex-start;
+    justify-content: center;
+    flex-wrap: nowrap;
+}
+
+#filtros-flex {
+    gap: 2em;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
 }
 
 #selecao_servico, #busca_nome{
@@ -42,23 +62,9 @@
     height: 40px;
 }
 
-#busca_nome {
-    flex-grow: 2;
-    border: none;
-
-}
 #selecao_servico{
-    margin-left: 2em;
     border-radius: 10px;
-    width: 351.51px;
     height: 40px;
-}
-#busca_nome:focus {
-    outline: none;
-}
-
-#busca_nome_container:focus-within {
-    outline: 1px solid blue;
 }
 
 button[data-id] {
@@ -99,17 +105,10 @@ button[data-id]:hover {
 }
 
 #mapa_admin {
+    min-width: 200px;
     border-radius: 20px;
-    margin-top: 1.5vw;
-    margin-right: 1.5vw;
     position: relative; /* Adicionado para garantir que o z-index funcione */
     z-index: 1; /* Baixo z-index para o mapa */
-    width: 791px;
-    height: 279px;
-    gap: 0px;
-    border-radius: 20px;
-    opacity: 0px;
-
 }
 
 #tabela th {
@@ -130,15 +129,7 @@ button[data-id]:hover {
     border: none !important;
 }
 
-table th:first-child {
-    border-top-left-radius: 20px !important;
-}
-
-table th:last-child {
-    border-top-right-radius: 20px !important;
-}
-
-.title{
+.titulo-editar-formulario{
     font-weight:bold;
     font-size: 24px;
     margin-bottom:20px;
@@ -466,54 +457,11 @@ table th:last-child {
     color: white !important;
 }
 
-.lc_rotate {
-    transform: rotate(90deg);
-    transition: transform 0.3s ease;
-}
-
 .lc_loader-container {
     position: relative;
     display: inline-block;
     width: 50px;
     height: 50px;
-}
-
-.lc_loader {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    animation: loader1776 2s linear infinite;
-    box-sizing: border-box;
-}
-
-.lc_loader::before, .lc_loader::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    box-sizing: border-box;
-}
-
-.lc_loader::before {
-    border: 5px solid;
-    border-color: rgb(235, 169, 47) transparent transparent rgb(43, 145, 87);
-}
-
-.lc_loader::after {
-    border: 5px solid;
-    border-color: transparent rgb(20, 102, 226) rgb(224, 71, 71) transparent;
-    animation: loader1776 2s linear infinite;
-    animation-delay: -1s; /* Slight delay for the second half of the border */
-}
-
-@keyframes loader1776 {
-    to {
-        transform: rotate(360deg);
-    }
 }
 
 .lc_counter {
@@ -551,4 +499,47 @@ table th:last-child {
     flex: 1; /* Faz com que os botões cresçam igualmente dentro do contêiner */
     width: 100px;
     margin: 5px;
+}
+
+.gradiente {
+    width: 100%; 
+    height: 2px; 
+    background-image: linear-gradient(to right, 
+    red, hotpink, blue, lime, yellow);
+
+}
+.pop{
+    font-family: Arial, sans-serif;
+    text-align: center;
+    color: #6d6d6d;
+    word-wrap: break-word;
+}
+
+.leaflet-popup-content h4 {
+    font-family: Arial, sans-serif; 
+    font-size: 15px;
+    line-height: 1.2; /* Ajuste a altura da linha para 120% */
+    color: #000000;
+    text-align: center;
+    word-wrap: break-word; /* Permite a quebra de palavras longas */
+    overflow-wrap: break-word; /* Permite a quebra de palavras longas */
+    white-space: normal; /* Permite que o texto quebre em várias linhas */
+}
+.leaflet-popup-content p{
+    font-family: Arial, sans-serif;
+    text-align: center;
+    color: #000000;
+}
+.leaflet-popup-content i{
+    font-family: Arial, sans-serif;
+    text-align: left;
+    line-height: 10%;
+    font-size: 15px;
+    color: #6d6d6d;
+}
+
+#lc_contador_resultados {
+    text-align: center;
+    margin-top: 10px;
+    font-size: large;
 }

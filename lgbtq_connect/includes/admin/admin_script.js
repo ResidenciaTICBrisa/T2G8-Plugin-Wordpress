@@ -105,7 +105,6 @@ class Paginacao {
         else 
             return;
 
-        aEl.href = "#";
         aEl.onclick = function() { mudarPagina(self.pagina+p) };
         aEl.classList.add("paginacao-seta");
         aEl.innerHTML = simbolo;
@@ -118,7 +117,6 @@ class Paginacao {
         let liEl =  document.createElement('li');
         let aEl = document.createElement('a');
 
-        aEl.href = "#";
         aEl.onclick = function() { mudarPagina(i) };
         aEl.id = `pagina-${i}`;
         aEl.innerHTML = `${i}`;
@@ -248,26 +246,6 @@ class Tabela {
     }
 }
 
-function destacarLinhaTabela(id) {
-    const tabela = document.getElementById("tabela");
-    const linha = document.getElementById(("formulario-" + id));
-
-    if (linha === null) {
-        return;
-    }
-
-    // Loop para remover a linha-destacada de todas as linhas
-    for (let i = 0, row; (row = tabela.rows[i]); i++) {
-        row.classList.remove('linha-destacada');
-    }
-
-    linha.classList.add('linha-destacada'); // Adiciona a classe 'linha-destacada'
-    linha.scrollIntoView({ behavior: 'smooth' }); // Rola a página para a linha
-    setTimeout(function () {
-        linha.classList.remove('linha-destacada');
-    }, 3000);
-}
-
 function mostrarDescricaoCompleta(id) {
     var descricaoResumida = document.getElementById('descricaoResumida_' + id);
     var descricaoCompleta = document.getElementById('descricaoCompleta_' + id);
@@ -308,11 +286,18 @@ function initMapAdmin() {
         }).addTo(mapAdmin);
 
         formularios_aprovados.forEach(function (formulario) {
+            let popupConteudo = `
+                <div class="pop">
+                    <h4><strong>${formulario.nome}</strong></h4>
+                    <i>${formulario.servico}</i>
+                    <div class="gradiente"></div>
+                    <p><strong>${formulario.descricao}</strong></p>
+                </div>
+            `;
+
             // Obtenha o marcador específico para o tipo de serviço do formulário
             const personalIcon = getMarcador(formulario.servico);
-            L.marker([formulario.latitude, formulario.longitude], { icon: personalIcon }).addTo(mapAdmin).on('click', function () {
-                destacarLinhaTabela(formulario.id);
-            });
+            L.marker([formulario.latitude, formulario.longitude], { icon: personalIcon }).addTo(mapAdmin).bindPopup(popupConteudo);
         });
 
         var CustomControl = L.Control.extend({
@@ -793,7 +778,7 @@ function realizarQuery(chamador) {
             }
 
             contador_resultados.innerHTML = `
-                <p>${data['total_items']} resultados encontrados</p>
+                <p id="lc_contador_resultados">${data['total_items']} resultados encontrados</p>
             `
         },
         error: function (xhr, status, error) {

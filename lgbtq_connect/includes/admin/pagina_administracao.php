@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
                     <path d="M443.6,387.1L312.4,255.4l131.5-130c5.4-5.4,5.4-14.2,0-19.6l-37.4-37.6c-2.6-2.6-6.1-4-9.8-4c-3.7,0-7.2,1.5-9.8,4  L256,197.8L124.9,68.3c-2.6-2.6-6.1-4-9.8-4c-3.7,0-7.2,1.5-9.8,4L68,105.9c-5.4,5.4-5.4,14.2,0,19.6l131.5,130L68.4,387.1  c-2.6,2.6-4.1,6.1-4.1,9.8c0,3.7,1.4,7.2,4.1,9.8l37.4,37.6c2.7,2.7,6.2,4.1,9.8,4.1c3.5,0,7.1-1.3,9.8-4.1L256,313.1l130.7,131.1  c2.7,2.7,6.2,4.1,9.8,4.1c3.5,0,7.1-1.3,9.8-4.1l37.4-37.6c2.6-2.6,4.1-6.1,4.1-9.8C447.7,393.2,446.2,389.7,443.6,387.1z"/>
                 </svg>
             </button>
-            <div class="title">Editar os dados do formulário<br></div>
+            <div class="titulo-editar-formulario">Editar os dados do formulário<br></div>
             <form id="editForm" method="post" action="<?php echo admin_url('admin.php?page=lc_admin'); ?>">
                 <input type="hidden" name="id" id="editId">
                 <input type="hidden" name="action" value="update_form">
@@ -93,8 +93,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
             </form>
         </div>
         <div id="div-mapa_botoes">
-            <div id="mapa_admin" class="div-mapa_botoes_filho" style="height: 300px; width: 60%; margin-bottom: 10px;"></div>
-            <div id="botoes_admin" class="div-mapa_botoes_filho" style="width: 30%; margin-bottom: 10px;">
+            <div id="mapa_admin" class="div-mapa_botoes_filho"></div>
+            <div id="botoes_admin" class="div-mapa_botoes_filho">
             <?php
                 global $wpdb;
 
@@ -110,7 +110,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
                     echo '<h2>Formulários</h2>';
                     echo '<button value="Pendente" id="botao_inicial" class="btn-pendente" onclick="filtrar(this); destacarBotao(this, \'Pendentes\')"> 
                             <div class="lc_loader-container">
-                                <div class="lc_loader"></div>
                                 <div class="lc_counter">' . $pendentes . '</div>
                             </div>
                             Pendentes
@@ -118,7 +117,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
                         </button>';
                     echo '<button value="Aprovado" class=" btn-aprovado" onclick="filtrar(this); destacarBotao(this, \'Aprovados\')">
                             <div class="lc_loader-container">
-                                <div class="lc_loader"></div>
                                 <div class="lc_counter">'. $aprovados .'</div>
                             </div>
                             Aprovados
@@ -126,7 +124,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
                         </button>';
                     echo '<button value="Negado" class="btn-negado" onclick="filtrar(this); destacarBotao(this, \'Negados\')">
                             <div class="lc_loader-container">
-                                <div class="lc_loader"></div>
                                 <div class="lc_counter">'. $negados . '</div>
                             </div>
                             Negados
@@ -138,12 +135,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
         </div>
         <div id="filtros" >
             <h3 id="titulo_tabela"></h3>
-            <div style="display:flex; flex-direction: row; space-between:">
-                <form method="post">
-                    <div id="busca_nome_container" class="filtro">
-                        <input type="text" id="busca_nome" placeholder="Pesquise pelo nome" oninput="filtrar()">
-                    </div>
-                </form>
+            <div id="filtros-flex">
+            <input type="text" id="busca_nome" placeholder="Pesquise pelo nome" oninput="filtrar()" class="filtro">
             <select id="selecao_servico" class="filtro" onchange="filtrar()" required>
                 <option value="" selected disabled>Selecione...</option>
                 <option value="bar/restaurante">Bares/restaurantes</option>
