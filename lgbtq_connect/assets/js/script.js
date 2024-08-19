@@ -275,12 +275,56 @@ document.querySelectorAll('.name_servico').forEach(checkbox => {
 window.onclick = function(event) {
     const modal = document.getElementById('modal_filtro');
     const botao = document.getElementById('filtro_servico');
-    if (event.target === modal) {
+    if (event.target !== modal && event.target !== document.getElementById('filtro_servico')) {
         modal.style.display = "none";
         botao.style.backgroundColor = '#f5f5f5';
         botao.style.border = '1px solid rgb(209, 216, 212)';
     }
+};
+
+// Capturando o checklist para gerar marcadores
+document.querySelectorAll('.name_servico').forEach(function(checkbox) {
+    checkbox.addEventListener('change', function() {
+        filtrarServicos();
+    });
+});
+
+function filtrarServicos() {
+    // Obter os serviços selecionados
+    const servicosSelecionados = Array.from(document.querySelectorAll('.name_servico:checked')).map(cb => cb.value);
+
+    // Se "Outros" estiver selecionado, adicionar lógica para filtrar todos os serviços não pré-definidos
+    const servicosPreDefinidos = ["bar/restaurante", "entretenimento", "bar", "beleza", "hospedagem", "ensino", "academia"];
+    const outrosSelecionado = servicosSelecionados.includes("outros");
+
+    // Filtrar os formulários aprovados com base nos serviços selecionados
+    const filtrados = formularios_aprovados.filter(formulario => {
+        return servicosSelecionados.includes(formulario.servico) || 
+               (outrosSelecionado && !servicosPreDefinidos.includes(formulario.servico));
+    });
+
+    // Chamar a função para atualizar o mapa com os serviços filtrados
+    atualizarMapaComFiltrados(filtrados);
 }
 
-// Adiciona a lógica para o botão de filtro
-document.getElementById("filtro_servico").addEventListener("click", abrirFiltroServico);
+
+function atualizarMapaComFiltrados(filtrados) {
+    // Limpar marcadores do mapa antes de aplicar o filtro
+    pagina.mapa.marcadores.forEach(marcador => pagina.mapa.mapa.removeLayer(marcador));
+    pagina.mapa.marcadores = [];
+
+    // Aplicar o filtro e adicionar os novos marcadores
+    filtrados.forEach(formulario => {
+        // Define o ícone com base no serviço do formulário
+        const icon = getMarcador(formulario.servico);
+        const popupConteudo = `
+            <div class="pop">
+                <h4><strong>${formulario.nome}</strong></h4>
+                <i>${formulario.servico}</i>
+                <div class="gradiente"></div>
+                <p><strong>${formulario.descricao}</strong></p>
+            </div>
+        `;
+        pagina.mapa.adicionarMarcador(L.marker([formulario.latitude, formulario.longitude], { icon: icon }).bindPopup(popupConteudo));
+    });
+}
