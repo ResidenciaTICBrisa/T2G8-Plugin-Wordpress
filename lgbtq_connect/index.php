@@ -50,6 +50,11 @@ function load_meu_plugin_styles() {
 }
 
 function enfileirar_scripts_admin() {
+    // Se a página não for a de admin, então sai da função
+    if (!is_admin() || !(isset($_GET['page']) && $_GET['page'] === 'lc_admin')) {
+        return;
+    }
+
     global $wpdb;
     // Obtém os formulários aprovados
     $formularios_aprovados = obter_formularios_aprovados($wpdb);
@@ -85,6 +90,10 @@ function enfileirar_scripts_admin() {
 
 function enfileirar_styles_admin()
 {
+    // Se a página não for a de admin, então sai da função
+    if (!is_admin() || !(isset($_GET['page']) && $_GET['page'] === 'lc_admin')) {
+        return;
+    }
     wp_enqueue_style('admin-style', plugin_dir_url(__FILE__) . 'includes/admin/style-admin.css', array(), '1.0');
 }
 

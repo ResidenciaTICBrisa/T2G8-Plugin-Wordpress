@@ -801,10 +801,3 @@ document.querySelectorAll('.ver-mais-btn').forEach(function (button) {
 window.onload = function () {
     initMapAdmin();
 };
-
-// Exporta as classes
-module.exports = {
-    Filtro,
-    Ordenador,
-    Tabela
-};
