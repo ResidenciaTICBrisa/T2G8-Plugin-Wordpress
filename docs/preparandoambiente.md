@@ -1,4 +1,4 @@
-# **Criando ambiente para desenvolvimento**
+# **Preparando ambiente para desenvolvimento**
 
 Os comandos listados a seguir são para dispositivos linux.
 
