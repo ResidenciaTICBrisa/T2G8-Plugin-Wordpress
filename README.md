@@ -2,13 +2,18 @@
   <img src="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/blob/main/docs/assets/images/logo.png" width="190" />
 </p>
 
-# T2G8-Plugin-Wordpress
+## LGBTQ+ Connect
 
-Bem-vindo ao repositório oficial do LGBTQIAPN+ Connect! Nosso projeto tem como principal objetivo conectar empreendimentos e serviços LGBTQIAPN+ friendly com toda a comunidade LGBTQIAPN+. Através dessa plataforma, buscamos promover a inclusão, visibilidade e apoio mútuo dentro da comunidade, fortalecendo laços e ampliando oportunidades para todos. Junte-se a nós nessa jornada rumo a um mundo mais igualitário e acolhedor para todas as identidades de gênero e orientações sexuais!
+Bem-vindo ao repositório oficial do LGBTQ+ Connect! Somos um plugin para o Wordpress que permite que você adicione um mapa interativo ao seu site, destacando locais seguros e acolhedores para a comunidade LGBTQ+. Com uma interface fácil de usar, os visitantes podem sugerir novos locais e o administrador pode aprovar, editar ou excluir essas sugestões diretamente do painel do WordPress.Nossa ferramenta é ideal para sites que desejam promover a inclusão e fornecer suporte à comunidade LGBTQ+. Simplifique a descoberta de locais amigáveis e ajude a criar um ambiente mais seguro e acolhedor para todos.
 
-## Sobre o Projeto
+## Tecnologias utilizadas
 
-O projeto consiste no desenvolvimento de um plugin de rastreamento de áreas seguras (Safe Zones) para a comunidade LGBT no Brasil. O objetivo principal é fornecer uma plataforma segura e inclusiva que permita aos usuários identificar e compartilhar locais seguros em suas comunidades, como bares, restaurantes, centros comunitários e outros estabelecimentos que sejam acolhedores e respeitosos com a comunidade LGBT. O plugin terá uma interface intuitiva e responsiva, permitindo aos usuários navegar facilmente pelo mapa de Safe Zones, adicionar novos locais e avaliar a segurança e inclusão de estabelecimentos existentes. A integração com uma plataforma de rastreamento de áreas seguras permitirá a comunicação em tempo real e o compartilhamento de informações entre os usuários. O projeto será desenvolvido em quatro releases principais, com atividades como definição de objetivos, pesquisa, desenvolvimento do front-end e back-end, integração com a plataforma de rastreamento, testes e correções, lançamento e promoção do plugin, e monitoramento e manutenção inicial após o lançamento. O objetivo final é criar uma ferramenta poderosa e positiva que contribua para a segurança e bem-estar da comunidade LGBT no Brasil.
+- Wordpress
+- PhP
+- MySQL
+- JavaScript
+- Leaflet
+- Nominatim
 
 ## Desenvolvedores
 
