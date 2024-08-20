@@ -54,6 +54,9 @@ class AlteraStatusTest extends TestCase {
 
     // Testes para a função atualizar_formulario
     public function test_atualizar_formulario_success() {
+        // Simula um ambiente HTTP com método POST
+        $_SERVER['REQUEST_METHOD'] = 'POST';
+
         // Mock de $_POST
         $_POST['id'] = 1;
         $_POST['nome'] = 'Teste Nome';
@@ -92,12 +95,15 @@ class AlteraStatusTest extends TestCase {
     }
 
     public function test_atualizar_formulario_missing_data() {
+        // Simula um ambiente HTTP com método POST
+        $_SERVER['REQUEST_METHOD'] = 'POST';
+
         // Limpe o $_POST para garantir que está vazio
         $_POST = [];
 
         // Capture a saída para verificar se wp_die foi chamado
         $this->expectException(WPDieException::class);
-        $this->expectExceptionMessage('Dados insuficientes');
+        $this->expectExceptionMessage('Dados insuficientes no POST para atualizar o formulário.');
 
         $mock_conseguir_rua_e_cidade = function($latitude, $longitude) {
             return ['Mock Rua', 'Mock Cidade'];
