@@ -2,56 +2,140 @@ let mapAdmin;
 let mapEdit;
 let isSearching = false;
 
+const  ajaxUrl = my_ajax_object.ajax_url;
+
 class Filtro {
-    static status = "Todos";
+    static status = "Pendente";
     static nome = "";
     static servico = "";
 
-    static realizarFiltragem(arr) {
-        const self = this;
-        return arr.filter(function (formulario) {
-            return (self.checarStatus(formulario) && self.checarNome(formulario) && self.checarServico(formulario));
-        });
+    static preencherQuery(dados) {
+        dados['status'] = this.status;
+        dados['nome'] = this.nome;
+        dados['servico'] = this.servico;
     }
-    static checarStatus(formulario) {
-        if (this.status !== "Todos") {
-            return (this.status == formulario.situacao);
-        } else {
-            return true;
-        }
-    }
-
-    static checarNome(formulario) {
-        return (formulario.nome.toLowerCase().trim().startsWith(this.nome.toLowerCase().trim()));
-    }
-
-    static checarServico(formulario) {
-        if (this.servico !== "") {
-            return (this.servico == formulario.servico);
-        } else {
-            return true;
-        }
-    }
-
+    
     static reiniciarFiltro() {
-        this.status = "Todos";
+        this.status = "";
         this.nome = "";
         this.servico = "";
     }
 }
-
 class Ordenador {
     static coluna = "nome";
     static ordem = "asc";
 
-    static realizarOrdenacao(arr) {
-        const self = this;
-        return arr.sort(function (a, b) {
-            const aValue = a[self.coluna].trim().toLowerCase();
-            const bValue = b[self.coluna].trim().toLowerCase();
+    static preencherQuery(dados) {
+        dados['coluna'] = this.coluna;
+        dados['ordem'] = this.ordem;
+    }
+}
+class Paginacao {
+    static pagina=1;
+    static max_paginas=20;
 
-            return (self.ordem === 'asc') ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
-        });
+    static preencherQuery(dados) {
+        dados['pagina'] = this.pagina;
+    }
+
+    static mudarMaxPaginas(n) {
+        this.max_paginas = n;
+        this.mudarPagina(1);
+    }
+
+    static mudarPagina(n) {
+        if(n >= 1 && n <= this.max_paginas)
+            this.pagina = n;
+    }
+
+    static gerarIndices(el) {
+        this.criarSeta(el, "voltar");
+        let grande = this.max_paginas >= 7;
+
+        let paginas = this.max_paginas;
+        if(grande)
+            paginas = 3;
+
+        for(let i=1; i<=paginas; i++) {
+            this.criarIndice(i, el);
+            if(grande && this.pagina===paginas && i==this.pagina)
+                this.criarIndice(i+1, el);
+        }
+
+        if(grande) {
+            this.criarReticencias(el);
+
+            if(this.pagina > 3 && this.pagina < (this.max_paginas - 2)) {
+                if(this.pagina -1 > 3)
+                    this.criarIndice(this.pagina-1, el)
+
+                this.criarIndice(this.pagina, el);
+
+                if(this.pagina+1 < (this.max_paginas-2))
+                    this.criarIndice(this.pagina+1, el)
+
+                this.criarReticencias(el);            
+            }
+
+            for(let i=this.max_paginas-2; i<=this.max_paginas; i++) {
+                if(grande && this.pagina==(this.max_paginas-2) && i==this.pagina)
+                    this.criarIndice(i-1, el);
+                this.criarIndice(i, el);
+            }
+        }
+
+        this.criarSeta(el, "avancar");
+    }
+
+    static criarSeta(el, tipo) {
+        const self = this;
+        let liEl =  document.createElement('li');
+        let aEl = document.createElement('a');
+
+        let p;
+        let simbolo;
+        if(tipo==="voltar") {
+            p=-1;
+            simbolo = "«";
+        }
+        else if(tipo==="avancar") {
+            p=1;
+            simbolo = "»";
+        }
+        else 
+            return;
+
+        aEl.onclick = function() { mudarPagina(self.pagina+p) };
+        aEl.classList.add("paginacao-seta");
+        aEl.innerHTML = simbolo;
+
+        liEl.appendChild(aEl);
+        el.appendChild(liEl);
+    }
+
+    static criarIndice(i, el) {
+        let liEl =  document.createElement('li');
+        let aEl = document.createElement('a');
+
+        aEl.onclick = function() { mudarPagina(i) };
+        aEl.id = `pagina-${i}`;
+        aEl.innerHTML = `${i}`;
+                
+        if(i==this.pagina)
+            aEl.classList.add("pagina-selecionada");
+
+        liEl.appendChild(aEl);
+        el.appendChild(liEl);
+    }
+
+    static criarReticencias(el) {
+        let dotEl = document.createElement('li');
+        dotEl.innerHTML = "<a>...</a>"
+        el.appendChild(dotEl);
+    }
+
+    static excluirIndices(el) {
+        el.innerHTML = "";
     }
 }
 
@@ -125,8 +209,8 @@ class Tabela {
             linha.innerHTML = `
             <td id="formulario-${dados.id}-nome">${dados.nome}</td>
             <td id="formulario-${dados.id}-email">${dados.email}</td>
-            <td id="formulario-${dados.id}-cidade">${dados.city}</td>
-            <td id="formulario-${dados.id}-rua">${dados.road}</td>
+            <td id="formulario-${dados.id}-cidade">${dados.cidade}</td>
+            <td id="formulario-${dados.id}-rua">${dados.rua}</td>
             <td id="formulario-${dados.id}-servico">${dados.servico}</td>
             <td id="formulario-${dados.id}-descricao">${descricao}</td>
             <td id="formulario-${dados.id}-data_hora">${dataFormatada}</td>
@@ -136,43 +220,30 @@ class Tabela {
                 <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                     Ações
                 </button>
-                <ul class="dropdown-menu">
-                    <li>
-                        <form method="post" action="" class="d-flex flex-wrap justify-content-between my-1">
-                            <input type="hidden" name="id" value="${dados.id}">
-                            <input type="hidden" name="action" value="">
-                            <button type="button" class="btn btn-primary mb-1" onclick='abrirModalEdicao(${JSON.stringify(dados)})'>Editar</button>
-                            ${acoes}
-                            <button type="button" class="btn btn-danger mt-1" onclick="confirmarAcao('Tem certeza que quer excluir a sugestão?', this.form, 'exclude')">Excluir</button>
-                        </form>
-                    </li>
-                </ul>
+       <ul class="dropdown-menu">
+            <li>
+                <form method="post" action="" class="d-flex flex-column align-items-center my-1 w-100">
+                    <input type="hidden" name="id" value="${dados.id}">
+                    <input type="hidden" name="action" value="">
+                    <div class="d-flex flex-wrap gap-2"> <!-- Contêiner flexível para os botões -->
+
+                        <button type="button" class="btn btn-primary  w-50" onclick='abrirModalEdicao(${JSON.stringify(dados)})'>Editar</button>
+                        ${acoes}
+                        <button type="button" class="btn btn-danger w-50 " onclick="confirmarAcao('Tem certeza que quer excluir a sugestão?', this.form, 'exclude')">Excluir</button>
+                    </div>
+                </form>
+            </li>
+        </ul>
+
+
+
+
             </div>
         </td>
     `;
             tbody.appendChild(linha);
         });
     }
-}
-
-function destacarLinhaTabela(id) {
-    let tabela = document.getElementById("tabela");
-    let linha = document.getElementById(("formulario-" + id));
-
-    if (linha === null) {
-        return;
-    }
-
-    // Loop para remover a linha-destacada de todas as linhas
-    for (let i = 0, row; (row = tabela.rows[i]); i++) {
-        row.classList.remove('linha-destacada');
-    }
-
-    linha.classList.add('linha-destacada'); // Adiciona a classe 'linha-destacada'
-    linha.scrollIntoView({ behavior: 'smooth' }); // Rola a página para a linha
-    setTimeout(function () {
-        linha.classList.remove('linha-destacada');
-    }, 3000);
 }
 
 function mostrarDescricaoCompleta(id) {
@@ -190,79 +261,107 @@ function mostrarDescricaoCompleta(id) {
         botao.innerText = 'Ver menos';
     }
 }
-
-function initMapAdmin() {
-    // Definindo o ícone personalizado no escopo global
-    const personalIcon = L.icon({
-        iconUrl: 'https://res.cloudinary.com/dxsx0emuu/image/upload/f_auto,q_auto/lc_marker',
-        iconSize: [20, 30], // tamanho do ícone
+// Função para definir o tipo de marcadores
+function getMarcador(tipoServico) {
+    const url = marcadores[tipoServico] || marcadores['outro']; // Pega o marcador específico ou o marcador padrão
+    const icon = L.icon({
+        iconUrl: url,
+        iconSize: [60, 60], // tamanho do ícone
         popupAnchor: [1, -10]
     });
-
+    return icon;
+}
+function initMapAdmin() {
     if (document.getElementById('mapa_admin') == null) {   
         return;
     }
 
-    mapAdmin = L.map('mapa_admin', { doubleClickZoom: false }).setView([-15.8267, -47.9218], 13);
+    // Função para inicializar o mapa com a localização do usuário
+    function iniciarMapaComLocalizacao(lat, lng) {
+        mapAdmin = L.map('mapa_admin', { doubleClickZoom: false }).setView([lat, lng], 13);
 
-    // Adiciona o provedor de mapa OpenStreetMap
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(mapAdmin);
+        // Adiciona o provedor de mapa OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(mapAdmin);
 
-    formularios_aprovados.forEach(function (formulario) {
-        L.marker([formulario.latitude, formulario.longitude], { icon: personalIcon }).addTo(mapAdmin).on('click', function () {
-            destacarLinhaTabela(formulario.id);
+        formularios_aprovados.forEach(function (formulario) {
+            let popupConteudo = `
+                <div class="pop">
+                    <h4><strong>${formulario.nome}</strong></h4>
+                    <i>${formulario.servico}</i>
+                    <div class="gradiente"></div>
+                    <p><strong>${formulario.descricao}</strong></p>
+                </div>
+            `;
+
+            // Obtenha o marcador específico para o tipo de serviço do formulário
+            const personalIcon = getMarcador(formulario.servico);
+            L.marker([formulario.latitude, formulario.longitude], { icon: personalIcon }).addTo(mapAdmin).bindPopup(popupConteudo);
         });
-    });
 
+        var CustomControl = L.Control.extend({
+            options: {
+                position: 'bottomright'
+            },
 
-    var CustomControl = L.Control.extend({
-        options: {
-            position: 'bottomright'
-        },
+            onAdd: function (map) {
+                var container = L.DomUtil.create('div', 'leaflet-control-custom');
 
-        onAdd: function (map) {
-            var container = L.DomUtil.create('div', 'leaflet-control-custom');
-
-            container.onclick = function () {
-                if (!document.fullscreenElement) {
-                    map.getContainer().requestFullscreen();
-                } else {
-                    if (document.exitFullscreen) {
-                        document.exitFullscreen();
+                container.onclick = function () {
+                    if (!document.fullscreenElement) {
+                        map.getContainer().requestFullscreen();
+                    } else {
+                        if (document.exitFullscreen) {
+                            document.exitFullscreen();
+                        }
                     }
-                }
-            };
+                };
 
-            // Adiciona ouvintes para mudança de estado de tela cheia
-            document.addEventListener('fullscreenchange', function () {
-                if (document.fullscreenElement) {
-                    container.classList.add('fullscreen');
-                } else {
-                    container.classList.remove('fullscreen');
-                }
+                // Adiciona ouvintes para mudança de estado de tela cheia
+                document.addEventListener('fullscreenchange', function () {
+                    if (document.fullscreenElement) {
+                        container.classList.add('fullscreen');
+                    } else {
+                        container.classList.remove('fullscreen');
+                    }
+                });
+
+                return container;
+            }
+        });
+
+        mapAdmin.addControl(new CustomControl());
+    }
+
+    // Função para lidar com a localização do usuário
+    function obterLocalizacao() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (posicao) {
+                const lat = posicao.coords.latitude;
+                const lng = posicao.coords.longitude;
+                iniciarMapaComLocalizacao(lat, lng);
+            }, function () {
+                // Se a localização não puder ser obtida, inicializa o mapa com uma localização padrão
+                iniciarMapaComLocalizacao(-15.8267, -47.9218);
             });
-
-            return container;
+        } else {
+            // Se a geolocalização não é suportada, inicializa o mapa com uma localização padrão
+            iniciarMapaComLocalizacao(-15.8267, -47.9218);
         }
-    });
+    }
 
-    mapAdmin.addControl(new CustomControl());
+    obterLocalizacao();
 }
 
-function initMapEdit(latitude, longitude, nome, servico, descricao) {
-    // Definindo o ícone personalizado no escopo global
-    const personalIcon = L.icon({
-        iconUrl: 'https://res.cloudinary.com/dxsx0emuu/image/upload/f_auto,q_auto/lc_marker',
-        iconSize: [20, 30], // tamanho do ícone
-        popupAnchor: [1, -10]
-    });
 
+function initMapEdit(latitude, longitude, nome, servico, descricao) {
     // Verifica se o mapa já foi inicializado e destrói se necessário
     if (mapEdit !== undefined) {
         mapEdit.remove();
     }
+
+    const personalIcon = getMarcador();
 
     mapEdit = L.map('mapa_formulario_edit', { doubleClickZoom: false }).setView([-15.8267, -47.9218], 13);
 
@@ -373,13 +472,13 @@ function abrirModalEdicao(dados) {
     // Preenche os campos do formulário com os dados fornecidos
     document.getElementById('editId').value = dados.id;
     document.getElementById('editNome').value = dados.nome;
-    document.getElementById('editEmail').value = dados.email;
+    document.getElementById('editEmail').value = dados.email; // Email não é filtrado
     document.getElementById('editServico').value = dados.servico;
     document.getElementById('editDescricao').value = dados.descricao;
-    document.getElementById('editLatitude').value = dados.latitude;
-    document.getElementById('editLongitude').value = dados.longitude;
+    document.getElementById('editLatitude').value = parseFloat(dados.latitude);
+    document.getElementById('editLongitude').value = parseFloat(dados.longitude);
 
-    initMapEdit(dados.latitude, dados.longitude, dados.nome, dados.servico, dados.descricao);
+    initMapEdit(parseFloat(dados.latitude), parseFloat(dados.longitude), dados.nome, dados.servico, dados.descricao);
 
     // Exibe o modal de edição
     popup.style.display = "flex";
@@ -388,7 +487,7 @@ function abrirModalEdicao(dados) {
     // Atualiza o tamanho do mapa e define a visualização após um pequeno atraso para garantir que o modal tenha sido completamente exibido
     setTimeout(function() {
         mapEdit.invalidateSize();
-        mapEdit.setView([dados.latitude, dados.longitude], 13);
+        mapEdit.setView([parseFloat(dados.latitude), parseFloat(dados.longitude)], 13);
     }, 200);
 
     modal.scrollIntoView({ behavior: 'smooth' });
@@ -400,6 +499,51 @@ function abrirModalEdicao(dados) {
         }
     };
 }
+
+// Função para filtrar caracteres especiais e exibir um alerta
+function filtrarCaracteresEspeciais(texto, campo) {
+    const regex = /[!#$%&()*+\<=>?@[\\\]_{|}]/;
+    if (regex.test(texto)) {
+        alert(`O campo ${campo} contém caracteres especiais que não são permitidos.`);
+        return false; // Retorna false se caracteres especiais forem encontrados
+    }
+    return true;
+}
+
+
+// Função para adicionar o event listener ao formulário
+ function adicionarListenerFormulario() {
+    const form = document.getElementById('editForm');
+    if (form) {
+        form.addEventListener('submit', function(event) {
+            const id = document.getElementById('editId').value;
+            const nome = document.getElementById('editNome').value;
+            const email = document.getElementById('editEmail').value;
+            const servico = document.getElementById('editServico').value;
+            const descricao = document.getElementById('editDescricao').value;
+
+            // Verifica cada campo para caracteres especiais
+            if (!filtrarCaracteresEspeciais(id, 'ID') || 
+                !filtrarCaracteresEspeciais(nome, 'Nome') || 
+                !filtrarCaracteresEspeciais(servico, 'Serviço') || 
+                !filtrarCaracteresEspeciais(descricao, 'Descrição')) {
+                event.preventDefault(); // Impede o envio do formulário
+                alert('Um ou mais campos contêm caracteres especiais que não são permitidos.');
+            }
+        });
+    } else {
+        console.warn('O formulário com o ID "editForm" não foi encontrado.');
+    }
+}
+// Chama a função para adicionar o listener ao formulário quando o DOM estiver pronto
+document.addEventListener('DOMContentLoaded', adicionarListenerFormulario);
+
+document.addEventListener('DOMContentLoaded', function() {
+    const btnPendente = document.getElementById('botao_inicial');
+    if (btnPendente) {
+        btnPendente.click();
+    }
+});
 
 function fecharEditor() {
     document.getElementById('editPopup').style.display = "none";
@@ -512,13 +656,33 @@ function imprimirResultados(resultados) {
         }
     }
 }
+function destacarBotao(elemento, situacao){
+    // Remove a rotação de todos os ícones
+    document.querySelectorAll('button').forEach(btn => {
+        const icon = btn.querySelector('i');
+        if (icon) {
+            icon.classList.remove('lc_rotate');
+        }
+        btn.style.color = ''; // Restaura a cor padrão do texto
+    });
+
+    // Adiciona a rotação ao ícone do botão clicado
+    const icon = elemento.querySelector('i');
+    if (icon) {
+        icon.classList.add('lc_rotate');
+    }
+
+    elemento.style.color = 'black';
+
+    titulo_tabela = document.getElementById('titulo_tabela');
+    titulo_tabela.innerHTML = 'Formulários ' + situacao;
+}
 
 function filtrar(elemento) {
     let arr = [];
 
     const filtro_nome = document.getElementById("busca_nome");
     const filtro_servico = document.getElementById("selecao_servico");
-    const contador_resultados = document.getElementById("contador_resultados");
     if (elemento) {
         Filtro.status = elemento.value;
     }
@@ -530,17 +694,8 @@ function filtrar(elemento) {
     if (filtro_servico) {
         Filtro.servico = filtro_servico.value;
     }
-    arr = Filtro.realizarFiltragem(formularios_todos);
-    contador_resultados.innerHTML = `
-        <p>${arr.length} resultados encontrados<p>
-    `;
 
-    const tabela = document.getElementById("tabela");
-    const tabelaObj = new Tabela([], tabela);
-    tabelaObj.arr = arr;
-
-    tabelaObj.excluirLinhas();
-    tabelaObj.gerarLinhas();
+    realizarQuery("Filtro");
 }
 
 function ordenar(elemento) {
@@ -571,11 +726,67 @@ function ordenar(elemento) {
         Ordenador.coluna = "nome";
     }
 
-    const tabelaObj = new Tabela([], tabela);
-    tabelaObj.arr = Ordenador.realizarOrdenacao(tabelaObj.arr);
+    realizarQuery("Ordenador");
+}
 
-    tabelaObj.excluirLinhas();
-    tabelaObj.gerarLinhas();
+function mudarPagina(n) {
+    Paginacao.mudarPagina(n);
+
+    if(n < 1)
+        return;
+
+    const lista = document.getElementById("admin-paginacao");
+
+    Paginacao.excluirIndices(lista);
+    Paginacao.gerarIndices(lista);
+    realizarQuery("Paginacao");
+}
+
+function realizarQuery(chamador) {
+    let dados = {};
+    Filtro.preencherQuery(dados);
+    Ordenador.preencherQuery(dados);
+    Paginacao.preencherQuery(dados);
+
+    const tabela = document.getElementById("tabela");
+    const contador_resultados = document.getElementById("contador_resultados");
+    const lista = document.getElementById("admin-paginacao");
+
+    if(chamador==="Filtro" || chamador==="Ordenador")
+        dados['pagina'] = 1;
+
+    $.ajax({
+        type: 'POST',
+        url: ajaxUrl,
+        data: {
+            action: 'realizarQuery', // Hook de ação para o lado do servidor
+            formData: dados, // Data do formulário
+        },
+        success: function (resposta) {
+            // Resposta caso dê certo
+
+            let data = resposta['data'];
+            const tabelaObj = new Tabela([], tabela);
+            tabelaObj.arr = data['resultados'];
+
+            tabelaObj.excluirLinhas();
+            tabelaObj.gerarLinhas();
+
+            if(chamador==="Filtro" || chamador==="Ordenador") {
+                Paginacao.mudarMaxPaginas(Math.ceil(data['total_items'] / 10));
+                Paginacao.excluirIndices(lista);
+                Paginacao.gerarIndices(lista);
+            }
+
+            contador_resultados.innerHTML = `
+                <p id="lc_contador_resultados">${data['total_items']} resultados encontrados</p>
+            `
+        },
+        error: function (xhr, status, error) {
+            // Resposta caso dê errado
+            console.error('Erro no envio do formulário:', error);
+        },
+    });
 }
 
 // Adiciona um evento de clique a todos os botões de "Ver mais/menos"
@@ -589,11 +800,4 @@ document.querySelectorAll('.ver-mais-btn').forEach(function (button) {
 // Inicializa o mapa e os botões de ordenação quando a página carrega
 window.onload = function () {
     initMapAdmin();
-};
-
-// Exporta as classes
-module.exports = {
-    Filtro,
-    Ordenador,
-    Tabela
 };

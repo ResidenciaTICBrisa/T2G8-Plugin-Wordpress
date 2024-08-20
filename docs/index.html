@@ -1,135 +1,447 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Document</title>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="description" content="Description">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
-  <style>
-    .mask{
-      display:none;
-    }
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
 
-    /* .anchor{
-      font-weight: bold;
-      font-size:72px;
-    } */
+  <title>Lgbtq+ Connect</title>
 
-    /* .anchor span{
-      color:blueviolet !important;
-      font-size:28px;
-    } */
 
-    /* body.hide-navbar .nav-container {
-      display: none;
-    } */
-    /* hr{
-      display:none;
-    } */
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
 
-    /* .sidebar{
-      width:10%;
-      word-wrap:break-word !important;
-    } */
+  <!-- font awesome style -->
+  <link href="css/font-awesome.min.css" rel="stylesheet" />
 
-    /* class="app-nav no-badge" */
+  <!-- Custom styles for this template -->
+  <link href="css/style.css" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="css/responsive.css" rel="stylesheet" />
 
-    /* nav{
-      padding-bottom:50px;
-    } */
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/font/bootstrap-icons.min.css">
 
-    /* .sidebar{
-      display:none;
-    }
-     .sidebar-toggle{
-      display:none;
-    }
-
-    .sidebar-nav{
-      display:none;
-    } */
-
-    .content{
-      margin-top:4vw;
-    }
-
-    .anchor{
-      font-size:36px;
-    }
-
-    #lgbtq-connect{
-      font-size:96px !important;
-      font-weight:bold;
-    }
-
-    section.cover .cover-main>p:last-child a:last-child{
-      font-weight:bold;
-      border:none;
-      /* background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet, red); */
-      /* background: linear-gradient(
-        90deg,
-        rgba(255, 0, 0, 1) 0%,
-        rgba(255, 154, 0, 1) 10%,
-        rgba(208, 222, 33, 1) 20%,
-        rgba(79, 220, 74, 1) 30%,
-        rgba(63, 218, 216, 1) 40%,
-        rgba(47, 201, 226, 1) 50%,
-        rgba(28, 127, 238, 1) 60%,
-        rgba(95, 21, 242, 1) 70%,
-        rgba(186, 12, 248, 1) 80%,
-        rgba(251, 7, 217, 1) 90%,
-        rgba(255, 0, 0, 1) 100%
-    ); */
-    background-image: linear-gradient(to right, #FF512F 0%, #DD2476  51%, #FF512F  100%);
-    /* background:none;
-    background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82); */
-    color: white !important;
-    }
-
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  border-radius: 100vh;
-  background: white;
-}
-
-::-webkit-scrollbar-thumb {
-  border-radius:50px;
-  background: linear-gradient(0deg, red, orange, yellow, green, blue, indigo, violet, red);
-}
-
-section.cover a, section.cover a:hover {
-    text-decoration: none;
-    color:#ff006f !important;
-}
-
-  </style>
 </head>
+
 <body>
-  <div id="app"></div>
-  <script>
-    window.$docsify = {
-      name: '',
-      repo: '',
-      coverpage: true,
-      onlyCover:true,
-      loadNavbar:true,
-      logo:'/_media/logo.png',
-      themeColor:'#ff006f',
-      markdown:{
-        smartypants:true,
-        renderer:{
+    <!-- Docsify Script -->
+    <script>
+        window.$docsify = {
+            name: 'Documentação',
+            repo: '',
+            loadSidebar: true,
+            auto2top: true
         }
-      }
-    }
+    </script>
+    <script src="https://unpkg.com/docsify/lib/docsify.min.js"></script>
+
+  <div class="hero_area" style="min-height: 100vh; border-radius: 0 0 350px 0;">
+    <!-- header section strats -->
+    <header class="header_section">
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg custom_nav-container ">
+          <a class="navbar-brand" href="index.html">
+            <span>
+              LGBTQ+ Connect
+            </span>
+          </a>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class=""> </span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav  ">
+              <li class="nav-item active">
+                <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="download.html"> Download </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="tutorial.html">Tutorial</a>
+              </li>
+            </ul>
+            <div class="quote_btn-container">
+              <a href="docsify/index.html" target="_blank" class="quote_btn">
+                Documentação
+              </a>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!-- end header section -->
+    <!-- slider section -->
+    <section class="slider_section">
+      <div class="fixed-img">
+        <img src="images/logo.png" style="height: 30em; width: 30em; margin-left: 5em;"alt="LGBTQ+ Connect">
+      </div>
+      <div id="customCarousel1" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="detail-box" style="width: 30em; margin-left: 5em;">
+                    <h2>
+                      Descubra Locais Amigáveis à Comunidade LGBTQ+ com Facilidade!
+                    </h2>
+                    <div class="btn-box">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="detail-box" style="width: 30em; margin-left: 5em;">
+                    <h2>
+                      Receba novas solicitações de locais para serem adicionados ao mapa!
+                    </h2>
+                    <div class="btn-box">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="detail-box" style="width: 30em; margin-left: 5em;">
+                    <h2>
+                      Acesse e gerencie todos os locais diretamente do painel administrativo do WordPress!
+                    </h2>
+                    <div class="btn-box">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ol class="carousel-indicators">
+          <li data-target="#customCarousel1" data-slide-to="0" class="active"></li>
+          <li data-target="#customCarousel1" data-slide-to="1"></li>
+          <li data-target="#customCarousel1" data-slide-to="2"></li>
+        </ol>
+      </div>
+    </section>    
+    
+    <!-- end slider section -->
+  </div>
+
+  <!-- service section -->
+  <section class="service_section layout_padding">
+    <h1>
+      <strong>
+        <span style="color: rgb(229, 0, 0);">L</span><span style="color: rgb(255, 141, 0)">G</span><span style="color: rgb(255, 238, 0)">B</span><span style="color: rgb(2, 129, 33)">T</span><span style="color: rgb(0, 76, 255)">Q</span><span>+</span> <span style="color: rgb(119, 0, 136)">C<span style="color: rgb(229, 0, 0)">o</span><span style="color: rgb(255, 141, 0)">n</span><span style="color: rgb(255, 238, 0)">n</span><span style="color: rgb(2, 129, 33)">e</span><span style="color: rgb(0, 76, 255)">c</span><span style="color: rgb(119, 0, 136)">t</span>
+      </strong>
+    </h1>
+    <div class="introtext">
+      O LGBTQ+ Connect permite que você adicione um mapa interativo ao seu site, destacando locais seguros e acolhedores para a comunidade LGBTQ+. Com uma interface fácil de usar, os visitantes podem sugerir novos locais e o administrador pode aprovar, editar ou excluir essas sugestões diretamente do painel do WordPress. Mantenha seu mapa sempre atualizado e torne seu site uma referência em inclusão!
+    </div>
+    <div class="container">
+      <div class="heading_container" style="margin: 2em 0 2em 0">
+        <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor" class="bi bi-wordpress" viewBox="0 0 16 16">
+          <path d="M12.633 7.653c0-.848-.305-1.435-.566-1.892l-.08-.13c-.317-.51-.594-.958-.594-1.48 0-.63.478-1.218 1.152-1.218q.03 0 .058.003l.031.003A6.84 6.84 0 0 0 8 1.137 6.86 6.86 0 0 0 2.266 4.23c.16.005.313.009.442.009.717 0 1.828-.087 1.828-.087.37-.022.414.521.044.565 0 0-.371.044-.785.065l2.5 7.434 1.5-4.506-1.07-2.929c-.369-.022-.719-.065-.719-.065-.37-.022-.326-.588.043-.566 0 0 1.134.087 1.808.087.718 0 1.83-.087 1.83-.087.37-.022.413.522.043.566 0 0-.372.043-.785.065l2.48 7.377.684-2.287.054-.173c.27-.86.469-1.495.469-2.046zM1.137 8a6.86 6.86 0 0 0 3.868 6.176L1.73 5.206A6.8 6.8 0 0 0 1.137 8"/>
+          <path d="M6.061 14.583 8.121 8.6l2.109 5.78q.02.05.049.094a6.85 6.85 0 0 1-4.218.109m7.96-9.876q.046.328.047.706c0 .696-.13 1.479-.522 2.458l-2.096 6.06a6.86 6.86 0 0 0 2.572-9.224z"/>
+          <path fill-rule="evenodd" d="M0 8c0-4.411 3.589-8 8-8s8 3.589 8 8-3.59 8-8 8-8-3.589-8-8m.367 0c0 4.209 3.424 7.633 7.633 7.633S15.632 12.209 15.632 8C15.632 3.79 12.208.367 8 .367 3.79.367.367 3.79.367 8"/>
+        </svg>
+        <h2>
+          Plugin do Wordpress
+        </h2>
+        <p class="introtext" style="max-width: 35em;">
+          Nosso plugin é desenvolvido para o Wordpress com o objetivo de ajudar na construção de ferramentas que auxiliem a comunidade LGBTQ+ na internet.
+        </p>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-lg-3">
+          <div class="box">
+            <div class="img-box">
+              <svg xmlns="http://www.w3.org/2000/svg" width="75" height="75" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"/>
+                <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+              </svg>
+            </div>
+            <div class="detail-box">
+              <h5>
+                Mapa
+              </h5>
+              <p>
+                Adição de mapa em páginas do site
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="box">
+            <div class="img-box">
+              <svg xmlns="http://www.w3.org/2000/svg" width="75" height="75" fill="currentColor" class="bi bi-file-text" viewBox="0 0 16 16">
+                <path d="M5 4a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1zm-.5 2.5A.5.5 0 0 1 5 6h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5M5 8a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1zm0 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1z"/>
+                <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2zm10-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1"/>
+              </svg>
+            </div>
+            <div class="detail-box">
+              <h5>
+                Formulário
+              </h5>
+              <p>
+                Novas solicitações para plotagem
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="box">
+            <div class="img-box">
+              <svg xmlns="http://www.w3.org/2000/svg" width="75" height="75" fill="currentColor" class="bi bi-table" viewBox="0 0 16 16">
+                <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm15 2h-4v3h4zm0 4h-4v3h4zm0 4h-4v3h3a1 1 0 0 0 1-1zm-5 3v-3H6v3zm-5 0v-3H1v2a1 1 0 0 0 1 1zm-4-4h4V8H1zm0-4h4V4H1zm5-3v3h4V4zm4 4H6v3h4z"/>
+              </svg>
+            </div>
+            <div class="detail-box">
+              <h5>
+                Gerenciamento
+              </h5>
+              <p>
+                Gerenciamento dos formulários
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="box">
+            <div class="img-box">
+              <svg xmlns="http://www.w3.org/2000/svg" width="75" height="75" fill="currentColor" class="bi bi-envelope-at" viewBox="0 0 16 16">
+                <path d="M2 2a2 2 0 0 0-2 2v8.01A2 2 0 0 0 2 14h5.5a.5.5 0 0 0 0-1H2a1 1 0 0 1-.966-.741l5.64-3.471L8 9.583l7-4.2V8.5a.5.5 0 0 0 1 0V4a2 2 0 0 0-2-2zm3.708 6.208L1 11.105V5.383zM1 4.217V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.217l-7 4.2z"/>
+                <path d="M14.247 14.269c1.01 0 1.587-.857 1.587-2.025v-.21C15.834 10.43 14.64 9 12.52 9h-.035C10.42 9 9 10.36 9 12.432v.214C9 14.82 10.438 16 12.358 16h.044c.594 0 1.018-.074 1.237-.175v-.73c-.245.11-.673.18-1.18.18h-.044c-1.334 0-2.571-.788-2.571-2.655v-.157c0-1.657 1.058-2.724 2.64-2.724h.04c1.535 0 2.484 1.05 2.484 2.326v.118c0 .975-.324 1.39-.639 1.39-.232 0-.41-.148-.41-.42v-2.19h-.906v.569h-.03c-.084-.298-.368-.63-.954-.63-.778 0-1.259.555-1.259 1.4v.528c0 .892.49 1.434 1.26 1.434.471 0 .896-.227 1.014-.643h.043c.118.42.617.648 1.12.648m-2.453-1.588v-.227c0-.546.227-.791.573-.791.297 0 .572.192.572.708v.367c0 .573-.253.744-.564.744-.354 0-.581-.215-.581-.8Z"/>
+              </svg>
+            </div>
+            <div class="detail-box">
+              <h5>
+                Envio de emails
+              </h5>
+              <p>
+                Para administradores e usuários
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOTA -->
+    </div>
+  </section>
+  <!-- end service section -->
+
+  <!-- about section -->
+
+  <section class="about_section layout_padding">
+    <div class="container  ">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="box_text_animado">
+            <div class="icon-left icon2">
+                <?xml version="1.0" encoding="utf-8"?>
+                <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                <svg width="50px" height="50px" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--emojione" preserveAspectRatio="xMidYMid meet">
+                    <path fill="#ed4c5c" d="M52.382 5.075C40.137 3.203 24.137 28.036 9.213 20.497c-.582-1.575-1.143-3.158-1.725-4.73C25.077 19.105 33.07-2.995 50.658.345c.584 1.572 1.14 3.156 1.724 4.73">
+                    </path>
+                    <path fill="#ff8736" d="M54.105 9.804C43.762 7.786 22.512 31.453 10.938 25.227c-.585-1.573-1.14-3.157-1.725-4.73C26.802 23.835 34.794 1.734 52.382 5.075c.584 1.572 1.14 3.156 1.723 4.729">
+                    </path>
+                    <path fill="#ffce31" d="M55.83 14.535C45.762 12.744 27.086 38.25 12.662 29.957c-.585-1.573-1.142-3.157-1.725-4.73C28.525 28.566 36.52 6.467 54.105 9.805c.585 1.574 1.142 3.157 1.725 4.73">
+                    </path>
+                    <path fill="#83bf4f" d="M57.556 19.265c-9.711-1.521-31.086 25.813-43.171 15.422c-.584-1.572-1.139-3.157-1.723-4.73c17.585 3.341 25.579-18.762 43.168-15.422c.583 1.573 1.142 3.156 1.726 4.73">
+                    </path>
+                    <path fill="#275fd9" d="M59.278 23.995C48.22 22.161 28.595 50.453 16.109 39.418c-.584-1.574-1.144-3.156-1.725-4.73c17.588 3.338 25.582-18.761 43.171-15.422c.583 1.573 1.141 3.155 1.723 4.729">
+                    </path>
+                    <path fill="#9028e0" d="M61 28.726c-17.583-3.34-25.579 18.761-43.166 15.421c-.584-1.572-1.142-3.156-1.725-4.729c17.588 3.338 25.581-18.762 43.169-15.423c.583 1.575 1.142 3.158 1.722 4.731">
+                    </path>
+                    <g fill="#3e4347">
+                        <circle cx="5.168" cy="13.336" r="2.168"></circle>
+                        <path d="M7.04 14.49l-2.56.929L22.186 64h2.896z"></path>
+                        <path d="M3.688 15.602l4.076-1.48l.37 1.017l-4.077 1.48z"></path>
+                    </g>
+                </svg>
+            </div>
+            <div class="text_animado">
+              <div class="icon-left icon1">
+                <?xml version="1.0" encoding="utf-8"?>
+                <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                <svg width="50px" height="50px" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--emojione" preserveAspectRatio="xMidYMid meet">
+                    <path fill="#ed4c5c" d="M52.382 5.075C40.137 3.203 24.137 28.036 9.213 20.497c-.582-1.575-1.143-3.158-1.725-4.73C25.077 19.105 33.07-2.995 50.658.345c.584 1.572 1.14 3.156 1.724 4.73">
+                    </path>
+                    <path fill="#ff8736" d="M54.105 9.804C43.762 7.786 22.512 31.453 10.938 25.227c-.585-1.573-1.14-3.157-1.725-4.73C26.802 23.835 34.794 1.734 52.382 5.075c.584 1.572 1.14 3.156 1.723 4.729">
+                    </path>
+                    <path fill="#ffce31" d="M55.83 14.535C45.762 12.744 27.086 38.25 12.662 29.957c-.585-1.573-1.142-3.157-1.725-4.73C28.525 28.566 36.52 6.467 54.105 9.805c.585 1.574 1.142 3.157 1.725 4.73">
+                    </path>
+                    <path fill="#83bf4f" d="M57.556 19.265c-9.711-1.521-31.086 25.813-43.171 15.422c-.584-1.572-1.139-3.157-1.723-4.73c17.585 3.341 25.579-18.762 43.168-15.422c.583 1.573 1.142 3.156 1.726 4.73">
+                    </path>
+                    <path fill="#275fd9" d="M59.278 23.995C48.22 22.161 28.595 50.453 16.109 39.418c-.584-1.574-1.144-3.156-1.725-4.73c17.588 3.338 25.582-18.761 43.171-15.422c.583 1.573 1.141 3.155 1.723 4.729">
+                    </path>
+                    <path fill="#9028e0" d="M61 28.726c-17.583-3.34-25.579 18.761-43.166 15.421c-.584-1.572-1.142-3.156-1.725-4.729c17.588 3.338 25.581-18.762 43.169-15.423c.583 1.575 1.142 3.158 1.722 4.731">
+                    </path>
+                    <g fill="#3e4347">
+                        <circle cx="5.168" cy="13.336" r="2.168"></circle>
+                        <path d="M7.04 14.49l-2.56.929L22.186 64h2.896z"></path>
+                        <path d="M3.688 15.602l4.076-1.48l.37 1.017l-4.077 1.48z"></path>
+                    </g>
+                </svg>
+              </div>
+              <div>
+                <p id="animado_texto"><strong>Nossa ferramenta é ideal para sites que desejam promover a inclusão e fornecer suporte à comunidade LGBTQ+. Simplifique a descoberta de locais amigáveis e ajude a criar um ambiente mais seguro e acolhedor para todos.</strong></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 ">
+          <div class="img-box">
+            <img src="images/representacaomapa.png" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- end about section -->
+
+  <!-- opcoes section -->
+  <section style="display: flex; flex-direction: column; align-items: center; margin: 10em 0 10em 0;">
+      <div class="lc_container">
+        <div id="lc_bloco_acoes">
+            <h2 style="margin: 1em 0 1em 0;">Utilize o LGBTQ+ Connect no seu site!</h2>
+            <div id="actions" style="display: flex; flex-direction: row;">
+            <a href="download.html" class="lc_card">
+                <div class="card-content">
+                <div class="lc_icon" style="border: 2px solid #fff;">
+                    <i class="bi bi-download"></i>
+                </div>
+                <p class="title">Download</p>
+                <p class="text">Acesse para realizar o download do LGBTQ+ Connect!</p>
+                </div>
+            </a>
+            <a href="tutorial.html" class="lc_card">
+                <div class="card-content">
+                <div class="lc_icon" style="border: 2px solid #fff;">
+                    <i class="bi bi-exclamation-triangle"></i>
+                </div>
+                <p class="title">Tutorial</p>
+                <p class="text">Acesse para ver o tutorial de uso do plugin no WordPress!</p>
+                </div>
+            </a>
+            </div>
+        </div>
+    </div>   
+   </section>
+   <section>
+    <div>
+      
+    </div>
+   </section>
+  
+  <div class="footer_container">
+    <!-- info section -->
+
+    <section class="info_section ">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-lg-3 ">
+            <div class="info_detail">
+              <h4>
+                LGBTQ+ Connect
+              </h4>
+              <p>
+                Conectando empreendimentos e serviços que sejam acolhedores e respeitosos, fortalecendo laços e ampliando oportunidades para  a comunidade LGBTQ+.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3 mx-auto">
+            <div class="info_link_box" >
+              <h4>
+                <a href="https://brisa.lappis.rocks/" target="_blank" style="color: white;">
+                  <img src="images/brisalogo.png" alt="Brisa" style="height: 37px;">
+                </a>
+              </h4>
+              <div>              
+                <p>
+                  O plugin LGBTQ+ Connect é um projeto desenvolvido em parceria com a Brisa, UnB campus Gama e LAPPIS.
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <h4> Desenvolvedores </h4>
+            <div style="display: flex; justify-content: center;">
+              <div style="margin-right: 10px;">
+                <a href="https://github.com/Max-Rohrer20" target="_blank">
+                  <img style="border: 2px solid black; border-radius: 50%;" src="https://avatars.githubusercontent.com/u/160171332?v=4" width="75px;"/>
+                </a>
+              </div>
+              <div style="margin-right: 10px;">
+                <a href="https://github.com/WillxBernardo" target="_blank">
+                  <img style="border: 2px solid black; border-radius: 50%;" src="https://avatars.githubusercontent.com/u/124713089?v=4" width="75px;"/>
+                </a>
+              </div>
+              <div style="margin-right: 10px;">
+                <a href="https://github.com/Punkrig" target="_blank">
+                  <img style="border: 2px solid black; border-radius: 50%;" src="https://avatars.githubusercontent.com/u/111445872?v=4" width="75px;"/>
+                </a>
+              </div>
+            </div>
+            <div style="display: flex; justify-content: center;">
+              <div style="margin-right: 10px;">
+                <a href="https://github.com/guslnhm" target="_blank">
+                  <img style="border: 2px solid black; border-radius: 50%;" src="https://avatars.githubusercontent.com/u/143884487?v=4" width="75px;"/>
+                </a>
+              </div>
+              <div style="margin-right: 10px;">
+                <a href="https://github.com/MarcosViniciusG" target="_blank">
+                  <img style="border: 2px solid black; border-radius: 50%;" src="https://avatars.githubusercontent.com/u/85762681?v=4" width="75px;"/>
+              </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- end info section -->
+
+    <!-- footer section -->
+    <footer class="footer_section">
+      <div class="container">
+        <p>
+          &copy; <span id="displayYear"></span> All Rights Reserved By
+          <a href="https://html.design/">Free Html Templates</a>
+        </p>
+      </div>
+    </footer>
+    <!-- footer section -->
+  </div>
+
+  <!-- jQery -->
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <!-- popper js -->
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/docsify-drawio/viewer.min.js"></script>
-  <script src='https://cdn.jsdelivr.net/npm/docsify-drawio/drawio.js'></script>
-  <!-- Docsify v4 -->
-  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+  <!-- bootstrap js -->
+  <script src="js/bootstrap.js"></script>
+  <script src="js/custom.js"></script>
+  <!-- Google Map -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap"></script>
+  <!-- End Google Map -->
+
 </body>
+
 </html>

@@ -7,7 +7,7 @@ function adicionar_pagina_administracao() {
         'manage_options',
         'lc_admin',
         'mostrar_dados',
-        'dashicons-admin-users',
+        'dashicons-location',
         6
     );
 }
@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
                     <path d="M443.6,387.1L312.4,255.4l131.5-130c5.4-5.4,5.4-14.2,0-19.6l-37.4-37.6c-2.6-2.6-6.1-4-9.8-4c-3.7,0-7.2,1.5-9.8,4  L256,197.8L124.9,68.3c-2.6-2.6-6.1-4-9.8-4c-3.7,0-7.2,1.5-9.8,4L68,105.9c-5.4,5.4-5.4,14.2,0,19.6l131.5,130L68.4,387.1  c-2.6,2.6-4.1,6.1-4.1,9.8c0,3.7,1.4,7.2,4.1,9.8l37.4,37.6c2.7,2.7,6.2,4.1,9.8,4.1c3.5,0,7.1-1.3,9.8-4.1L256,313.1l130.7,131.1  c2.7,2.7,6.2,4.1,9.8,4.1c3.5,0,7.1-1.3,9.8-4.1l37.4-37.6c2.6-2.6,4.1-6.1,4.1-9.8C447.7,393.2,446.2,389.7,443.6,387.1z"/>
                 </svg>
             </button>
-            <div class="title">Editar os dados do formulário<br></div>
+            <div class="titulo-editar-formulario">Editar os dados do formulário<br></div>
             <form id="editForm" method="post" action="<?php echo admin_url('admin.php?page=lc_admin'); ?>">
                 <input type="hidden" name="id" id="editId">
                 <input type="hidden" name="action" value="update_form">
@@ -88,53 +88,56 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
 
                 <div id=editDivBotoes>
                     <button type="button" id="editCancelar" onclick="fecharEditor()" style="cursor: pointer;">Cancelar</button>
-                    <button type="submit" action="atualizar_formulario($wpdb)" id="editSalvar" style="cursor: pointer;">Salvar</button>
-                </div>
+                    <button type="submit" id="editSalvar" style="cursor: pointer;">Salvar</button>
+                    </div>
             </form>
         </div>
         <div id="div-mapa_botoes">
-            <div id="mapa_admin" class="div-mapa_botoes_filho" style="height: 300px; width: 60%; margin-bottom: 10px;"></div>
-            <div id="botoes_admin" class="div-mapa_botoes_filho" style="width: 30%; margin-bottom: 10px;">
+            <div id="mapa_admin" class="div-mapa_botoes_filho"></div>
+            <div id="botoes_admin" class="div-mapa_botoes_filho">
             <?php
                 global $wpdb;
 
-                $query_aprovados = "SELECT * FROM lc_formulario WHERE situacao='Aprovado'";
-                $query_negados = "SELECT * FROM lc_formulario WHERE situacao='Negado'";
-                $query_pendentes = "SELECT * FROM lc_formulario WHERE situacao='Pendente'";
+                $query_aprovados = "SELECT COUNT(*) FROM lc_formulario WHERE situacao='Aprovado'";
+                $query_negados = "SELECT COUNT(*) FROM lc_formulario WHERE situacao='Negado'";
+                $query_pendentes = "SELECT COUNT(*) FROM lc_formulario WHERE situacao='Pendente'";
 
-                $aprovados = $wpdb->get_results($query_aprovados);
-                $negados = $wpdb->get_results($query_negados);
-                $pendentes = $wpdb->get_results($query_pendentes);
+                $aprovados = $wpdb->get_var($query_aprovados);
+                $negados = $wpdb->get_var($query_negados);
+                $pendentes = $wpdb->get_var($query_pendentes);
+
                 echo '<div class="button-container">';
-                    echo '<button value="Pendente" class="btn-pendente" onclick="filtrar(this)">' 
-                    . count($pendentes) . 
-                    ' novas solicitações
-                    <i class="bi bi-arrow-right-circle"></i>
-                    </button>';
-                    echo '<button value="Negado" class="btn-negado" onclick="filtrar(this)">' 
-                    . count($negados) . 
-                    ' solicitações negadas
-                    <i class="bi bi-arrow-right-circle"></i>
-                    </button>';
-                    echo '<button value="Aprovado" class=" btn-aprovado" onclick="filtrar(this)">' 
-                    . count($aprovados) . 
-                    ' solicitações aprovadas
-                    <i class="bi bi-arrow-right-circle"></i>
-                    </button>';
+                    echo '<h2>Formulários</h2>';
+                    echo '<button value="Pendente" id="botao_inicial" class="btn-pendente" onclick="filtrar(this); destacarBotao(this, \'Pendentes\')"> 
+                            <div class="lc_loader-container">
+                                <div class="lc_counter">' . $pendentes . '</div>
+                            </div>
+                            Pendentes
+                            <i class="bi bi-arrow-right-circle"></i>
+                        </button>';
+                    echo '<button value="Aprovado" class=" btn-aprovado" onclick="filtrar(this); destacarBotao(this, \'Aprovados\')">
+                            <div class="lc_loader-container">
+                                <div class="lc_counter">'. $aprovados .'</div>
+                            </div>
+                            Aprovados
+                            <i class="bi bi-arrow-right-circle"></i>
+                        </button>';
+                    echo '<button value="Negado" class="btn-negado" onclick="filtrar(this); destacarBotao(this, \'Negados\')">
+                            <div class="lc_loader-container">
+                                <div class="lc_counter">'. $negados . '</div>
+                            </div>
+                            Negados
+                            <i class="bi bi-arrow-right-circle"></i>
+                        </button>';
                 echo '</div>';        
             ?>
             </div>
         </div>
-        <div id="contador_resultados">
-        </div>
         <div id="filtros" >
-
-            <form method="post">
-                <div id="busca_nome_container" class="filtro">
-                    <input type="text" id="busca_nome" placeholder="Pesquise pelo nome" oninput="filtrar()">
-                </div>
-            </form>
-            <select id="selecao_servico" class="filtro " onchange="filtrar()" required>
+            <h3 id="titulo_tabela"></h3>
+            <div id="filtros-flex">
+            <input type="text" id="busca_nome" placeholder="Pesquise pelo nome" oninput="filtrar()" class="filtro">
+            <select id="selecao_servico" class="filtro" onchange="filtrar()" required>
                 <option value="" selected disabled>Selecione...</option>
                 <option value="bar/restaurante">Bares/restaurantes</option>
                 <option value="entretenimento">Entretenimento</option>
@@ -144,7 +147,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
                 <option value="academia">Academia</option>
                 <option value="">Todos</option>
             </select>
+            </div>
         </div>
+        <div id="contador_resultados"></div>
         <div class="wrap">
         <div id="confirmModal" class="modal" tabindex="-1">
             <div class="modal-dialog">
@@ -164,7 +169,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
 
         </div>
 
-            <div class="container mt-5">
+            <div class="container mt-5" style="overflow-x:auto;">
             <table class="table table-hover" id="tabela">
                 <thead class="thead-light">
                     <tr>
@@ -183,8 +188,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action'])) {
                     <!-- Adicione aqui as linhas da tabela -->
                 </tbody>
             </table>
-    </div>
-            
+        </div>
+        <div class="wrap-paginacao">
+            <ul id="admin-paginacao" class="paginacao">
+                <!-- Adicione aqui os índices das páginas -->
+                <li>
+                    <a href="#" class="pagina-selecionada" onclick="mudarPagina(1)" id="pagina-1">1</a>
+                </li>
+            </ul>
+        </div>
 
         </div>
     </div>

@@ -13,51 +13,58 @@
 
 #div-mapa_botoes {
     display: flex;
+    gap: 2em;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
 }
 
 .div-mapa_botoes_filho {
+    display: flex;
     flex: 1;
     background-color: white;
+    height: 300px;  
+    margin-bottom: 10px;
+    justify-content: center;
 }
 
 #filtros {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: 20px;
     justify-content: center;
-    
+    margin-top: 3em;
 }
 
 .filtro {
     flex: 1;
-    background-color: white;
     display: flex;
     align-items: center;
+    align-content: flex-start;
+    justify-content: center;
+    flex-wrap: nowrap;
 }
 
-#busca_nome_container {
+#filtros-flex {
+    gap: 2em;
     display: flex;
-    border: 1px solid grey;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+}
+
+#selecao_servico, #busca_nome{
     border-radius: 10px;
     width: 351.51px;
     height: 40px;
 }
 
-#busca_nome {
-    flex-grow: 2;
-    border: none;
-
-}
 #selecao_servico{
     border-radius: 10px;
-    width: 351.51px;
     height: 40px;
-}
-#busca_nome:focus {
-    outline: none;
-}
-
-#busca_nome_container:focus-within {
-    outline: 1px solid blue;
 }
 
 button[data-id] {
@@ -98,17 +105,10 @@ button[data-id]:hover {
 }
 
 #mapa_admin {
+    min-width: 200px;
     border-radius: 20px;
-    margin-top: 1.5vw;
-    margin-right: 1.5vw;
     position: relative; /* Adicionado para garantir que o z-index funcione */
     z-index: 1; /* Baixo z-index para o mapa */
-    width: 791px;
-    height: 279px;
-    gap: 0px;
-    border-radius: 20px;
-    opacity: 0px;
-
 }
 
 #tabela th {
@@ -129,15 +129,7 @@ button[data-id]:hover {
     border: none !important;
 }
 
-table th:first-child {
-    border-top-left-radius: 20px !important;
-}
-
-table th:last-child {
-    border-top-right-radius: 20px !important;
-}
-
-.title{
+.titulo-editar-formulario{
     font-weight:bold;
     font-size: 24px;
     margin-bottom:20px;
@@ -385,7 +377,6 @@ table th:last-child {
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    margin-top: 50px;
 }
 .btn-aprovado, .btn-negado, .btn-pendente{
     border-radius: 20px;
@@ -397,9 +388,9 @@ table th:last-child {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 28px;
-    
+    font-size: 28px;    
 }   
+
 .btn-pendente{
     background: rgb(238,202,16);
     background: linear-gradient(149deg, rgba(238,202,16,1) 14%, rgba(235,115,10,1) 65%, rgba(221,73,28,1) 99%);
@@ -425,3 +416,135 @@ table th:last-child {
     font-size: 18px;
 }
 
+#tabela tr:nth-child(odd) td {
+    background-color: #00000015;
+}
+
+.paginacao {
+    margin: 10px;
+    display: inline;
+}
+
+.paginacao li {
+    display: inline;
+}
+
+.paginacao a {
+    font-size: large;
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    transition: background-color .3s;
+}
+
+.paginacao a.paginacao-seta {
+    border: 1.5px solid #ddd;
+    border-image: linear-gradient(to bottom right, red, hotpink, blue, lime, yellow) 5;
+}
+  
+.paginacao a:hover:not(.pagina-selecionada) {background-color: #ddd;}
+
+.wrap-paginacao {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.pagina-selecionada {
+    background-color: blue;
+    color: white !important;
+}
+
+.lc_loader-container {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+}
+
+.lc_counter {
+    font-weight: bold;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+    color: black;
+    z-index: 1;
+    text-align: center;
+}
+/* Aumentar a largura do dropdown */
+.dropdown-menu {
+    width: 200px; /* ou uma largura fixa que você prefira, por exemplo, 250px */
+    padding: 10px;
+}
+
+/* Alinhamento do formulário e botões */
+.dropdown-menu form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Alinha os botões no centro */
+    gap: 10px; /* Espaço entre os botões */
+}
+
+.dropdown-menu button {
+    width: 50%; /* Os botões ocuparão toda a largura do formulário */
+    max-width: 220px; /* Ajuste conforme necessário */
+}
+.dropdown-menu .btn {
+    height: 100%; /* Garante que todos os botões ocupem a mesma altura */
+    flex: 1; /* Faz com que os botões cresçam igualmente dentro do contêiner */
+    width: 100px;
+    margin: 5px;
+}
+
+.gradiente {
+    width: 100%; 
+    height: 2px; 
+    background-image: linear-gradient(to right, 
+    red, hotpink, blue, lime, yellow);
+
+}
+.pop{
+    font-family: Arial, sans-serif;
+    text-align: center;
+    color: #6d6d6d;
+    word-wrap: break-word;
+}
+
+.leaflet-popup-content h4 {
+    font-family: Arial, sans-serif; 
+    font-size: 15px;
+    line-height: 1.2; /* Ajuste a altura da linha para 120% */
+    color: #000000;
+    text-align: center;
+    word-wrap: break-word; /* Permite a quebra de palavras longas */
+    overflow-wrap: break-word; /* Permite a quebra de palavras longas */
+    white-space: normal; /* Permite que o texto quebre em várias linhas */
+}
+.leaflet-popup-content p{
+    font-family: Arial, sans-serif;
+    text-align: center;
+    color: #000000;
+}
+.leaflet-popup-content i{
+    font-family: Arial, sans-serif;
+    text-align: left;
+    line-height: 10%;
+    font-size: 15px;
+    color: #6d6d6d;
+}
+
+#lc_contador_resultados {
+    text-align: center;
+    margin-top: 10px;
+    font-size: large;
+}
+
+.lc_rotate {
+    transform: rotate(90deg);
+    transition: transform 0.3s ease;
+}

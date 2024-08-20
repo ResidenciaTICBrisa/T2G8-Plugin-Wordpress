@@ -11,155 +11,241 @@ $conseguir_rua_e_cidade = function ($latitude, $longitude) {
     $locationData = json_decode($response, true);
 
     // Adicione um log para a resposta da API
-    error_log(print_r($locationData, true));
+    error_log("Resposta da API Nominatim: " . print_r($locationData, true));
 
     if (isset($locationData['error'])) {
-        $road = 'Rua não encontrada';
-        $city = 'Cidade não encontrada';
+        $rua = 'Rua não encontrada';
+        $cidade = 'Cidade não encontrada';
     } else {
-        $road = isset($locationData['address']['road']) ? $locationData['address']['road'] : 
+        $rua = isset($locationData['address']['road']) ? $locationData['address']['road'] : 
                 (isset($locationData['address']['pedestrian']) ? $locationData['address']['pedestrian'] : 'Rua não encontrada');
-        $city = isset($locationData['address']['city']) ? $locationData['address']['city'] : 
+        $cidade = isset($locationData['address']['city']) ? $locationData['address']['city'] : 
                 (isset($locationData['address']['town']) ? $locationData['address']['town'] : 
                 (isset($locationData['address']['village']) ? $locationData['address']['village'] : 'Cidade não encontrada'));
     }
 
-    return array($road, $city);
+    return array($rua, $cidade);
 };
 
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['action']) && $_POST['action'] === 'update_form') {
+    error_log("Chamando a função atualizar_formulario");
     atualizar_formulario($wpdb, $conseguir_rua_e_cidade);
 }
 
-// Função para encontrar a página ou postagem que contém o shortcode do plugin
 function encontrar_pagina_com_shortcode($shortcode) {
-    // Obtém todas as páginas do site
     $paginas = get_pages();
-    // Obtém todas as postagens do site
     $postagens = get_posts();
-
-    // Concatena as páginas e postagens em um único array
     $todos_itens = array_merge($paginas, $postagens);
 
-    // Percorre cada item para verificar se o conteúdo contém o shortcode
     foreach ($todos_itens as $item) {
-        // Obtém o conteúdo do item
         $conteudo = $item->post_content;
-        // Verifica se o conteúdo contém o shortcode
         if (strpos($conteudo, $shortcode) !== false) {
-            // Se o shortcode for encontrado, retorna o item
+            error_log("Shortcode encontrado na página/postagem ID: " . $item->ID);
             return $item;
         }
     }
 
-    // Se nenhum shortcode for encontrado, retorna falso
+    error_log("Shortcode não encontrado em nenhuma página ou postagem");
     return false;
 }
-// Função para aprovar o formulário
+
 function aprovar_formulario($id) {
     global $wpdb;
 
-    // Busca o estado atual do formulário
+    error_log("Iniciando a função aprovar_formulario com ID: " . $id);
+
+    if (!$id) {
+        error_log("ID não foi passado para aprovar_formulario");
+        return;
+    }
+
     $estado_atual = $wpdb->get_var($wpdb->prepare("SELECT situacao FROM lc_formulario WHERE id = %d", $id));
+    error_log("Estado atual do formulário: " . $estado_atual);
 
-    // Atualiza o status do formulário para 'Aprovado' no banco de dados
-    alteraStatus($wpdb, $id, 'Aprovado');
+    if (!$estado_atual) {
+        error_log("Estado atual não encontrado para o formulário ID: " . $id);
+        return;
+    }
 
-    // Verifica se o estado anterior era 'Negado' para enviar o e-mail de notificação
-    if ($estado_atual === 'Negado' || $estado_atual === 'Pendente') {
-        // Busca as informações do formulário
+    $atualizacao_sucesso = alteraStatus($wpdb, $id, 'Aprovado');
+    error_log("Resultado da atualização de status: " . ($atualizacao_sucesso ? "Sucesso" : "Falha"));
+
+    if ($atualizacao_sucesso && ($estado_atual === 'Negado' || $estado_atual === 'Pendente')) {
         $formulario = $wpdb->get_row($wpdb->prepare("SELECT * FROM lc_formulario WHERE id = %d", $id));
+        error_log("Dados do formulário: " . print_r($formulario, true));
 
-        // Encontra o item que contém o shortcode do seu plugin
+        if (!$formulario) {
+            error_log("Formulário não encontrado para ID: " . $id);
+            return;
+        }
+
         $item = encontrar_pagina_com_shortcode('lgbtq_connect');
 
-        // Se o item for encontrado, obtenha o permalink e construa o link
         if ($item) {
             $shortcode_url = get_permalink($item);
-            // Constrói o e-mail com o link para a página do shortcode
             $subject = 'Seu formulário foi aprovado';
-            $message = 'Olá! Seu pedido de plotagem para o ' . $formulario->nome . ' foi aprovado!' . "\n\n" . 'Para mais informações acesse o link: ' . $shortcode_url;
+            $message = '
+            <html>
+            <body style="font-family: Arial, sans-serif; color: #333;">
+                <div style="max-width: 600px; margin: auto; border: 1px solid #ccc; padding: 20px;">
+                     <h2 style="font-family: Arial, sans-serif; font-weight: bold;">
+                        <span style="color: #FF0000;">L</span>
+                        <span style="color: #FF7F00;">G</span>
+                        <span style="color: #FFFF00;">B</span>
+                        <span style="color: #00FF00;">T</span>
+                        <span style="color: #0000FF;">Q</span>
+                        <span style="color: #4B0082;">+</span>
+                        <span style="color: #8B00FF;"> </span>
+                        <span style="color: #8B00FF;"> </span>
+                        <span style="color: #FF0000;">C</span>
+                        <span style="color: #FF7F00;">o</span>
+                        <span style="color: #FFFF00;">n</span>
+                        <span style="color: #00FF00;">n</span>
+                        <span style="color: #0000FF;">e</span>
+                        <span style="color: #4B0082;">c</span>
+                        <span style="color: #8B00FF;">t</span>
+                    </h2>
+                    <h3 style="color: #28a745;">Formulário Aprovado</h3>
+                    <p>Olá!</p>
+                    <p>Seu pedido de plotagem para o local <strong>' . esc_html($formulario->nome) . '</strong> foi aprovado!</p>
+                    <p>Para mais informações sobre a plotagem  de <strong> ' . esc_html($formulario->nome) . '</strong> , acesse o link: <a href="' . esc_url($shortcode_url) . '" style="color: #007bff;">' . esc_url($shortcode_url) . '</a></p>
+                    <hr>
+                    <p>Obrigado por utilizar nosso serviço!</p>
+                </div>
+            </body>
+            </html>';
+
+            $headers = array('Content-Type: text/html; charset=UTF-8');
+
+            // Log do e-mail do administrador
+            $email_admin = get_option('admin_email');
+            error_log("Enviando e-mail para: " . $email_admin);
 
             // Envie o e-mail de notificação para o usuário
-            wp_mail($formulario->email, $subject, $message);
+            wp_mail($formulario->email, $subject, $message, $headers);
         } else {
-            // Página ou postagem com shortcode não encontrada
-            // Faça o tratamento adequado aqui
+            error_log("Página ou postagem com shortcode não encontrada");
         }
     }
 
-    // Redireciona de volta para a mesma página após a atualização
     echo '<script>window.location.href = window.location.href;</script>';
 }
 
 function alteraStatus($wpdb, $id, $newStatus){
     if (!isset($wpdb) || empty($id) || empty($newStatus)) {
+        error_log("Parâmetros inválidos em alteraStatus");
         return false;
     }
 
-    // Atualiza o status do formulário no banco de dados
     $query = $wpdb->prepare("UPDATE lc_formulario SET situacao = %s WHERE id = %d", $newStatus, $id);
     $resultado = $wpdb->query($query);
 
-    if($resultado === false) {
-        // Trate o erro aqui
-        return false;
-    }
+    error_log("Resultado da query de atualização de status: " . ($resultado !== false ? "Sucesso" : "Falha"));
 
-    return true;
+    return $resultado !== false;
 }
 
-// Função para rejeitar o formulário
 function rejeitar_formulario($id) {
     global $wpdb;
 
-    // Busca o estado atual do formulário
     $estado_atual = $wpdb->get_var($wpdb->prepare("SELECT situacao FROM lc_formulario WHERE id = %d", $id));
+    error_log("Estado atual do formulário para rejeição: " . $estado_atual);
 
     alteraStatus($wpdb, $id, 'Negado');
 
-    // Verifica se o estado anterior era 'Aprovado' ou 'Pendente' para enviar o e-mail de notificação
-    if ($estado_atual === 'Aprovado' || $estado_atual === 'Pendente') {
-        // Busca as informações do formulário
+    if ($estado_atual === 'Pendente') {
         $formulario = $wpdb->get_row($wpdb->prepare("SELECT * FROM lc_formulario WHERE id = %d", $id));
+        error_log("Dados do formulário rejeitado: " . print_r($formulario, true));
 
-        // Constrói o e-mail
         $subject = 'Seu formulário foi rejeitado';
-        $message = 'Olá! Infelizmente seu formulário para o cadastro de ' . $formulario->nome . ' foi rejeitado :(';
+        $message = '
+        <html>
+        <body style="font-family: Arial, sans-serif; color: #333;">
+            <div style="max-width: 600px; margin: auto; border: 1px solid #ccc; padding: 20px;">
+                <h2 style="font-family: Arial, sans-serif; font-weight: bold;">
+                    <span style="color: #FF0000;">L</span>
+                    <span style="color: #FF7F00;">G</span>
+                    <span style="color: #FFFF00;">B</span>
+                    <span style="color: #00FF00;">T</span>
+                    <span style="color: #0000FF;">Q</span>
+                    <span style="color: #4B0082;">+</span>
+                    <span style="color: #8B00FF;"> </span>
+                    <span style="color: #8B00FF;"> </span>
+                    <span style="color: #FF0000;">C</span>
+                    <span style="color: #FF7F00;">o</span>
+                    <span style="color: #FFFF00;">n</span>
+                    <span style="color: #00FF00;">n</span>
+                    <span style="color: #0000FF;">e</span>
+                    <span style="color: #4B0082;">c</span>
+                    <span style="color: #8B00FF;">t</span>
+                </h2>
+                <h3 style="color: #dc3545;">Formulário Rejeitado</h3>
+                <p>Olá,</p>
+                <p>Infelizmente, seu formulário para o cadastro de <strong>' . esc_html($formulario->nome) . '</strong> foi rejeitado.</p>
+                <p>Se você acreditamax@max-Latitude-3420:~/Área de Trabalho/T2G8-Plugin-Wordpress$ phpunit tests/php/*
+PHP Warning:  Undefined array key "REQUEST_METHOD" in /home/max/Área de Trabalho/T2G8-Plugin-Wordpress/lgbtq_connect/includes/admin/formulario-admin-page.php on line 30
+PHPUnit 9.5.10 by Sebastian Bergmann and contributors.
 
-        // Envie o e-mail de notificação para o usuário
-        wp_mail($formulario->email, $subject, $message);
+Atualizando formulário ID: 1 com dados: Nome=Teste Nome, E-mail=teste@example.com, Serviço=Teste Serviço
+.<div class="updated"><p>Formulário atualizado com sucesso!</p></div><script>window.location.href = window.location.href;</script>EParâmetros inválidos em alteraStatus
+.Parâmetros inválidos em alteraStatus
+.Parâmetros inválidos em alteraStatus
+.Resultado da query de atualização de status: Falha
+.Resultado da query de atualização de status: Sucesso
+.                                                             7 / 7 (100%)
+
+Time: 00:00.014, Memory: 6.00 MB
+
+There was 1 error:
+
+1) AlteraStatusTest::test_atualizar_formulario_missing_data
+Undefined variable $wpdb
+
+/home/max/Área de Trabalho/T2G8-Plugin-Wordpress/tests/php/AlteraStatusTest.php:102
+
+ERRORS!
+Tests: 7, Assertions: 8, Errors: 1.
+m que houve um engano na decisão sobre <strong>' . esc_html($formulario->nome) . '</strong> , entre em contato conosco.</p>
+                <hr>
+            </div>
+        </body>
+        </html>';
+
+        $headers = array('Content-Type: text/html; charset=UTF-8');
+
+        // Log do e-mail do administrador
+        $email_admin = get_option('admin_email');
+        error_log("Enviando e-mail para: " . $email_admin);
+
+        wp_mail($formulario->email, $subject, $message, $headers);
     }
 
-    // Redireciona de volta para a mesma página após a atualização
     echo '<script>window.location.href = window.location.href;</script>';
 }
-// Função para excluir o formulário
+
 function excluir_formulario($id) {
     global $wpdb;
 
-    // Executa a consulta para excluir o registro
     $resultado_exclusao = $wpdb->delete('lc_formulario', array('id' => $id));
+    error_log("Resultado da exclusão do formulário ID: " . $id . " -> " . ($resultado_exclusao ? "Sucesso" : "Falha"));
 
-    // Exibe uma mensagem de sucesso ou erro
     if ($resultado_exclusao === false) {
         echo '<div class="error"><p>Erro ao excluir o registro!</p></div>';
     } else {
         echo '<div class="updated"><p>Registro excluído com sucesso!</p></div>';
     }
 
-    // Redireciona de volta paloucademia de policiara a mesma página após a atualização
     echo '<script>window.location.href = window.location.href;</script>';
 }
 
-// Função para processar a atualização do formulário
 function atualizar_formulario($wpdb, $funcao_localizacao) {
-    // Verifique se os dados necessários estão presentes
     if (!isset($_POST['id'], $_POST['nome'], $_POST['email'], $_POST['servico'], $_POST['descricao'], $_POST['latitude'], $_POST['longitude'])) {
-        wp_die('Dados insuficientes');
+        error_log("Dados insuficientes no POST para atualizar o formulário.");
+        wp_die('Dados insuficientes no POST para atualizar o formulário.', 'Erro', array('response' => 400));
     }
 
-    $id = intval($_POST['id']);
+    // Sanitização dos dados recebidos
+    $id = $_POST['id'];
     $nome = sanitize_text_field($_POST['nome']);
     $email = sanitize_email($_POST['email']);
     $servico = sanitize_text_field($_POST['servico']);
@@ -167,22 +253,39 @@ function atualizar_formulario($wpdb, $funcao_localizacao) {
     $latitude = sanitize_text_field($_POST['latitude']);
     $longitude = sanitize_text_field($_POST['longitude']);
 
-    list($road, $city) = $funcao_localizacao($latitude, $longitude);
+    // Obtenção da rua e cidade a partir das coordenadas
+    list($rua, $cidade) = $funcao_localizacao($latitude, $longitude);
 
-    // Atualiza os dados no banco de dados
-    $tabela = "lc_formulario";
-    $dados = array(
-        'nome' => $nome,
-        'email' => $email,
-        'servico' => $servico,
-        'descricao' => $descricao,
-        'latitude' => $latitude,
-        'longitude' => $longitude,
-        'road' => $road,
-        'city' => $city,
+    // Log da operação de atualização
+    error_log("Atualizando formulário ID: " . $id . " com dados: Nome=" . $nome . ", E-mail=" . $email . ", Serviço=" . $servico);
+
+    // Atualização do banco de dados
+    $resultado = $wpdb->update(
+        'lc_formulario',
+        array(
+            'nome' => $nome,
+            'email' => $email,
+            'rua' => $rua,
+            'cidade' => $cidade,
+            'servico' => $servico,
+            'descricao' => $descricao,
+            'latitude' => $latitude,
+            'longitude' => $longitude
+        ),
+        array('id' => $id),
+        array('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s'),
+        array('%d')
     );
 
-    $condicoes = array('id' => $id);
+    // Verificação do resultado da atualização
+    if ($resultado !== false) {
+        echo '<div class="updated"><p>Formulário atualizado com sucesso!</p></div>';
+    } else {
+        echo '<div class="error"><p>Erro ao atualizar o formulário.</p></div>';
+    }
 
-    $resultado = $wpdb->update($tabela, $dados, $condicoes);
+    // Redirecionamento após a atualização
+    echo '<script>window.location.href = window.location.href;</script>';
 }
+
+?>
