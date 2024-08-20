@@ -17,4 +17,5 @@
     * [Release 1](/releases/release1.md)
     * [Release 2](/releases/release2.md)
     * [Release 3](/releases/release3.md)
+    * [Release 4](/releases/release4.md)
 * [Tutoriais](tutorialmarcadores.md)
