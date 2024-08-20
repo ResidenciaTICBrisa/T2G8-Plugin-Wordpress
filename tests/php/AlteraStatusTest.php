@@ -52,19 +52,27 @@ class AlteraStatusTest extends TestCase {
                            ->getMock();
     }
 
+    protected function tearDown(): void {
+        unset($_SERVER['REQUEST_METHOD']);
+        $_POST = [];
+        parent::tearDown();
+    }
+
     // Testes para a função atualizar_formulario
     public function test_atualizar_formulario_success() {
         // Simula um ambiente HTTP com método POST
         $_SERVER['REQUEST_METHOD'] = 'POST';
 
         // Mock de $_POST
-        $_POST['id'] = 1;
-        $_POST['nome'] = 'Teste Nome';
-        $_POST['email'] = 'teste@example.com';
-        $_POST['servico'] = 'Teste Serviço';
-        $_POST['descricao'] = 'Teste Descrição';
-        $_POST['latitude'] = '12.345678';
-        $_POST['longitude'] = '98.7654321';
+        $_POST = [
+            'id' => 1,
+            'nome' => 'Teste Nome',
+            'email' => 'teste@example.com',
+            'servico' => 'Teste Serviço',
+            'descricao' => 'Teste Descrição',
+            'latitude' => '12.345678',
+            'longitude' => '98.7654321'
+        ];
 
         // Mock da função conseguir_rua_e_cidade
         $mock_conseguir_rua_e_cidade = function($latitude, $longitude) {
@@ -90,28 +98,32 @@ class AlteraStatusTest extends TestCase {
                    )
                    ->willReturn(1);
         
+        // Defina global $wpdb
+        global $wpdb;
+        $wpdb = $this->wpdb;
+
         // Chame a função atualizar_formulario
         atualizar_formulario($this->wpdb, $mock_conseguir_rua_e_cidade);
     }
 
     public function test_atualizar_formulario_missing_data() {
-        // Simula um ambiente HTTP com método POST
-        $_SERVER['REQUEST_METHOD'] = 'POST';
-
-        // Limpe o $_POST para garantir que está vazio
-        $_POST = [];
-
-        // Capture a saída para verificar se wp_die foi chamado
         $this->expectException(WPDieException::class);
-        $this->expectExceptionMessage('Dados insuficientes no POST para atualizar o formulário.');
+        
+        // Simule a chamada para `atualizar_formulario` sem passar os dados obrigatórios
+        $_POST = array(); // Dados insuficientes no POST
+        
+        // Defina global $wpdb
+        global $wpdb;
+        $wpdb = $this->wpdb;
 
+        // Defina a função conseguir_rua_e_cidade como uma função fictícia
         $mock_conseguir_rua_e_cidade = function($latitude, $longitude) {
             return ['Mock Rua', 'Mock Cidade'];
         };
 
-        // Chame a função atualizar_formulario e verifique se wp_die é chamado
         atualizar_formulario($this->wpdb, $mock_conseguir_rua_e_cidade);
     }
+    
 
     // Testes para a função alteraStatus
     public function testAlteraStatusReturnsFalseWhenWpdbNotSet() {

@@ -182,7 +182,30 @@ function rejeitar_formulario($id) {
                 <h3 style="color: #dc3545;">Formulário Rejeitado</h3>
                 <p>Olá,</p>
                 <p>Infelizmente, seu formulário para o cadastro de <strong>' . esc_html($formulario->nome) . '</strong> foi rejeitado.</p>
-                <p>Se você acredita que houve um engano na decisão sobre <strong>' . esc_html($formulario->nome) . '</strong> , entre em contato conosco.</p>
+                <p>Se você acreditamax@max-Latitude-3420:~/Área de Trabalho/T2G8-Plugin-Wordpress$ phpunit tests/php/*
+PHP Warning:  Undefined array key "REQUEST_METHOD" in /home/max/Área de Trabalho/T2G8-Plugin-Wordpress/lgbtq_connect/includes/admin/formulario-admin-page.php on line 30
+PHPUnit 9.5.10 by Sebastian Bergmann and contributors.
+
+Atualizando formulário ID: 1 com dados: Nome=Teste Nome, E-mail=teste@example.com, Serviço=Teste Serviço
+.<div class="updated"><p>Formulário atualizado com sucesso!</p></div><script>window.location.href = window.location.href;</script>EParâmetros inválidos em alteraStatus
+.Parâmetros inválidos em alteraStatus
+.Parâmetros inválidos em alteraStatus
+.Resultado da query de atualização de status: Falha
+.Resultado da query de atualização de status: Sucesso
+.                                                             7 / 7 (100%)
+
+Time: 00:00.014, Memory: 6.00 MB
+
+There was 1 error:
+
+1) AlteraStatusTest::test_atualizar_formulario_missing_data
+Undefined variable $wpdb
+
+/home/max/Área de Trabalho/T2G8-Plugin-Wordpress/tests/php/AlteraStatusTest.php:102
+
+ERRORS!
+Tests: 7, Assertions: 8, Errors: 1.
+m que houve um engano na decisão sobre <strong>' . esc_html($formulario->nome) . '</strong> , entre em contato conosco.</p>
                 <hr>
             </div>
         </body>
@@ -216,10 +239,9 @@ function excluir_formulario($id) {
 }
 
 function atualizar_formulario($wpdb, $funcao_localizacao) {
-    // Verificação dos dados obrigatórios no POST
     if (!isset($_POST['id'], $_POST['nome'], $_POST['email'], $_POST['servico'], $_POST['descricao'], $_POST['latitude'], $_POST['longitude'])) {
         error_log("Dados insuficientes no POST para atualizar o formulário.");
-        return;
+        wp_die('Dados insuficientes no POST para atualizar o formulário.', 'Erro', array('response' => 400));
     }
 
     // Sanitização dos dados recebidos
