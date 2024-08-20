@@ -216,11 +216,13 @@ function excluir_formulario($id) {
 }
 
 function atualizar_formulario($wpdb, $funcao_localizacao) {
+    // Verificação dos dados obrigatórios no POST
     if (!isset($_POST['id'], $_POST['nome'], $_POST['email'], $_POST['servico'], $_POST['descricao'], $_POST['latitude'], $_POST['longitude'])) {
         error_log("Dados insuficientes no POST para atualizar o formulário.");
         return;
     }
 
+    // Sanitização dos dados recebidos
     $id = $_POST['id'];
     $nome = sanitize_text_field($_POST['nome']);
     $email = sanitize_email($_POST['email']);
@@ -229,10 +231,13 @@ function atualizar_formulario($wpdb, $funcao_localizacao) {
     $latitude = sanitize_text_field($_POST['latitude']);
     $longitude = sanitize_text_field($_POST['longitude']);
 
+    // Obtenção da rua e cidade a partir das coordenadas
     list($rua, $cidade) = $funcao_localizacao($latitude, $longitude);
 
+    // Log da operação de atualização
     error_log("Atualizando formulário ID: " . $id . " com dados: Nome=" . $nome . ", E-mail=" . $email . ", Serviço=" . $servico);
 
+    // Atualização do banco de dados
     $resultado = $wpdb->update(
         'lc_formulario',
         array(
@@ -250,12 +255,15 @@ function atualizar_formulario($wpdb, $funcao_localizacao) {
         array('%d')
     );
 
+    // Verificação do resultado da atualização
     if ($resultado !== false) {
         echo '<div class="updated"><p>Formulário atualizado com sucesso!</p></div>';
     } else {
         echo '<div class="error"><p>Erro ao atualizar o formulário.</p></div>';
     }
 
+    // Redirecionamento após a atualização
     echo '<script>window.location.href = window.location.href;</script>';
 }
+
 ?>
