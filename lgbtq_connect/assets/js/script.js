@@ -140,23 +140,24 @@ class PaginaFormulario extends Pagina {
         var self = this;
 
         this.mapa.mapa.on('click', function (e) {
-            if (self.marcador === null) {
-                const icon = getMarcador(undefined, true); 
-                self.marcador = L.marker(e.latlng, { icon: icon }).addTo(self.mapa.mapa);
-            } else {
-                self.marcador.setLatLng(e.latlng);
+            if (self.marcador !== null) {
+                // Remove o marcador anterior se já existir
+                self.mapa.mapa.removeLayer(self.marcador);
             }
+            // Adiciona um novo marcador na posição clicada
+            const icon = getMarcador(undefined, true); 
+            self.marcador = L.marker(e.latlng, { icon: icon }).addTo(self.mapa.mapa);
+
+            // Atualiza os campos de latitude e longitude
             document.getElementById('latitude').value = e.latlng.lat;
             document.getElementById('longitude').value = e.latlng.lng;
-        
+
+            // Verifica as coordenadas
             Verificador.verificarCoordenadas();
         });
-        
 
         this.mapa.mapa.on('contextmenu', function (e) {
-            // Verifica se existe um marcador atual
             if (self.marcador !== null) {
-                // Remove o marcador do mapa
                 self.mapa.mapa.removeLayer(self.marcador);
                 document.getElementById('latitude').value = '';
                 document.getElementById('longitude').value = '';
@@ -165,7 +166,6 @@ class PaginaFormulario extends Pagina {
             }
         });
 
-        // Adiciona marcadores ao mapa com base em formulários aprovados
         for (var i = 0; i < formularios_aprovados.length; i++) {
             var formulario = formularios_aprovados[i];
             const icon = getMarcador(formulario.servico);
@@ -208,14 +208,14 @@ function getMarcador(tipoServico = 'outro', usarPadrao = false) {
         return L.icon({
             iconUrl: DEFAULT_ICON_URL, // Usa a URL do ícone padrão
             iconSize: [60, 60],
-            popupAnchor: [1, -10]
+            popupAnchor: [0, 30]
         });
     }
 
     return L.icon({
         iconUrl: url,
         iconSize: [60, 60],
-        popupAnchor: [1, -10]
+        popupAnchor: [0, -30]
     });
 }
 
