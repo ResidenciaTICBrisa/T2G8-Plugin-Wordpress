@@ -102,9 +102,11 @@ O objetivo dessa sprint é o inicio do polimento do plugin, análise de comporta
 
 ## **Sprint 17**
 
+O objetivo dessa sprint é a melhoria na landing page da documentação, a criação do script para preenchimento do banco de dados, a melhoria do bloco de ações da tabela do administrador e a correção do bug: erro ao excluir o plugin.
 
 |Descrição| Nº issue|
 |---------|---------|
 | Melhoria na landing page da documentação |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/191" target="_blank">#191</a></li>|
 | Script para preenchimento do banco de dados |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/192" target="_blank">#192</a></li>|
 | Melhoria do bloco de ações da tabela do administrador |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/193" target="_blank">#193</a></li>|
+| Erro ao excluir o plugin |<a href="https://github.com/ResidenciaTICBrisa/T2G8-Plugin-Wordpress/issues/193" target="_blank">#195</a></li>|
