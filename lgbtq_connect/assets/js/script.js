@@ -207,15 +207,14 @@ function getMarcador(tipoServico = 'outro', usarPadrao = false) {
         console.error('URL do ícone não foi definida corretamente:', { tipoServico, usarPadrao });
         return L.icon({
             iconUrl: DEFAULT_ICON_URL, // Usa a URL do ícone padrão
-            iconSize: [60, 60],
-            popupAnchor: [0, 30]
+            iconSize: [70, 70],
+            popupAnchor: [0, -25]
         });
     }
-
     return L.icon({
         iconUrl: url,
-        iconSize: [60, 60],
-        popupAnchor: [0, -30]
+        iconSize: [70, 70],
+        popupAnchor: [0, -25]
     });
 }
 
