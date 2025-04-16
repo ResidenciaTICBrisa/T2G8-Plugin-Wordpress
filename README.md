@@ -19,7 +19,7 @@ Bem-vindo ao repositório oficial do LGBTQ+ Connect! Somos um plugin para o Word
 
 | ![Maximiliano Rohrer Martins Junior](https://avatars.githubusercontent.com/u/160171332?v=4) | ![William Bernardo da Silva](https://avatars.githubusercontent.com/u/124713089?v=4) | ![Igor Brandão Costa](https://avatars.githubusercontent.com/u/111445872?v=4) | ![Gustavo Linhares Lima](https://avatars.githubusercontent.com/u/143884487?v=4) | ![Marcos Vinicius Gündel da Silva](https://avatars.githubusercontent.com/u/85762681?v=4) |
 |:---:|:---:|:---:|:---:|:---:|
-| [Maximiliano Rohrer Martins Junior](https://github.com/Max-Rohrer20) | [William Bernardo da Silva](https://github.com/WillxBernardo) | [Igor Brandão Costa](https://github.com/Punkrig) | [Gustavo Linhares Lima](https://github.com/guslnhm) | [Marcos Vinicius Gündel da Silva](https://github.com/MarcosViniciusG) |
+| [Maximiliano Rohrer Martins Junior](https://github.com/Max-Rohrer20) | [William Bernardo da Silva](https://github.com/WillxBernardo) | [Igor Brandão Costa](https://github.com/IBC2-arch) | [Gustavo Linhares Lima](https://github.com/guslnhm) | [Marcos Vinicius Gündel da Silva](https://github.com/MarcosViniciusG) |
 
 
 
